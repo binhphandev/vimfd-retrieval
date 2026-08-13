@@ -133,7 +133,7 @@ dmypy.json
 # Project-specific
 config.py
 data/
-models/
+#models/
 *.pkl
 *.pth
 *.pt
