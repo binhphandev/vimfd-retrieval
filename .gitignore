@@ -132,7 +132,7 @@ dmypy.json
 
 # Project-specific
 config.py
-data/
+data/**/images/
 #models/
 *.pkl
 *.pth

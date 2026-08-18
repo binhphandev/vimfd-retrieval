@@ -1,0 +1,9 @@
+Pillow
+scikit-learn
+tqdm
+underthesea
+pyvi
+Callable
+torch
+torchvision
+transformers
