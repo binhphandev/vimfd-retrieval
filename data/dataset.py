@@ -199,7 +199,7 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
     log.info("=== Smoke test dataset.py ===")
 
-    loaders = build_dataloaders(batch_size=4, num_workers=0)
+    loaders = build_dataloaders(batch_size=4, num_workers=0,split_dir = Path("data/processed"), image_dir = Path("data/images"),)
 
     for split, loader in loaders.items():
         batch = next(iter(loader))
