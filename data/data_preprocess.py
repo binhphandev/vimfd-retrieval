@@ -1,50 +1,48 @@
 """
-Tiền xử lý dữ liệu ViMFD cho hệ thống retrieval.
-
 Pipeline:
     1. Load & validate metadata_clean.json
-    2. Chia train/val/test theo stratify (shop x category)
-    3. Lưu splits ra data/processed/splits/
-    4. Resize ảnh về 224x224 (chuẩn ViT CLIP/B32) và lưu ra data/processed/images/
+    2. Word-segment các field text (PhoBERT yêu cầu)
+    3. Chia train/val/test theo stratify (shop x category) — tỉ lệ 80/10/10
+    4. Lưu splits ra processed/train.json, val.json, test.json
+    5. Resize ảnh về 224x224 (CLIP ViT-B/32) và lưu ra processed/images/
 
 Cách dùng:
-    # Chạy toàn bộ pipeline
     python data_preprocess.py
-
-    # Chỉ chia split (không resize ảnh)
     python data_preprocess.py --skip-images
-
-    # Chỉ resize ảnh (đã có split rồi)
     python data_preprocess.py --skip-split
-
-    # Tuỳ chỉnh đường dẫn
     python data_preprocess.py --data-dir /path/to/data --workers 8
+
+Cài đặt:
+    pip install underthesea pillow scikit-learn tqdm
 """
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from config import (
+    PRODUCT_ID_FIELD,
+    TEXT_FIELDS,
+    IMAGE_SIZE,
+    IMAGE_LIST_FIELD,
+    IMAGE_PRIMARY_FIELD,
+    IMAGE_POSITION_FIELD,
+    TRAIN_RATIO,
+    VAL_RATIO,
+    TEST_RATIO,
+    RANDOM_SEED,
+)
 
 import argparse
 import json
 import logging
-import shutil
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 from PIL import Image, UnidentifiedImageError
 from sklearn.model_selection import train_test_split
 from tqdm import tqdm
-
-# ---------------------------------------------------------------------------
-# Hằng số
-# ---------------------------------------------------------------------------
-
-# Kích thước đầu vào của ViT CLIP/B32
-IMAGE_SIZE = 224
-
-# Tỉ lệ split
-TRAIN_RATIO = 0.70
-VAL_RATIO   = 0.15
-TEST_RATIO  = 0.15  # = 1 - TRAIN_RATIO - VAL_RATIO
-
-RANDOM_SEED = 42
+from typing import Callable
 
 logging.basicConfig(
     level=logging.INFO,
@@ -54,21 +52,55 @@ logging.basicConfig(
 log = logging.getLogger(__name__)
 
 
-# ---------------------------------------------------------------------------
-# Bước 1: Load & validate
-# ---------------------------------------------------------------------------
+# --- Word segmentation ---
+
+def _load_segmenter() -> Callable[[str], str]:
+    try:
+        from underthesea import word_tokenize
+        log.info("Word segmenter: underthesea ✓")
+        return lambda text: str(word_tokenize(text, format="text"))
+    except ImportError:
+        raise ImportError(
+            "Thiếu underthesea. Cài đặt: pip install underthesea\n"
+            "PhoBERT yêu cầu text đã word-segment — không thể bỏ qua bước này."
+        )
+
+_segment_fn: Callable[[str], str] = _load_segmenter()
+
+def segment_text(text: str) -> str:
+    return _segment_fn(text) if text else text
+
+def segment_product(product: dict) -> dict:
+    p = product.copy()
+    for field in TEXT_FIELDS:
+        value = p.get(field)
+        if isinstance(value, str) and value.strip():
+            p[field] = segment_text(value)
+        elif isinstance(value, list):
+            p[field] = [segment_text(v) if isinstance(v, str) else v for v in value]
+    return p
+
+
+# --- Bước 1: Load & validate ---
 
 def load_and_validate(metadata_path: Path) -> list[dict]:
-    """Load metadata_clean.json và loại các record không hợp lệ."""
     log.info(f"Loading {metadata_path} ...")
     with open(metadata_path, encoding="utf-8") as f:
         data = json.load(f)
 
     total = len(data)
     valid = []
-    skipped = {"no_category": 0, "no_shop": 0, "no_images": 0}
+    skipped = {
+        "no_product_id": 0,
+        "no_category": 0,
+        "no_shop": 0,
+        "no_images": 0,
+    }
 
     for p in data:
+        if not p.get(PRODUCT_ID_FIELD):
+            skipped["no_product_id"] += 1
+            continue
         if not p.get("category"):
             skipped["no_category"] += 1
             continue
@@ -81,18 +113,25 @@ def load_and_validate(metadata_path: Path) -> list[dict]:
         valid.append(p)
 
     log.info(f"  Total: {total} | Valid: {len(valid)} | Skipped: {skipped}")
+
+    if skipped["no_product_id"] > 0:
+        log.warning(
+            f"  {skipped['no_product_id']} sản phẩm thiếu field '{PRODUCT_ID_FIELD}'."
+        )
+
     return valid
 
 
-# ---------------------------------------------------------------------------
-# Bước 2: Chia split
-# ---------------------------------------------------------------------------
+# --- Bước 2: Word-segment text ---
+
+def segment_all(data: list[dict]) -> list[dict]:
+    log.info(f"Word-segmenting {len(data)} products (fields: {TEXT_FIELDS}) ...")
+    return [segment_product(p) for p in tqdm(data, desc="Segment")]
+
+
+# --- Bước 3: Chia split ---
 
 def split_data(data: list[dict]) -> dict[str, list[dict]]:
-    """
-    Stratify theo (shop x category) để đảm bảo mỗi nhóm
-    đều có đại diện ở cả 3 tập.
-    """
     strata = [f"{p['shop']}_{p['category']}" for p in data]
 
     train, temp, _, strata_temp = train_test_split(
@@ -101,7 +140,6 @@ def split_data(data: list[dict]) -> dict[str, list[dict]]:
         random_state=RANDOM_SEED,
         stratify=strata,
     )
-
     val, test = train_test_split(
         temp,
         test_size=TEST_RATIO / (VAL_RATIO + TEST_RATIO),
@@ -110,40 +148,59 @@ def split_data(data: list[dict]) -> dict[str, list[dict]]:
     )
 
     splits = {"train": train, "val": val, "test": test}
-
     log.info("Split result:")
     for name, subset in splits.items():
-        from collections import Counter
-        dist = Counter(f"{p['shop']}_{p['category']}" for p in subset)
-        log.info(f"  {name}: {len(subset)} products")
-        for stratum, cnt in sorted(dist.items()):
-            log.info(f"    {stratum}: {cnt}")
+        log.info(f"  {name}: {len(subset)} products ({len(subset)/len(data)*100:.1f}%)")
 
     return splits
 
 
+# --- Bước 4: Lưu split ---
+
+def _pick_primary_image(images: list[dict]) -> dict | None:
+    if not images:
+        return None
+    for img in images:
+        if img.get(IMAGE_PRIMARY_FIELD):
+            return img
+    for img in images:
+        if img.get(IMAGE_POSITION_FIELD) == 0:
+            return img
+    return images[0]
+
 def save_splits(splits: dict[str, list[dict]], out_dir: Path) -> None:
-    """Lưu mỗi split ra file JSON riêng."""
     out_dir.mkdir(parents=True, exist_ok=True)
     for name, subset in splits.items():
+        cleaned = []
+        for p in subset:
+            p = p.copy()
+            primary = _pick_primary_image(p.get(IMAGE_LIST_FIELD, []))
+            p[IMAGE_LIST_FIELD] = [primary] if primary else []
+            cleaned.append(p)
+
         out_path = out_dir / f"{name}.json"
         with open(out_path, "w", encoding="utf-8") as f:
-            json.dump(subset, f, ensure_ascii=False, indent=2)
-        log.info(f"  Saved {out_path} ({len(subset)} records)")
+            json.dump(cleaned, f, ensure_ascii=False, indent=2)
+        log.info(f"  Saved {out_path} ({len(cleaned)} records)")
 
 
-# ---------------------------------------------------------------------------
-# Bước 3: Resize ảnh
-# ---------------------------------------------------------------------------
+# --- Bước 5: Resize ảnh ---
 
 def resize_one(args: tuple) -> tuple[bool, str]:
-    """
-    Resize một ảnh về IMAGE_SIZE x IMAGE_SIZE bằng BICUBIC và lưu ra dest.
-    Trả về (success, message).
-    """
     src_path, dest_path = args
     if dest_path.exists():
         return True, f"skip (exists): {dest_path}"
+
+    if not src_path.exists():
+        for alt_ext in (".webp", ".jpg", ".png"):
+            if alt_ext == src_path.suffix:
+                continue
+            alt_path = src_path.with_suffix(alt_ext)
+            if alt_path.exists():
+                src_path = alt_path
+                break
+        else:
+            return False, f"src not found: {src_path}"
 
     dest_path.parent.mkdir(parents=True, exist_ok=True)
     try:
@@ -159,34 +216,23 @@ def resize_one(args: tuple) -> tuple[bool, str]:
     except Exception as e:
         return False, f"error {src_path}: {e}"
 
-
 def resize_images(
     data: list[dict],
     raw_images_dir: Path,
     out_images_dir: Path,
     num_workers: int = 4,
 ) -> None:
-    """
-    Resize toàn bộ ảnh trong dataset (không lặp lại nếu đã có).
-    local_path trong metadata có dạng: images/<shop>/<filename>.jpg
-    → raw_images_dir / <shop> / <filename>.jpg
-    """
     tasks = []
     for product in data:
-        for img_meta in product["images"]:
-            # local_path: "images/aristino/aristino_xxx_1.jpg"
-            # → bỏ prefix "images/" vì raw_images_dir đã trỏ vào folder images/
-            rel = Path(img_meta["local_path"])
-            if rel.parts[0] == "images":
-                rel = Path(*rel.parts[1:])  # shop/filename.jpg
+        primary = _pick_primary_image(product.get(IMAGE_LIST_FIELD, []))
+        if not primary:
+            continue
+        rel = Path(primary["local_path"])
+        if rel.parts[0] == "images":
+            rel = Path(*rel.parts[1:])
+        tasks.append((raw_images_dir / rel, out_images_dir / rel))
 
-            src  = raw_images_dir / rel
-            dest = out_images_dir / rel
-            tasks.append((src, dest))
-
-    # Dedup (một ảnh có thể xuất hiện trong nhiều product nếu có shared image)
     tasks = list({t[1]: t for t in tasks}.values())
-
     log.info(f"Resizing {len(tasks)} images to {IMAGE_SIZE}x{IMAGE_SIZE} ...")
 
     ok_count = skipped_count = err_count = 0
@@ -206,67 +252,51 @@ def resize_images(
 
     log.info(f"  Done — resized: {ok_count} | skipped: {skipped_count} | errors: {err_count}")
     if errors:
-        log.warning(f"  First 10 errors:")
+        log.warning("  First 10 errors:")
         for e in errors[:10]:
             log.warning(f"    {e}")
 
 
-# ---------------------------------------------------------------------------
-# Main
-# ---------------------------------------------------------------------------
+# --- Main ---
 
 def parse_args():
     parser = argparse.ArgumentParser(description="ViMFD data preprocessing pipeline")
-    parser.add_argument(
-        "--data-dir", type=Path, default=Path("data"),
-        help="Root data directory (default: data/)",
-    )
-    parser.add_argument(
-        "--skip-split", action="store_true",
-        help="Bỏ qua bước chia split (dùng khi split đã có)",
-    )
-    parser.add_argument(
-        "--skip-images", action="store_true",
-        help="Bỏ qua bước resize ảnh",
-    )
-    parser.add_argument(
-        "--workers", type=int, default=4,
-        help="Số thread để resize ảnh song song (default: 4)",
-    )
+    parser.add_argument("--data-dir", type=Path, default=Path("data"))
+    parser.add_argument("--skip-split", action="store_true")
+    parser.add_argument("--skip-images", action="store_true")
+    parser.add_argument("--workers", type=int, default=4)
     return parser.parse_args()
-
 
 def main():
     args = parse_args()
 
-    data_dir       = args.data_dir
-    metadata_path  = data_dir / "raw" / "metadata_clean.json"
+    data_dir = args.data_dir
+    metadata_path = data_dir / "raw" / "metadata_clean.json"
     raw_images_dir = data_dir / "raw" / "images"
-    splits_dir     = data_dir / "processed" / "splits"
-    out_images_dir = data_dir / "processed" / "images"
+    processed_dir = data_dir / "processed"
+    out_images_dir = processed_dir / "images"
 
-    # --- Bước 1: Load ---
     data = load_and_validate(metadata_path)
 
-    # --- Bước 2: Split ---
     if not args.skip_split:
-        log.info("Splitting dataset ...")
+        data = segment_all(data)
+        log.info("Splitting dataset (80 / 10 / 10) ...")
         splits = split_data(data)
-        save_splits(splits, splits_dir)
+        save_splits(splits, processed_dir)
     else:
-        log.info("Skipping split step.")
+        log.info("Skipping split + segment step.")
 
-    # --- Bước 3: Resize ảnh ---
     if not args.skip_images:
         if not raw_images_dir.exists():
             log.error(f"raw images dir not found: {raw_images_dir}")
-            log.error("Hãy chắc chắn folder ảnh gốc đặt tại data/raw/images/")
             return
         resize_images(data, raw_images_dir, out_images_dir, num_workers=args.workers)
     else:
         log.info("Skipping image resize step.")
 
     log.info("Preprocessing complete.")
+    log.info("  Split files : processed/{train,val,test}.json")
+    log.info("  Images      : processed/images/")
 
 
 if __name__ == "__main__":
