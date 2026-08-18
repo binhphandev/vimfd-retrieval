@@ -18,14 +18,20 @@ class VisualEncoder(nn.Module):
 
         # Bước 2: unfreeze N block cuối
         if UNFREEZE_LAST_N > 0:
-            blocks = self.backbone.vision_model.encoder.layers
-            for block in blocks[-UNFREEZE_LAST_N:]:
-                for param in block.parameters():
-                    param.requires_grad = True
+            if hasattr(self.backbone, 'vision_model'):
+              blocks = self.backbone.vision_model.encoder.layers
+              post_ln = self.backbone.vision_model.post_layernorm
+            else:
+              blocks = self.backbone.encoder.layers
+              post_ln = self.backbone.post_layernorm
 
-            # Luôn unfreeze layer norm cuối cùng
-            for param in self.backbone.vision_model.post_layernorm.parameters():
+            for block in blocks[-UNFREEZE_LAST_N:]:
+              for param in block.parameters():
                 param.requires_grad = True
+            
+            for param in post_ln.parameters():
+              param.requires_grad = True
+            
 
     def forward(self, pixel_values: torch.Tensor) -> torch.Tensor:
         # pooler_output = CLS token đã qua post_layernorm → shape (B, 512)

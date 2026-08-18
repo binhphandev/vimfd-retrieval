@@ -1,31 +1,27 @@
 # src/training/train.py
 
 import torch
-import torch.nn as nn
-from torch.utils.data import DataLoader, TensorDataset
+from torch.utils.data import DataLoader
 from torch.optim import AdamW
 from torch.optim.lr_scheduler import CosineAnnealingLR
+from transformers import AutoTokenizer
+from pathlib import Path
 import os
 import csv
+
 from src.models.model import ViMFRModel
 from src.models.loss import InfoNCELoss
+import sys
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'data'))
+from dataset import build_dataloaders
 from config import (
-    BATCH_SIZE_CPU, NUM_EPOCHS, WARMUP_EPOCHS,
+    BATCH_SIZE_CPU, NUM_EPOCHS,
     LR_BACKBONE, LR_HEAD, WEIGHT_DECAY,
     GRAD_CLIP_NORM, CHECKPOINT_BEST, CHECKPOINT_LATEST,
-    CKPT_MODEL_KEY, CKPT_LOGIT_SCALE_KEY, CKPT_EPOCH_KEY, CKPT_VAL_LOSS_KEY
+    CKPT_MODEL_KEY, CKPT_LOGIT_SCALE_KEY, CKPT_EPOCH_KEY, CKPT_VAL_LOSS_KEY,
+    PROCESSED_DIR,IMAGE_DIR
 )
-
-
-# ------------------------------------------------------------------
-# Dummy DataLoader — thay bằng DataLoader thật từ Người B sau này
-# ------------------------------------------------------------------
-def get_dummy_dataloader(batch_size=4, num_samples=32):
-    pixel_values   = torch.randn(num_samples, 3, 224, 224)
-    input_ids      = torch.randint(0, 1000, (num_samples, 128))
-    attention_mask = torch.ones(num_samples, 128, dtype=torch.long)
-    dataset = TensorDataset(pixel_values, input_ids, attention_mask)
-    return DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
 
 # ------------------------------------------------------------------
@@ -59,9 +55,14 @@ def train():
     optimizer = get_optimizer(model)
     scheduler = CosineAnnealingLR(optimizer, T_max=NUM_EPOCHS)
 
-    # Dummy dataloader — đổi thành real dataloader sau
-    train_loader = get_dummy_dataloader(batch_size=BATCH_SIZE_CPU)
-    val_loader   = get_dummy_dataloader(batch_size=BATCH_SIZE_CPU, num_samples=16)
+    loaders = build_dataloaders(
+        batch_size=BATCH_SIZE_CPU,
+        num_workers = 0,
+        split_dir = Path(PROCESSED_DIR),
+        image_dir = Path(IMAGE_DIR),
+    )
+    train_loader = loaders["train"]
+    val_loader = loaders["val"]
 
     best_val_loss = float("inf")
 
@@ -77,10 +78,10 @@ def train():
         # --- Train ---
         model.train()
         train_loss = 0.0
-        for pixel_values, input_ids, attention_mask in train_loader:
-            pixel_values   = pixel_values.to(device)
-            input_ids      = input_ids.to(device)
-            attention_mask = attention_mask.to(device)
+        for batch  in train_loader:
+            pixel_values   = batch["image"].to(device)
+            input_ids      = batch["input_ids"].to(device)
+            attention_mask = batch["attention_mask"].to(device)
 
             image_embeds, text_embeds, logit_scale = model(
                 pixel_values, input_ids, attention_mask
@@ -100,10 +101,10 @@ def train():
         model.eval()
         val_loss = 0.0
         with torch.no_grad():
-            for pixel_values, input_ids, attention_mask in val_loader:
-                pixel_values   = pixel_values.to(device)
-                input_ids      = input_ids.to(device)
-                attention_mask = attention_mask.to(device)
+            for batch in val_loader:
+                pixel_values   = batch["image"].to(device)
+                input_ids      = batch["input_ids"].to(device)
+                attention_mask = batch["attention_mask"].to(device)
 
                 image_embeds, text_embeds, logit_scale = model(
                     pixel_values, input_ids, attention_mask
