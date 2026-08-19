@@ -7,3 +7,4 @@ Callable
 torch
 torchvision
 transformers
+faiss-cpu

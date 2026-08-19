@@ -3,8 +3,6 @@ import torch.nn as nn
 from src.models.encoders import VisualEncoder, TextEncoder
 from src.models.projection import ProjectionHead
 from config import VISUAL_BACKBONE_DIM, TEXT_BACKBONE_DIM, LOGIT_SCALE_INIT, LOGIT_SCALE_MAX
-import math
-
 
 class ViMFRModel(nn.Module):
     def __init__(self):
