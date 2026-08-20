@@ -139,7 +139,7 @@ def train():
                 CKPT_EPOCH_KEY:       epoch,
                 CKPT_VAL_LOSS_KEY:    val_loss,
             }, CHECKPOINT_BEST)
-            print(f"  ✓ Saved best checkpoint (val_loss={val_loss:.4f})")
+            print(f"  Saved best checkpoint (val_loss={val_loss:.4f})")
 
 
 if __name__ == "__main__":
