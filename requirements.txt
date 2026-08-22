@@ -8,3 +8,6 @@ torch
 torchvision
 transformers
 faiss-cpu
+fastapi
+uvicorn
+python-multipart

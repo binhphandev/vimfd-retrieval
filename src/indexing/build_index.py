@@ -18,10 +18,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 import argparse
 import json
 import logging
+from typing import Optional, cast
 
 import faiss
 import numpy as np
 import torch
+import torchvision.transforms as T
+from PIL import Image
 from transformers import AutoTokenizer, PreTrainedTokenizerBase
 from tqdm import tqdm
 
@@ -29,8 +32,17 @@ from config import (
     CHECKPOINT_BEST,
     CKPT_MODEL_KEY,
     EMBED_DIM,
+    FAISS_IMAGE_INDEX_FILE,
+    FAISS_IMAGE_MAPPING_FILE,
     FAISS_INDEX_FILE,
     FAISS_MAPPING_FILE,
+    IMAGE_LIST_FIELD,
+    IMAGE_MEAN,
+    IMAGE_PATH_FIELD,
+    IMAGE_POSITION_FIELD,
+    IMAGE_PRIMARY_FIELD,
+    IMAGE_SIZE,
+    IMAGE_STD,
     MAX_TEXT_LENGTH,
     PHOBERT_MODEL,
     PROCESSED_DIR,
@@ -59,6 +71,68 @@ def _build_text(product: dict) -> str:
             if joined.strip():
                 parts.append(joined.strip())
     return " ".join(parts)
+
+
+def _select_primary_image(product: dict) -> Optional[dict]:
+    """
+    Chọn ảnh đại diện của sản phẩm từ IMAGE_LIST_FIELD.
+    Ưu tiên: is_featured=True → position nhỏ nhất → phần tử đầu tiên.
+    """
+    images = product.get(IMAGE_LIST_FIELD)
+    if not isinstance(images, list) or not images:
+        return None
+
+    for img in images:
+        if isinstance(img, dict) and img.get(IMAGE_PRIMARY_FIELD):
+            return img
+
+    try:
+        return sorted(
+            (img for img in images if isinstance(img, dict)),
+            key=lambda img: img.get(IMAGE_POSITION_FIELD, float("inf")),
+        )[0]
+    except IndexError:
+        return None
+
+
+def build_image_transform() -> T.Compose:
+    """Transform ảnh dùng chung cho encode — resize/crop + normalize theo config."""
+    return T.Compose([
+        T.Resize(IMAGE_SIZE),
+        T.CenterCrop(IMAGE_SIZE),
+        T.ToTensor(),
+        T.Normalize(mean=IMAGE_MEAN, std=IMAGE_STD),
+    ])
+
+
+def _load_image_tensor(product: dict, transform: T.Compose) -> Optional[torch.Tensor]:
+    """Load + preprocess ảnh đại diện của 1 sản phẩm. Trả None nếu thiếu/lỗi ảnh."""
+    img_meta = _select_primary_image(product)
+    if img_meta is None:
+        return None
+
+    rel_path = img_meta.get(IMAGE_PATH_FIELD)
+    if not rel_path:
+        return None
+
+    img_path = Path(rel_path)
+    if not img_path.is_absolute():
+        # Ảnh thực tế nằm ở data/processed/images/<brand>/... (xem cây thư mục),
+        # nên phải nối local_path với PROCESSED_DIR (data/processed), KHÔNG phải
+        # DATA_DIR (data) — nối với DATA_DIR sẽ thiếu mất "processed/" và không
+        # tìm thấy file (=> mọi sản phẩm bị skip).
+        img_path = Path(PROCESSED_DIR) / rel_path
+
+    try:
+        with Image.open(img_path) as im:
+            im = im.convert("RGB")
+            # transform (Resize → CenterCrop → ToTensor → Normalize) trả về
+            # torch.Tensor lúc runtime, nhưng type stub của Compose là generic
+            # theo input nên Pylance suy luận nhầm ra kiểu Image — cast lại cho đúng.
+            return cast(torch.Tensor, transform(im))
+    except (FileNotFoundError, OSError) as e:
+        log.warning(f"  Bỏ qua ảnh lỗi/không tồn tại: {img_path} ({e})")
+        return None
 
 
 def load_all_products(processed_dir: Path) -> list[dict]:
@@ -152,6 +226,66 @@ def encode_all_products(
     return embeddings, all_ids
 
 
+@torch.no_grad()
+def encode_all_products_images(
+    products: list[dict],
+    model,
+    transform: T.Compose,
+    device: torch.device,
+    batch_size: int = 64,
+) -> tuple[np.ndarray, list[str]]:
+    """
+    Encode ảnh đại diện của toàn bộ sản phẩm → 256D embeddings đã L2-norm.
+
+    Sản phẩm không có ảnh hợp lệ sẽ bị bỏ qua (không đưa vào image_index).
+
+    Returns:
+        embeddings : np.ndarray [M, 256], float32   (M <= len(products))
+        product_ids: list[str], len = M
+    """
+    # Bước 1: load + preprocess ảnh trước, bỏ qua sản phẩm thiếu ảnh
+    valid_ids: list[str] = []
+    valid_tensors: list[torch.Tensor] = []
+    skipped = 0
+    sample_failed_paths: list[str] = []
+
+    for p in tqdm(products, desc="Loading images"):
+        img_meta = _select_primary_image(p)
+        rel_path = img_meta.get(IMAGE_PATH_FIELD) if img_meta else None
+
+        tensor = _load_image_tensor(p, transform)
+        if tensor is None:
+            skipped += 1
+            if rel_path and len(sample_failed_paths) < 3:
+                resolved = rel_path if Path(rel_path).is_absolute() else str(Path(PROCESSED_DIR) / rel_path)
+                sample_failed_paths.append(resolved)
+            continue
+        valid_ids.append(str(p[PRODUCT_ID_FIELD]))
+        valid_tensors.append(tensor)
+
+    if skipped:
+        log.warning(f"  Bỏ qua {skipped}/{len(products)} sản phẩm không có ảnh hợp lệ")
+        if sample_failed_paths:
+            log.warning(f"  Ví dụ path đã thử (không tồn tại/lỗi): {sample_failed_paths}")
+
+    # Bước 2: encode theo batch
+    all_embeddings = []
+    for i in tqdm(range(0, len(valid_tensors), batch_size), desc="Encoding images"):
+        batch = valid_tensors[i : i + batch_size]
+        pixel_values = torch.stack(batch, dim=0).to(device)
+
+        # [CONTRACT] encode_image trả về [B, 256] đã L2-norm
+        embeddings = model.encode_image(pixel_values)
+        all_embeddings.append(embeddings.cpu().numpy())
+
+    if not all_embeddings:
+        raise RuntimeError("Không encode được ảnh nào — kiểm tra lại IMAGE_PATH_FIELD / IMAGE_DIR trong config.")
+
+    embeddings = np.vstack(all_embeddings).astype(np.float32)
+    log.info(f"Encoded {len(valid_ids)} product images → shape {embeddings.shape}")
+    return embeddings, valid_ids
+
+
 # ---------------------------------------------------------------------------
 # Build & save FAISS index
 # ---------------------------------------------------------------------------
@@ -225,6 +359,58 @@ def smoke_test(index_path: Path, mapping_path: Path, model, tokenizer, device) -
     log.info("Smoke test PASSED ✓")
 
 
+def image_smoke_test(
+    index_path: Path,
+    mapping_path: Path,
+    products: list[dict],
+    transform: T.Compose,
+    model,
+    device,
+) -> None:
+    """
+    Round-trip test cho image_index: lấy ảnh của 1 sản phẩm bất kỳ đã có trong
+    index, encode lại, search → kỳ vọng top-1 chính là sản phẩm đó (score ~1.0).
+    """
+    log.info("Smoke test image_index ...")
+
+    index = faiss.read_index(str(index_path))
+    with open(mapping_path, encoding="utf-8") as f:
+        mapping = json.load(f)
+
+    query_tensor, query_pid = None, None
+    for p in products:
+        t = _load_image_tensor(p, transform)
+        if t is not None:
+            query_tensor, query_pid = t, str(p[PRODUCT_ID_FIELD])
+            break
+
+    if query_tensor is None:
+        log.warning("  Không tìm được ảnh hợp lệ nào để smoke test — bỏ qua.")
+        return
+
+    with torch.no_grad():
+        q_emb = model.encode_image(query_tensor.unsqueeze(0).to(device)).cpu().numpy()
+
+    scores, indices = index.search(q_emb, k=5)
+
+    log.info(f"  Query: product_id={query_pid} (ảnh đại diện)")
+    log.info(f"  Top-5 results:")
+    top1_pid = None
+    for rank, (idx, score) in enumerate(zip(indices[0], scores[0]), 1):
+        pid = mapping.get(str(idx), "?")
+        if rank == 1:
+            top1_pid = pid
+        log.info(f"    {rank}. product_id={pid} | score={score:.4f}")
+
+    if top1_pid == query_pid:
+        log.info("Smoke test image_index PASSED ✓ (top-1 khớp chính nó)")
+    else:
+        log.warning(
+            f"Smoke test image_index CẢNH BÁO: top-1={top1_pid} != query={query_pid}. "
+            "Kiểm tra lại encode_image / preprocessing nếu điều này bất thường."
+        )
+
+
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
@@ -266,7 +452,7 @@ def main():
         products, model, tokenizer, device, batch_size=args.batch_size
     )
 
-    # --- Build & save index ---
+    # --- Build & save TEXT index ---
     build_and_save_index(
         embeddings,
         product_ids,
@@ -274,7 +460,6 @@ def main():
         mapping_path=Path(FAISS_MAPPING_FILE),
     )
 
-    # --- Smoke test ---
     if not args.no_smoke_test:
         smoke_test(
             Path(FAISS_INDEX_FILE),
@@ -282,9 +467,34 @@ def main():
             model, tokenizer, device,
         )
 
+    # --- Encode + build & save IMAGE index ---
+    # QUAN TRỌNG: đây là index riêng, không gian embedding khác với text index
+    # ở trên (encode_image vs encode_text). Mọi query dạng ảnh (Image→Image,
+    # Image→Text) phải search vào index này, KHÔNG được search vào FAISS_INDEX_FILE.
+    transform = build_image_transform()
+    image_embeddings, image_product_ids = encode_all_products_images(
+        products, model, transform, device, batch_size=args.batch_size
+    )
+
+    build_and_save_index(
+        image_embeddings,
+        image_product_ids,
+        index_path=Path(FAISS_IMAGE_INDEX_FILE),
+        mapping_path=Path(FAISS_IMAGE_MAPPING_FILE),
+    )
+
+    if not args.no_smoke_test:
+        image_smoke_test(
+            Path(FAISS_IMAGE_INDEX_FILE),
+            Path(FAISS_IMAGE_MAPPING_FILE),
+            products, transform, model, device,
+        )
+
     log.info("Build index complete.")
-    log.info(f"  Index   : {FAISS_INDEX_FILE}")
-    log.info(f"  Mapping : {FAISS_MAPPING_FILE}")
+    log.info(f"  Text index    : {FAISS_INDEX_FILE}")
+    log.info(f"  Text mapping  : {FAISS_MAPPING_FILE}")
+    log.info(f"  Image index   : {FAISS_IMAGE_INDEX_FILE}")
+    log.info(f"  Image mapping : {FAISS_IMAGE_MAPPING_FILE}")
 
 
 if __name__ == "__main__":

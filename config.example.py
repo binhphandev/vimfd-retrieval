@@ -25,6 +25,7 @@ IMAGE_STD = (0.26862954, 0.26130258, 0.27577711)
 IMAGE_PRIMARY_FIELD = "is_featured"
 IMAGE_POSITION_FIELD = "position"
 IMAGE_LIST_FIELD = "images"
+IMAGE_PATH_FIELD = "local_path"
 
 # --- Text / PhoBERT ---
 PHOBERT_MODEL = "vinai/phobert-base"  # hoặc phobert-large
@@ -66,10 +67,14 @@ CKPT_LOGIT_SCALE_KEY = "logit_scale"
 CKPT_EPOCH_KEY = "epoch"
 CKPT_VAL_LOSS_KEY = "val_loss"
 
-# --- FAISS index ---
+# --- FAISS index (text embeddings — dùng cho query dạng text) ---
 # id_mapping.json format: { "0": "id_A", "1": "id_B", ... }
 FAISS_INDEX_FILE = os.path.join(INDEX_DIR, "product.index")
 FAISS_MAPPING_FILE = os.path.join(INDEX_DIR, "id_mapping.json")
+
+# --- FAISS index (image embeddings — dùng cho query dạng image) ---
+FAISS_IMAGE_INDEX_FILE = os.path.join(INDEX_DIR, "product_image.index")
+FAISS_IMAGE_MAPPING_FILE = os.path.join(INDEX_DIR, "id_mapping_image.json")
 
 # --- API ---
 API_HOST = "0.0.0.0"
