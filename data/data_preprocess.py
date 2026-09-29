@@ -43,6 +43,7 @@ from PIL import Image, UnidentifiedImageError
 from sklearn.model_selection import train_test_split
 from tqdm import tqdm
 from typing import Callable
+from collections import Counter
 
 logging.basicConfig(
     level=logging.INFO,
@@ -51,6 +52,7 @@ logging.basicConfig(
 )
 log = logging.getLogger(__name__)
 
+MIN_STRATUM_SIZE = 20  # nhóm nhỏ hơn ngưỡng này sẽ được gom theo category
 
 # --- Word segmentation ---
 
@@ -131,8 +133,39 @@ def segment_all(data: list[dict]) -> list[dict]:
 
 # --- Bước 3: Chia split ---
 
-def split_data(data: list[dict]) -> dict[str, list[dict]]:
+def build_strata(data: list[dict]) -> list[str]:
+    # Tầng 1: nhóm nhỏ gom về other_<category>
     strata = [f"{p['shop']}_{p['category']}" for p in data]
+    counts = Counter(strata)
+    strata = [
+        s if counts[s] >= MIN_STRATUM_SIZE else f"other_{p['category']}"
+        for s, p in zip(strata, data)
+    ]
+
+    # Tầng 2: other_<category> vẫn nhỏ thì gộp vào nhóm lớn nhất cùng category
+    counts = Counter(strata)
+    for category in {p["category"] for p in data}:
+        small = f"other_{category}"
+        if counts.get(small, 0) == 0 or counts[small] >= MIN_STRATUM_SIZE:
+            continue
+        candidates = [
+            s for s in counts
+            if s != small and s.endswith(f"_{category}") and counts[s] >= MIN_STRATUM_SIZE
+        ]
+        target = max(candidates, key=lambda s: counts[s])
+        log.info(f"Gộp {counts[small]} sản phẩm của {small} vào {target}")
+        strata = [target if s == small else s for s in strata]
+        counts = Counter(strata)
+
+    final_counts = Counter(strata)
+    log.info(f"Strata sau khi gom: {len(final_counts)} nhóm")
+    for name, n in sorted(final_counts.items(), key=lambda x: x[1])[:5]:
+        log.info(f"  nhóm nhỏ nhất: {name} = {n}")
+    return strata
+
+
+def split_data(data: list[dict]) -> dict[str, list[dict]]:
+    strata = build_strata(data)
 
     train, temp, _, strata_temp = train_test_split(
         data, strata,
