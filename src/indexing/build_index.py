@@ -235,51 +235,52 @@ def encode_all_products_images(
     batch_size: int = 64,
 ) -> tuple[np.ndarray, list[str]]:
     """
-    Encode ảnh đại diện của toàn bộ sản phẩm → 256D embeddings đã L2-norm.
-
-    Sản phẩm không có ảnh hợp lệ sẽ bị bỏ qua (không đưa vào image_index).
-
-    Returns:
-        embeddings : np.ndarray [M, 256], float32   (M <= len(products))
-        product_ids: list[str], len = M
+    Encode ảnh đại diện theo kiểu streaming: mỗi lần chỉ giữ 1 batch tensor
+    trong RAM, encode xong thì giải phóng. Sản phẩm thiếu ảnh bị bỏ qua.
     """
-    # Bước 1: load + preprocess ảnh trước, bỏ qua sản phẩm thiếu ảnh
     valid_ids: list[str] = []
-    valid_tensors: list[torch.Tensor] = []
+    all_embeddings: list[np.ndarray] = []
+    batch_tensors: list[torch.Tensor] = []
+    batch_ids: list[str] = []
     skipped = 0
     sample_failed_paths: list[str] = []
 
-    for p in tqdm(products, desc="Loading images"):
-        img_meta = _select_primary_image(p)
-        rel_path = img_meta.get(IMAGE_PATH_FIELD) if img_meta else None
+    def flush() -> None:
+        if not batch_tensors:
+            return
+        pixel_values = torch.stack(batch_tensors, dim=0).to(device)
+        # [CONTRACT] encode_image trả về [B, 256] đã L2-norm
+        emb = model.encode_image(pixel_values)
+        all_embeddings.append(emb.cpu().numpy())
+        valid_ids.extend(batch_ids)
+        batch_tensors.clear()
+        batch_ids.clear()
 
+    for p in tqdm(products, desc="Encoding images"):
         tensor = _load_image_tensor(p, transform)
         if tensor is None:
             skipped += 1
+            img_meta = _select_primary_image(p)
+            rel_path = img_meta.get(IMAGE_PATH_FIELD) if img_meta else None
             if rel_path and len(sample_failed_paths) < 3:
                 resolved = rel_path if Path(rel_path).is_absolute() else str(Path(PROCESSED_DIR) / rel_path)
                 sample_failed_paths.append(resolved)
             continue
-        valid_ids.append(str(p[PRODUCT_ID_FIELD]))
-        valid_tensors.append(tensor)
+
+        batch_tensors.append(tensor)
+        batch_ids.append(str(p[PRODUCT_ID_FIELD]))
+        if len(batch_tensors) >= batch_size:
+            flush()
+
+    flush()  # batch cuối
 
     if skipped:
         log.warning(f"  Bỏ qua {skipped}/{len(products)} sản phẩm không có ảnh hợp lệ")
         if sample_failed_paths:
             log.warning(f"  Ví dụ path đã thử (không tồn tại/lỗi): {sample_failed_paths}")
 
-    # Bước 2: encode theo batch
-    all_embeddings = []
-    for i in tqdm(range(0, len(valid_tensors), batch_size), desc="Encoding images"):
-        batch = valid_tensors[i : i + batch_size]
-        pixel_values = torch.stack(batch, dim=0).to(device)
-
-        # [CONTRACT] encode_image trả về [B, 256] đã L2-norm
-        embeddings = model.encode_image(pixel_values)
-        all_embeddings.append(embeddings.cpu().numpy())
-
     if not all_embeddings:
-        raise RuntimeError("Không encode được ảnh nào — kiểm tra lại IMAGE_PATH_FIELD / IMAGE_DIR trong config.")
+        raise RuntimeError("Không encode được ảnh nào, kiểm tra lại IMAGE_PATH_FIELD / PROCESSED_DIR trong config.")
 
     embeddings = np.vstack(all_embeddings).astype(np.float32)
     log.info(f"Encoded {len(valid_ids)} product images → shape {embeddings.shape}")
@@ -429,6 +430,10 @@ def parse_args():
         "--no-smoke-test", action="store_true",
         help="Bỏ qua smoke test sau khi build",
     )
+    parser.add_argument(
+        "--skip-text", action="store_true",
+        help="Bỏ qua bước build text index (dùng khi text index đã có sẵn)",
+    )
     return parser.parse_args()
 
 
@@ -453,12 +458,18 @@ def main():
     )
 
     # --- Build & save TEXT index ---
-    build_and_save_index(
-        embeddings,
-        product_ids,
-        index_path=Path(FAISS_INDEX_FILE),
-        mapping_path=Path(FAISS_MAPPING_FILE),
-    )
+    if not args.skip_text:
+        tokenizer = AutoTokenizer.from_pretrained(PHOBERT_MODEL)
+        embeddings, product_ids = encode_all_products(
+            products, model, tokenizer, device, batch_size=args.batch_size
+        )
+        build_and_save_index(
+            embeddings, product_ids,
+            index_path=Path(FAISS_INDEX_FILE),
+            mapping_path=Path(FAISS_MAPPING_FILE),
+        )
+        if not args.no_smoke_test:
+            smoke_test(Path(FAISS_INDEX_FILE), Path(FAISS_MAPPING_FILE), model, tokenizer, device)
 
     if not args.no_smoke_test:
         smoke_test(
