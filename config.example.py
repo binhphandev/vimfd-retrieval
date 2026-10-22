@@ -43,9 +43,9 @@ LOGIT_SCALE_INIT = 14.29  # log(1/0.07)
 LOGIT_SCALE_MAX = 100.0
 
 # --- Training ---
-BATCH_SIZE = 64  # giảm xuống BATCH_SIZE_CPU nếu chạy CPU
+BATCH_SIZE = 32  # giảm xuống BATCH_SIZE_CPU nếu chạy CPU
 BATCH_SIZE_CPU = 4
-NUM_EPOCHS = 30
+NUM_EPOCHS = 10
 WARMUP_EPOCHS = 2
 LR_BACKBONE = 1e-5
 LR_HEAD = 1e-4

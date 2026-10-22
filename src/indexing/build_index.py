@@ -38,6 +38,7 @@ from config import (
     FAISS_MAPPING_FILE,
     IMAGE_LIST_FIELD,
     IMAGE_MEAN,
+    IMAGE_DIR,
     IMAGE_PATH_FIELD,
     IMAGE_POSITION_FIELD,
     IMAGE_PRIMARY_FIELD,
@@ -117,11 +118,10 @@ def _load_image_tensor(product: dict, transform: T.Compose) -> Optional[torch.Te
 
     img_path = Path(rel_path)
     if not img_path.is_absolute():
-        # Ảnh thực tế nằm ở data/processed/images/<brand>/... (xem cây thư mục),
-        # nên phải nối local_path với PROCESSED_DIR (data/processed), KHÔNG phải
-        # DATA_DIR (data) — nối với DATA_DIR sẽ thiếu mất "processed/" và không
-        # tìm thấy file (=> mọi sản phẩm bị skip).
-        img_path = Path(PROCESSED_DIR) / rel_path
+        rel = img_path
+        if rel.parts and rel.parts[0] == "images":
+            rel = Path(*rel.parts[1:])
+        img_path = Path(IMAGE_DIR) / rel
 
     try:
         with Image.open(img_path) as im:
@@ -158,7 +158,7 @@ def load_model(checkpoint_path: Path, device: torch.device):
     """
     # Import model từ Người A
     try:
-        from src.models.model import ViMFRModel
+        from src.models.model import ViMFRModel, load_state_dict_compat
     except ImportError:
         raise ImportError(
             "Không tìm thấy model.py. "
@@ -169,7 +169,7 @@ def load_model(checkpoint_path: Path, device: torch.device):
     ckpt = torch.load(checkpoint_path, map_location=device)
 
     model = ViMFRModel()
-    model.load_state_dict(ckpt[CKPT_MODEL_KEY])
+    load_state_dict_compat(model, ckpt[CKPT_MODEL_KEY])
     model.to(device)
     model.eval()
 
@@ -263,7 +263,12 @@ def encode_all_products_images(
             img_meta = _select_primary_image(p)
             rel_path = img_meta.get(IMAGE_PATH_FIELD) if img_meta else None
             if rel_path and len(sample_failed_paths) < 3:
-                resolved = rel_path if Path(rel_path).is_absolute() else str(Path(PROCESSED_DIR) / rel_path)
+                rp = Path (rel_path)
+                if rp.is_absolute():
+                    resolved = str(rp)
+                else:
+                    rp = Path(*rp.parts[1:]) if rp.parts and rp.parts[0] == "images" else rp
+                    resolved = str(Path(IMAGE_DIR) / rp)
                 sample_failed_paths.append(resolved)
             continue
 
@@ -452,10 +457,7 @@ def main():
     # --- Load tokenizer ---
     tokenizer = AutoTokenizer.from_pretrained(PHOBERT_MODEL)
 
-    # --- Encode ---
-    embeddings, product_ids = encode_all_products(
-        products, model, tokenizer, device, batch_size=args.batch_size
-    )
+  
 
     # --- Build & save TEXT index ---
     if not args.skip_text:
@@ -471,12 +473,6 @@ def main():
         if not args.no_smoke_test:
             smoke_test(Path(FAISS_INDEX_FILE), Path(FAISS_MAPPING_FILE), model, tokenizer, device)
 
-    if not args.no_smoke_test:
-        smoke_test(
-            Path(FAISS_INDEX_FILE),
-            Path(FAISS_MAPPING_FILE),
-            model, tokenizer, device,
-        )
 
     # --- Encode + build & save IMAGE index ---
     # QUAN TRỌNG: đây là index riêng, không gian embedding khác với text index

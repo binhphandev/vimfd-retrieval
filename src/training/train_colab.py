@@ -27,16 +27,23 @@ train()
 
 
 
-# Cell 7 — Lưu checkpoint về Drive
+# Cell 7 — Lưu checkpoint và log huấn luyện về Drive
 import shutil
 import os
 
-# Tạo thư mục nếu chưa có
-os.makedirs('/content/drive/MyDrive/vimfd-retrieval/checkpoints', exist_ok=True)
+drive_project_dir = '/content/drive/MyDrive/vimfd-retrieval'
+os.makedirs(os.path.join(drive_project_dir, 'checkpoints'), exist_ok=True)
+os.makedirs(os.path.join(drive_project_dir, 'results'), exist_ok=True)
 
-# Copy checkpoint
+# Lưu checkpoint
 shutil.copy(
     '/content/vimfd-retrieval/checkpoints/best.pt',
-    '/content/drive/MyDrive/vimfd-retrieval/checkpoints/best.pt'
+    os.path.join(drive_project_dir, 'checkpoints', 'checkpoint_baseline.pt')
 )
-print("Đã lưu checkpoint về Drive!")
+
+# Lưu CSV log của từng epoch (train loss, validation loss và Recall@K)
+shutil.copy(
+    '/content/vimfd-retrieval/results/loss_log.csv',
+    os.path.join(drive_project_dir, 'results', 'log_baseline.csv')
+)
+print("Đã lưu checkpoint_baseline.pt và log_baseline.csv về Drive!")
