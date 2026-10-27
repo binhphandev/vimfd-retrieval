@@ -1,0 +1,38 @@
+{
+  "full": {
+    "Text → Image": {
+      "Recall@1": 0.0314,
+      "Recall@5": 0.1281,
+      "Recall@10": 0.2115,
+      "NDCG@10": 0.1067,
+      "n_queries": 1272,
+      "gallery": 12712
+    },
+    "Image → Image": {
+      "Recall@1": 0.0,
+      "Recall@5": 0.0,
+      "Recall@10": 0.0,
+      "NDCG@10": 0.0,
+      "n_queries": 1,
+      "gallery": 12712
+    }
+  },
+  "test-only": {
+    "Text → Image": {
+      "Recall@1": 0.2351,
+      "Recall@5": 0.5684,
+      "Recall@10": 0.7193,
+      "NDCG@10": 0.4564,
+      "n_queries": 1272,
+      "gallery": 1272
+    },
+    "Image → Image": {
+      "Recall@1": 0.0,
+      "Recall@5": 0.0,
+      "Recall@10": 0.0,
+      "NDCG@10": 0.0,
+      "n_queries": 1,
+      "gallery": 1272
+    }
+  }
+}
