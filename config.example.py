@@ -6,8 +6,9 @@ import os
 # --- Paths ---
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(ROOT_DIR, "data")
-IMAGE_DIR = os.path.join(DATA_DIR, "images")
 PROCESSED_DIR = os.path.join(DATA_DIR, "processed")
+# Images consumed by training/indexing; data_preprocess.py writes resized JPEGs here.
+IMAGE_DIR = os.path.join(PROCESSED_DIR, "images")
 CHECKPOINT_DIR = os.path.join(ROOT_DIR, "checkpoints")
 INDEX_DIR = os.path.join(ROOT_DIR, "index")
 
@@ -31,6 +32,7 @@ IMAGE_PATH_FIELD = "local_path"
 PHOBERT_MODEL = "vinai/phobert-base"  # hoặc phobert-large
 MAX_TEXT_LENGTH = 256
 TEXT_FIELDS = ["name", "description", "category", "tags"]
+MODEL_TEXT_FIELD = "retrieval_text"
 
 # --- Model architecture ---
 CLIP_MODEL = "openai/clip-vit-base-patch32"

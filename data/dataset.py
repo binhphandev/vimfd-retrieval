@@ -1,15 +1,7 @@
-"""
-Người A import 3 thứ từ file này:
-    from dataset import get_image_transform, ViMFDDataset, build_dataloaders
-"""
-
-import sys
-from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-
 import json
 import logging
+import sys
+from pathlib import Path
 from typing import Any, Literal, cast
 
 import torch
@@ -18,23 +10,39 @@ from torch.utils.data import DataLoader, Dataset
 from torchvision import transforms
 from transformers import AutoTokenizer
 
-from data_preprocess import _pick_primary_image
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from config import (
     IMAGE_LIST_FIELD,
+    IMAGE_PATH_FIELD,
+    IMAGE_POSITION_FIELD,
+    IMAGE_PRIMARY_FIELD,
     IMAGE_MEAN,
     IMAGE_SIZE,
     IMAGE_STD,
     MAX_TEXT_LENGTH,
+    MODEL_TEXT_FIELD,
     PHOBERT_MODEL,
     PROCESSED_DIR,
     PRODUCT_ID_FIELD,
-    TEXT_FIELDS,
 )
+from src.text_processing.text_utils import get_model_text
 
 log = logging.getLogger(__name__)
 
 SplitType = Literal["train", "val", "test"]
+
+
+def _pick_primary_image(images: list[dict]) -> dict | None:
+    if not images:
+        return None
+    for image in images:
+        if image.get(IMAGE_PRIMARY_FIELD):
+            return image
+    for image in images:
+        if image.get(IMAGE_POSITION_FIELD) == 0:
+            return image
+    return images[0]
 
 
 # --- Image transform ---
@@ -47,37 +55,34 @@ def get_image_transform(split: SplitType) -> transforms.Compose:
     normalize = transforms.Normalize(mean=IMAGE_MEAN, std=IMAGE_STD)
 
     if split == "train":
-        return transforms.Compose([
-            transforms.Resize(IMAGE_SIZE, interpolation=transforms.InterpolationMode.BICUBIC),
+        return transforms.Compose(
+            [
+                transforms.Resize(
+                    IMAGE_SIZE,
+                    interpolation=transforms.InterpolationMode.BICUBIC,
+                ),
+                transforms.CenterCrop(IMAGE_SIZE),
+                transforms.RandomHorizontalFlip(),
+                transforms.ColorJitter(
+                    brightness=0.1,
+                    contrast=0.1,
+                    saturation=0.1,
+                ),
+                transforms.ToTensor(),
+                normalize,
+            ]
+        )
+    return transforms.Compose(
+        [
+            transforms.Resize(
+                IMAGE_SIZE,
+                interpolation=transforms.InterpolationMode.BICUBIC,
+            ),
             transforms.CenterCrop(IMAGE_SIZE),
-            transforms.RandomHorizontalFlip(),
-            transforms.ColorJitter(brightness=0.1, contrast=0.1, saturation=0.1),
             transforms.ToTensor(),
             normalize,
-        ])
-    else:
-        return transforms.Compose([
-            transforms.Resize(IMAGE_SIZE, interpolation=transforms.InterpolationMode.BICUBIC),
-            transforms.CenterCrop(IMAGE_SIZE),
-            transforms.ToTensor(),
-            normalize,
-        ])
-
-
-# --- Helpers ---
-
-def _build_text(product: dict) -> str:
-    """Ghép TEXT_FIELDS thành 1 chuỗi đầu vào cho PhoBERT."""
-    parts = []
-    for field in TEXT_FIELDS:
-        value = product.get(field)
-        if isinstance(value, str) and value.strip():
-            parts.append(value.strip())
-        elif isinstance(value, list):
-            joined = " ".join(str(v) for v in value if v)
-            if joined.strip():
-                parts.append(joined.strip())
-    return " ".join(parts)
+        ]
+    )
 
 
 # --- Dataset ---
@@ -104,19 +109,19 @@ class ViMFDDataset(Dataset):
         self.tokenizer = tokenizer
         self.transform = get_image_transform(split)
 
-        split_dir = Path(split_dir) if split_dir else Path(PROCESSED_DIR)
-        self.image_dir = Path(image_dir) if image_dir else split_dir / "images"
+        self.split_dir = Path(split_dir) if split_dir else Path(PROCESSED_DIR)
+        self.image_dir = Path(image_dir) if image_dir else self.split_dir / "images"
 
-        json_path = split_dir / f"{split}.json"
+        json_path = self.split_dir / f"{split}.json"
         if not json_path.exists():
             raise FileNotFoundError(
                 f"Không tìm thấy {json_path}. Hãy chạy data_preprocess.py trước."
             )
 
-        with open(json_path, encoding="utf-8") as f:
-            self.data: list[dict] = json.load(f)
+        with json_path.open(encoding="utf-8") as file:
+            self.data: list[dict] = json.load(file)
 
-        log.info(f"ViMFDDataset [{split}]: {len(self.data)} products")
+        log.info("ViMFDDataset [%s]: %s products", split, len(self.data))
 
     def __len__(self) -> int:
         return len(self.data)
@@ -125,10 +130,11 @@ class ViMFDDataset(Dataset):
         product = self.data[idx]
 
         img_meta = _pick_primary_image(product.get(IMAGE_LIST_FIELD, []))
-        image_tensor = self._load_image(img_meta)
+        product_id = str(product.get(PRODUCT_ID_FIELD, "<missing id>"))
+        image_tensor = self._load_image(img_meta, product_id)
 
-        text = _build_text(product)
-        encoding = self.tokenizer(  # type: ignore
+        text = get_model_text(product, MODEL_TEXT_FIELD)
+        encoding = self.tokenizer(
             text,
             max_length=MAX_TEXT_LENGTH,
             padding="max_length",
@@ -140,26 +146,31 @@ class ViMFDDataset(Dataset):
             "image":          image_tensor,
             "input_ids":      encoding["input_ids"].squeeze(0),
             "attention_mask": encoding["attention_mask"].squeeze(0),
-            "product_id":     str(product[PRODUCT_ID_FIELD]),
+            "product_id":     product_id,
         }
 
-    def _load_image(self, img_meta: dict | None) -> torch.Tensor:
+    def _load_image(self, img_meta: dict | None, product_id: str) -> torch.Tensor:
         if img_meta is None:
-            return torch.zeros(3, IMAGE_SIZE, IMAGE_SIZE)
+            raise ValueError(f"Sản phẩm {product_id} không có metadata ảnh đại diện.")
 
-        rel = Path(img_meta.get("local_path", ""))
-        if rel.parts and rel.parts[0] == "images":
-            rel = Path(*rel.parts[1:])
+        local_path = img_meta.get(IMAGE_PATH_FIELD)
+        if not isinstance(local_path, str) or not local_path.strip():
+            raise ValueError(f"Sản phẩm {product_id} không có local_path ảnh hợp lệ.")
 
-        img_path = self.image_dir / rel
+        relative_path = Path(local_path)
+        if relative_path.parts and relative_path.parts[0] == "images":
+            relative_path = Path(*relative_path.parts[1:])
+
+        image_path = self.image_dir / relative_path
 
         try:
-            with Image.open(img_path) as img:
-                img = img.convert("RGB")
-                return cast(torch.Tensor, self.transform(img))
-        except Exception as e:
-            log.warning(f"Không đọc được ảnh {img_path}: {e} — dùng tensor zero")
-            return torch.zeros(3, IMAGE_SIZE, IMAGE_SIZE)
+            with Image.open(image_path) as image:
+                image = image.convert("RGB")
+                return cast(torch.Tensor, self.transform(image))
+        except OSError as error:
+            raise RuntimeError(
+                f"Không đọc được ảnh của sản phẩm {product_id}: {image_path}"
+            ) from error
 
 
 # --- DataLoader builder ---
@@ -173,7 +184,7 @@ def build_dataloaders(
     """Tạo DataLoader cho cả 3 split, dùng chung 1 tokenizer instance."""
     tokenizer = AutoTokenizer.from_pretrained(PHOBERT_MODEL)
 
-    loaders = {}
+    loaders: dict[str, DataLoader] = {}
     for split in ("train", "val", "test"):
         dataset = ViMFDDataset(
             split=split,
@@ -197,16 +208,20 @@ def build_dataloaders(
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
-    log.info("=== Smoke test dataset.py ===")
+    log.info("=== Dataset smoke test ===")
 
-    loaders = build_dataloaders(batch_size=4, num_workers=0,split_dir = Path("data/processed"), image_dir = Path("data/images"),)
+    loaders = build_dataloaders(
+        batch_size=4,
+        num_workers=0,
+        split_dir=Path(PROCESSED_DIR),
+    )
 
     for split, loader in loaders.items():
         batch = next(iter(loader))
-        log.info(f"\n[{split}]")
-        log.info(f"  image          : {batch['image'].shape}")
-        log.info(f"  input_ids      : {batch['input_ids'].shape}")
-        log.info(f"  attention_mask : {batch['attention_mask'].shape}")
-        log.info(f"  product_id     : {batch['product_id']}")
+        log.info("[%s]", split)
+        log.info("  image          : %s", batch["image"].shape)
+        log.info("  input_ids      : %s", batch["input_ids"].shape)
+        log.info("  attention_mask : %s", batch["attention_mask"].shape)
+        log.info("  product_id     : %s", batch["product_id"])
 
-    log.info("\nSmoke test PASSED ✓")
+    log.info("Dataset smoke test passed")

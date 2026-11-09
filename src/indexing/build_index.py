@@ -45,13 +45,12 @@ from config import (
     IMAGE_SIZE,
     IMAGE_STD,
     MAX_TEXT_LENGTH,
+    MODEL_TEXT_FIELD,
     PHOBERT_MODEL,
     PROCESSED_DIR,
     PRODUCT_ID_FIELD,
-    TEXT_FIELDS,
 )
-
-
+from src.text_processing.text_utils import get_model_text
 
 log = logging.getLogger(__name__)
 
@@ -59,20 +58,6 @@ log = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
-
-def _build_text(product: dict) -> str:
-    """Ghép các field text thành 1 chuỗi — giống dataset.py."""
-    parts = []
-    for field in TEXT_FIELDS:
-        value = product.get(field)
-        if isinstance(value, str) and value.strip():
-            parts.append(value.strip())
-        elif isinstance(value, list):
-            joined = " ".join(str(v) for v in value if v)
-            if joined.strip():
-                parts.append(joined.strip())
-    return " ".join(parts)
-
 
 def _select_primary_image(product: dict) -> Optional[dict]:
     """
@@ -202,7 +187,7 @@ def encode_all_products(
     for i in tqdm(range(0, len(products), batch_size), desc="Encoding"):
         batch = products[i : i + batch_size]
 
-        texts = [_build_text(p) for p in batch]
+        texts = [get_model_text(p, MODEL_TEXT_FIELD) for p in batch]
         ids   = [str(p[PRODUCT_ID_FIELD]) for p in batch]
 
         encoding = tokenizer(
