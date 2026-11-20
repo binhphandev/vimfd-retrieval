@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ViMFD – Tìm đồ nam bằng mô tả hoặc ảnh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=Source+Serif+4:wght@600&display=swap">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header class="hdr">
+ <a class="logo" href="#" data-act="home">ViMFD</a>
+ <nav class="nav">
+  <button class="lk" data-act="how">Cách hoạt động</button>
+  <div class="rm"><span id="rml">Chế độ nghiên cứu</span><button class="sw" id="sw" role="switch" aria-checked="false" aria-labelledby="rml"></button></div>
+ </nav>
+</header>
+
+<form id="sf" class="sb" role="search" autocomplete="off">
+ <button type="button" class="th" id="th" title="Bỏ ảnh" aria-label="Bỏ ảnh đã chọn"></button>
+ <input type="text" id="q" placeholder="Mô tả món đồ bạn cần tìm" aria-label="Mô tả sản phẩm">
+ <label class="ic" title="Chọn ảnh"><input type="file" id="file" accept="image/jpeg,image/png,image/webp" hidden><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3.5 8h3.2l1.8-2.5h7L17.3 8h3.2v11h-17z"/><circle cx="12" cy="13" r="3.6"/></svg></label>
+ <button class="btn p" type="submit">Tìm kiếm</button>
+</form>
+
+<main>
+ <section id="v-home">
+  <div class="hero">
+   <h1>Tìm đồ nam bằng mô tả hoặc ảnh</h1>
+   <p>Gõ bằng tiếng Việt, hoặc chụp ảnh món đồ bạn thích.</p>
+   <div id="sh" style="width:100%;display:flex;justify-content:center"></div>
+   <div class="chips"><span class="lb">Thử:</span>
+    <button class="chip" data-ex="Áo khoác bomber đen">Áo khoác bomber đen</button>
+    <button class="chip" data-ex="Quần kaki slim màu be">Quần kaki slim màu be</button>
+    <button class="chip" data-ex="Polo đen basic">Polo đen basic</button></div>
+   <span class="hint">Ảnh JPG, PNG hoặc WEBP, tối đa 5 MB.</span>
+  </div>
+ </section>
+
+ <section id="v-results" class="wrap" hidden>
+  <div class="top">
+   <div id="sr" style="width:100%"></div>
+   <div class="r1">
+    <div class="und" id="und"></div>
+    <div class="tools">
+     <button class="btn" id="fbtn" data-act="filter">Bộ lọc</button>
+     <label class="sel"><span>Sắp xếp:</span><select id="sort" aria-label="Sắp xếp"><option value="rel">Phù hợp nhất</option><option value="asc">Giá tăng dần</option><option value="desc">Giá giảm dần</option></select></label>
+    </div>
+   </div>
+   <div class="wt"><label for="w">Ưu tiên mô tả</label><input id="w" type="range" min="0" max="100" value="55"><span>Ưu tiên ảnh</span></div>
+   <p class="cnt" id="cnt" aria-live="polite"></p>
+   <div class="grid" id="grid"></div>
+   <div class="more" id="more" hidden><button class="btn" data-act="more">Xem thêm</button></div>
+  </div>
+ </section>
+
+ <section id="v-detail" class="wrap" hidden>
+  <button class="back" data-act="back">← <span class="d">Quay lại kết quả</span><span class="m">Kết quả</span></button>
+  <div id="dt" style="padding-bottom:56px"></div>
+ </section>
+</main>
+
+<dialog id="fd" class="fl" aria-labelledby="ft">
+ <div class="grab"></div>
+ <div class="dh"><h2 id="ft">Bộ lọc</h2><button class="x" data-act="close" aria-label="Đóng">×</button></div>
+ <div class="fs"><b>Loại sản phẩm</b><div class="chips" id="ftype"></div></div>
+ <div class="fs"><b>Khoảng giá</b>
+  <input type="range" id="pmin" min="0" max="2000000" step="50000"><input type="range" id="pmax" min="0" max="2000000" step="50000">
+  <div class="pv"><span id="vmin"></span><span id="vmax"></span></div></div>
+ <div class="fs"><b>Màu sắc</b><div class="sw6" id="fcol"></div></div>
+ <div class="fa"><button class="btn" data-act="clearF">Xóa bộ lọc</button><button class="btn p" data-act="close">Xem kết quả</button></div>
+</dialog>
+
+<dialog id="hd" aria-labelledby="ht">
+ <div class="dh"><h2 id="ht">Cách hoạt động</h2><button class="x" data-act="close" aria-label="Đóng">×</button></div>
+ <ol><li>Mô tả món đồ bằng tiếng Việt, hoặc tải ảnh mẫu.</li><li>Hệ thống tìm theo chữ và theo ảnh rồi kết hợp điểm.</li><li>Kéo thanh ưu tiên để nghiêng về mô tả hoặc ảnh. Bật chế độ nghiên cứu để xem điểm chi tiết.</li></ol>
+</dialog>
+<div class="toast" id="toast" role="status"></div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

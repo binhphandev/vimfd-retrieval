@@ -5,9 +5,10 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'data'))
 
 import torch
 from src.training.evaluate import load_model, load_faiss, make_subset_index
-from dataset import build_dataloaders
-from config import (CHECKPOINT_BEST, PROCESSED_DIR, IMAGE_DIR, PRODUCT_ID_FIELD,
-                    FAISS_IMAGE_INDEX_FILE, FAISS_IMAGE_MAPPING_FILE)
+from dataset import build_dataloaders, load_jsonl
+from config import (CHECKPOINT_BEST, SPLIT_DIR, IMAGE_DIR, PRODUCT_ID_FIELD,
+                    FAISS_IMAGE_INDEX_FILE, FAISS_IMAGE_MAPPING_FILE,
+                    EVAL_BATCH_SIZE)
 
 BAD = ('< html >', 'Chào_mừng mọi người', 'Thank you so much', 'Giá sản_phẩm trên Tiki')
 norm = lambda s: re.sub(r'[\s_]+', ' ', s.lower()).strip()
@@ -18,7 +19,7 @@ def group_key(p):
 
 meta, test_ids = {}, set()
 for sp in ('train', 'val', 'test'):
-    for p in json.load(open(Path(PROCESSED_DIR) / f'{sp}.json', encoding='utf-8')):
+    for p in load_jsonl(Path(SPLIT_DIR) / f'{sp}.jsonl'):
         pid = str(p[PRODUCT_ID_FIELD])
         meta[pid] = {'g': group_key(p), 'type': p.get('type'), 'shop': p['shop']}
         if sp == 'test': test_ids.add(pid)
@@ -27,7 +28,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = load_model(CHECKPOINT_BEST).to(device)
 index, mapping = load_faiss(FAISS_IMAGE_INDEX_FILE, FAISS_IMAGE_MAPPING_FILE)
 sub, sub_map = make_subset_index(index, mapping, test_ids)
-loader = build_dataloaders(batch_size=32, num_workers=0, split_dir=Path(PROCESSED_DIR),
+loader = build_dataloaders(batch_size=EVAL_BATCH_SIZE, num_workers=0, split_dir=Path(SPLIT_DIR),
                            image_dir=Path(IMAGE_DIR))['test']
 
 for name, (idx, mp) in {'full': (index, mapping), 'test-only': (sub, sub_map)}.items():

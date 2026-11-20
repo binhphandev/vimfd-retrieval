@@ -1,0 +1,728 @@
+{
+  "checks": [
+    {
+      "name": "Field bắt buộc đầy đủ",
+      "value": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Id không trùng",
+      "value": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Sản phẩm đều có ảnh",
+      "value": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Metadata ảnh hợp lệ",
+      "value": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "position ảnh liên tục từ 1",
+      "value": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "text_seg không rỗng",
+      "value": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "text_seg có từ ghép (tách từ đã chạy)",
+      "value": "0.1%",
+      "status": "PASS",
+      "note": "text dài ≥8 từ mà không có '_'"
+    },
+    {
+      "name": "Tỉ lệ split ≈ 80/10/10",
+      "value": "0.03% lệch tối đa",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Phân bố nguồn×category val/test ≈ train",
+      "value": "TVD=0.0012",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Mỗi nhóm nguồn×category ≥20 sp trong val/test",
+      "value": 0,
+      "status": "PASS",
+      "note": "metric theo nhóm sẽ nhiễu nếu nhóm quá nhỏ"
+    },
+    {
+      "name": "Không rò rỉ id (val)",
+      "value": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Không rò rỉ id (test)",
+      "value": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Không rò rỉ text_group (val)",
+      "value": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Không rò rỉ text_group (test)",
+      "value": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Không rò rỉ text_seg (chuẩn hoá) (val)",
+      "value": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Không rò rỉ text_seg (chuẩn hoá) (test)",
+      "value": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Không rò rỉ URL ảnh (val)",
+      "value": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Không rò rỉ URL ảnh (test)",
+      "value": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Không rò rỉ phash trùng hệt (val)",
+      "value": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Không rò rỉ phash trùng hệt (test)",
+      "value": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Ảnh có phash",
+      "value": "100.0%",
+      "status": "PASS",
+      "note": "thiếu phash = không gom được ảnh gần trùng khi chia split"
+    },
+    {
+      "name": "Ảnh gần trùng (≤4 bit) val→train",
+      "value": "27.48%",
+      "status": "FAIL",
+      "note": "làm R@k cao ảo"
+    },
+    {
+      "name": "Ảnh gần trùng (≤4 bit) test→train",
+      "value": "27.11%",
+      "status": "FAIL",
+      "note": "làm R@k cao ảo"
+    },
+    {
+      "name": "Tên trùng với split trước (val)",
+      "value": "20.8%",
+      "status": "WARN",
+      "note": "cùng tên có thể là cùng mẫu bán ở shop khác"
+    },
+    {
+      "name": "Tên trùng với split trước (test)",
+      "value": "20.3%",
+      "status": "WARN",
+      "note": "cùng tên có thể là cùng mẫu bán ở shop khác"
+    },
+    {
+      "name": "Trùng ảnh trong cùng split (val)",
+      "value": "20.84%",
+      "status": "WARN",
+      "note": "2 sản phẩm cùng ảnh → query ảnh không phân biệt được"
+    },
+    {
+      "name": "Trùng text trong cùng split (val)",
+      "value": "3.88%",
+      "status": "WARN",
+      "note": ""
+    },
+    {
+      "name": "Trùng ảnh trong cùng split (test)",
+      "value": "24.65%",
+      "status": "WARN",
+      "note": "2 sản phẩm cùng ảnh → query ảnh không phân biệt được"
+    },
+    {
+      "name": "Trùng text trong cùng split (test)",
+      "value": "1.72%",
+      "status": "WARN",
+      "note": ""
+    },
+    {
+      "name": "Ảnh không thiếu file (train)",
+      "value": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Ảnh đọc được (train)",
+      "value": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Ảnh chỉ jpg/png (không webp) (train)",
+      "value": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Ảnh đúng 224×224 (train)",
+      "value": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Ảnh trắng/đồng màu (train)",
+      "value": "0.00%",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Sản phẩm quá nhỏ trong khung (train)",
+      "value": "0.0%",
+      "status": "PASS",
+      "note": "vùng không-trắng < 10% khung ảnh"
+    },
+    {
+      "name": "Ảnh không thiếu file (val)",
+      "value": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Ảnh đọc được (val)",
+      "value": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Ảnh chỉ jpg/png (không webp) (val)",
+      "value": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Ảnh đúng 224×224 (val)",
+      "value": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Ảnh trắng/đồng màu (val)",
+      "value": "0.00%",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Sản phẩm quá nhỏ trong khung (val)",
+      "value": "0.1%",
+      "status": "PASS",
+      "note": "vùng không-trắng < 10% khung ảnh"
+    },
+    {
+      "name": "Ảnh không thiếu file (test)",
+      "value": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Ảnh đọc được (test)",
+      "value": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Ảnh chỉ jpg/png (không webp) (test)",
+      "value": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Ảnh đúng 224×224 (test)",
+      "value": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Ảnh trắng/đồng màu (test)",
+      "value": "0.00%",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Sản phẩm quá nhỏ trong khung (test)",
+      "value": "0.0%",
+      "status": "PASS",
+      "note": "vùng không-trắng < 10% khung ảnh"
+    },
+    {
+      "name": "Text bị cắt ở 256 token (train)",
+      "value": "21.7%",
+      "status": "WARN",
+      "note": "phần cuối mô tả bị bỏ; tên luôn nằm đầu nên không mất"
+    },
+    {
+      "name": "Text bị cắt ở 256 token (val)",
+      "value": "23.8%",
+      "status": "WARN",
+      "note": "phần cuối mô tả bị bỏ; tên luôn nằm đầu nên không mất"
+    },
+    {
+      "name": "Text bị cắt ở 256 token (test)",
+      "value": "21.4%",
+      "status": "WARN",
+      "note": "phần cuối mô tả bị bỏ; tên luôn nằm đầu nên không mất"
+    },
+    {
+      "name": "Rác 'HTML' trong text (train)",
+      "value": "0.00%",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Rác 'URL' trong text (train)",
+      "value": "1.33%",
+      "status": "WARN",
+      "note": ""
+    },
+    {
+      "name": "Rác 'SĐT' trong text (train)",
+      "value": "0.10%",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Rác 'emoji' trong text (train)",
+      "value": "0.20%",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Rác 'ký tự ngoại ngữ' trong text (train)",
+      "value": "0.10%",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Rác 'mã SKU sót' trong text (train)",
+      "value": "13.30%",
+      "status": "WARN",
+      "note": ""
+    },
+    {
+      "name": "Text quá ngắn (train)",
+      "value": "0.06%",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "text_seg khớp text (train)",
+      "value": "0.82%",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Rác 'HTML' trong text (val)",
+      "value": "0.00%",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Rác 'URL' trong text (val)",
+      "value": "1.34%",
+      "status": "WARN",
+      "note": ""
+    },
+    {
+      "name": "Rác 'SĐT' trong text (val)",
+      "value": "0.07%",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Rác 'emoji' trong text (val)",
+      "value": "0.07%",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Rác 'ký tự ngoại ngữ' trong text (val)",
+      "value": "0.00%",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Rác 'mã SKU sót' trong text (val)",
+      "value": "17.85%",
+      "status": "WARN",
+      "note": ""
+    },
+    {
+      "name": "Text quá ngắn (val)",
+      "value": "0.00%",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "text_seg khớp text (val)",
+      "value": "0.67%",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Rác 'HTML' trong text (test)",
+      "value": "0.00%",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Rác 'URL' trong text (test)",
+      "value": "1.12%",
+      "status": "WARN",
+      "note": ""
+    },
+    {
+      "name": "Rác 'SĐT' trong text (test)",
+      "value": "0.07%",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Rác 'emoji' trong text (test)",
+      "value": "0.22%",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Rác 'ký tự ngoại ngữ' trong text (test)",
+      "value": "0.07%",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Rác 'mã SKU sót' trong text (test)",
+      "value": "12.25%",
+      "status": "WARN",
+      "note": ""
+    },
+    {
+      "name": "Text quá ngắn (test)",
+      "value": "0.07%",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "text_seg khớp text (test)",
+      "value": "1.05%",
+      "status": "WARN",
+      "note": ""
+    },
+    {
+      "name": "Category nghi sai theo tên (train)",
+      "value": "1.58%",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Category nghi sai theo tên (val)",
+      "value": "2.02%",
+      "status": "WARN",
+      "note": ""
+    },
+    {
+      "name": "Category nghi sai theo tên (test)",
+      "value": "0.97%",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Giá thiếu hoặc ≤0 (train)",
+      "value": "100.0%",
+      "status": "WARN",
+      "note": ""
+    },
+    {
+      "name": "Không có màu (train)",
+      "value": "11.6%",
+      "status": "PASS",
+      "note": "màu thiếu thì text kém thông tin"
+    },
+    {
+      "name": "Giá thiếu hoặc ≤0 (val)",
+      "value": "100.0%",
+      "status": "WARN",
+      "note": ""
+    },
+    {
+      "name": "Không có màu (val)",
+      "value": "13.2%",
+      "status": "PASS",
+      "note": "màu thiếu thì text kém thông tin"
+    },
+    {
+      "name": "Giá thiếu hoặc ≤0 (test)",
+      "value": "100.0%",
+      "status": "WARN",
+      "note": ""
+    },
+    {
+      "name": "Không có màu (test)",
+      "value": "10.2%",
+      "status": "PASS",
+      "note": "màu thiếu thì text kém thông tin"
+    },
+    {
+      "name": "Cặp sản phẩm gần giống / batch 64 (train)",
+      "value": "1.69",
+      "status": "WARN",
+      "note": "negative sai trong InfoNCE"
+    },
+    {
+      "name": "Số query ảnh→ảnh đánh giá được (val)",
+      "value": 692,
+      "status": "PASS",
+      "note": "ít hơn 200 query thì R@k dao động mạnh"
+    },
+    {
+      "name": "Kích thước gallery (val)",
+      "value": 1339,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "name": "Số query ảnh→ảnh đánh giá được (test)",
+      "value": 754,
+      "status": "PASS",
+      "note": "ít hơn 200 query thì R@k dao động mạnh"
+    },
+    {
+      "name": "Kích thước gallery (test)",
+      "value": 1339,
+      "status": "PASS",
+      "note": ""
+    }
+  ],
+  "details": {
+    "integrity": {
+      "train": {
+        "rows": 10690,
+        "missing_fields": {},
+        "no_image": 0,
+        "bad_image_meta": 0,
+        "bad_positions": 0,
+        "empty_text_seg": 0,
+        "text_seg_without_underscore": 7
+      },
+      "val": {
+        "rows": 1339,
+        "missing_fields": {},
+        "no_image": 0,
+        "bad_image_meta": 0,
+        "bad_positions": 0,
+        "empty_text_seg": 0,
+        "text_seg_without_underscore": 1
+      },
+      "test": {
+        "rows": 1339,
+        "missing_fields": {},
+        "no_image": 0,
+        "bad_image_meta": 0,
+        "bad_positions": 0,
+        "empty_text_seg": 0,
+        "text_seg_without_underscore": 4
+      }
+    },
+    "distribution": {
+      "source": {
+        "train": {
+          "local": 3056,
+          "tiki": 1585,
+          "lazada": 6049
+        },
+        "val": {
+          "local": 383,
+          "tiki": 199,
+          "lazada": 757
+        },
+        "test": {
+          "local": 384,
+          "tiki": 198,
+          "lazada": 757
+        }
+      },
+      "category": {
+        "train": {
+          "áo": 3795,
+          "quần": 2252,
+          "phụ kiện": 4643
+        },
+        "val": {
+          "áo": 476,
+          "quần": 282,
+          "phụ kiện": 581
+        },
+        "test": {
+          "áo": 475,
+          "quần": 283,
+          "phụ kiện": 581
+        }
+      },
+      "source|category": {
+        "train": {
+          "local|áo": 1675,
+          "local|quần": 841,
+          "local|phụ kiện": 540,
+          "tiki|quần": 576,
+          "tiki|áo": 1009,
+          "lazada|áo": 1111,
+          "lazada|phụ kiện": 4103,
+          "lazada|quần": 835
+        },
+        "val": {
+          "local|áo": 210,
+          "local|quần": 105,
+          "local|phụ kiện": 68,
+          "tiki|quần": 72,
+          "tiki|áo": 127,
+          "lazada|áo": 139,
+          "lazada|phụ kiện": 513,
+          "lazada|quần": 105
+        },
+        "test": {
+          "local|áo": 210,
+          "local|quần": 106,
+          "local|phụ kiện": 68,
+          "tiki|quần": 72,
+          "tiki|áo": 126,
+          "lazada|phụ kiện": 513,
+          "lazada|áo": 139,
+          "lazada|quần": 105
+        }
+      }
+    },
+    "images": {
+      "train": {
+        "inspected": 33071,
+        "total": 33071,
+        "tiny": 15,
+        "content_ratio": {
+          "p5": 0.42904974489795916,
+          "p50": 0.9512515943877551,
+          "max": 1.0
+        }
+      },
+      "val": {
+        "inspected": 4247,
+        "total": 4247,
+        "tiny": 6,
+        "content_ratio": {
+          "p5": 0.3518614477040816,
+          "p50": 0.9241071428571429,
+          "max": 1.0
+        }
+      },
+      "test": {
+        "inspected": 4516,
+        "total": 4516,
+        "tiny": 2,
+        "content_ratio": {
+          "p5": 0.41719148596938777,
+          "p50": 0.8482142857142857,
+          "max": 1.0
+        }
+      }
+    },
+    "text": {
+      "train": {
+        "tokens": {
+          "p50": 138.0,
+          "p90": 316.0,
+          "p95": 348.0,
+          "p99": 419.0,
+          "max": 1294.0
+        },
+        "truncated_rate": 0.21711880261927036,
+        "method": "tokenizer vinai/phobert-base"
+      },
+      "val": {
+        "tokens": {
+          "p50": 137.0,
+          "p90": 322.20000000000005,
+          "p95": 360.0999999999999,
+          "p99": 452.0,
+          "max": 536.0
+        },
+        "truncated_rate": 0.23823749066467514,
+        "method": "tokenizer vinai/phobert-base"
+      },
+      "test": {
+        "tokens": {
+          "p50": 129.0,
+          "p90": 315.0,
+          "p95": 349.0999999999999,
+          "p99": 421.9599999999991,
+          "max": 529.0
+        },
+        "truncated_rate": 0.21359223300970873,
+        "method": "tokenizer vinai/phobert-base"
+      }
+    },
+    "task_value": {
+      "train": {
+        "products": 10690,
+        "images": 33071,
+        "products_with_2plus_images": 5721,
+        "confusable_share": 0.47998129092609915,
+        "expected_confusable_pairs_per_batch": 1.6918001694476046
+      },
+      "val": {
+        "products": 1339,
+        "images": 4247,
+        "products_with_2plus_images": 692,
+        "confusable_share": 0.3659447348767737,
+        "expected_confusable_pairs_per_batch": 2.5498447740600207
+      },
+      "test": {
+        "products": 1339,
+        "images": 4516,
+        "products_with_2plus_images": 754,
+        "confusable_share": 0.32561613144137413,
+        "expected_confusable_pairs_per_batch": 2.698379421092643
+      }
+    }
+  },
+  "flag_counts": {
+    "anh_gan_trung_train": 1109,
+    "san_pham_qua_nho_trong_anh": 23,
+    "tách_từ_lệch": 111,
+    "quá_ngắn_(<5_từ)": 7,
+    "category_nghi_sai": 209
+  }
+}

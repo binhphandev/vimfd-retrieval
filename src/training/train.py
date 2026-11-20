@@ -8,8 +8,8 @@
 import os
 import sys
 import csv
-import json
 import math
+import argparse
 from pathlib import Path
 
 import torch
@@ -19,28 +19,29 @@ from torch.optim import AdamW
 from torch.optim.lr_scheduler import LambdaLR
 from torch.utils.data import Dataset, DataLoader
 
+ROOT_DIR = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT_DIR))
+sys.path.insert(0, str(ROOT_DIR / "data"))
+
 from src.models.model import ViMFRModel
 from src.models.loss import InfoNCELoss
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'data'))
-from dataset import build_dataloaders  # noqa: E402
+from dataset import build_dataloaders, load_jsonl  # noqa: E402
 
 import config as cfg  # noqa: E402
 from config import (  # noqa: E402
-    BATCH_SIZE, NUM_EPOCHS, WARMUP_EPOCHS,
+    BATCH_SIZE, NUM_EPOCHS, NUM_WORKERS, WARMUP_EPOCHS,
     LR_BACKBONE, LR_HEAD, WEIGHT_DECAY,
     GRAD_CLIP_NORM, LOGIT_SCALE_MAX,
     CHECKPOINT_BEST, CHECKPOINT_LATEST,
     CKPT_MODEL_KEY, CKPT_LOGIT_SCALE_KEY, CKPT_EPOCH_KEY, CKPT_VAL_LOSS_KEY,
-    PROCESSED_DIR, IMAGE_DIR,
+    PROCESSED_DIR, SPLIT_DIR, IMAGE_DIR,
     IMAGE_SIZE, IMAGE_MEAN, IMAGE_STD,
     IMAGE_LIST_FIELD, IMAGE_PRIMARY_FIELD, IMAGE_POSITION_FIELD,
     PRODUCT_ID_FIELD,
 )
 
-# config.py bạn gửi không có IMAGE_PATH_FIELD (build_index.py thì import nó) -> dùng mặc định
-IMAGE_PATH_FIELD = getattr(cfg, "IMAGE_PATH_FIELD", "local_path")
-NUM_WORKERS = 2  # đặt 0 nếu gặp lỗi DataLoader trên Windows
+IMAGE_PATH_FIELD = cfg.IMAGE_PATH_FIELD
 
 
 # ------------------------------------------------------------------
@@ -82,8 +83,7 @@ class AltImageDataset(Dataset):
     (cùng format với dataset chính nên dùng lại được trong evaluate.py)."""
 
     def __init__(self, json_path):
-        with open(json_path, encoding="utf-8") as f:
-            products = json.load(f)
+        products = load_jsonl(Path(json_path))
         # QUAN TRỌNG: transform này phải GIỐNG transform ảnh của val/test trong dataset.py
         self.transform = T.Compose([
             T.Resize(IMAGE_SIZE),
@@ -129,8 +129,12 @@ def get_optimizer(model: ViMFRModel) -> AdamW:
     ])
 
 
-def get_scheduler(optimizer, steps_per_epoch: int) -> LambdaLR:
-    total_steps = NUM_EPOCHS * steps_per_epoch
+def get_scheduler(
+    optimizer,
+    steps_per_epoch: int,
+    num_epochs: int = NUM_EPOCHS,
+) -> LambdaLR:
+    total_steps = num_epochs * steps_per_epoch
     warmup_steps = min(WARMUP_EPOCHS * steps_per_epoch, total_steps // 2)
 
     def lr_lambda(step: int) -> float:
@@ -156,12 +160,23 @@ def _recall(rank: torch.Tensor, ks):
 
 
 @torch.no_grad()
-def validate(model, loader, alt_loader, loss_fn, device, use_amp, ks=(1, 5, 10)):
+def validate(
+    model,
+    loader,
+    alt_loader,
+    loss_fn,
+    device,
+    use_amp,
+    ks=(1, 5, 10),
+    max_batches=None,
+):
     model.eval()
     val_loss, n_batches = 0.0, 0
     all_img, all_txt, gallery_ids = [], [], []
 
-    for batch in loader:
+    for batch_index, batch in enumerate(loader):
+        if max_batches is not None and batch_index >= max_batches:
+            break
         pixel_values   = batch["image"].to(device)
         input_ids      = batch["input_ids"].to(device)
         attention_mask = batch["attention_mask"].to(device)
@@ -188,7 +203,9 @@ def validate(model, loader, alt_loader, loss_fn, device, use_amp, ks=(1, 5, 10))
     i2i = None
     if alt_loader is not None:
         q_embs, q_ids = [], []
-        for batch in alt_loader:
+        for batch_index, batch in enumerate(alt_loader):
+            if max_batches is not None and batch_index >= max_batches:
+                break
             with torch.autocast(device_type=device.type, dtype=torch.float16, enabled=use_amp):
                 e = model.encode_image(batch["image"].to(device))
             q_embs.append(e.float().cpu())
@@ -221,42 +238,89 @@ def save_ckpt(path, model, epoch, val_loss, extra=None):
 # ------------------------------------------------------------------
 # Training loop
 # ------------------------------------------------------------------
-def train():
+def train(
+    batch_size=BATCH_SIZE,
+    num_epochs=NUM_EPOCHS,
+    max_train_batches=None,
+    max_val_batches=None,
+    output_dir=None,
+):
+    if num_epochs < 1:
+        raise ValueError("num_epochs must be at least 1.")
+    if batch_size < 2:
+        raise ValueError("InfoNCE training requires batch_size >= 2.")
+    if max_train_batches is not None and max_train_batches < 1:
+        raise ValueError("max_train_batches must be at least 1.")
+    if max_val_batches is not None and max_val_batches < 1:
+        raise ValueError("max_val_batches must be at least 1.")
+
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     use_amp = device.type == "cuda"
-    print(f"Device: {device} | AMP: {use_amp} | batch_size: {BATCH_SIZE}")
+    print(
+        f"Device: {device} | AMP: {use_amp} | batch_size: {batch_size} "
+        f"| epochs: {num_epochs}"
+    )
+    if max_train_batches is not None or max_val_batches is not None:
+        print(
+            "PILOT mode: "
+            f"max_train_batches={max_train_batches}, "
+            f"max_val_batches={max_val_batches}"
+        )
 
     model = ViMFRModel().to(device)
     loss_fn = InfoNCELoss()
 
     loaders = build_dataloaders(
-        batch_size=BATCH_SIZE,
+        batch_size=batch_size,
         num_workers=NUM_WORKERS,
-        split_dir=Path(PROCESSED_DIR),
+        split_dir=Path(SPLIT_DIR),
         image_dir=Path(IMAGE_DIR),
     )
     train_loader, val_loader = loaders["train"], loaders["val"]
 
     # Query ảnh phụ cho I→I
-    alt_ds = AltImageDataset(Path(PROCESSED_DIR) / "val.json")
+    alt_ds = AltImageDataset(Path(SPLIT_DIR) / "val.jsonl")
     print(f"I→I: {len(alt_ds)} sản phẩm val có ảnh phụ làm query")
     alt_loader = None
     if len(alt_ds) > 0:
-        alt_loader = DataLoader(alt_ds, batch_size=BATCH_SIZE, shuffle=False,
+        alt_loader = DataLoader(alt_ds, batch_size=batch_size, shuffle=False,
                                 num_workers=NUM_WORKERS)
     else:
         print("  ⚠ Không tìm được ảnh phụ nào -> bỏ qua I→I. "
               "Kiểm tra IMAGE_PATH_FIELD / đường dẫn ảnh trong config.")
 
     optimizer = get_optimizer(model)
-    scheduler = get_scheduler(optimizer, steps_per_epoch=len(train_loader))
+    steps_per_epoch = len(train_loader)
+    if max_train_batches is not None:
+        steps_per_epoch = min(steps_per_epoch, max_train_batches)
+    scheduler = get_scheduler(
+        optimizer,
+        steps_per_epoch=max(1, steps_per_epoch),
+        num_epochs=num_epochs,
+    )
     scaler = torch.amp.GradScaler("cuda", enabled=use_amp)
 
     max_log_scale = math.log(LOGIT_SCALE_MAX)
-    print(f"Sanity: loss ban đầu nên ≈ log({BATCH_SIZE}) = {math.log(BATCH_SIZE):.3f}")
+    print(f"Sanity: loss ban đầu nên ≈ log({batch_size}) = {math.log(batch_size):.3f}")
 
-    os.makedirs("results", exist_ok=True)
-    log_path = "results/loss_log.csv"
+    if output_dir is None:
+        log_path = Path("results/loss_log.csv")
+        best_checkpoint = Path(CHECKPOINT_BEST)
+        latest_checkpoint = Path(CHECKPOINT_LATEST)
+    else:
+        output_dir = Path(output_dir)
+        if output_dir.exists() and any(output_dir.iterdir()):
+            raise FileExistsError(
+                f"Run output directory is not empty: {output_dir}"
+            )
+        output_dir.mkdir(parents=True, exist_ok=True)
+        log_path = output_dir / "loss_log.csv"
+        best_checkpoint = output_dir / "best.pt"
+        latest_checkpoint = output_dir / "latest.pt"
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    best_checkpoint.parent.mkdir(parents=True, exist_ok=True)
+    latest_checkpoint.parent.mkdir(parents=True, exist_ok=True)
+
     with open(log_path, "w", newline="") as f:
         csv.writer(f).writerow([
             "epoch", "train_loss", "val_loss", "logit_scale",
@@ -265,12 +329,14 @@ def train():
 
     best_score = -1.0
 
-    for epoch in range(1, NUM_EPOCHS + 1):
+    for epoch in range(1, num_epochs + 1):
         # --- Train ---
         model.train()
         train_loss, n_batches = 0.0, 0
 
-        for batch in train_loader:
+        for batch_index, batch in enumerate(train_loader):
+            if max_train_batches is not None and batch_index >= max_train_batches:
+                break
             pixel_values   = batch["image"].to(device)
             input_ids      = batch["input_ids"].to(device)
             attention_mask = batch["attention_mask"].to(device)
@@ -301,10 +367,18 @@ def train():
         train_loss /= max(1, n_batches)
 
         # --- Validation ---
-        val_loss, t2i, i2i = validate(model, val_loader, alt_loader, loss_fn, device, use_amp)
+        val_loss, t2i, i2i = validate(
+            model,
+            val_loader,
+            alt_loader,
+            loss_fn,
+            device,
+            use_amp,
+            max_batches=max_val_batches,
+        )
         scale_val = model.logit_scale.exp().item()
 
-        msg = (f"Epoch {epoch:03d}/{NUM_EPOCHS} | train: {train_loss:.4f} | "
+        msg = (f"Epoch {epoch:03d}/{num_epochs} | train: {train_loss:.4f} | "
                f"val: {val_loss:.4f} | scale: {scale_val:.1f}\n"
                f"   T→I R@1/5/10: {t2i[1]:.3f}/{t2i[5]:.3f}/{t2i[10]:.3f}")
         if i2i is not None:
@@ -319,15 +393,33 @@ def train():
                 round(i2i_row[1], 4), round(i2i_row[5], 4), round(i2i_row[10], 4),
             ])
 
-        save_ckpt(CHECKPOINT_LATEST, model, epoch, val_loss)
+        save_ckpt(latest_checkpoint, model, epoch, val_loss)
 
         # Best theo Recall@10 trung bình của 2 hướng
         score = (t2i[10] + i2i[10]) / 2 if i2i is not None else t2i[10]
         if score > best_score:
             best_score = score
-            save_ckpt(CHECKPOINT_BEST, model, epoch, val_loss, extra={"val_recall10": score})
+            save_ckpt(best_checkpoint, model, epoch, val_loss, extra={"val_recall10": score})
             print(f"  ✓ Saved best checkpoint (val R@10 avg = {score:.4f})")
 
 
 if __name__ == "__main__":
-    train()
+    parser = argparse.ArgumentParser(description="Train ViMFR.")
+    parser.add_argument("--batch-size", type=int, default=BATCH_SIZE)
+    parser.add_argument("--epochs", type=int, default=NUM_EPOCHS)
+    parser.add_argument("--max-train-batches", type=int, default=None)
+    parser.add_argument("--max-val-batches", type=int, default=None)
+    parser.add_argument(
+        "--output-dir",
+        type=Path,
+        default=None,
+        help="Separate directory for loss_log.csv and checkpoints.",
+    )
+    args = parser.parse_args()
+    train(
+        batch_size=args.batch_size,
+        num_epochs=args.epochs,
+        max_train_batches=args.max_train_batches,
+        max_val_batches=args.max_val_batches,
+        output_dir=args.output_dir,
+    )
