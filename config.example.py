@@ -7,12 +7,13 @@ import os
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(ROOT_DIR, "data")
 PROCESSED_DIR = os.path.join(DATA_DIR, "processed")
-# Images consumed by training/indexing; data_preprocess.py writes resized JPEGs here.
+# Cleaned per-source JSONL files and processed images are written here.
 IMAGE_DIR = os.path.join(PROCESSED_DIR, "images")
+SPLIT_DIR = os.path.join(DATA_DIR, "splits")
 CHECKPOINT_DIR = os.path.join(ROOT_DIR, "checkpoints")
 INDEX_DIR = os.path.join(ROOT_DIR, "index")
 
-for _dir in [DATA_DIR, IMAGE_DIR, PROCESSED_DIR, CHECKPOINT_DIR, INDEX_DIR]:
+for _dir in [DATA_DIR, IMAGE_DIR, PROCESSED_DIR, SPLIT_DIR, CHECKPOINT_DIR, INDEX_DIR]:
     os.makedirs(_dir, exist_ok=True)
 
 # --- Product schema ---
@@ -31,8 +32,7 @@ IMAGE_PATH_FIELD = "local_path"
 # --- Text / PhoBERT ---
 PHOBERT_MODEL = "vinai/phobert-base"  # hoặc phobert-large
 MAX_TEXT_LENGTH = 256
-TEXT_FIELDS = ["name", "description", "category", "tags"]
-MODEL_TEXT_FIELD = "retrieval_text"
+MODEL_TEXT_FIELD = "text_seg"
 
 # --- Model architecture ---
 CLIP_MODEL = "openai/clip-vit-base-patch32"
@@ -41,13 +41,17 @@ TEXT_BACKBONE_DIM = 768
 EMBED_DIM = 256  # ProjectionHead output, L2-normalized
 UNFREEZE_LAST_N = 2  # thử 4, 6 sau khi smoke test ổn
 PROJECTION_DROPOUT = 0.1
-LOGIT_SCALE_INIT = 14.29  # log(1/0.07)
+LOGIT_SCALE_INIT = 2.65926  # log(1/0.07); model.exp() gives an initial scale near 14.29
 LOGIT_SCALE_MAX = 100.0
 
 # --- Training ---
-BATCH_SIZE = 32  # giảm xuống BATCH_SIZE_CPU nếu chạy CPU
+BATCH_SIZE = 64
 BATCH_SIZE_CPU = 4
-NUM_EPOCHS = 10
+NUM_EPOCHS = 30
+NUM_WORKERS = 2
+EVAL_BATCH_SIZE = 64
+EVALUATION_SPLIT = "test"
+GALLERY_MODE = "test-only"
 WARMUP_EPOCHS = 2
 LR_BACKBONE = 1e-5
 LR_HEAD = 1e-4
@@ -55,14 +59,11 @@ WEIGHT_DECAY = 0.01
 GRAD_CLIP_NORM = 1.0
 
 # --- Data split ---
-TRAIN_RATIO = 0.80
-VAL_RATIO = 0.10
-TEST_RATIO = 0.10
 RANDOM_SEED = 42
 
 # --- Checkpoint ---
 # Format: { "model_state_dict", "logit_scale", "epoch", "val_loss" }
-CHECKPOINT_BEST = os.path.join(CHECKPOINT_DIR, "best.pt")
+CHECKPOINT_BEST = os.path.join(CHECKPOINT_DIR, "best_18112026.pt")
 CHECKPOINT_LATEST = os.path.join(CHECKPOINT_DIR, "latest.pt")
 CKPT_MODEL_KEY = "model_state_dict"
 CKPT_LOGIT_SCALE_KEY = "logit_scale"

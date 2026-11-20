@@ -23,14 +23,31 @@ from config import (
     MAX_TEXT_LENGTH,
     MODEL_TEXT_FIELD,
     PHOBERT_MODEL,
-    PROCESSED_DIR,
+    SPLIT_DIR,
+    BATCH_SIZE,
+    NUM_WORKERS,
+    IMAGE_DIR,
     PRODUCT_ID_FIELD,
 )
-from src.text_processing.text_utils import get_model_text
 
 log = logging.getLogger(__name__)
 
 SplitType = Literal["train", "val", "test"]
+
+
+def load_jsonl(path: Path) -> list[dict]:
+    records = []
+    with path.open(encoding="utf-8") as file:
+        for line_number, line in enumerate(file, start=1):
+            if not line.strip():
+                continue
+            try:
+                records.append(json.loads(line))
+            except json.JSONDecodeError as error:
+                raise ValueError(
+                    f"Invalid JSON in {path} at line {line_number}."
+                ) from error
+    return records
 
 
 def _pick_primary_image(images: list[dict]) -> dict | None:
@@ -109,17 +126,16 @@ class ViMFDDataset(Dataset):
         self.tokenizer = tokenizer
         self.transform = get_image_transform(split)
 
-        self.split_dir = Path(split_dir) if split_dir else Path(PROCESSED_DIR)
-        self.image_dir = Path(image_dir) if image_dir else self.split_dir / "images"
+        self.split_dir = Path(split_dir) if split_dir else Path(SPLIT_DIR)
+        self.image_dir = Path(image_dir) if image_dir else Path(IMAGE_DIR)
 
-        json_path = self.split_dir / f"{split}.json"
-        if not json_path.exists():
+        jsonl_path = self.split_dir / f"{split}.jsonl"
+        if not jsonl_path.exists():
             raise FileNotFoundError(
-                f"Không tìm thấy {json_path}. Hãy chạy data_preprocess.py trước."
+                f"Không tìm thấy {jsonl_path}. Hãy chạy common.py và build_splits.py trước."
             )
 
-        with json_path.open(encoding="utf-8") as file:
-            self.data: list[dict] = json.load(file)
+        self.data = load_jsonl(jsonl_path)
 
         log.info("ViMFDDataset [%s]: %s products", split, len(self.data))
 
@@ -133,7 +149,12 @@ class ViMFDDataset(Dataset):
         product_id = str(product.get(PRODUCT_ID_FIELD, "<missing id>"))
         image_tensor = self._load_image(img_meta, product_id)
 
-        text = get_model_text(product, MODEL_TEXT_FIELD)
+        text = product.get(MODEL_TEXT_FIELD)
+        if not isinstance(text, str) or not text.strip():
+            raise ValueError(
+                f"Sản phẩm {product_id} thiếu trường text hợp lệ "
+                f"{MODEL_TEXT_FIELD!r}."
+            )
         encoding = self.tokenizer(
             text,
             max_length=MAX_TEXT_LENGTH,
@@ -176,8 +197,8 @@ class ViMFDDataset(Dataset):
 # --- DataLoader builder ---
 
 def build_dataloaders(
-    batch_size: int = 64,
-    num_workers: int = 4,
+    batch_size: int = BATCH_SIZE,
+    num_workers: int = NUM_WORKERS,
     split_dir: Path | None = None,
     image_dir: Path | None = None,
 ) -> dict[str, DataLoader]:
@@ -213,7 +234,7 @@ if __name__ == "__main__":
     loaders = build_dataloaders(
         batch_size=4,
         num_workers=0,
-        split_dir=Path(PROCESSED_DIR),
+        split_dir=Path(SPLIT_DIR),
     )
 
     for split, loader in loaders.items():

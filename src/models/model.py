@@ -1,4 +1,3 @@
-from xml.parsers.expat import model
 import torch
 import torch.nn as nn
 from src.models.encoders import VisualEncoder, TextEncoder

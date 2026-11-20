@@ -1,28 +1,60 @@
-=== Text → Image | gallery: full (12712) ===
-Queries   : 1272
-Recall@1  : 0.0314
-Recall@5  : 0.1281
-Recall@10 : 0.2115
-NDCG@10   : 0.1067
+=== Text → Image | gallery: full (13368) ===
+Queries   : 1339 (sản phẩm: 1339)
+[micro — mỗi ảnh một phiếu]
+Recall@1  : 0.0157
+Recall@5  : 0.0919
+Recall@10 : 0.1538
+MRR       : 0.0492
+NDCG@10   : 0.0734
+[macro — mỗi sản phẩm một phiếu]
+Recall@1  : 0.0157
+Recall@5  : 0.0919
+Recall@10 : 0.1538
+MRR       : 0.0492
+NDCG@10   : 0.0734
 
-=== Image → Image | gallery: full (12712) ===
-Queries   : 1
-Recall@1  : 0.0000
-Recall@5  : 0.0000
-Recall@10 : 0.0000
-NDCG@10   : 0.0000
+=== Image → Image | gallery: full (13368) ===
+Queries   : 751 (sản phẩm: 751)
+[micro — mỗi ảnh một phiếu]
+Recall@1  : 0.4181
+Recall@5  : 0.6245
+Recall@10 : 0.6951
+MRR       : 0.5026
+NDCG@10   : 0.5486
+[macro — mỗi sản phẩm một phiếu]
+Recall@1  : 0.4181
+Recall@5  : 0.6245
+Recall@10 : 0.6951
+MRR       : 0.5026
+NDCG@10   : 0.5486
 
-=== Text → Image | gallery: test-only (1272) ===
-Queries   : 1272
-Recall@1  : 0.2351
-Recall@5  : 0.5684
-Recall@10 : 0.7193
-NDCG@10   : 0.4564
+=== Text → Image | gallery: test-only (1339) ===
+Queries   : 1339 (sản phẩm: 1339)
+[micro — mỗi ảnh một phiếu]
+Recall@1  : 0.1621
+Recall@5  : 0.4563
+Recall@10 : 0.6169
+MRR       : 0.2889
+NDCG@10   : 0.3663
+[macro — mỗi sản phẩm một phiếu]
+Recall@1  : 0.1621
+Recall@5  : 0.4563
+Recall@10 : 0.6169
+MRR       : 0.2889
+NDCG@10   : 0.3663
 
-=== Image → Image | gallery: test-only (1272) ===
-Queries   : 1
-Recall@1  : 0.0000
-Recall@5  : 0.0000
-Recall@10 : 0.0000
-NDCG@10   : 0.0000
+=== Image → Image | gallery: test-only (1339) ===
+Queries   : 751 (sản phẩm: 751)
+[micro — mỗi ảnh một phiếu]
+Recall@1  : 0.5486
+Recall@5  : 0.7803
+Recall@10 : 0.8429
+MRR       : 0.6460
+NDCG@10   : 0.6936
+[macro — mỗi sản phẩm một phiếu]
+Recall@1  : 0.5486
+Recall@5  : 0.7803
+Recall@10 : 0.8429
+MRR       : 0.6460
+NDCG@10   : 0.6936
 

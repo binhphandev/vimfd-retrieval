@@ -1,6 +1,6 @@
 """
 Pipeline:
-    1. Load checkpoint từ Người A
+    1. Load checkpoint 
     2. Encode toàn bộ text sản phẩm → 256D embeddings
     3. Build FAISS IndexFlatIP
     4. Lưu index + id_mapping.json
@@ -47,10 +47,20 @@ from config import (
     MAX_TEXT_LENGTH,
     MODEL_TEXT_FIELD,
     PHOBERT_MODEL,
-    PROCESSED_DIR,
     PRODUCT_ID_FIELD,
+    SPLIT_DIR,
+    CKPT_EPOCH_KEY,
+    CKPT_VAL_LOSS_KEY,
 )
-from src.text_processing.text_utils import get_model_text
+# Quy tắc dữ liệu/ảnh dùng CHUNG với API (src/serving/engine.py) và khớp train_colab.ipynb
+from src.serving.catalog import (
+    ckpt_fingerprint,
+    get_eval_transform,
+    load_products,
+    primary_image,
+    resolve_image,
+    write_index_meta,
+)
 
 log = logging.getLogger(__name__)
 
@@ -60,35 +70,13 @@ log = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 
 def _select_primary_image(product: dict) -> Optional[dict]:
-    """
-    Chọn ảnh đại diện của sản phẩm từ IMAGE_LIST_FIELD.
-    Ưu tiên: is_featured=True → position nhỏ nhất → phần tử đầu tiên.
-    """
-    images = product.get(IMAGE_LIST_FIELD)
-    if not isinstance(images, list) or not images:
-        return None
-
-    for img in images:
-        if isinstance(img, dict) and img.get(IMAGE_PRIMARY_FIELD):
-            return img
-
-    try:
-        return sorted(
-            (img for img in images if isinstance(img, dict)),
-            key=lambda img: img.get(IMAGE_POSITION_FIELD, float("inf")),
-        )[0]
-    except IndexError:
-        return None
+    """Ảnh đại diện: is_featured -> position nhỏ nhất (chỉ xét ảnh có local_path). Dùng chung với API."""
+    return primary_image(product)
 
 
 def build_image_transform() -> T.Compose:
-    """Transform ảnh dùng chung cho encode — resize/crop + normalize theo config."""
-    return T.Compose([
-        T.Resize(IMAGE_SIZE),
-        T.CenterCrop(IMAGE_SIZE),
-        T.ToTensor(),
-        T.Normalize(mean=IMAGE_MEAN, std=IMAGE_STD),
-    ])
+    """Đúng transform eval lúc train (data/dataset.py: Resize BICUBIC -> CenterCrop -> Normalize)."""
+    return get_eval_transform()
 
 
 def _load_image_tensor(product: dict, transform: T.Compose) -> Optional[torch.Tensor]:
@@ -97,43 +85,24 @@ def _load_image_tensor(product: dict, transform: T.Compose) -> Optional[torch.Te
     if img_meta is None:
         return None
 
-    rel_path = img_meta.get(IMAGE_PATH_FIELD)
-    if not rel_path:
+    # resolve_image chịu được local_path ghi .png nhưng file thật là .jpg
+    img_path = resolve_image(img_meta.get(IMAGE_PATH_FIELD, ""))
+    if img_path is None:
+        log.warning(f"  Bỏ qua ảnh không tồn tại: {img_meta.get(IMAGE_PATH_FIELD)}")
         return None
-
-    img_path = Path(rel_path)
-    if not img_path.is_absolute():
-        rel = img_path
-        if rel.parts and rel.parts[0] == "images":
-            rel = Path(*rel.parts[1:])
-        img_path = Path(IMAGE_DIR) / rel
 
     try:
         with Image.open(img_path) as im:
             im = im.convert("RGB")
-            # transform (Resize → CenterCrop → ToTensor → Normalize) trả về
-            # torch.Tensor lúc runtime, nhưng type stub của Compose là generic
-            # theo input nên Pylance suy luận nhầm ra kiểu Image — cast lại cho đúng.
             return cast(torch.Tensor, transform(im))
-    except (FileNotFoundError, OSError) as e:
-        log.warning(f"  Bỏ qua ảnh lỗi/không tồn tại: {img_path} ({e})")
+    except OSError as e:
+        log.warning(f"  Bỏ qua ảnh lỗi: {img_path} ({e})")
         return None
 
 
-def load_all_products(processed_dir: Path) -> list[dict]:
-    """Load toàn bộ sản phẩm từ train + val + test."""
-    all_products = []
-    for split in ("train", "val", "test"):
-        json_path = processed_dir / f"{split}.json"
-        if not json_path.exists():
-            raise FileNotFoundError(
-                f"Không tìm thấy {json_path}. Hãy chạy data_preprocess.py trước."
-            )
-        with open(json_path, encoding="utf-8") as f:
-            all_products.extend(json.load(f))
-
-    log.info(f"Loaded {len(all_products)} products từ train/val/test")
-    return all_products
+def load_all_products(split_dir: Path) -> list[dict]:
+    """Toàn bộ sản phẩm từ SPLIT_DIR/{train,val,test}.jsonl (nguồn dữ liệu hiện tại)."""
+    return load_products(split_dir)
 
 
 def load_model(checkpoint_path: Path, device: torch.device):
@@ -158,7 +127,9 @@ def load_model(checkpoint_path: Path, device: torch.device):
     model.to(device)
     model.eval()
 
-    log.info(f"  epoch={ckpt.get('epoch', '?')} | val_loss={ckpt.get('val_loss', '?'):.4f}")
+    val_loss = ckpt.get(CKPT_VAL_LOSS_KEY)
+    val_loss = f"{val_loss:.4f}" if isinstance(val_loss, (int, float)) else "?"
+    log.info(f"  epoch={ckpt.get(CKPT_EPOCH_KEY, '?')} | val_loss={val_loss}")
     return model
 
 
@@ -187,7 +158,12 @@ def encode_all_products(
     for i in tqdm(range(0, len(products), batch_size), desc="Encoding"):
         batch = products[i : i + batch_size]
 
-        texts = [get_model_text(p, MODEL_TEXT_FIELD) for p in batch]
+        # Current split records already contain text_seg from the external
+        # preprocessing pipeline. Fall back for older records without that field.
+        texts = [
+            str(p.get(MODEL_TEXT_FIELD) or p.get("text") or p.get("name") or "")
+            for p in batch
+        ]
         ids   = [str(p[PRODUCT_ID_FIELD]) for p in batch]
 
         encoding = tokenizer(
@@ -270,7 +246,7 @@ def encode_all_products_images(
             log.warning(f"  Ví dụ path đã thử (không tồn tại/lỗi): {sample_failed_paths}")
 
     if not all_embeddings:
-        raise RuntimeError("Không encode được ảnh nào, kiểm tra lại IMAGE_PATH_FIELD / PROCESSED_DIR trong config.")
+        raise RuntimeError("Không encode được ảnh nào, kiểm tra lại IMAGE_PATH_FIELD / IMAGE_DIR / SPLIT_DIR trong config.")
 
     embeddings = np.vstack(all_embeddings).astype(np.float32)
     log.info(f"Encoded {len(valid_ids)} product images → shape {embeddings.shape}")
@@ -434,7 +410,7 @@ def main():
     log.info(f"Device: {device}")
 
     # --- Load data ---
-    products = load_all_products(Path(PROCESSED_DIR))
+    products = load_all_products(Path(SPLIT_DIR))
 
     # --- Load model ---
     model = load_model(args.checkpoint, device)
@@ -460,9 +436,9 @@ def main():
 
 
     # --- Encode + build & save IMAGE index ---
-    # QUAN TRỌNG: đây là index riêng, không gian embedding khác với text index
-    # ở trên (encode_image vs encode_text). Mọi query dạng ảnh (Image→Image,
-    # Image→Text) phải search vào index này, KHÔNG được search vào FAISS_INDEX_FILE.
+    # QUAN TRỌNG: API chỉ dùng index này. Mọi query (Text→Image và Image→Image,
+    # như search_text/search_image trong train_colab.ipynb) đều search vào image index.
+    # Text index ở trên không còn được API dùng: có thể thêm --skip-text để bỏ qua.
     transform = build_image_transform()
     image_embeddings, image_product_ids = encode_all_products_images(
         products, model, transform, device, batch_size=args.batch_size
@@ -473,6 +449,17 @@ def main():
         image_product_ids,
         index_path=Path(FAISS_IMAGE_INDEX_FILE),
         mapping_path=Path(FAISS_IMAGE_MAPPING_FILE),
+    )
+    # Dấu vân tay để API từ chối chạy nếu index và checkpoint/dữ liệu không khớp nhau
+    write_index_meta(
+        FAISS_IMAGE_INDEX_FILE,
+        checkpoint=str(args.checkpoint),
+        fingerprint=ckpt_fingerprint(args.checkpoint),
+        split_dir=str(SPLIT_DIR),
+        image_dir=str(IMAGE_DIR),
+        n_products=len(products),
+        n_indexed=len(image_product_ids),
+        transform=repr(transform),
     )
 
     if not args.no_smoke_test:
