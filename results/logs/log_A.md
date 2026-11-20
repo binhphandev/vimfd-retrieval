@@ -34,3 +34,15 @@
 - train: 5003 dương, 20002 âm (1:4.00); bỏ vì 0 âm: 3; thiếu ảnh: 0; TB bị loại/truy vấn: 8.1/50; âm cùng loại: 49%; âm cùng loại và khớp n−1 thuộc tính: 40%
 - val: 806 dương, 3224 âm (1:4.00); bỏ vì 0 âm: 0; thiếu ảnh: 0; TB bị loại/truy vấn: 7.2/50; âm cùng loại: 35%; âm cùng loại và khớp n−1 thuộc tính: 28%
 - Kiểm tra 20 cặp (tự động): 20/20 — nhớ ghi kết quả ĐỌC BẰNG MẮT của A vào log
+
+## V5 — khai thác âm khó
+- Tham số: seed=42, top_k=50, n_neg=4, strict_n1=False, thời gian=412s
+- train: 5006 dương, 20024 âm (1:4.00); bỏ vì 0 âm: 0; thiếu ảnh: 7511; TB bị loại/truy vấn: 3.2/50; âm cùng loại: 35%; âm cùng loại và khớp n−1 thuộc tính: 23%
+- val: 806 dương, 3224 âm (1:4.00); bỏ vì 0 âm: 0; thiếu ảnh: 955; TB bị loại/truy vấn: 3.1/50; âm cùng loại: 21%; âm cùng loại và khớp n−1 thuộc tính: 16%
+- Kiểm tra 20 cặp (tự động): 20/20 — nhớ ghi kết quả ĐỌC BẰNG MẮT của A vào log
+
+## V5 — khai thác âm khó
+- Tham số: seed=42, top_k=50, n_neg=4, strict_n1=False, thời gian=111s
+- train: 5006 dương, 20024 âm (1:4.00); bỏ vì 0 âm: 0; thiếu ảnh: 7511; TB bị loại/truy vấn: 3.5/50; âm cùng loại: 35%; âm cùng loại và khớp n−1 thuộc tính: 23%
+- val: 806 dương, 3224 âm (1:4.00); bỏ vì 0 âm: 0; thiếu ảnh: 955; TB bị loại/truy vấn: 3.5/50; âm cùng loại: 21%; âm cùng loại và khớp n−1 thuộc tính: 17%
+- Kiểm tra 20 cặp (tự động): 20/20 — nhớ ghi kết quả ĐỌC BẰNG MẮT của A vào log

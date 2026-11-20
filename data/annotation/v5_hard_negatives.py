@@ -43,7 +43,6 @@ import time
 import unicodedata
 from collections import Counter, defaultdict
 from pathlib import Path
-from xml.parsers.expat import model
 
 import numpy as np
 import openpyxl
@@ -57,7 +56,7 @@ from src.models.model import ViMFRModel, load_state_dict_compat
 import config
 SEED = 42
 
-ROOT         = Path(".")
+
 PSEUDO_TRAIN = ROOT / "data/annotation/cross_encoder/pseudo_train.csv"
 PSEUDO_VAL   = ROOT / "data/annotation/cross_encoder/pseudo_val.csv"
 ATTRS_PATH   = ROOT / "data/annotation/cross_encoder/product_attrs.json"
@@ -156,12 +155,22 @@ class ImagePathDataset:
 # ══════════════════════════════════════════════════════════════════
 # Biến thể viết khác của giá trị chuẩn (ngoài bảng đồng nghĩa)
 VARIANTS = {
-    "oversize": ["oversized"], "slim fit": ["slimfit"], "regular fit": ["regularfit"],
-    "relaxed fit": ["relax fit", "relax"], "straight fit": ["straight"], "skinny": ["skinny fit"],
+    # kiểu dáng: gồm cả cách gọi trong tên/mô tả sản phẩm mà bảng đồng nghĩa (do B chỉnh) có thể không chứa
+    "oversize": ["oversized", "form rộng", "phom rộng", "dáng rộng"],
+    "slim fit": ["slimfit", "form slim", "phom slim", "ôm sát", "form ôm", "dáng ôm", "ôm người"],
+    "regular fit": ["regularfit", "form regular", "phom regular", "form vừa", "phom vừa", "dáng vừa",
+                    "form tiêu chuẩn", "dáng tiêu chuẩn", "classic fit", "standard fit"],
+    "relaxed fit": ["relax fit", "relax", "form thoải mái", "dáng thoải mái"],
+    "straight fit": ["straight", "ống đứng", "ống suông", "dáng thẳng"],
+    "skinny": ["skinny fit", "dáng bó"],
     "tapered": ["tapered fit", "ống côn"], "wide leg": ["wide-leg", "ống rộng"], "loose fit": ["loose"],
-    "smart casual": ["business casual"], "streetwear": ["street style"], "vintage": ["retro", "cổ điển"],
-    "minimalist": ["minimal"], "công sở": ["office"], "thể thao": ["sportswear", "sporty"],
-    "leather": ["da thật"], "denim": ["jeans"],
+    # phong cách
+    "smart casual": ["business casual", "thanh lịch"], "streetwear": ["street style", "đường phố"],
+    "vintage": ["retro", "cổ điển"], "minimalist": ["minimal", "tối giản"],
+    "công sở": ["office", "văn phòng"], "thể thao": ["sportswear", "sporty"],
+    "casual": ["thường ngày", "đời thường"],
+    # chất liệu
+    "leather": ["da thật"], "denim": ["jeans", "vải bò"],
 }
 
 
