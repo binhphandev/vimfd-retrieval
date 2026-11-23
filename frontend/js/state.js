@@ -15,12 +15,14 @@ export const S = {
   cur: null,             // id sản phẩm đang xem chi tiết
   dcache: null,          // [product, similar, full] của trang chi tiết
   byId: new Map(),       // mọi sản phẩm đã thấy, để mở chi tiết không cần gọi lại
+  facets: [], qcolors: [], dropped: [],   // màu có trong kết quả / màu trong mô tả / màu bị bỏ
+  browse: false,         // true = không có truy vấn, đang duyệt toàn bộ sản phẩm
   hiIds: new Set(),      // top 4 điểm cao nhất -> badge "Rất phù hợp"
   res: false,            // chế độ nghiên cứu
   w: 55,                 // thanh trượt 0–100 (100 = chỉ theo ảnh)
   sort: 'rel',
-  F: { t: new Set(), c: new Set(), min: PRICE_MIN, max: PRICE_MAX },
+  F: { c: new Set(), min: PRICE_MIN, max: PRICE_MAX },
 };
 
 export const nF = () =>
-  S.F.t.size + S.F.c.size + (S.F.min > PRICE_MIN || S.F.max < PRICE_MAX ? 1 : 0);
+  S.F.c.size + (S.F.min > PRICE_MIN || S.F.max < PRICE_MAX ? 1 : 0);

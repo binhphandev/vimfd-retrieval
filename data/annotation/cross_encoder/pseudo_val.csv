@@ -1,0 +1,807 @@
+pq_id,query_text,pos_id,attrs,n_attrs,query_raw
+val_pq_00001,áo sơ_mi regular fit,aristino_1075153784,"{""KIEU_DANG"": ""regular fit""}",1,áo sơ mi regular fit
+val_pq_00002,áo sơ_mi_dáng tiêu_chuẩn,aristino_1075153783,"{""KIEU_DANG"": ""regular fit""}",1,áo sơ mi dáng tiêu chuẩn
+val_pq_00003,áo sơ_mi regular fit casual,aristino_1074675526,"{""KIEU_DANG"": ""regular fit"", ""PHONG_CACH"": ""casual""}",2,áo sơ mi regular fit casual
+val_pq_00004,áo sơ_mi cotton_dáng tiêu_chuẩn,aristino_1074255136,"{""CHAT_LIEU"": ""cotton"", ""KIEU_DANG"": ""regular fit""}",2,áo sơ mi cotton dáng tiêu chuẩn
+val_pq_00005,tìm áo sơ_mi cotton minimalist regular fit,aristino_1074254991,"{""CHAT_LIEU"": ""cotton"", ""KIEU_DANG"": ""regular fit"", ""PHONG_CACH"": ""minimalist""}",3,tìm áo sơ mi cotton minimalist regular fit
+val_pq_00006,tìm áo sơ_mi polyester_dáng ôm retro,aristino_1073520504,"{""CHAT_LIEU"": ""polyester"", ""KIEU_DANG"": ""slim fit"", ""PHONG_CACH"": ""vintage""}",3,tìm áo sơ mi polyester dáng ôm retro
+val_pq_00007,tìm áo sơ_mi bamboo_dáng tiêu_chuẩn,aristino_1073389611,"{""KIEU_DANG"": ""regular fit"", ""CHAT_LIEU"": ""bamboo""}",2,tìm áo sơ mi bamboo dáng tiêu chuẩn
+val_pq_00008,áo sơ_mi minimalist trắng,aristino_1073031248,"{""MAU"": ""trắng"", ""PHONG_CACH"": ""minimalist""}",2,áo sơ mi minimalist trắng
+val_pq_00009,tìm áo sơ_mi cotton regular fit minimalist,aristino_1073031201,"{""KIEU_DANG"": ""regular fit"", ""PHONG_CACH"": ""minimalist"", ""CHAT_LIEU"": ""cotton""}",3,tìm áo sơ mi cotton regular fit minimalist
+val_pq_00010,áo sơ_mi smart casual,aristino_1073030982,"{""PHONG_CACH"": ""smart casual""}",1,áo sơ mi smart casual
+val_pq_00011,áo sơ_mi dáng ôm,aristino_1072409920,"{""KIEU_DANG"": ""slim fit""}",1,áo sơ mi dáng ôm
+val_pq_00012,tìm áo sơ_mi polyester_dáng ôm,aristino_1071768421,"{""CHAT_LIEU"": ""polyester"", ""KIEU_DANG"": ""slim fit""}",2,tìm áo sơ mi polyester dáng ôm
+val_pq_00013,tìm áo sơ_mi polyester,aristino_1071768420,"{""CHAT_LIEU"": ""polyester""}",1,tìm áo sơ mi polyester
+val_pq_00014,áo sơ_mi cotton regular fit,aristino_1071768389,"{""CHAT_LIEU"": ""cotton"", ""KIEU_DANG"": ""regular fit""}",2,áo sơ mi cotton regular fit
+val_pq_00015,áo sơ_mi polyester,aristino_1071469559,"{""CHAT_LIEU"": ""polyester""}",1,áo sơ mi polyester
+val_pq_00016,áo sơ_mi polyester slim fit,aristino_1071159209,"{""CHAT_LIEU"": ""polyester"", ""KIEU_DANG"": ""slim fit""}",2,áo sơ mi polyester slim fit
+val_pq_00017,áo sơ_mi cotton smart casual,aristino_1068915860,"{""PHONG_CACH"": ""smart casual"", ""CHAT_LIEU"": ""cotton""}",2,áo sơ mi cotton smart casual
+val_pq_00018,áo sơ_mi polyester,aristino_1067927286,"{""CHAT_LIEU"": ""polyester""}",1,áo sơ mi polyester
+val_pq_00019,tìm áo sơ_mi cotton basic,aristino_1067383480,"{""CHAT_LIEU"": ""cotton"", ""PHONG_CACH"": ""basic""}",2,tìm áo sơ mi cotton basic
+val_pq_00020,áo sơ_mi màu hồng cotton,aristino_1067383478,"{""CHAT_LIEU"": ""cotton"", ""MAU"": ""hồng""}",2,áo sơ mi màu hồng cotton
+val_pq_00021,tìm áo sơ_mi cotton regular fit,aristino_1067383473,"{""CHAT_LIEU"": ""cotton"", ""KIEU_DANG"": ""regular fit""}",2,tìm áo sơ mi cotton regular fit
+val_pq_00022,áo sơ_mi slim fit polyester,aristino_1064721720,"{""KIEU_DANG"": ""slim fit"", ""CHAT_LIEU"": ""polyester""}",2,áo sơ mi slim fit polyester
+val_pq_00023,áo sơ_mi polyester regular fit,aristino_1064721705,"{""CHAT_LIEU"": ""polyester"", ""KIEU_DANG"": ""regular fit""}",2,áo sơ mi polyester regular fit
+val_pq_00024,áo sơ_mi regular fit,aristino_1064705780,"{""KIEU_DANG"": ""regular fit""}",1,áo sơ mi regular fit
+val_pq_00025,áo sơ_mi xanh navy cotton,aristino_1063811584,"{""MAU"": ""xanh navy"", ""CHAT_LIEU"": ""cotton""}",2,áo sơ mi xanh navy cotton
+val_pq_00026,tìm áo sơ_mi polyester công_sở,aristino_1062374553,"{""PHONG_CACH"": ""công sở"", ""CHAT_LIEU"": ""polyester""}",2,tìm áo sơ mi polyester công sở
+val_pq_00027,tìm áo sơ_mi polyester trắng,aristino_1062374523,"{""MAU"": ""trắng"", ""CHAT_LIEU"": ""polyester""}",2,tìm áo sơ mi polyester trắng
+val_pq_00028,áo sơ_mi regular fit,aristino_1057491211,"{""KIEU_DANG"": ""regular fit""}",1,áo sơ mi regular fit
+val_pq_00029,áo sơ_mi đỏ slim fit polyester,aristino_1057491189,"{""MAU"": ""đỏ"", ""CHAT_LIEU"": ""polyester"", ""KIEU_DANG"": ""slim fit""}",3,áo sơ mi đỏ slim fit polyester
+val_pq_00030,áo sơ_mi_dáng tiêu_chuẩn,aristino_1057386224,"{""KIEU_DANG"": ""regular fit""}",1,áo sơ mi dáng tiêu chuẩn
+val_pq_00031,áo sơ_mi polyester_dáng ôm,aristino_1057047936,"{""CHAT_LIEU"": ""polyester"", ""KIEU_DANG"": ""slim fit""}",2,áo sơ mi polyester dáng ôm
+val_pq_00032,áo sơ_mi polyester regular fit,aristino_1056325859,"{""CHAT_LIEU"": ""polyester"", ""KIEU_DANG"": ""regular fit""}",2,áo sơ mi polyester regular fit
+val_pq_00033,áo sơ_mi_dáng tiêu_chuẩn,aristino_1056324651,"{""KIEU_DANG"": ""regular fit""}",1,áo sơ mi dáng tiêu chuẩn
+val_pq_00034,áo sơ_mi polyester slim fit,aristino_1056323249,"{""CHAT_LIEU"": ""polyester"", ""KIEU_DANG"": ""slim fit""}",2,áo sơ mi polyester slim fit
+val_pq_00035,tìm áo sơ_mi spandex,aristino_1056322908,"{""CHAT_LIEU"": ""spandex""}",1,tìm áo sơ mi spandex
+val_pq_00036,áo sơ_mi trắng regular fit,aristino_1056322906,"{""KIEU_DANG"": ""regular fit"", ""MAU"": ""trắng""}",2,áo sơ mi trắng regular fit
+val_pq_00037,áo sơ_mi slim fit,aristino_1056321670,"{""KIEU_DANG"": ""slim fit""}",1,áo sơ mi slim fit
+val_pq_00038,áo polo đỏ_dáng tiêu_chuẩn,aristino_1076057099,"{""MAU"": ""đỏ"", ""KIEU_DANG"": ""regular fit""}",2,áo polo đỏ dáng tiêu chuẩn
+val_pq_00039,tìm áo polo polyester tối_giản,aristino_1075734210,"{""PHONG_CACH"": ""minimalist"", ""CHAT_LIEU"": ""polyester""}",2,tìm áo polo polyester tối giản
+val_pq_00040,áo polo_dáng tiêu_chuẩn năng_động polyester,aristino_1075706219,"{""KIEU_DANG"": ""regular fit"", ""CHAT_LIEU"": ""polyester"", ""PHONG_CACH"": ""thể thao""}",3,áo polo dáng tiêu chuẩn năng động polyester
+val_pq_00041,áo polo_dáng tiêu_chuẩn,aristino_1075256853,"{""KIEU_DANG"": ""regular fit""}",1,áo polo dáng tiêu chuẩn
+val_pq_00042,áo polo regular fit cotton,aristino_1075233088,"{""KIEU_DANG"": ""regular fit"", ""CHAT_LIEU"": ""cotton""}",2,áo polo regular fit cotton
+val_pq_00043,tìm áo polo cotton_dáng tiêu_chuẩn minimalist,aristino_1075233082,"{""CHAT_LIEU"": ""cotton"", ""KIEU_DANG"": ""regular fit"", ""PHONG_CACH"": ""minimalist""}",3,tìm áo polo cotton dáng tiêu chuẩn minimalist
+val_pq_00044,áo polo đen,aristino_1075198610,"{""MAU"": ""đen""}",1,áo polo đen
+val_pq_00045,áo polo_dáng tiêu_chuẩn phong_cách minimalist,aristino_1075153774,"{""PHONG_CACH"": ""minimalist"", ""KIEU_DANG"": ""regular fit""}",2,áo polo dáng tiêu chuẩn phong cách minimalist
+val_pq_00046,áo polo_dáng tiêu_chuẩn phong_cách thể_thao polyester,aristino_1074993787,"{""KIEU_DANG"": ""regular fit"", ""PHONG_CACH"": ""thể thao"", ""CHAT_LIEU"": ""polyester""}",3,áo polo dáng tiêu chuẩn phong cách thể thao polyester
+val_pq_00047,áo polo minimalist,aristino_1074993783,"{""PHONG_CACH"": ""minimalist""}",1,áo polo minimalist
+val_pq_00048,áo polo slim fit,aristino_1074529051,"{""KIEU_DANG"": ""slim fit""}",1,áo polo slim fit
+val_pq_00049,áo polo_dáng ôm,aristino_1074529044,"{""KIEU_DANG"": ""slim fit""}",1,áo polo dáng ôm
+val_pq_00050,áo polo màu xanh than,aristino_1074529041,"{""MAU"": ""xanh navy""}",1,áo polo màu xanh than
+val_pq_00051,áo polo minimalist xanh navy cotton,aristino_1074528942,"{""CHAT_LIEU"": ""cotton"", ""MAU"": ""xanh navy"", ""PHONG_CACH"": ""minimalist""}",3,áo polo minimalist xanh navy cotton
+val_pq_00052,áo polo regular fit phong_cách tối_giản spandex,aristino_1074528938,"{""CHAT_LIEU"": ""spandex"", ""PHONG_CACH"": ""minimalist"", ""KIEU_DANG"": ""regular fit""}",3,áo polo regular fit phong cách tối giản spandex
+val_pq_00053,áo polo màu xanh than spandex smart casual,aristino_1074217433,"{""CHAT_LIEU"": ""spandex"", ""MAU"": ""xanh navy"", ""PHONG_CACH"": ""smart casual""}",3,áo polo màu xanh than spandex smart casual
+val_pq_00054,áo polo regular fit phong_cách smart casual,aristino_1074142231,"{""PHONG_CACH"": ""smart casual"", ""KIEU_DANG"": ""regular fit""}",2,áo polo regular fit phong cách smart casual
+val_pq_00055,áo polo smart casual xanh navy cotton,aristino_1073520591,"{""CHAT_LIEU"": ""cotton"", ""MAU"": ""xanh navy"", ""PHONG_CACH"": ""smart casual""}",3,áo polo smart casual xanh navy cotton
+val_pq_00056,áo polo slim fit phong_cách smart casual,aristino_1073520505,"{""KIEU_DANG"": ""slim fit"", ""PHONG_CACH"": ""smart casual""}",2,áo polo slim fit phong cách smart casual
+val_pq_00057,áo polo regular fit phong_cách smart casual,aristino_1073520155,"{""PHONG_CACH"": ""smart casual"", ""KIEU_DANG"": ""regular fit""}",2,áo polo regular fit phong cách smart casual
+val_pq_00058,áo polo cotton,aristino_1073389603,"{""CHAT_LIEU"": ""cotton""}",1,áo polo cotton
+val_pq_00059,áo polo màu xanh navy polyester_dáng tiêu_chuẩn,aristino_1073031150,"{""CHAT_LIEU"": ""polyester"", ""MAU"": ""xanh navy"", ""KIEU_DANG"": ""regular fit""}",3,áo polo màu xanh navy polyester dáng tiêu chuẩn
+val_pq_00060,áo polo cotton,aristino_1073031065,"{""CHAT_LIEU"": ""cotton""}",1,áo polo cotton
+val_pq_00061,áo polo regular fit cotton,aristino_1073031060,"{""CHAT_LIEU"": ""cotton"", ""KIEU_DANG"": ""regular fit""}",2,áo polo regular fit cotton
+val_pq_00062,áo polo_dáng tiêu_chuẩn,aristino_1073031029,"{""KIEU_DANG"": ""regular fit""}",1,áo polo dáng tiêu chuẩn
+val_pq_00063,áo polo regular fit cotton,aristino_1072691307,"{""KIEU_DANG"": ""regular fit"", ""CHAT_LIEU"": ""cotton""}",2,áo polo regular fit cotton
+val_pq_00064,áo polo_dáng tiêu_chuẩn,aristino_1072409957,"{""KIEU_DANG"": ""regular fit""}",1,áo polo dáng tiêu chuẩn
+val_pq_00065,áo polo minimalist,aristino_1072409946,"{""PHONG_CACH"": ""minimalist""}",1,áo polo minimalist
+val_pq_00066,áo polo spandex,aristino_1072409944,"{""CHAT_LIEU"": ""spandex""}",1,áo polo spandex
+val_pq_00067,áo polo slim fit basic,aristino_1072409942,"{""KIEU_DANG"": ""slim fit"", ""PHONG_CACH"": ""basic""}",2,áo polo slim fit basic
+val_pq_00068,tìm áo polo cotton_dáng tiêu_chuẩn đỏ,aristino_1072409939,"{""KIEU_DANG"": ""regular fit"", ""MAU"": ""đỏ"", ""CHAT_LIEU"": ""cotton""}",3,tìm áo polo cotton dáng tiêu chuẩn đỏ
+val_pq_00069,áo polo minimalist trắng cotton,aristino_1072409938,"{""PHONG_CACH"": ""minimalist"", ""MAU"": ""trắng"", ""CHAT_LIEU"": ""cotton""}",3,áo polo minimalist trắng cotton
+val_pq_00070,áo polo màu xám cotton,aristino_1072409933,"{""CHAT_LIEU"": ""cotton"", ""MAU"": ""xám""}",2,áo polo màu xám cotton
+val_pq_00071,áo polo_dáng ôm,aristino_1072409926,"{""KIEU_DANG"": ""slim fit""}",1,áo polo dáng ôm
+val_pq_00072,tìm áo polo cotton minimalist regular fit,aristino_1068915513,"{""KIEU_DANG"": ""regular fit"", ""CHAT_LIEU"": ""cotton"", ""PHONG_CACH"": ""minimalist""}",3,tìm áo polo cotton minimalist regular fit
+val_pq_00073,áo polo màu đỏ tối_giản,aristino_1068153853,"{""PHONG_CACH"": ""minimalist"", ""MAU"": ""đỏ""}",2,áo polo màu đỏ tối giản
+val_pq_00074,áo polo màu trắng regular fit,aristino_1066296231,"{""KIEU_DANG"": ""regular fit"", ""MAU"": ""trắng""}",2,áo polo màu trắng regular fit
+val_pq_00075,tìm áo polo cotton xanh_dương,aristino_1064705761,"{""MAU"": ""xanh dương"", ""CHAT_LIEU"": ""cotton""}",2,tìm áo polo cotton xanh dương
+val_pq_00076,tìm áo polo spandex regular fit,aristino_1063811356,"{""CHAT_LIEU"": ""spandex"", ""KIEU_DANG"": ""regular fit""}",2,tìm áo polo spandex regular fit
+val_pq_00077,áo polo regular fit,aristino_1063811353,"{""KIEU_DANG"": ""regular fit""}",1,áo polo regular fit
+val_pq_00078,áo polo màu trắng,aristino_1062901915,"{""MAU"": ""trắng""}",1,áo polo màu trắng
+val_pq_00079,áo polo regular fit,aristino_1062374507,"{""KIEU_DANG"": ""regular fit""}",1,áo polo regular fit
+val_pq_00080,áo polo_dáng tiêu_chuẩn polyester,aristino_1062374503,"{""CHAT_LIEU"": ""polyester"", ""KIEU_DANG"": ""regular fit""}",2,áo polo dáng tiêu chuẩn polyester
+val_pq_00081,tìm áo polo polyester,aristino_1062374468,"{""CHAT_LIEU"": ""polyester""}",1,tìm áo polo polyester
+val_pq_00082,áo polo regular fit,aristino_1062111360,"{""KIEU_DANG"": ""regular fit""}",1,áo polo regular fit
+val_pq_00083,áo polo xám,aristino_1062111353,"{""MAU"": ""xám""}",1,áo polo xám
+val_pq_00084,áo polo trắng,aristino_1062006776,"{""MAU"": ""trắng""}",1,áo polo trắng
+val_pq_00085,tìm áo polo cotton regular fit,aristino_1056325358,"{""CHAT_LIEU"": ""cotton"", ""KIEU_DANG"": ""regular fit""}",2,tìm áo polo cotton regular fit
+val_pq_00086,áo polo basic trắng cotton,aristino_1056324696,"{""MAU"": ""trắng"", ""CHAT_LIEU"": ""cotton"", ""PHONG_CACH"": ""basic""}",3,áo polo basic trắng cotton
+val_pq_00087,áo polo cotton_dáng tiêu_chuẩn,aristino_1056324385,"{""CHAT_LIEU"": ""cotton"", ""KIEU_DANG"": ""regular fit""}",2,áo polo cotton dáng tiêu chuẩn
+val_pq_00088,áo polo màu xanh navy regular fit cotton,aristino_1056322389,"{""KIEU_DANG"": ""regular fit"", ""MAU"": ""xanh navy"", ""CHAT_LIEU"": ""cotton""}",3,áo polo màu xanh navy regular fit cotton
+val_pq_00089,áo thun relaxed fit,aristino_1074529146,"{""KIEU_DANG"": ""relaxed fit""}",1,áo thun relaxed fit
+val_pq_00090,áo thun trắng,aristino_1074529014,"{""MAU"": ""trắng""}",1,áo thun trắng
+val_pq_00091,tìm áo thun cotton trắng basic,aristino_1069738856,"{""MAU"": ""trắng"", ""PHONG_CACH"": ""basic"", ""CHAT_LIEU"": ""cotton""}",3,tìm áo thun cotton trắng basic
+val_pq_00092,áo_khoác màu xám polyester regular fit,aristino_1070380281,"{""MAU"": ""xám"", ""CHAT_LIEU"": ""polyester"", ""KIEU_DANG"": ""regular fit""}",3,áo khoác màu xám polyester regular fit
+val_pq_00093,áo_khoác regular fit,aristino_1057491167,"{""KIEU_DANG"": ""regular fit""}",1,áo khoác regular fit
+val_pq_00094,áo_khoác regular fit,aristino_1057170853,"{""KIEU_DANG"": ""regular fit""}",1,áo khoác regular fit
+val_pq_00095,áo_khoác polyester regular fit,aristino_1057047940,"{""KIEU_DANG"": ""regular fit"", ""CHAT_LIEU"": ""polyester""}",2,áo khoác polyester regular fit
+val_pq_00096,áo khoác_dáng tiêu_chuẩn,aristino_1056325455,"{""KIEU_DANG"": ""regular fit""}",1,áo khoác dáng tiêu chuẩn
+val_pq_00097,tìm áo_khoác polyester_dáng tiêu_chuẩn,aristino_1056325375,"{""CHAT_LIEU"": ""polyester"", ""KIEU_DANG"": ""regular fit""}",2,tìm áo khoác polyester dáng tiêu chuẩn
+val_pq_00098,áo tanktop polyester xám,aristino_1066296246,"{""CHAT_LIEU"": ""polyester"", ""MAU"": ""xám""}",2,áo tanktop polyester xám
+val_pq_00099,áo vest polyester,aristino_1057491263,"{""CHAT_LIEU"": ""polyester""}",1,áo vest polyester
+val_pq_00100,quần âu_màu đen,aristino_1056323222,"{""MAU"": ""đen""}",1,quần âu màu đen
+val_pq_00101,quần âu_xám straight fit,aristino_1056321179,"{""MAU"": ""xám"", ""KIEU_DANG"": ""straight fit""}",2,quần âu xám straight fit
+val_pq_00102,quần kaki cotton,aristino_1075730146,"{""CHAT_LIEU"": ""cotton""}",1,quần kaki cotton
+val_pq_00103,tìm quần_short polyester,aristino_1066296234,"{""CHAT_LIEU"": ""polyester""}",1,tìm quần short polyester
+val_pq_00104,quần short smart casual,aristino_1066296196,"{""PHONG_CACH"": ""smart casual""}",1,quần short smart casual
+val_pq_00105,tìm quần_short cotton,aristino_1064705778,"{""CHAT_LIEU"": ""cotton""}",1,tìm quần short cotton
+val_pq_00106,quần short xám,aristino_1064705775,"{""MAU"": ""xám""}",1,quần short xám
+val_pq_00107,quần short regular fit phong_cách thể_thao spandex,aristino_1064705576,"{""CHAT_LIEU"": ""spandex"", ""KIEU_DANG"": ""regular fit"", ""PHONG_CACH"": ""thể thao""}",3,quần short regular fit phong cách thể thao spandex
+val_pq_00108,quần short_dáng tiêu_chuẩn,aristino_1063811376,"{""KIEU_DANG"": ""regular fit""}",1,quần short dáng tiêu chuẩn
+val_pq_00109,quần short regular fit,aristino_1063811366,"{""KIEU_DANG"": ""regular fit""}",1,quần short regular fit
+val_pq_00110,quần short regular fit phong_cách thể_thao spandex,aristino_1062111430,"{""CHAT_LIEU"": ""spandex"", ""PHONG_CACH"": ""thể thao"", ""KIEU_DANG"": ""regular fit""}",3,quần short regular fit phong cách thể thao spandex
+val_pq_00111,quần short regular fit polyester,aristino_1062111391,"{""KIEU_DANG"": ""regular fit"", ""CHAT_LIEU"": ""polyester""}",2,quần short regular fit polyester
+val_pq_00112,quần short màu đen polyester regular fit,aristino_1062111382,"{""CHAT_LIEU"": ""polyester"", ""MAU"": ""đen"", ""KIEU_DANG"": ""regular fit""}",3,quần short màu đen polyester regular fit
+val_pq_00113,quần short màu xám_dáng tiêu_chuẩn,aristino_1062111378,"{""KIEU_DANG"": ""regular fit"", ""MAU"": ""xám""}",2,quần short màu xám dáng tiêu chuẩn
+val_pq_00114,quần short polyester regular fit,aristino_1062111377,"{""KIEU_DANG"": ""regular fit"", ""CHAT_LIEU"": ""polyester""}",2,quần short polyester regular fit
+val_pq_00115,quần short_dáng tiêu_chuẩn,aristino_1062111368,"{""KIEU_DANG"": ""regular fit""}",1,quần short dáng tiêu chuẩn
+val_pq_00116,quần short màu ghi_dáng tiêu_chuẩn,aristino_1056343286,"{""MAU"": ""xám"", ""KIEU_DANG"": ""regular fit""}",2,quần short màu ghi dáng tiêu chuẩn
+val_pq_00117,quần short polyester,aristino_1056325993,"{""CHAT_LIEU"": ""polyester""}",1,quần short polyester
+val_pq_00118,quần short cotton,aristino_1056325827,"{""CHAT_LIEU"": ""cotton""}",1,quần short cotton
+val_pq_00119,quần short regular fit,aristino_1056325524,"{""KIEU_DANG"": ""regular fit""}",1,quần short regular fit
+val_pq_00120,quần short_dáng tiêu_chuẩn,aristino_1056324633,"{""KIEU_DANG"": ""regular fit""}",1,quần short dáng tiêu chuẩn
+val_pq_00121,quần short regular fit,aristino_1056324333,"{""KIEU_DANG"": ""regular fit""}",1,quần short regular fit
+val_pq_00122,quần short polyester,aristino_1056321505,"{""CHAT_LIEU"": ""polyester""}",1,quần short polyester
+val_pq_00123,quần short regular fit kaki,aristino_1056321446,"{""KIEU_DANG"": ""regular fit"", ""CHAT_LIEU"": ""kaki""}",2,quần short regular fit kaki
+val_pq_00124,quần short regular fit xám polyester,aristino_1056321349,"{""CHAT_LIEU"": ""polyester"", ""MAU"": ""xám"", ""KIEU_DANG"": ""regular fit""}",3,quần short regular fit xám polyester
+val_pq_00125,tìm quần_short polyester,aristino_1056321310,"{""CHAT_LIEU"": ""polyester""}",1,tìm quần short polyester
+val_pq_00126,tìm quần_short polyester_dáng tiêu_chuẩn,aristino_1056320904,"{""CHAT_LIEU"": ""polyester"", ""KIEU_DANG"": ""regular fit""}",2,tìm quần short polyester dáng tiêu chuẩn
+val_pq_00127,quần short_dáng tiêu_chuẩn xám polyester,aristino_1056317916,"{""MAU"": ""xám"", ""KIEU_DANG"": ""regular fit"", ""CHAT_LIEU"": ""polyester""}",3,quần short dáng tiêu chuẩn xám polyester
+val_pq_00128,quần boxer basic,aristino_1056362570,"{""PHONG_CACH"": ""basic""}",1,quần boxer basic
+val_pq_00129,quần boxer basic,aristino_1069739022,"{""PHONG_CACH"": ""basic""}",1,quần boxer basic
+val_pq_00130,tìm quần_boxer bamboo basic,aristino_1072409966,"{""PHONG_CACH"": ""basic"", ""CHAT_LIEU"": ""bamboo""}",2,tìm quần boxer bamboo basic
+val_pq_00131,quần boxer basic,aristino_1069738349,"{""PHONG_CACH"": ""basic""}",1,quần boxer basic
+val_pq_00132,tìm áo giữ nhiệt polyester,aristino_1076196465,"{""CHAT_LIEU"": ""polyester""}",1,tìm áo giữ nhiệt polyester
+val_pq_00133,túi màu đen leather,aristino_1056322231,"{""MAU"": ""đen"", ""CHAT_LIEU"": ""leather""}",2,túi màu đen leather
+val_pq_00134,tìm ví da leather,aristino_1056322767,"{""CHAT_LIEU"": ""leather""}",1,tìm ví da leather
+val_pq_00135,cà_vạt silk,aristino_1068153983,"{""CHAT_LIEU"": ""silk""}",1,cà vạt silk
+val_pq_00136,tìm cà_vạt silk,aristino_1068153979,"{""CHAT_LIEU"": ""silk""}",1,tìm cà vạt silk
+val_pq_00137,giày_dép màu đen,aristino_1071525777,"{""MAU"": ""đen""}",1,giày dép màu đen
+val_pq_00138,giày_dép đen,aristino_1062901965,"{""MAU"": ""đen""}",1,giày dép đen
+val_pq_00139,giày_dép nâu,aristino_1062901952,"{""MAU"": ""nâu""}",1,giày dép nâu
+val_pq_00140,giày_dép ghi,aristino_1062901936,"{""MAU"": ""xám""}",1,giày dép ghi
+val_pq_00141,giày_dép leather đen,aristino_1056323017,"{""CHAT_LIEU"": ""leather"", ""MAU"": ""đen""}",2,giày dép leather đen
+val_pq_00142,thắt_lưng da màu bạc,aristino_1062006683,"{""MAU"": ""bạc""}",1,thắt lưng da màu bạc
+val_pq_00143,thắt_lưng da màu đen,aristino_1062006727,"{""MAU"": ""đen""}",1,thắt lưng da màu đen
+val_pq_00144,thắt_lưng da bạc,aristino_1071525776,"{""MAU"": ""bạc""}",1,thắt lưng da bạc
+val_pq_00145,thắt_lưng da tối_giản,aristino_1056321885,"{""PHONG_CACH"": ""minimalist""}",1,thắt lưng da tối giản
+val_pq_00146,thắt_lưng da bạc,aristino_1057491068,"{""MAU"": ""bạc""}",1,thắt lưng da bạc
+val_pq_00147,tìm thắt_lưng da_chất da casual nâu,aristino_1058075986,"{""CHAT_LIEU"": ""leather"", ""MAU"": ""nâu"", ""PHONG_CACH"": ""casual""}",3,tìm thắt lưng da chất da casual nâu
+val_pq_00148,tìm thắt_lưng da_chất da đen,aristino_1056360686,"{""CHAT_LIEU"": ""leather"", ""MAU"": ""đen""}",2,tìm thắt lưng da chất da đen
+val_pq_00149,thắt_lưng da màu đen,aristino_1056360704,"{""MAU"": ""đen""}",1,thắt lưng da màu đen
+val_pq_00150,tìm thắt_lưng da leather,aristino_1056360702,"{""CHAT_LIEU"": ""leather""}",1,tìm thắt lưng da leather
+val_pq_00151,tìm thắt_lưng da leather đen,aristino_1056360692,"{""MAU"": ""đen"", ""CHAT_LIEU"": ""leather""}",2,tìm thắt lưng da leather đen
+val_pq_00152,thắt_lưng da_chất da,aristino_1056360695,"{""CHAT_LIEU"": ""leather""}",1,thắt lưng da chất da
+val_pq_00153,thắt_lưng da màu nâu,aristino_1056360689,"{""MAU"": ""nâu""}",1,thắt lưng da màu nâu
+val_pq_00154,thắt_lưng da leather đen,aristino_1056360688,"{""CHAT_LIEU"": ""leather"", ""MAU"": ""đen""}",2,thắt lưng da leather đen
+val_pq_00155,thắt_lưng da leather,aristino_1058075941,"{""CHAT_LIEU"": ""leather""}",1,thắt lưng da leather
+val_pq_00156,tìm tất_cotton,aristino_1056322376,"{""CHAT_LIEU"": ""cotton""}",1,tìm tất cotton
+val_pq_00157,mũ màu be,aristino_1075406557,"{""MAU"": ""be""}",1,mũ màu be
+val_pq_00158,móc khóa leather xanh navy,aristino_1068153881,"{""MAU"": ""xanh navy"", ""CHAT_LIEU"": ""leather""}",2,móc khóa leather xanh navy
+val_pq_00159,tìm áo thun cotton_dáng tiêu_chuẩn đen,icondenim_1076547337,"{""MAU"": ""đen"", ""CHAT_LIEU"": ""cotton"", ""KIEU_DANG"": ""regular fit""}",3,tìm áo thun cotton dáng tiêu chuẩn đen
+val_pq_00160,tìm áo thun cotton trắng,icondenim_1072167949,"{""CHAT_LIEU"": ""cotton"", ""MAU"": ""trắng""}",2,tìm áo thun cotton trắng
+val_pq_00161,áo thun casual,icondenim_1040209675,"{""PHONG_CACH"": ""casual""}",1,áo thun casual
+val_pq_00162,áo polo spandex,icondenim_1074527190,"{""CHAT_LIEU"": ""spandex""}",1,áo polo spandex
+val_pq_00163,áo polo regular fit cotton đen,icondenim_1071614811,"{""KIEU_DANG"": ""regular fit"", ""CHAT_LIEU"": ""cotton"", ""MAU"": ""đen""}",3,áo polo regular fit cotton đen
+val_pq_00164,áo polo regular fit đen,icondenim_1052856451,"{""MAU"": ""đen"", ""KIEU_DANG"": ""regular fit""}",2,áo polo regular fit đen
+val_pq_00165,tìm áo sơ_mi bamboo slim fit,icondenim_1061679807,"{""KIEU_DANG"": ""slim fit"", ""CHAT_LIEU"": ""bamboo""}",2,tìm áo sơ mi bamboo slim fit
+val_pq_00166,áo_khoác regular fit,icondenim_1076468213,"{""KIEU_DANG"": ""regular fit""}",1,áo khoác regular fit
+val_pq_00167,áo_khoác regular fit đen cotton,icondenim_1076547222,"{""KIEU_DANG"": ""regular fit"", ""MAU"": ""đen"", ""CHAT_LIEU"": ""cotton""}",3,áo khoác regular fit đen cotton
+val_pq_00168,tìm áo_khoác polyester regular fit,icondenim_1077095239,"{""KIEU_DANG"": ""regular fit"", ""CHAT_LIEU"": ""polyester""}",2,tìm áo khoác polyester regular fit
+val_pq_00169,áo nỉ fleece_dáng tiêu_chuẩn,icondenim_1069921552,"{""KIEU_DANG"": ""regular fit"", ""CHAT_LIEU"": ""fleece""}",2,áo nỉ fleece dáng tiêu chuẩn
+val_pq_00170,quần short slim fit,icondenim_1075758563,"{""KIEU_DANG"": ""slim fit""}",1,quần short slim fit
+val_pq_00171,quần short casual,icondenim_1074862820,"{""PHONG_CACH"": ""casual""}",1,quần short casual
+val_pq_00172,tìm quần_short denim regular fit,icondenim_1071488567,"{""CHAT_LIEU"": ""denim"", ""KIEU_DANG"": ""regular fit""}",2,tìm quần short denim regular fit
+val_pq_00173,tìm quần_short cotton regular fit,icondenim_1069167523,"{""KIEU_DANG"": ""regular fit"", ""CHAT_LIEU"": ""cotton""}",2,tìm quần short cotton regular fit
+val_pq_00174,tìm quần_jogger polyester straight fit,icondenim_1076071417,"{""CHAT_LIEU"": ""polyester"", ""KIEU_DANG"": ""straight fit""}",2,tìm quần jogger polyester straight fit
+val_pq_00175,quần âu_straight fit phong_cách công_sở polyester,icondenim_1073468534,"{""PHONG_CACH"": ""công sở"", ""CHAT_LIEU"": ""polyester"", ""KIEU_DANG"": ""straight fit""}",3,quần âu straight fit phong cách công sở polyester
+val_pq_00176,túi ví balo casual,icondenim_1074657760,"{""PHONG_CACH"": ""casual""}",1,túi ví balo casual
+val_pq_00177,mũ casual xanh than,icondenim_1076061055,"{""MAU"": ""xanh navy"", ""PHONG_CACH"": ""casual""}",2,mũ casual xanh than
+val_pq_00178,mũ cotton thường_ngày,icondenim_1076004035,"{""CHAT_LIEU"": ""cotton"", ""PHONG_CACH"": ""casual""}",2,mũ cotton thường ngày
+val_pq_00179,thắt_lưng thường_ngày chất da,icondenim_1076817030,"{""PHONG_CACH"": ""casual"", ""CHAT_LIEU"": ""leather""}",2,thắt lưng thường ngày chất da
+val_pq_00180,tìm vớ modal đời_thường,icondenim_1076323051,"{""PHONG_CACH"": ""casual"", ""CHAT_LIEU"": ""modal""}",2,tìm vớ modal đời thường
+val_pq_00181,kính mắt casual,icondenim_1076468532,"{""PHONG_CACH"": ""casual""}",1,kính mắt casual
+val_pq_00182,kính mắt retro,icondenim_1057644960,"{""PHONG_CACH"": ""vintage""}",1,kính mắt retro
+val_pq_00183,áo_khoác thanh_lịch,henstore_1075937014,"{""PHONG_CACH"": ""smart casual""}",1,áo khoác thanh lịch
+val_pq_00184,tìm áo_khoác vải bò,henstore_1072571159,"{""CHAT_LIEU"": ""denim""}",1,tìm áo khoác vải bò
+val_pq_00185,áo_khoác đường_phố,henstore_1070271696,"{""PHONG_CACH"": ""streetwear""}",1,áo khoác đường phố
+val_pq_00186,áo_khoác streetwear regular fit,henstore_1071320209,"{""PHONG_CACH"": ""streetwear"", ""KIEU_DANG"": ""regular fit""}",2,áo khoác streetwear regular fit
+val_pq_00187,tìm áo_khoác wool tối_giản,henstore_1070433345,"{""PHONG_CACH"": ""minimalist"", ""CHAT_LIEU"": ""wool""}",2,tìm áo khoác wool tối giản
+val_pq_00188,áo thun đường_phố,henstore_1073710450,"{""PHONG_CACH"": ""streetwear""}",1,áo thun đường phố
+val_pq_00189,tìm áo thun cotton basic slim fit,henstore_1072583465,"{""CHAT_LIEU"": ""cotton"", ""PHONG_CACH"": ""basic"", ""KIEU_DANG"": ""slim fit""}",3,tìm áo thun cotton basic slim fit
+val_pq_00190,áo sơ_mi basic,henstore_1069657871,"{""PHONG_CACH"": ""basic""}",1,áo sơ mi basic
+val_pq_00191,áo sơ_mi dáng ôm,henstore_1076963175,"{""KIEU_DANG"": ""slim fit""}",1,áo sơ mi dáng ôm
+val_pq_00192,áo sơ_mi kaki basic slim fit,henstore_1066799805,"{""CHAT_LIEU"": ""kaki"", ""PHONG_CACH"": ""basic"", ""KIEU_DANG"": ""slim fit""}",3,áo sơ mi kaki basic slim fit
+val_pq_00193,áo sơ_mi smart casual,henstore_1074631896,"{""PHONG_CACH"": ""smart casual""}",1,áo sơ mi smart casual
+val_pq_00194,áo sơ_mi slim fit phong_cách basic,henstore_1074567496,"{""PHONG_CACH"": ""basic"", ""KIEU_DANG"": ""slim fit""}",2,áo sơ mi slim fit phong cách basic
+val_pq_00195,tìm áo sơ_mi linen oversize,henstore_1074062962,"{""CHAT_LIEU"": ""linen"", ""KIEU_DANG"": ""oversize""}",2,tìm áo sơ mi linen oversize
+val_pq_00196,áo sơ_mi denim,henstore_1065496199,"{""CHAT_LIEU"": ""denim""}",1,áo sơ mi denim
+val_pq_00197,áo sơ_mi slim fit,henstore_1071652207,"{""KIEU_DANG"": ""slim fit""}",1,áo sơ mi slim fit
+val_pq_00198,áo sơ_mi basic,henstore_1069576184,"{""PHONG_CACH"": ""basic""}",1,áo sơ mi basic
+val_pq_00199,tìm áo polo polyester casual,henstore_1075350149,"{""PHONG_CACH"": ""casual"", ""CHAT_LIEU"": ""polyester""}",2,tìm áo polo polyester casual
+val_pq_00200,áo polo smart casual slim fit,henstore_1073122818,"{""PHONG_CACH"": ""smart casual"", ""KIEU_DANG"": ""slim fit""}",2,áo polo smart casual slim fit
+val_pq_00201,áo polo slim fit,henstore_1072688895,"{""KIEU_DANG"": ""slim fit""}",1,áo polo slim fit
+val_pq_00202,áo polo_dáng ôm,henstore_1070169295,"{""KIEU_DANG"": ""slim fit""}",1,áo polo dáng ôm
+val_pq_00203,tìm bộ trang_phục cotton,henstore_1077313969,"{""CHAT_LIEU"": ""cotton""}",1,tìm bộ trang phục cotton
+val_pq_00204,tìm bộ trang_phục vải bò casual,henstore_1071320200,"{""CHAT_LIEU"": ""denim"", ""PHONG_CACH"": ""casual""}",2,tìm bộ trang phục vải bò casual
+val_pq_00205,quần jean straight fit,henstore_1077221362,"{""KIEU_DANG"": ""straight fit""}",1,quần jean straight fit
+val_pq_00206,tìm quần_jean spandex_thanh lịch,henstore_1076461609,"{""CHAT_LIEU"": ""spandex"", ""PHONG_CACH"": ""smart casual""}",2,tìm quần jean spandex thanh lịch
+val_pq_00207,quần jean_dáng ôm phong_cách thanh_lịch,henstore_1075978627,"{""KIEU_DANG"": ""slim fit"", ""PHONG_CACH"": ""smart casual""}",2,quần jean dáng ôm phong cách thanh lịch
+val_pq_00208,quần jean slim_fit phong_cách basic cotton,henstore_1075192616,"{""CHAT_LIEU"": ""cotton"", ""PHONG_CACH"": ""basic"", ""KIEU_DANG"": ""slim fit""}",3,quần jean slim fit phong cách basic cotton
+val_pq_00209,quần jean straight fit,henstore_1074736055,"{""KIEU_DANG"": ""straight fit""}",1,quần jean straight fit
+val_pq_00210,quần jean slim fit,henstore_1071553505,"{""KIEU_DANG"": ""slim fit""}",1,quần jean slim fit
+val_pq_00211,quần jean straight fit denim,henstore_1072839208,"{""CHAT_LIEU"": ""denim"", ""KIEU_DANG"": ""straight fit""}",2,quần jean straight fit denim
+val_pq_00212,quần jean slim fit,henstore_1071450225,"{""KIEU_DANG"": ""slim fit""}",1,quần jean slim fit
+val_pq_00213,quần jean denim baggy,henstore_1071553600,"{""KIEU_DANG"": ""baggy"", ""CHAT_LIEU"": ""denim""}",2,quần jean denim baggy
+val_pq_00214,tìm quần_âu cotton_dáng ôm,henstore_1077130275,"{""KIEU_DANG"": ""slim fit"", ""CHAT_LIEU"": ""cotton""}",2,tìm quần âu cotton dáng ôm
+val_pq_00215,quần âu_straight fit phong_cách smart casual,henstore_1075670055,"{""KIEU_DANG"": ""straight fit"", ""PHONG_CACH"": ""smart casual""}",2,quần âu straight fit phong cách smart casual
+val_pq_00216,quần âu_đời_thường,henstore_1075104864,"{""PHONG_CACH"": ""casual""}",1,quần âu đời thường
+val_pq_00217,quần âu_dáng ôm phong_cách thanh_lịch,henstore_1073185285,"{""PHONG_CACH"": ""smart casual"", ""KIEU_DANG"": ""slim fit""}",2,quần âu dáng ôm phong cách thanh lịch
+val_pq_00218,quần âu_basic,henstore_1057242472,"{""PHONG_CACH"": ""basic""}",1,quần âu basic
+val_pq_00219,quần short_dáng suông thẳng,henstore_1075003883,"{""KIEU_DANG"": ""straight fit""}",1,quần short dáng suông thẳng
+val_pq_00220,quần short smart casual,henstore_1073126030,"{""PHONG_CACH"": ""smart casual""}",1,quần short smart casual
+val_pq_00221,quần short relaxed fit,henstore_1071444529,"{""KIEU_DANG"": ""relaxed fit""}",1,quần short relaxed fit
+val_pq_00222,tìm quần_kaki cotton thanh_lịch slim fit,henstore_1073919349,"{""CHAT_LIEU"": ""cotton"", ""PHONG_CACH"": ""smart casual"", ""KIEU_DANG"": ""slim fit""}",3,tìm quần kaki cotton thanh lịch slim fit
+val_pq_00223,tìm quần_kaki cotton,henstore_1067449663,"{""CHAT_LIEU"": ""cotton""}",1,tìm quần kaki cotton
+val_pq_00224,mũ kaki,henstore_1076639217,"{""CHAT_LIEU"": ""kaki""}",1,mũ kaki
+val_pq_00225,tìm vớ cotton,henstore_1055623557,"{""CHAT_LIEU"": ""cotton""}",1,tìm vớ cotton
+val_pq_00226,giày_dép streetwear,henstore_1071492505,"{""PHONG_CACH"": ""streetwear""}",1,giày dép streetwear
+val_pq_00227,áo polo smart casual,johnhenry_1077294747,"{""PHONG_CACH"": ""smart casual""}",1,áo polo smart casual
+val_pq_00228,áo polo công_sở,johnhenry_1076754826,"{""PHONG_CACH"": ""công sở""}",1,áo polo công sở
+val_pq_00229,áo polo polyester,johnhenry_1073518424,"{""CHAT_LIEU"": ""polyester""}",1,áo polo polyester
+val_pq_00230,tìm áo polo cotton,johnhenry_1072100887,"{""CHAT_LIEU"": ""cotton""}",1,tìm áo polo cotton
+val_pq_00231,áo polo polyester,johnhenry_1069385078,"{""CHAT_LIEU"": ""polyester""}",1,áo polo polyester
+val_pq_00232,áo polo polyester trắng,johnhenry_1067254607,"{""CHAT_LIEU"": ""polyester"", ""MAU"": ""trắng""}",2,áo polo polyester trắng
+val_pq_00233,tìm áo polo polyester,johnhenry_1064336154,"{""CHAT_LIEU"": ""polyester""}",1,tìm áo polo polyester
+val_pq_00234,tìm áo polo cotton,johnhenry_1062232947,"{""CHAT_LIEU"": ""cotton""}",1,tìm áo polo cotton
+val_pq_00235,áo polo polyester,johnhenry_1056164292,"{""CHAT_LIEU"": ""polyester""}",1,áo polo polyester
+val_pq_00236,tìm áo polo polyester,johnhenry_1052811422,"{""CHAT_LIEU"": ""polyester""}",1,tìm áo polo polyester
+val_pq_00237,áo polo basic,johnhenry_1046339698,"{""PHONG_CACH"": ""basic""}",1,áo polo basic
+val_pq_00238,áo thun thường_ngày,johnhenry_1075008819,"{""PHONG_CACH"": ""casual""}",1,áo thun thường ngày
+val_pq_00239,áo thun polyester năng_động,johnhenry_1074776184,"{""CHAT_LIEU"": ""polyester"", ""PHONG_CACH"": ""thể thao""}",2,áo thun polyester năng động
+val_pq_00240,áo thun casual cotton,johnhenry_1074570470,"{""CHAT_LIEU"": ""cotton"", ""PHONG_CACH"": ""casual""}",2,áo thun casual cotton
+val_pq_00241,áo thun màu nâu casual cotton,johnhenry_1069259316,"{""CHAT_LIEU"": ""cotton"", ""MAU"": ""nâu"", ""PHONG_CACH"": ""casual""}",3,áo thun màu nâu casual cotton
+val_pq_00242,áo thun cotton,johnhenry_1056410837,"{""CHAT_LIEU"": ""cotton""}",1,áo thun cotton
+val_pq_00243,tìm áo sơ_mi polyester,johnhenry_1075070857,"{""CHAT_LIEU"": ""polyester""}",1,tìm áo sơ mi polyester
+val_pq_00244,áo sơ_mi màu xám,johnhenry_1073434945,"{""MAU"": ""xám""}",1,áo sơ mi màu xám
+val_pq_00245,tìm áo sơ_mi cotton,johnhenry_1072814321,"{""CHAT_LIEU"": ""cotton""}",1,tìm áo sơ mi cotton
+val_pq_00246,áo sơ_mi polyester trắng,johnhenry_1071759134,"{""MAU"": ""trắng"", ""CHAT_LIEU"": ""polyester""}",2,áo sơ mi polyester trắng
+val_pq_00247,áo sơ_mi xanh_dương,johnhenry_1071456568,"{""MAU"": ""xanh dương""}",1,áo sơ mi xanh dương
+val_pq_00248,tìm áo sơ_mi cotton,johnhenry_1068094712,"{""CHAT_LIEU"": ""cotton""}",1,tìm áo sơ mi cotton
+val_pq_00249,áo sơ_mi màu xanh lá,johnhenry_1066930224,"{""MAU"": ""xanh lá""}",1,áo sơ mi màu xanh lá
+val_pq_00250,áo sơ_mi trắng,johnhenry_1066930203,"{""MAU"": ""trắng""}",1,áo sơ mi trắng
+val_pq_00251,áo sơ_mi cotton,johnhenry_1062232350,"{""CHAT_LIEU"": ""cotton""}",1,áo sơ mi cotton
+val_pq_00252,áo sơ_mi công_sở,johnhenry_1057796119,"{""PHONG_CACH"": ""công sở""}",1,áo sơ mi công sở
+val_pq_00253,áo sơ_mi văn_phòng,johnhenry_1055984041,"{""PHONG_CACH"": ""công sở""}",1,áo sơ mi văn phòng
+val_pq_00254,áo sơ_mi polyester xanh_dương,johnhenry_1055498325,"{""CHAT_LIEU"": ""polyester"", ""MAU"": ""xanh dương""}",2,áo sơ mi polyester xanh dương
+val_pq_00255,áo sơ_mi polyester,johnhenry_1055247315,"{""CHAT_LIEU"": ""polyester""}",1,áo sơ mi polyester
+val_pq_00256,áo sơ_mi cotton,johnhenry_1054653083,"{""CHAT_LIEU"": ""cotton""}",1,áo sơ mi cotton
+val_pq_00257,tìm áo sơ_mi polyester,johnhenry_1053262602,"{""CHAT_LIEU"": ""polyester""}",1,tìm áo sơ mi polyester
+val_pq_00258,áo sơ_mi công_sở,johnhenry_1052060978,"{""PHONG_CACH"": ""công sở""}",1,áo sơ mi công sở
+val_pq_00259,tìm áo_khoác polyester,johnhenry_1077074532,"{""CHAT_LIEU"": ""polyester""}",1,tìm áo khoác polyester
+val_pq_00260,áo_khoác polyester,johnhenry_1077008149,"{""CHAT_LIEU"": ""polyester""}",1,áo khoác polyester
+val_pq_00261,áo_khoác nâu,johnhenry_1076129653,"{""MAU"": ""nâu""}",1,áo khoác nâu
+val_pq_00262,áo_khoác đen polyester,johnhenry_1076129648,"{""MAU"": ""đen"", ""CHAT_LIEU"": ""polyester""}",2,áo khoác đen polyester
+val_pq_00263,tìm áo_khoác polyester,johnhenry_1075669577,"{""CHAT_LIEU"": ""polyester""}",1,tìm áo khoác polyester
+val_pq_00264,áo_khoác thường_ngày polyester,johnhenry_1075008815,"{""CHAT_LIEU"": ""polyester"", ""PHONG_CACH"": ""casual""}",2,áo khoác thường ngày polyester
+val_pq_00265,áo_khoác cotton,johnhenry_1069074026,"{""CHAT_LIEU"": ""cotton""}",1,áo khoác cotton
+val_pq_00266,tìm áo len wool,johnhenry_1070621435,"{""CHAT_LIEU"": ""wool""}",1,tìm áo len wool
+val_pq_00267,tìm áo len_cotton,johnhenry_1051021239,"{""CHAT_LIEU"": ""cotton""}",1,tìm áo len cotton
+val_pq_00268,tìm áo len wool,johnhenry_1042109338,"{""CHAT_LIEU"": ""wool""}",1,tìm áo len wool
+val_pq_00269,quần âu_casual,johnhenry_1072029994,"{""PHONG_CACH"": ""casual""}",1,quần âu casual
+val_pq_00270,quần âu_polyester,johnhenry_1071755992,"{""CHAT_LIEU"": ""polyester""}",1,quần âu polyester
+val_pq_00271,quần âu_straight fit phong_cách công_sở,johnhenry_1069913097,"{""PHONG_CACH"": ""công sở"", ""KIEU_DANG"": ""straight fit""}",2,quần âu straight fit phong cách công sở
+val_pq_00272,quần âu_basic,johnhenry_1046751664,"{""PHONG_CACH"": ""basic""}",1,quần âu basic
+val_pq_00273,quần_jean xanh_dương,johnhenry_1077105503,"{""MAU"": ""xanh dương""}",1,quần jean xanh dương
+val_pq_00274,quần_jean màu xanh dương_cotton,johnhenry_1076820533,"{""MAU"": ""xanh dương"", ""CHAT_LIEU"": ""cotton""}",2,quần jean màu xanh dương cotton
+val_pq_00275,quần_jean cotton,johnhenry_1076011952,"{""CHAT_LIEU"": ""cotton""}",1,quần jean cotton
+val_pq_00276,quần_jean màu xanh dương_smart casual,johnhenry_1075617449,"{""PHONG_CACH"": ""smart casual"", ""MAU"": ""xanh dương""}",2,quần jean màu xanh dương smart casual
+val_pq_00277,quần jean_dáng ôm,johnhenry_1074570476,"{""KIEU_DANG"": ""slim fit""}",1,quần jean dáng ôm
+val_pq_00278,tìm quần_jean cotton_casual xanh_dương,johnhenry_1074238358,"{""CHAT_LIEU"": ""cotton"", ""PHONG_CACH"": ""casual"", ""MAU"": ""xanh dương""}",3,tìm quần jean cotton casual xanh dương
+val_pq_00279,quần_jean thường_ngày xanh_dương,johnhenry_1072871806,"{""MAU"": ""xanh dương"", ""PHONG_CACH"": ""casual""}",2,quần jean thường ngày xanh dương
+val_pq_00280,quần_jean baggy_cotton xanh_dương,johnhenry_1072691015,"{""KIEU_DANG"": ""baggy"", ""MAU"": ""xanh dương"", ""CHAT_LIEU"": ""cotton""}",3,quần jean baggy cotton xanh dương
+val_pq_00281,quần_jean cotton đen,johnhenry_1072100618,"{""CHAT_LIEU"": ""cotton"", ""MAU"": ""đen""}",2,quần jean cotton đen
+val_pq_00282,quần_jean casual xám,johnhenry_1072100547,"{""PHONG_CACH"": ""casual"", ""MAU"": ""xám""}",2,quần jean casual xám
+val_pq_00283,quần_jean basic,johnhenry_1071391514,"{""PHONG_CACH"": ""basic""}",1,quần jean basic
+val_pq_00284,tìm quần_jean denim xanh_dương,johnhenry_1069913243,"{""CHAT_LIEU"": ""denim"", ""MAU"": ""xanh dương""}",2,tìm quần jean denim xanh dương
+val_pq_00285,quần_jean cotton,johnhenry_1067876257,"{""CHAT_LIEU"": ""cotton""}",1,quần jean cotton
+val_pq_00286,quần_jean màu xám công_sở cotton,johnhenry_1067876021,"{""PHONG_CACH"": ""công sở"", ""CHAT_LIEU"": ""cotton"", ""MAU"": ""xám""}",3,quần jean màu xám công sở cotton
+val_pq_00287,tìm quần_jean cotton,johnhenry_1064075015,"{""CHAT_LIEU"": ""cotton""}",1,tìm quần jean cotton
+val_pq_00288,quần_jean cotton,johnhenry_1062368659,"{""CHAT_LIEU"": ""cotton""}",1,quần jean cotton
+val_pq_00289,quần jean denim,johnhenry_1062232330,"{""CHAT_LIEU"": ""denim""}",1,quần jean denim
+val_pq_00290,tìm quần_jean cotton ghi,johnhenry_1057141390,"{""MAU"": ""xám"", ""CHAT_LIEU"": ""cotton""}",2,tìm quần jean cotton ghi
+val_pq_00291,quần_jean màu xanh dương_slim fit,johnhenry_1056075883,"{""KIEU_DANG"": ""slim fit"", ""MAU"": ""xanh dương""}",2,quần jean màu xanh dương slim fit
+val_pq_00292,quần_jean màu xanh_dương,johnhenry_1054421207,"{""MAU"": ""xanh dương""}",1,quần jean màu xanh dương
+val_pq_00293,quần_jean xanh_dương denim,johnhenry_1054233048,"{""MAU"": ""xanh dương"", ""CHAT_LIEU"": ""denim""}",2,quần jean xanh dương denim
+val_pq_00294,tìm quần_jean cotton,johnhenry_1047817392,"{""CHAT_LIEU"": ""cotton""}",1,tìm quần jean cotton
+val_pq_00295,quần kaki straight fit,johnhenry_1074238360,"{""KIEU_DANG"": ""straight fit""}",1,quần kaki straight fit
+val_pq_00296,tìm quần_kaki cotton,johnhenry_1072871294,"{""CHAT_LIEU"": ""cotton""}",1,tìm quần kaki cotton
+val_pq_00297,quần kaki casual,johnhenry_1072614105,"{""PHONG_CACH"": ""casual""}",1,quần kaki casual
+val_pq_00298,quần kaki cotton xanh lá,johnhenry_1067253663,"{""CHAT_LIEU"": ""cotton"", ""MAU"": ""xanh lá""}",2,quần kaki cotton xanh lá
+val_pq_00299,quần kaki cotton,johnhenry_1063591922,"{""CHAT_LIEU"": ""cotton""}",1,quần kaki cotton
+val_pq_00300,tìm quần_short polyester,johnhenry_1075962645,"{""CHAT_LIEU"": ""polyester""}",1,tìm quần short polyester
+val_pq_00301,quần short cotton,johnhenry_1074631971,"{""CHAT_LIEU"": ""cotton""}",1,quần short cotton
+val_pq_00302,quần short casual đen_dáng rộng thoải_mái,johnhenry_1074400653,"{""KIEU_DANG"": ""relaxed fit"", ""MAU"": ""đen"", ""PHONG_CACH"": ""casual""}",3,quần short casual đen dáng rộng thoải mái
+val_pq_00303,quần short cotton casual xám,johnhenry_1067876288,"{""MAU"": ""xám"", ""PHONG_CACH"": ""casual"", ""CHAT_LIEU"": ""cotton""}",3,quần short cotton casual xám
+val_pq_00304,tìm quần_short cotton,johnhenry_1067253857,"{""CHAT_LIEU"": ""cotton""}",1,tìm quần short cotton
+val_pq_00305,quần short cotton,johnhenry_1056442156,"{""CHAT_LIEU"": ""cotton""}",1,quần short cotton
+val_pq_00306,quần_lót polyester oversize,johnhenry_1073820532,"{""CHAT_LIEU"": ""polyester"", ""KIEU_DANG"": ""oversize""}",2,quần lót polyester oversize
+val_pq_00307,tìm quần_lót polyester basic,johnhenry_1072390370,"{""PHONG_CACH"": ""basic"", ""CHAT_LIEU"": ""polyester""}",2,tìm quần lót polyester basic
+val_pq_00308,tìm quần_lót cotton,johnhenry_1065232198,"{""CHAT_LIEU"": ""cotton""}",1,tìm quần lót cotton
+val_pq_00309,balo polyester,johnhenry_1076207635,"{""CHAT_LIEU"": ""polyester""}",1,balo polyester
+val_pq_00310,balo đen polyester,johnhenry_1055498330,"{""MAU"": ""đen"", ""CHAT_LIEU"": ""polyester""}",2,balo đen polyester
+val_pq_00311,ví chất da,johnhenry_1076207644,"{""CHAT_LIEU"": ""leather""}",1,ví chất da
+val_pq_00312,ví màu nâu leather,johnhenry_1072386363,"{""MAU"": ""nâu"", ""CHAT_LIEU"": ""leather""}",2,ví màu nâu leather
+val_pq_00313,tìm ví da,johnhenry_1069259470,"{""CHAT_LIEU"": ""leather""}",1,tìm ví da
+val_pq_00314,tìm ví leather,johnhenry_1062368674,"{""CHAT_LIEU"": ""leather""}",1,tìm ví leather
+val_pq_00315,tìm mũ_lưỡi trai cotton,johnhenry_1077294752,"{""CHAT_LIEU"": ""cotton""}",1,tìm mũ lưỡi trai cotton
+val_pq_00316,mũ lưỡi trai cotton be casual,johnhenry_1071456984,"{""MAU"": ""be"", ""PHONG_CACH"": ""casual"", ""CHAT_LIEU"": ""cotton""}",3,mũ lưỡi trai cotton be casual
+val_pq_00317,cà_vạt polyester,johnhenry_1075518469,"{""CHAT_LIEU"": ""polyester""}",1,cà vạt polyester
+val_pq_00318,cà_vạt màu đỏ polyester,johnhenry_1075669593,"{""MAU"": ""đỏ"", ""CHAT_LIEU"": ""polyester""}",2,cà vạt màu đỏ polyester
+val_pq_00319,tìm cà_vạt polyester,johnhenry_1043266311,"{""CHAT_LIEU"": ""polyester""}",1,tìm cà vạt polyester
+val_pq_00320,cà_vạt màu xanh dương_polyester,johnhenry_1062107358,"{""MAU"": ""xanh dương"", ""CHAT_LIEU"": ""polyester""}",2,cà vạt màu xanh dương polyester
+val_pq_00321,tìm thắt_lưng chất da đen,johnhenry_1076019241,"{""CHAT_LIEU"": ""leather"", ""MAU"": ""đen""}",2,tìm thắt lưng chất da đen
+val_pq_00322,thắt_lưng màu đen leather casual,johnhenry_1074238547,"{""CHAT_LIEU"": ""leather"", ""MAU"": ""đen"", ""PHONG_CACH"": ""casual""}",3,thắt lưng màu đen leather casual
+val_pq_00323,thắt_lưng chất da đen,johnhenry_1073519087,"{""CHAT_LIEU"": ""leather"", ""MAU"": ""đen""}",2,thắt lưng chất da đen
+val_pq_00324,thắt_lưng leather,johnhenry_1072386166,"{""CHAT_LIEU"": ""leather""}",1,thắt lưng leather
+val_pq_00325,thắt_lưng màu đen leather,johnhenry_1070213028,"{""CHAT_LIEU"": ""leather"", ""MAU"": ""đen""}",2,thắt lưng màu đen leather
+val_pq_00326,thắt_lưng leather,johnhenry_1067931363,"{""CHAT_LIEU"": ""leather""}",1,thắt lưng leather
+val_pq_00327,thắt_lưng màu đen,johnhenry_1067876445,"{""MAU"": ""đen""}",1,thắt lưng màu đen
+val_pq_00328,thắt_lưng nâu,johnhenry_1062368672,"{""MAU"": ""nâu""}",1,thắt lưng nâu
+val_pq_00329,giày_dép màu nâu,johnhenry_1072386399,"{""MAU"": ""nâu""}",1,giày dép màu nâu
+val_pq_00330,giày_dép nâu,johnhenry_1058100974,"{""MAU"": ""nâu""}",1,giày dép nâu
+val_pq_00331,vớ spandex,johnhenry_1075771757,"{""CHAT_LIEU"": ""spandex""}",1,vớ spandex
+val_pq_00332,tìm vớ spandex casual,johnhenry_1075518493,"{""CHAT_LIEU"": ""spandex"", ""PHONG_CACH"": ""casual""}",2,tìm vớ spandex casual
+val_pq_00333,vớ spandex,johnhenry_1075518492,"{""CHAT_LIEU"": ""spandex""}",1,vớ spandex
+val_pq_00334,tìm đồ_lót bamboo,tiki_31637590,"{""CHAT_LIEU"": ""bamboo""}",1,tìm đồ lót bamboo
+val_pq_00335,áo thun cotton,tiki_103076103,"{""CHAT_LIEU"": ""cotton""}",1,áo thun cotton
+val_pq_00336,áo thun cotton trắng,tiki_174025396,"{""MAU"": ""trắng"", ""CHAT_LIEU"": ""cotton""}",2,áo thun cotton trắng
+val_pq_00337,quần jean slim fit,tiki_263645349,"{""KIEU_DANG"": ""slim fit""}",1,quần jean slim fit
+val_pq_00338,áo thun silk,tiki_271544406,"{""CHAT_LIEU"": ""silk""}",1,áo thun silk
+val_pq_00339,tìm quần_short denim,tiki_174016304,"{""CHAT_LIEU"": ""denim""}",1,tìm quần short denim
+val_pq_00340,tìm đồ_lót cotton,tiki_276669234,"{""CHAT_LIEU"": ""cotton""}",1,tìm đồ lót cotton
+val_pq_00341,tìm quần_kaki polyester be,tiki_56958910,"{""MAU"": ""be"", ""CHAT_LIEU"": ""polyester""}",2,tìm quần kaki polyester be
+val_pq_00342,quần jean vải bò xanh rêu,tiki_249724558,"{""MAU"": ""xanh rêu"", ""CHAT_LIEU"": ""denim""}",2,quần jean vải bò xanh rêu
+val_pq_00343,áo_khoác màu xanh navy,tiki_86066414,"{""MAU"": ""xanh navy""}",1,áo khoác màu xanh navy
+val_pq_00344,áo_khoác thể_thao,tiki_97823540,"{""PHONG_CACH"": ""thể thao""}",1,áo khoác thể thao
+val_pq_00345,tìm đồ_lót polyester,tiki_98902335,"{""CHAT_LIEU"": ""polyester""}",1,tìm đồ lót polyester
+val_pq_00346,quần âu_tapered,tiki_102531428,"{""KIEU_DANG"": ""tapered""}",1,quần âu tapered
+val_pq_00347,bộ mặc nhà năng_động,tiki_77884223,"{""PHONG_CACH"": ""thể thao""}",1,bộ mặc nhà năng động
+val_pq_00348,tìm quần_kaki polyester,tiki_56958321,"{""CHAT_LIEU"": ""polyester""}",1,tìm quần kaki polyester
+val_pq_00349,quần short polyester,tiki_278498646,"{""CHAT_LIEU"": ""polyester""}",1,quần short polyester
+val_pq_00350,tìm áo thun polyester,tiki_105104033,"{""CHAT_LIEU"": ""polyester""}",1,tìm áo thun polyester
+val_pq_00351,áo thun tím polyester,tiki_277924226,"{""CHAT_LIEU"": ""polyester"", ""MAU"": ""tím""}",2,áo thun tím polyester
+val_pq_00352,áo_khoác kaki,tiki_250083914,"{""CHAT_LIEU"": ""kaki""}",1,áo khoác kaki
+val_pq_00353,áo thun sporty,tiki_274505011,"{""PHONG_CACH"": ""thể thao""}",1,áo thun sporty
+val_pq_00354,áo thun polyester,tiki_201597060,"{""CHAT_LIEU"": ""polyester""}",1,áo thun polyester
+val_pq_00355,áo_khoác đen,tiki_276953516,"{""MAU"": ""đen""}",1,áo khoác đen
+val_pq_00356,tìm áo_nỉ wool,tiki_276274078,"{""CHAT_LIEU"": ""wool""}",1,tìm áo nỉ wool
+val_pq_00357,áo_khoác sporty,tiki_56461941,"{""PHONG_CACH"": ""thể thao""}",1,áo khoác sporty
+val_pq_00358,áo_khoác polyester,tiki_278850206,"{""CHAT_LIEU"": ""polyester""}",1,áo khoác polyester
+val_pq_00359,tìm quần_jean cotton,tiki_279399073,"{""CHAT_LIEU"": ""cotton""}",1,tìm quần jean cotton
+val_pq_00360,tìm áo_khoác denim,tiki_11988957,"{""CHAT_LIEU"": ""denim""}",1,tìm áo khoác denim
+val_pq_00361,quần short ghi,tiki_7707600,"{""MAU"": ""xám""}",1,quần short ghi
+val_pq_00362,tìm quần_short cotton_dáng tiêu_chuẩn,tiki_102872512,"{""KIEU_DANG"": ""regular fit"", ""CHAT_LIEU"": ""cotton""}",2,tìm quần short cotton dáng tiêu chuẩn
+val_pq_00363,đồ lót cotton,tiki_167469763,"{""CHAT_LIEU"": ""cotton""}",1,đồ lót cotton
+val_pq_00364,tìm đồ_lót cotton,tiki_101949917,"{""CHAT_LIEU"": ""cotton""}",1,tìm đồ lót cotton
+val_pq_00365,áo sơ_mi xám,tiki_11720711,"{""MAU"": ""xám""}",1,áo sơ mi xám
+val_pq_00366,quần short màu trắng thể_thao,tiki_62219429,"{""MAU"": ""trắng"", ""PHONG_CACH"": ""thể thao""}",2,quần short màu trắng thể thao
+val_pq_00367,áo_khoác màu kem jean công_sở,tiki_86018972,"{""MAU"": ""kem"", ""CHAT_LIEU"": ""denim"", ""PHONG_CACH"": ""công sở""}",3,áo khoác màu kem jean công sở
+val_pq_00368,quần kaki straight fit,tiki_90863897,"{""KIEU_DANG"": ""straight fit""}",1,quần kaki straight fit
+val_pq_00369,áo nỉ công_sở,tiki_273596614,"{""PHONG_CACH"": ""công sở""}",1,áo nỉ công sở
+val_pq_00370,áo thun_dáng rộng,tiki_201391629,"{""KIEU_DANG"": ""oversize""}",1,áo thun dáng rộng
+val_pq_00371,áo_khoác denim,tiki_104160910,"{""CHAT_LIEU"": ""denim""}",1,áo khoác denim
+val_pq_00372,tìm áo thun cotton regular fit,tiki_279325909,"{""CHAT_LIEU"": ""cotton"", ""KIEU_DANG"": ""regular fit""}",2,tìm áo thun cotton regular fit
+val_pq_00373,tìm quần_kaki polyester,tiki_56958286,"{""CHAT_LIEU"": ""polyester""}",1,tìm quần kaki polyester
+val_pq_00374,áo_khoác polyester,tiki_273871989,"{""CHAT_LIEU"": ""polyester""}",1,áo khoác polyester
+val_pq_00375,tìm áo_khoác fleece streetwear,tiki_273929249,"{""PHONG_CACH"": ""streetwear"", ""CHAT_LIEU"": ""fleece""}",2,tìm áo khoác fleece streetwear
+val_pq_00376,áo thun polyester,tiki_179573944,"{""CHAT_LIEU"": ""polyester""}",1,áo thun polyester
+val_pq_00377,tìm áo_khoác kaki,tiki_15131070,"{""CHAT_LIEU"": ""kaki""}",1,tìm áo khoác kaki
+val_pq_00378,áo thun thể_thao,tiki_277468152,"{""PHONG_CACH"": ""thể thao""}",1,áo thun thể thao
+val_pq_00379,quần kaki polyester,tiki_90752462,"{""CHAT_LIEU"": ""polyester""}",1,quần kaki polyester
+val_pq_00380,áo_khoác màu đen,tiki_67272705,"{""MAU"": ""đen""}",1,áo khoác màu đen
+val_pq_00381,tìm quần dài cotton,tiki_148081440,"{""CHAT_LIEU"": ""cotton""}",1,tìm quần dài cotton
+val_pq_00382,áo_khoác denim,tiki_22494233,"{""CHAT_LIEU"": ""denim""}",1,áo khoác denim
+val_pq_00383,quần kaki công_sở polyester,tiki_191378104,"{""PHONG_CACH"": ""công sở"", ""CHAT_LIEU"": ""polyester""}",2,quần kaki công sở polyester
+val_pq_00384,quần short thể_thao,tiki_44933972,"{""PHONG_CACH"": ""thể thao""}",1,quần short thể thao
+val_pq_00385,áo thun màu ghi,tiki_198261735,"{""MAU"": ""xám""}",1,áo thun màu ghi
+val_pq_00386,áo nỉ màu đen wool,tiki_9820474,"{""MAU"": ""đen"", ""CHAT_LIEU"": ""wool""}",2,áo nỉ màu đen wool
+val_pq_00387,áo thun thể_thao,tiki_270133570,"{""PHONG_CACH"": ""thể thao""}",1,áo thun thể thao
+val_pq_00388,áo sơ_mi dáng ôm,tiki_279324586,"{""KIEU_DANG"": ""slim fit""}",1,áo sơ mi dáng ôm
+val_pq_00389,áo sơ_mi oversize phong_cách công_sở bamboo,tiki_163677493,"{""CHAT_LIEU"": ""bamboo"", ""KIEU_DANG"": ""oversize"", ""PHONG_CACH"": ""công sở""}",3,áo sơ mi oversize phong cách công sở bamboo
+val_pq_00390,tìm áo_khoác polyester xanh navy,tiki_9796365,"{""MAU"": ""xanh navy"", ""CHAT_LIEU"": ""polyester""}",2,tìm áo khoác polyester xanh navy
+val_pq_00391,tìm áo thun polyester xanh navy,tiki_146618267,"{""CHAT_LIEU"": ""polyester"", ""MAU"": ""xanh navy""}",2,tìm áo thun polyester xanh navy
+val_pq_00392,quần bơi thể_thao,tiki_168957775,"{""PHONG_CACH"": ""thể thao""}",1,quần bơi thể thao
+val_pq_00393,áo_khoác xanh rêu,tiki_86066184,"{""MAU"": ""xanh rêu""}",1,áo khoác xanh rêu
+val_pq_00394,áo hoodie oversize,tiki_279014032,"{""KIEU_DANG"": ""oversize""}",1,áo hoodie oversize
+val_pq_00395,tìm áo sơ_mi lanh,tiki_278690673,"{""CHAT_LIEU"": ""linen""}",1,tìm áo sơ mi lanh
+val_pq_00396,tìm áo thun spandex,tiki_186271088,"{""CHAT_LIEU"": ""spandex""}",1,tìm áo thun spandex
+val_pq_00397,áo_khoác màu xanh lá,tiki_198262051,"{""MAU"": ""xanh lá""}",1,áo khoác màu xanh lá
+val_pq_00398,tìm đồ_lót nylon,tiki_94345642,"{""CHAT_LIEU"": ""nylon""}",1,tìm đồ lót nylon
+val_pq_00399,áo thun polyester,tiki_179572914,"{""CHAT_LIEU"": ""polyester""}",1,áo thun polyester
+val_pq_00400,tìm áo thun cotton,tiki_90483633,"{""CHAT_LIEU"": ""cotton""}",1,tìm áo thun cotton
+val_pq_00401,áo thun spandex,tiki_249688397,"{""CHAT_LIEU"": ""spandex""}",1,áo thun spandex
+val_pq_00402,tìm áo_nỉ wool,tiki_198057165,"{""CHAT_LIEU"": ""wool""}",1,tìm áo nỉ wool
+val_pq_00403,tìm quần_kaki cotton basic,tiki_278850726,"{""PHONG_CACH"": ""basic"", ""CHAT_LIEU"": ""cotton""}",2,tìm quần kaki cotton basic
+val_pq_00404,áo nỉ xanh navy,tiki_73410837,"{""MAU"": ""xanh navy""}",1,áo nỉ xanh navy
+val_pq_00405,quần jogger regular fit,tiki_273233051,"{""KIEU_DANG"": ""regular fit""}",1,quần jogger regular fit
+val_pq_00406,tìm đồ_lót cotton,tiki_50176716,"{""CHAT_LIEU"": ""cotton""}",1,tìm đồ lót cotton
+val_pq_00407,đồ lót cotton,tiki_146954133,"{""CHAT_LIEU"": ""cotton""}",1,đồ lót cotton
+val_pq_00408,tìm áo sơ_mi cotton,tiki_271499624,"{""CHAT_LIEU"": ""cotton""}",1,tìm áo sơ mi cotton
+val_pq_00409,áo_khoác màu nâu kaki,tiki_73408935,"{""MAU"": ""nâu"", ""CHAT_LIEU"": ""kaki""}",2,áo khoác màu nâu kaki
+val_pq_00410,áo thun xanh_dương,tiki_111681558,"{""MAU"": ""xanh dương""}",1,áo thun xanh dương
+val_pq_00411,tìm quần_kaki polyester slim fit,tiki_116144376,"{""KIEU_DANG"": ""slim fit"", ""CHAT_LIEU"": ""polyester""}",2,tìm quần kaki polyester slim fit
+val_pq_00412,quần jean denim,tiki_51100315,"{""CHAT_LIEU"": ""denim""}",1,quần jean denim
+val_pq_00413,đồ lót xanh navy,tiki_95522395,"{""MAU"": ""xanh navy""}",1,đồ lót xanh navy
+val_pq_00414,áo khoác vải bò,tiki_277728640,"{""CHAT_LIEU"": ""denim""}",1,áo khoác vải bò
+val_pq_00415,quần kaki straight fit polyester,tiki_90752743,"{""KIEU_DANG"": ""straight fit"", ""CHAT_LIEU"": ""polyester""}",2,quần kaki straight fit polyester
+val_pq_00416,áo_khoác oversize,tiki_278462190,"{""KIEU_DANG"": ""oversize""}",1,áo khoác oversize
+val_pq_00417,quần kaki đen,tiki_198262024,"{""MAU"": ""đen""}",1,quần kaki đen
+val_pq_00418,tìm áo_khoác kaki,tiki_67842063,"{""CHAT_LIEU"": ""kaki""}",1,tìm áo khoác kaki
+val_pq_00419,tìm áo_khoác kaki,tiki_171901607,"{""CHAT_LIEU"": ""kaki""}",1,tìm áo khoác kaki
+val_pq_00420,áo_khoác màu xanh dương_dáng rộng,tiki_16632635,"{""KIEU_DANG"": ""oversize"", ""MAU"": ""xanh dương""}",2,áo khoác màu xanh dương dáng rộng
+val_pq_00421,tìm áo thun polyester,tiki_179571861,"{""CHAT_LIEU"": ""polyester""}",1,tìm áo thun polyester
+val_pq_00422,áo thun_dáng tiêu_chuẩn,tiki_89293957,"{""KIEU_DANG"": ""regular fit""}",1,áo thun dáng tiêu chuẩn
+val_pq_00423,đồ lót cotton,tiki_7402949,"{""CHAT_LIEU"": ""cotton""}",1,đồ lót cotton
+val_pq_00424,áo sơ_mi công_sở xanh_dương,tiki_163497845,"{""PHONG_CACH"": ""công sở"", ""MAU"": ""xanh dương""}",2,áo sơ mi công sở xanh dương
+val_pq_00425,áo sơ_mi oversize,tiki_163888596,"{""KIEU_DANG"": ""oversize""}",1,áo sơ mi oversize
+val_pq_00426,áo hoodie màu xám slim fit fleece,tiki_213496888,"{""MAU"": ""xám"", ""KIEU_DANG"": ""slim fit"", ""CHAT_LIEU"": ""fleece""}",3,áo hoodie màu xám slim fit fleece
+val_pq_00427,quần kaki straight fit polyester,tiki_90745123,"{""KIEU_DANG"": ""straight fit"", ""CHAT_LIEU"": ""polyester""}",2,quần kaki straight fit polyester
+val_pq_00428,quần kaki polyester,tiki_90750049,"{""CHAT_LIEU"": ""polyester""}",1,quần kaki polyester
+val_pq_00429,áo_khoác lụa oversize,tiki_57138084,"{""CHAT_LIEU"": ""silk"", ""KIEU_DANG"": ""oversize""}",2,áo khoác lụa oversize
+val_pq_00430,tìm quần_short cotton,tiki_253067059,"{""CHAT_LIEU"": ""cotton""}",1,tìm quần short cotton
+val_pq_00431,áo sơ_mi xanh dương_oversize công_sở,tiki_163552181,"{""MAU"": ""xanh dương"", ""PHONG_CACH"": ""công sở"", ""KIEU_DANG"": ""oversize""}",3,áo sơ mi xanh dương oversize công sở
+val_pq_00432,áo sơ_mi văn_phòng,tiki_163580450,"{""PHONG_CACH"": ""công sở""}",1,áo sơ mi văn phòng
+val_pq_00433,quần kaki polyester,tiki_198261543,"{""CHAT_LIEU"": ""polyester""}",1,quần kaki polyester
+val_pq_00434,quần kaki straight fit polyester,tiki_90746118,"{""KIEU_DANG"": ""straight fit"", ""CHAT_LIEU"": ""polyester""}",2,quần kaki straight fit polyester
+val_pq_00435,tìm quần_kaki polyester,tiki_198261944,"{""CHAT_LIEU"": ""polyester""}",1,tìm quần kaki polyester
+val_pq_00436,áo sơ_mi basic,tiki_198261578,"{""PHONG_CACH"": ""basic""}",1,áo sơ mi basic
+val_pq_00437,áo khoác vải bò,tiki_144273789,"{""CHAT_LIEU"": ""denim""}",1,áo khoác vải bò
+val_pq_00438,áo sơ_mi oversize trắng_lanh,tiki_277167719,"{""MAU"": ""trắng"", ""KIEU_DANG"": ""oversize"", ""CHAT_LIEU"": ""linen""}",3,áo sơ mi oversize trắng lanh
+val_pq_00439,tìm áo thun cotton,tiki_90483672,"{""CHAT_LIEU"": ""cotton""}",1,tìm áo thun cotton
+val_pq_00440,áo thun regular fit spandex,tiki_54643516,"{""KIEU_DANG"": ""regular fit"", ""CHAT_LIEU"": ""spandex""}",2,áo thun regular fit spandex
+val_pq_00441,quần jogger regular fit,tiki_273233064,"{""KIEU_DANG"": ""regular fit""}",1,quần jogger regular fit
+val_pq_00442,tìm áo sơ_mi bamboo,tiki_129523424,"{""CHAT_LIEU"": ""bamboo""}",1,tìm áo sơ mi bamboo
+val_pq_00443,áo_khoác sporty,tiki_57821077,"{""PHONG_CACH"": ""thể thao""}",1,áo khoác sporty
+val_pq_00444,áo sơ_mi slim fit,tiki_90335403,"{""KIEU_DANG"": ""slim fit""}",1,áo sơ mi slim fit
+val_pq_00445,áo sơ_mi xanh_dương,tiki_11720679,"{""MAU"": ""xanh dương""}",1,áo sơ mi xanh dương
+val_pq_00446,tìm áo sơ_mi linen,tiki_276806588,"{""CHAT_LIEU"": ""linen""}",1,tìm áo sơ mi linen
+val_pq_00447,quần jean cotton slim fit,tiki_271405525,"{""KIEU_DANG"": ""slim fit"", ""CHAT_LIEU"": ""cotton""}",2,quần jean cotton slim fit
+val_pq_00448,áo sơ_mi công_sở,tiki_277015225,"{""PHONG_CACH"": ""công sở""}",1,áo sơ mi công sở
+val_pq_00449,tìm áo_khoác polyester,tiki_9796570,"{""CHAT_LIEU"": ""polyester""}",1,tìm áo khoác polyester
+val_pq_00450,áo thun xanh_dương polyester,tiki_9798328,"{""MAU"": ""xanh dương"", ""CHAT_LIEU"": ""polyester""}",2,áo thun xanh dương polyester
+val_pq_00451,áo nỉ wool,tiki_9820348,"{""CHAT_LIEU"": ""wool""}",1,áo nỉ wool
+val_pq_00452,áo nỉ wool,tiki_9820358,"{""CHAT_LIEU"": ""wool""}",1,áo nỉ wool
+val_pq_00453,áo nỉ xanh navy wool,tiki_9820314,"{""MAU"": ""xanh navy"", ""CHAT_LIEU"": ""wool""}",2,áo nỉ xanh navy wool
+val_pq_00454,áo thun xanh navy polyester,tiki_3940517,"{""MAU"": ""xanh navy"", ""CHAT_LIEU"": ""polyester""}",2,áo thun xanh navy polyester
+val_pq_00455,áo sơ_mi bamboo,tiki_198261772,"{""CHAT_LIEU"": ""bamboo""}",1,áo sơ mi bamboo
+val_pq_00456,tìm áo sơ_mi cotton oversize,tiki_275353476,"{""KIEU_DANG"": ""oversize"", ""CHAT_LIEU"": ""cotton""}",2,tìm áo sơ mi cotton oversize
+val_pq_00457,áo sơ_mi cotton,tiki_52890245,"{""CHAT_LIEU"": ""cotton""}",1,áo sơ mi cotton
+val_pq_00458,tìm áo sơ_mi cotton công_sở,tiki_95274781,"{""CHAT_LIEU"": ""cotton"", ""PHONG_CACH"": ""công sở""}",2,tìm áo sơ mi cotton công sở
+val_pq_00459,áo hoodie cotton xám,tiki_82956838,"{""CHAT_LIEU"": ""cotton"", ""MAU"": ""xám""}",2,áo hoodie cotton xám
+val_pq_00460,tìm áo_khoác denim,tiki_76600628,"{""CHAT_LIEU"": ""denim""}",1,tìm áo khoác denim
+val_pq_00461,áo khoác vải bò,tiki_73408257,"{""CHAT_LIEU"": ""denim""}",1,áo khoác vải bò
+val_pq_00462,áo thun cotton,tiki_277986307,"{""CHAT_LIEU"": ""cotton""}",1,áo thun cotton
+val_pq_00463,áo thun retro cotton,tiki_277984980,"{""CHAT_LIEU"": ""cotton"", ""PHONG_CACH"": ""vintage""}",2,áo thun retro cotton
+val_pq_00464,áo_khoác denim,tiki_39332684,"{""CHAT_LIEU"": ""denim""}",1,áo khoác denim
+val_pq_00465,tìm áo_khoác denim,tiki_76600704,"{""CHAT_LIEU"": ""denim""}",1,tìm áo khoác denim
+val_pq_00466,tìm áo_khoác vải bò,tiki_22493751,"{""CHAT_LIEU"": ""denim""}",1,tìm áo khoác vải bò
+val_pq_00467,áo sơ_mi retro_dáng tiêu_chuẩn,tiki_6649695,"{""KIEU_DANG"": ""regular fit"", ""PHONG_CACH"": ""vintage""}",2,áo sơ mi retro dáng tiêu chuẩn
+val_pq_00468,áo thun cotton oversize,lazada_1922511825,"{""CHAT_LIEU"": ""cotton"", ""KIEU_DANG"": ""oversize""}",2,áo thun cotton oversize
+val_pq_00469,áo thun thể_thao,lazada_1291087756,"{""PHONG_CACH"": ""thể thao""}",1,áo thun thể thao
+val_pq_00470,phụ kiện giày nylon,lazada_13485306829,"{""CHAT_LIEU"": ""nylon""}",1,phụ kiện giày nylon
+val_pq_00471,kính mắt thể_thao,lazada_13436167387,"{""PHONG_CACH"": ""thể thao""}",1,kính mắt thể thao
+val_pq_00472,đồng_hồ vintage,lazada_13500349040,"{""PHONG_CACH"": ""vintage""}",1,đồng hồ vintage
+val_pq_00473,giày sneaker thể_thao,lazada_13468889263,"{""PHONG_CACH"": ""thể thao""}",1,giày sneaker thể thao
+val_pq_00474,bộ trang_phục_dáng rộng,lazada_3154403121,"{""KIEU_DANG"": ""oversize""}",1,bộ trang phục dáng rộng
+val_pq_00475,tìm quần_short kaki,lazada_2008322462,"{""CHAT_LIEU"": ""kaki""}",1,tìm quần short kaki
+val_pq_00476,thắt_lưng denim,lazada_13502758943,"{""CHAT_LIEU"": ""denim""}",1,thắt lưng denim
+val_pq_00477,phụ kiện giày thể_thao,lazada_13425303939,"{""PHONG_CACH"": ""thể thao""}",1,phụ kiện giày thể thao
+val_pq_00478,túi đeo chéo chất da,lazada_13463096156,"{""CHAT_LIEU"": ""leather""}",1,túi đeo chéo chất da
+val_pq_00479,ví đựng thẻ công_sở,lazada_13503108346,"{""PHONG_CACH"": ""công sở""}",1,ví đựng thẻ công sở
+val_pq_00480,giày chạy bộ đen_năng_động,lazada_13487687774,"{""MAU"": ""đen"", ""PHONG_CACH"": ""thể thao""}",2,giày chạy bộ đen năng động
+val_pq_00481,túi đeo chéo văn_phòng,lazada_13492961816,"{""PHONG_CACH"": ""công sở""}",1,túi đeo chéo văn phòng
+val_pq_00482,áo vest polyester,lazada_13494494459,"{""CHAT_LIEU"": ""polyester""}",1,áo vest polyester
+val_pq_00483,tìm bốt leather,lazada_13506420518,"{""CHAT_LIEU"": ""leather""}",1,tìm bốt leather
+val_pq_00484,tìm túi đeo chéo nylon,lazada_13380607908,"{""CHAT_LIEU"": ""nylon""}",1,tìm túi đeo chéo nylon
+val_pq_00485,áo hoodie_dáng rộng,lazada_3138819266,"{""KIEU_DANG"": ""oversize""}",1,áo hoodie dáng rộng
+val_pq_00486,tìm cặp công_sở leather,lazada_2122658835,"{""CHAT_LIEU"": ""leather""}",1,tìm cặp công sở leather
+val_pq_00487,bông tai_cotton,lazada_2133669155,"{""CHAT_LIEU"": ""cotton""}",1,bông tai cotton
+val_pq_00488,xăng đan leather,lazada_2971884154,"{""CHAT_LIEU"": ""leather""}",1,xăng đan leather
+val_pq_00489,dây_chuyền retro,lazada_13452993803,"{""PHONG_CACH"": ""vintage""}",1,dây chuyền retro
+val_pq_00490,bốt văn_phòng,lazada_13504928174,"{""PHONG_CACH"": ""công sở""}",1,bốt văn phòng
+val_pq_00491,quần âu_polyester straight fit casual,lazada_13499277278,"{""PHONG_CACH"": ""casual"", ""KIEU_DANG"": ""straight fit"", ""CHAT_LIEU"": ""polyester""}",3,quần âu polyester straight fit casual
+val_pq_00492,ví đựng thẻ leather,lazada_13500745710,"{""CHAT_LIEU"": ""leather""}",1,ví đựng thẻ leather
+val_pq_00493,tìm quần_lót lụa,lazada_2428275351,"{""CHAT_LIEU"": ""silk""}",1,tìm quần lót lụa
+val_pq_00494,bộ trang_phục oversize,lazada_3154244966,"{""KIEU_DANG"": ""oversize""}",1,bộ trang phục oversize
+val_pq_00495,bộ trang_phục cotton,lazada_3061846107,"{""CHAT_LIEU"": ""cotton""}",1,bộ trang phục cotton
+val_pq_00496,tìm cà_vạt polyester,lazada_13490253946,"{""CHAT_LIEU"": ""polyester""}",1,tìm cà vạt polyester
+val_pq_00497,cà_vạt vintage,lazada_13505984993,"{""PHONG_CACH"": ""vintage""}",1,cà vạt vintage
+val_pq_00498,áo polo basic,lazada_2391107160,"{""PHONG_CACH"": ""basic""}",1,áo polo basic
+val_pq_00499,áo vest công_sở,lazada_13491045407,"{""PHONG_CACH"": ""công sở""}",1,áo vest công sở
+val_pq_00500,quần bơi thể_thao,lazada_3168278705,"{""PHONG_CACH"": ""thể thao""}",1,quần bơi thể thao
+val_pq_00501,quần short công_sở,lazada_13385277286,"{""PHONG_CACH"": ""công sở""}",1,quần short công sở
+val_pq_00502,quần lót_dáng tiêu_chuẩn,lazada_2964697890,"{""KIEU_DANG"": ""regular fit""}",1,quần lót dáng tiêu chuẩn
+val_pq_00503,dây_chuyền trắng,lazada_1982272874,"{""MAU"": ""trắng""}",1,dây chuyền trắng
+val_pq_00504,ví đựng thẻ văn_phòng,lazada_13500179280,"{""PHONG_CACH"": ""công sở""}",1,ví đựng thẻ văn phòng
+val_pq_00505,quần jean vải bò,lazada_2626842913,"{""CHAT_LIEU"": ""denim""}",1,quần jean vải bò
+val_pq_00506,quần kaki đen,lazada_1107284359,"{""MAU"": ""đen""}",1,quần kaki đen
+val_pq_00507,giày sneaker vintage đen,lazada_2863060009,"{""MAU"": ""đen"", ""PHONG_CACH"": ""vintage""}",2,giày sneaker vintage đen
+val_pq_00508,quần_lót cotton,lazada_13429707771,"{""CHAT_LIEU"": ""cotton""}",1,quần lót cotton
+val_pq_00509,áo thun năng_động,lazada_2201635927,"{""PHONG_CACH"": ""thể thao""}",1,áo thun năng động
+val_pq_00510,giày chạy bộ_năng_động,lazada_13475095927,"{""PHONG_CACH"": ""thể thao""}",1,giày chạy bộ năng động
+val_pq_00511,áo vest màu đen,lazada_2201109958,"{""MAU"": ""đen""}",1,áo vest màu đen
+val_pq_00512,tìm ví đựng thẻ da vintage,lazada_2915032632,"{""PHONG_CACH"": ""vintage"", ""CHAT_LIEU"": ""leather""}",2,tìm ví đựng thẻ da vintage
+val_pq_00513,áo thun oversize phong_cách streetwear,lazada_13362761733,"{""PHONG_CACH"": ""streetwear"", ""KIEU_DANG"": ""oversize""}",2,áo thun oversize phong cách streetwear
+val_pq_00514,tìm bộ trang_phục polyester,lazada_13432975166,"{""CHAT_LIEU"": ""polyester""}",1,tìm bộ trang phục polyester
+val_pq_00515,tìm ví đựng thẻ da,lazada_13500673854,"{""CHAT_LIEU"": ""leather""}",1,tìm ví đựng thẻ da
+val_pq_00516,bộ trang_phục lanh,lazada_13500297130,"{""CHAT_LIEU"": ""linen""}",1,bộ trang phục lanh
+val_pq_00517,áo hoodie oversize,lazada_3138856911,"{""KIEU_DANG"": ""oversize""}",1,áo hoodie oversize
+val_pq_00518,quần âu_tapered,lazada_1309645675,"{""KIEU_DANG"": ""tapered""}",1,quần âu tapered
+val_pq_00519,nhẫn màu đỏ,lazada_2004089083,"{""MAU"": ""đỏ""}",1,nhẫn màu đỏ
+val_pq_00520,tìm bộ trang_phục polyester,lazada_13423621002,"{""CHAT_LIEU"": ""polyester""}",1,tìm bộ trang phục polyester
+val_pq_00521,tìm balo nylon,lazada_13484917787,"{""CHAT_LIEU"": ""nylon""}",1,tìm balo nylon
+val_pq_00522,túi đeo chéo đen,lazada_13433220446,"{""MAU"": ""đen""}",1,túi đeo chéo đen
+val_pq_00523,tìm túi đeo chéo leather,lazada_2283415091,"{""CHAT_LIEU"": ""leather""}",1,tìm túi đeo chéo leather
+val_pq_00524,dây_chuyền màu bạc,lazada_13497625658,"{""MAU"": ""bạc""}",1,dây chuyền màu bạc
+val_pq_00525,vòng_tay retro silk,lazada_13455274055,"{""PHONG_CACH"": ""vintage"", ""CHAT_LIEU"": ""silk""}",2,vòng tay retro silk
+val_pq_00526,ví retro,lazada_13497759830,"{""PHONG_CACH"": ""vintage""}",1,ví retro
+val_pq_00527,dép basic,lazada_13416352546,"{""PHONG_CACH"": ""basic""}",1,dép basic
+val_pq_00528,nhẫn vintage,lazada_2562776059,"{""PHONG_CACH"": ""vintage""}",1,nhẫn vintage
+val_pq_00529,túi đeo chéo polyester tối_giản,lazada_13508576127,"{""CHAT_LIEU"": ""polyester"", ""PHONG_CACH"": ""minimalist""}",2,túi đeo chéo polyester tối giản
+val_pq_00530,ví leather,lazada_13483922406,"{""CHAT_LIEU"": ""leather""}",1,ví leather
+val_pq_00531,túi đeo chéo năng_động,lazada_13464477835,"{""PHONG_CACH"": ""thể thao""}",1,túi đeo chéo năng động
+val_pq_00532,tìm cặp công_sở leather,lazada_1492127362,"{""CHAT_LIEU"": ""leather""}",1,tìm cặp công sở leather
+val_pq_00533,tìm quần_lót cotton,lazada_2344256220,"{""CHAT_LIEU"": ""cotton""}",1,tìm quần lót cotton
+val_pq_00534,ví da,lazada_13502081828,"{""CHAT_LIEU"": ""leather""}",1,ví da
+val_pq_00535,tìm thắt_lưng polyester,lazada_13499811006,"{""CHAT_LIEU"": ""polyester""}",1,tìm thắt lưng polyester
+val_pq_00536,cặp công_sở cotton,lazada_2661639217,"{""CHAT_LIEU"": ""cotton""}",1,cặp công sở cotton
+val_pq_00537,ví đựng thẻ văn_phòng,lazada_13500063979,"{""PHONG_CACH"": ""công sở""}",1,ví đựng thẻ văn phòng
+val_pq_00538,nhẫn retro,lazada_13496703887,"{""PHONG_CACH"": ""vintage""}",1,nhẫn retro
+val_pq_00539,phụ kiện giày polyester đen,lazada_13502731383,"{""CHAT_LIEU"": ""polyester"", ""MAU"": ""đen""}",2,phụ kiện giày polyester đen
+val_pq_00540,tìm phụ_kiện giày cotton,lazada_3323151022,"{""CHAT_LIEU"": ""cotton""}",1,tìm phụ kiện giày cotton
+val_pq_00541,bộ trang_phục retro wide leg,lazada_13500457253,"{""PHONG_CACH"": ""vintage"", ""KIEU_DANG"": ""wide leg""}",2,bộ trang phục retro wide leg
+val_pq_00542,áo hoodie streetwear,lazada_2524626252,"{""PHONG_CACH"": ""streetwear""}",1,áo hoodie streetwear
+val_pq_00543,tìm balo leather,lazada_2343573914,"{""CHAT_LIEU"": ""leather""}",1,tìm balo leather
+val_pq_00544,giày chạy bộ sporty,lazada_13479786153,"{""PHONG_CACH"": ""thể thao""}",1,giày chạy bộ sporty
+val_pq_00545,cà_vạt xám,lazada_2286486917,"{""MAU"": ""xám""}",1,cà vạt xám
+val_pq_00546,quần_dáng suông thẳng,lazada_13416197731,"{""KIEU_DANG"": ""straight fit""}",1,quần dáng suông thẳng
+val_pq_00547,áo hoodie fleece,lazada_2893185576,"{""CHAT_LIEU"": ""fleece""}",1,áo hoodie fleece
+val_pq_00548,xăng đan vintage,lazada_2782637552,"{""PHONG_CACH"": ""vintage""}",1,xăng đan vintage
+val_pq_00549,tìm quần bơi polyester,lazada_13436217106,"{""CHAT_LIEU"": ""polyester""}",1,tìm quần bơi polyester
+val_pq_00550,nhẫn màu vàng,lazada_3092779969,"{""MAU"": ""vàng""}",1,nhẫn màu vàng
+val_pq_00551,dép retro,lazada_13468886530,"{""PHONG_CACH"": ""vintage""}",1,dép retro
+val_pq_00552,áo vest silk,lazada_13493705937,"{""CHAT_LIEU"": ""silk""}",1,áo vest silk
+val_pq_00553,tìm quần_bơi cotton thể_thao,lazada_1088652823,"{""CHAT_LIEU"": ""cotton"", ""PHONG_CACH"": ""thể thao""}",2,tìm quần bơi cotton thể thao
+val_pq_00554,thắt_lưng casual leather,lazada_2666440723,"{""CHAT_LIEU"": ""leather"", ""PHONG_CACH"": ""casual""}",2,thắt lưng casual leather
+val_pq_00555,tìm áo hoodie nỉ,lazada_13505564727,"{""CHAT_LIEU"": ""fleece""}",1,tìm áo hoodie nỉ
+val_pq_00556,giày công_sở màu đen,lazada_13356206158,"{""MAU"": ""đen""}",1,giày công sở màu đen
+val_pq_00557,bốt màu xám,lazada_13436089699,"{""MAU"": ""xám""}",1,bốt màu xám
+val_pq_00558,quần_lót cotton,lazada_343488400,"{""CHAT_LIEU"": ""cotton""}",1,quần lót cotton
+val_pq_00559,tìm thắt_lưng nylon thể_thao,lazada_2939815856,"{""CHAT_LIEU"": ""nylon"", ""PHONG_CACH"": ""thể thao""}",2,tìm thắt lưng nylon thể thao
+val_pq_00560,phụ kiện giày xanh_dương,lazada_13501664346,"{""MAU"": ""xanh dương""}",1,phụ kiện giày xanh dương
+val_pq_00561,dây_chuyền vintage,lazada_2721514410,"{""PHONG_CACH"": ""vintage""}",1,dây chuyền vintage
+val_pq_00562,tìm quần thể_thao polyester,lazada_13499911536,"{""CHAT_LIEU"": ""polyester""}",1,tìm quần thể thao polyester
+val_pq_00563,tìm bộ trang_phục polyester oversize,lazada_13493199512,"{""CHAT_LIEU"": ""polyester"", ""KIEU_DANG"": ""oversize""}",2,tìm bộ trang phục polyester oversize
+val_pq_00564,tìm quần_lót cotton năng_động,lazada_3232304450,"{""CHAT_LIEU"": ""cotton"", ""PHONG_CACH"": ""thể thao""}",2,tìm quần lót cotton năng động
+val_pq_00565,tìm giày công_sở leather thể_thao,lazada_13492162527,"{""CHAT_LIEU"": ""leather"", ""PHONG_CACH"": ""thể thao""}",2,tìm giày công sở leather thể thao
+val_pq_00566,tìm giày công_sở leather,lazada_2614354854,"{""CHAT_LIEU"": ""leather""}",1,tìm giày công sở leather
+val_pq_00567,áo polo cotton,lazada_2401787647,"{""CHAT_LIEU"": ""cotton""}",1,áo polo cotton
+val_pq_00568,tìm quần short vải bò,lazada_3110495037,"{""CHAT_LIEU"": ""denim""}",1,tìm quần short vải bò
+val_pq_00569,tìm áo_khoác bomber kaki,lazada_2429033785,"{""CHAT_LIEU"": ""kaki""}",1,tìm áo khoác bomber kaki
+val_pq_00570,tìm cà_vạt polyester,lazada_13466682516,"{""CHAT_LIEU"": ""polyester""}",1,tìm cà vạt polyester
+val_pq_00571,bộ trang_phục_dáng rộng,lazada_3154298706,"{""KIEU_DANG"": ""oversize""}",1,bộ trang phục dáng rộng
+val_pq_00572,balo retro,lazada_13490983378,"{""PHONG_CACH"": ""vintage""}",1,balo retro
+val_pq_00573,tìm thắt_lưng leather,lazada_13503192852,"{""CHAT_LIEU"": ""leather""}",1,tìm thắt lưng leather
+val_pq_00574,ví đựng thẻ_chất da,lazada_13495326658,"{""CHAT_LIEU"": ""leather""}",1,ví đựng thẻ chất da
+val_pq_00575,kính mắt chất da,lazada_1910846403,"{""CHAT_LIEU"": ""leather""}",1,kính mắt chất da
+val_pq_00576,tìm quần âu_cotton wide leg,lazada_13497833327,"{""CHAT_LIEU"": ""cotton"", ""KIEU_DANG"": ""wide leg""}",2,tìm quần âu cotton wide leg
+val_pq_00577,bốt đen,lazada_13503401320,"{""MAU"": ""đen""}",1,bốt đen
+val_pq_00578,giày công_sở leather,lazada_397808476,"{""CHAT_LIEU"": ""leather""}",1,giày công sở leather
+val_pq_00579,tìm ví_chất da,lazada_2938789957,"{""CHAT_LIEU"": ""leather""}",1,tìm ví chất da
+val_pq_00580,áo thun oversize,lazada_2428342921,"{""KIEU_DANG"": ""oversize""}",1,áo thun oversize
+val_pq_00581,giày chạy bộ thể_thao,lazada_13468425340,"{""PHONG_CACH"": ""thể thao""}",1,giày chạy bộ thể thao
+val_pq_00582,giày công_sở leather,lazada_1201348400,"{""CHAT_LIEU"": ""leather""}",1,giày công sở leather
+val_pq_00583,áo_khoác bomber oversize,lazada_3057518918,"{""KIEU_DANG"": ""oversize""}",1,áo khoác bomber oversize
+val_pq_00584,ví đựng thẻ polyester,lazada_2597491010,"{""CHAT_LIEU"": ""polyester""}",1,ví đựng thẻ polyester
+val_pq_00585,bốt đen,lazada_13499487048,"{""MAU"": ""đen""}",1,bốt đen
+val_pq_00586,quần jogger thể_thao,lazada_3175453986,"{""PHONG_CACH"": ""thể thao""}",1,quần jogger thể thao
+val_pq_00587,quần slim fit,lazada_2667067717,"{""KIEU_DANG"": ""slim fit""}",1,quần slim fit
+val_pq_00588,túi đeo chéo vintage,lazada_13499565563,"{""PHONG_CACH"": ""vintage""}",1,túi đeo chéo vintage
+val_pq_00589,bộ trang_phục_dáng rộng thể_thao,lazada_13501929205,"{""PHONG_CACH"": ""thể thao"", ""KIEU_DANG"": ""oversize""}",2,bộ trang phục dáng rộng thể thao
+val_pq_00590,túi đeo chéo màu đen,lazada_2610478178,"{""MAU"": ""đen""}",1,túi đeo chéo màu đen
+val_pq_00591,áo hoodie casual,lazada_13477317503,"{""PHONG_CACH"": ""casual""}",1,áo hoodie casual
+val_pq_00592,quần_lót cotton,lazada_13438419995,"{""CHAT_LIEU"": ""cotton""}",1,quần lót cotton
+val_pq_00593,bốt màu ghi,lazada_13490592451,"{""MAU"": ""xám""}",1,bốt màu ghi
+val_pq_00594,tìm ví đựng thẻ_chất da,lazada_3025673272,"{""CHAT_LIEU"": ""leather""}",1,tìm ví đựng thẻ chất da
+val_pq_00595,tìm áo_khoác nhẹ polyester,lazada_13490954817,"{""CHAT_LIEU"": ""polyester""}",1,tìm áo khoác nhẹ polyester
+val_pq_00596,đồng_hồ retro,lazada_2616246947,"{""PHONG_CACH"": ""vintage""}",1,đồng hồ retro
+val_pq_00597,túi đeo chéo leather,lazada_13500190185,"{""CHAT_LIEU"": ""leather""}",1,túi đeo chéo leather
+val_pq_00598,tìm áo vest cotton,lazada_13502833684,"{""CHAT_LIEU"": ""cotton""}",1,tìm áo vest cotton
+val_pq_00599,quần bơi cotton năng_động,lazada_212374475,"{""CHAT_LIEU"": ""cotton"", ""PHONG_CACH"": ""thể thao""}",2,quần bơi cotton năng động
+val_pq_00600,tìm ví da,lazada_1895283141,"{""CHAT_LIEU"": ""leather""}",1,tìm ví da
+val_pq_00601,tìm quần_short linen,lazada_13421124907,"{""CHAT_LIEU"": ""linen""}",1,tìm quần short linen
+val_pq_00602,ví chất da,lazada_753738636,"{""CHAT_LIEU"": ""leather""}",1,ví chất da
+val_pq_00603,áo vest polyester văn_phòng,lazada_13502368446,"{""CHAT_LIEU"": ""polyester"", ""PHONG_CACH"": ""công sở""}",2,áo vest polyester văn phòng
+val_pq_00604,quần jean vintage,lazada_13497701637,"{""PHONG_CACH"": ""vintage""}",1,quần jean vintage
+val_pq_00605,cà_vạt polyester,lazada_13506753076,"{""CHAT_LIEU"": ""polyester""}",1,cà vạt polyester
+val_pq_00606,ví chất da,lazada_13500678935,"{""CHAT_LIEU"": ""leather""}",1,ví chất da
+val_pq_00607,tìm áo sơ_mi silk,lazada_1924891057,"{""CHAT_LIEU"": ""silk""}",1,tìm áo sơ mi silk
+val_pq_00608,nhẫn retro,lazada_13496711173,"{""PHONG_CACH"": ""vintage""}",1,nhẫn retro
+val_pq_00609,quần_jean công_sở,lazada_3279585792,"{""PHONG_CACH"": ""công sở""}",1,quần jean công sở
+val_pq_00610,quần_lót lụa thể_thao,lazada_3168494577,"{""CHAT_LIEU"": ""silk"", ""PHONG_CACH"": ""thể thao""}",2,quần lót lụa thể thao
+val_pq_00611,giày chạy bộ màu đen,lazada_3050794049,"{""MAU"": ""đen""}",1,giày chạy bộ màu đen
+val_pq_00612,áo_khoác bomber nỉ,lazada_3319892582,"{""CHAT_LIEU"": ""fleece""}",1,áo khoác bomber nỉ
+val_pq_00613,bốt màu đen,lazada_13501669975,"{""MAU"": ""đen""}",1,bốt màu đen
+val_pq_00614,kính mắt retro,lazada_13438064321,"{""PHONG_CACH"": ""vintage""}",1,kính mắt retro
+val_pq_00615,bộ trang_phục_dáng rộng,lazada_3154419052,"{""KIEU_DANG"": ""oversize""}",1,bộ trang phục dáng rộng
+val_pq_00616,quần_jean vintage đen,lazada_13503546229,"{""MAU"": ""đen"", ""PHONG_CACH"": ""vintage""}",2,quần jean vintage đen
+val_pq_00617,kính mắt thể_thao,lazada_13353959096,"{""PHONG_CACH"": ""thể thao""}",1,kính mắt thể thao
+val_pq_00618,quần bơi đen,lazada_3190179285,"{""MAU"": ""đen""}",1,quần bơi đen
+val_pq_00619,xăng đan thể_thao,lazada_13464089240,"{""PHONG_CACH"": ""thể thao""}",1,xăng đan thể thao
+val_pq_00620,tìm cà_vạt polyester vintage,lazada_13488359586,"{""CHAT_LIEU"": ""polyester"", ""PHONG_CACH"": ""vintage""}",2,tìm cà vạt polyester vintage
+val_pq_00621,quần_dáng rộng phong_cách thường_ngày,lazada_13500007057,"{""KIEU_DANG"": ""oversize"", ""PHONG_CACH"": ""casual""}",2,quần dáng rộng phong cách thường ngày
+val_pq_00622,thắt_lưng polyester,lazada_13499114623,"{""CHAT_LIEU"": ""polyester""}",1,thắt lưng polyester
+val_pq_00623,giày công_sở thường_ngày,lazada_13477120776,"{""PHONG_CACH"": ""casual""}",1,giày công sở thường ngày
+val_pq_00624,tìm áo polo cotton văn_phòng,lazada_3015667784,"{""PHONG_CACH"": ""công sở"", ""CHAT_LIEU"": ""cotton""}",2,tìm áo polo cotton văn phòng
+val_pq_00625,thắt_lưng streetwear,lazada_13495796482,"{""PHONG_CACH"": ""streetwear""}",1,thắt lưng streetwear
+val_pq_00626,cà_vạt tím,lazada_2286585469,"{""MAU"": ""tím""}",1,cà vạt tím
+val_pq_00627,tìm thắt_lưng leather,lazada_13502948138,"{""CHAT_LIEU"": ""leather""}",1,tìm thắt lưng leather
+val_pq_00628,giày chạy bộ thể_thao,lazada_13489000086,"{""PHONG_CACH"": ""thể thao""}",1,giày chạy bộ thể thao
+val_pq_00629,tìm ví da,lazada_2246618284,"{""CHAT_LIEU"": ""leather""}",1,tìm ví da
+val_pq_00630,áo hoodie_dáng rộng,lazada_3138887448,"{""KIEU_DANG"": ""oversize""}",1,áo hoodie dáng rộng
+val_pq_00631,giày sneaker đỏ,lazada_2793513654,"{""MAU"": ""đỏ""}",1,giày sneaker đỏ
+val_pq_00632,cà_vạt công_sở,lazada_2909545419,"{""PHONG_CACH"": ""công sở""}",1,cà vạt công sở
+val_pq_00633,quần âu_baggy,lazada_1958818146,"{""KIEU_DANG"": ""baggy""}",1,quần âu baggy
+val_pq_00634,tìm áo hoodie polyester oversize,lazada_13471901024,"{""CHAT_LIEU"": ""polyester"", ""KIEU_DANG"": ""oversize""}",2,tìm áo hoodie polyester oversize
+val_pq_00635,balo thể_thao,lazada_13502265207,"{""PHONG_CACH"": ""thể thao""}",1,balo thể thao
+val_pq_00636,cà_vạt polyester,lazada_13495628004,"{""CHAT_LIEU"": ""polyester""}",1,cà vạt polyester
+val_pq_00637,thắt_lưng jean,lazada_2832449324,"{""CHAT_LIEU"": ""denim""}",1,thắt lưng jean
+val_pq_00638,áo_khoác bomber retro,lazada_2954542709,"{""PHONG_CACH"": ""vintage""}",1,áo khoác bomber retro
+val_pq_00639,tìm quần_lót silk,lazada_2428227561,"{""CHAT_LIEU"": ""silk""}",1,tìm quần lót silk
+val_pq_00640,tìm quần_lót polyester,lazada_13502932216,"{""CHAT_LIEU"": ""polyester""}",1,tìm quần lót polyester
+val_pq_00641,nhẫn vintage,lazada_13469293728,"{""PHONG_CACH"": ""vintage""}",1,nhẫn vintage
+val_pq_00642,tìm áo hoodie nỉ oversize,lazada_2002199629,"{""CHAT_LIEU"": ""fleece"", ""KIEU_DANG"": ""oversize""}",2,tìm áo hoodie nỉ oversize
+val_pq_00643,giày sneaker sporty,lazada_13457291816,"{""PHONG_CACH"": ""thể thao""}",1,giày sneaker sporty
+val_pq_00644,áo hoodie cotton,lazada_3309917827,"{""CHAT_LIEU"": ""cotton""}",1,áo hoodie cotton
+val_pq_00645,đồng_hồ minimalist,lazada_13488280410,"{""PHONG_CACH"": ""minimalist""}",1,đồng hồ minimalist
+val_pq_00646,tìm túi đeo chéo polyester,lazada_13503900409,"{""CHAT_LIEU"": ""polyester""}",1,tìm túi đeo chéo polyester
+val_pq_00647,nhẫn retro,lazada_2723089172,"{""PHONG_CACH"": ""vintage""}",1,nhẫn retro
+val_pq_00648,đồng_hồ thể_thao,lazada_13498181010,"{""PHONG_CACH"": ""thể thao""}",1,đồng hồ thể thao
+val_pq_00649,tìm áo polo cotton,lazada_2343909682,"{""CHAT_LIEU"": ""cotton""}",1,tìm áo polo cotton
+val_pq_00650,bộ trang_phục cotton,lazada_3022159320,"{""CHAT_LIEU"": ""cotton""}",1,bộ trang phục cotton
+val_pq_00651,balo thể_thao,lazada_13492737199,"{""PHONG_CACH"": ""thể thao""}",1,balo thể thao
+val_pq_00652,cặp công_sở leather,lazada_1335525821,"{""CHAT_LIEU"": ""leather""}",1,cặp công sở leather
+val_pq_00653,kính mắt màu đen,lazada_2895655454,"{""MAU"": ""đen""}",1,kính mắt màu đen
+val_pq_00654,bốt retro,lazada_13499743088,"{""PHONG_CACH"": ""vintage""}",1,bốt retro
+val_pq_00655,tìm áo thun cotton basic,lazada_2099870894,"{""PHONG_CACH"": ""basic"", ""CHAT_LIEU"": ""cotton""}",2,tìm áo thun cotton basic
+val_pq_00656,dây_chuyền vintage,lazada_13464637154,"{""PHONG_CACH"": ""vintage""}",1,dây chuyền vintage
+val_pq_00657,ví đựng thẻ văn_phòng,lazada_13503086945,"{""PHONG_CACH"": ""công sở""}",1,ví đựng thẻ văn phòng
+val_pq_00658,giày chạy bộ polyester,lazada_13481549660,"{""CHAT_LIEU"": ""polyester""}",1,giày chạy bộ polyester
+val_pq_00659,tìm quần_bơi spandex thể_thao,lazada_1932975779,"{""CHAT_LIEU"": ""spandex"", ""PHONG_CACH"": ""thể thao""}",2,tìm quần bơi spandex thể thao
+val_pq_00660,túi đeo chéo polyester,lazada_13505900071,"{""CHAT_LIEU"": ""polyester""}",1,túi đeo chéo polyester
+val_pq_00661,túi đeo chéo nylon thể_thao,lazada_13505678349,"{""PHONG_CACH"": ""thể thao"", ""CHAT_LIEU"": ""nylon""}",2,túi đeo chéo nylon thể thao
+val_pq_00662,áo hoodie fleece,lazada_2023826056,"{""CHAT_LIEU"": ""fleece""}",1,áo hoodie fleece
+val_pq_00663,bộ trang_phục oversize,lazada_3154389921,"{""KIEU_DANG"": ""oversize""}",1,bộ trang phục oversize
+val_pq_00664,quần bơi polyester,lazada_1771945720,"{""CHAT_LIEU"": ""polyester""}",1,quần bơi polyester
+val_pq_00665,túi đeo chéo polyester,lazada_13501671942,"{""CHAT_LIEU"": ""polyester""}",1,túi đeo chéo polyester
+val_pq_00666,tìm quần_short kaki,lazada_2008137325,"{""CHAT_LIEU"": ""kaki""}",1,tìm quần short kaki
+val_pq_00667,tìm áo thun cotton,lazada_13493245356,"{""CHAT_LIEU"": ""cotton""}",1,tìm áo thun cotton
+val_pq_00668,ví leather,lazada_2938945227,"{""CHAT_LIEU"": ""leather""}",1,ví leather
+val_pq_00669,tìm bốt da,lazada_13505634501,"{""CHAT_LIEU"": ""leather""}",1,tìm bốt da
+val_pq_00670,quần jean denim,lazada_13404454635,"{""CHAT_LIEU"": ""denim""}",1,quần jean denim
+val_pq_00671,giày chạy bộ thể_thao,lazada_13473773414,"{""PHONG_CACH"": ""thể thao""}",1,giày chạy bộ thể thao
+val_pq_00672,bộ trang_phục polyester,lazada_13434696266,"{""CHAT_LIEU"": ""polyester""}",1,bộ trang phục polyester
+val_pq_00673,dây_chuyền xanh_dương,lazada_13458701467,"{""MAU"": ""xanh dương""}",1,dây chuyền xanh dương
+val_pq_00674,quần_lót silk,lazada_2361655086,"{""CHAT_LIEU"": ""silk""}",1,quần lót silk
+val_pq_00675,quần bơi oversize phong_cách thể_thao,lazada_13430710099,"{""PHONG_CACH"": ""thể thao"", ""KIEU_DANG"": ""oversize""}",2,quần bơi oversize phong cách thể thao
+val_pq_00676,áo_khoác nhẹ silk,lazada_1613380089,"{""CHAT_LIEU"": ""silk""}",1,áo khoác nhẹ silk
+val_pq_00677,tìm giày công_sở leather,lazada_2418976697,"{""CHAT_LIEU"": ""leather""}",1,tìm giày công sở leather
+val_pq_00678,giày công_sở leather,lazada_13493639882,"{""CHAT_LIEU"": ""leather""}",1,giày công sở leather
+val_pq_00679,dây_chuyền vintage,lazada_13458527755,"{""PHONG_CACH"": ""vintage""}",1,dây chuyền vintage
+val_pq_00680,giày chạy bộ trắng streetwear,lazada_3299344573,"{""MAU"": ""trắng"", ""PHONG_CACH"": ""streetwear""}",2,giày chạy bộ trắng streetwear
+val_pq_00681,thắt_lưng thể_thao,lazada_2581090691,"{""PHONG_CACH"": ""thể thao""}",1,thắt lưng thể thao
+val_pq_00682,thắt_lưng da,lazada_3218847230,"{""CHAT_LIEU"": ""leather""}",1,thắt lưng da
+val_pq_00683,nhẫn bạc,lazada_2182709863,"{""MAU"": ""bạc""}",1,nhẫn bạc
+val_pq_00684,tìm ví_chất da,lazada_1734239281,"{""CHAT_LIEU"": ""leather""}",1,tìm ví chất da
+val_pq_00685,đồng_hồ sporty,lazada_13492154540,"{""PHONG_CACH"": ""thể thao""}",1,đồng hồ sporty
+val_pq_00686,tìm thắt_lưng chất da,lazada_2107953079,"{""CHAT_LIEU"": ""leather""}",1,tìm thắt lưng chất da
+val_pq_00687,áo thun silk,lazada_13339104539,"{""CHAT_LIEU"": ""silk""}",1,áo thun silk
+val_pq_00688,quần kaki cotton,lazada_13497408232,"{""CHAT_LIEU"": ""cotton""}",1,quần kaki cotton
+val_pq_00689,tìm bông tai fleece,lazada_13494917212,"{""CHAT_LIEU"": ""fleece""}",1,tìm bông tai fleece
+val_pq_00690,áo hoodie polyester,lazada_13498359377,"{""CHAT_LIEU"": ""polyester""}",1,áo hoodie polyester
+val_pq_00691,ví vintage,lazada_13503090766,"{""PHONG_CACH"": ""vintage""}",1,ví vintage
+val_pq_00692,nhẫn vintage,lazada_13470394200,"{""PHONG_CACH"": ""vintage""}",1,nhẫn vintage
+val_pq_00693,tìm đồng_hồ nylon thể_thao,lazada_13488759904,"{""PHONG_CACH"": ""thể thao"", ""CHAT_LIEU"": ""nylon""}",2,tìm đồng hồ nylon thể thao
+val_pq_00694,cặp công_sở màu nâu,lazada_2148213058,"{""MAU"": ""nâu""}",1,cặp công sở màu nâu
+val_pq_00695,tìm bộ trang_phục fleece,lazada_13361999141,"{""CHAT_LIEU"": ""fleece""}",1,tìm bộ trang phục fleece
+val_pq_00696,quần jogger thể_thao,lazada_13496704328,"{""PHONG_CACH"": ""thể thao""}",1,quần jogger thể thao
+val_pq_00697,tìm quần_lót silk sporty,lazada_13498451221,"{""CHAT_LIEU"": ""silk"", ""PHONG_CACH"": ""thể thao""}",2,tìm quần lót silk sporty
+val_pq_00698,cặp công_sở cotton,lazada_2661558688,"{""CHAT_LIEU"": ""cotton""}",1,cặp công sở cotton
+val_pq_00699,giày công_sở casual,lazada_13475313183,"{""PHONG_CACH"": ""casual""}",1,giày công sở casual
+val_pq_00700,áo_khoác bomber basic,lazada_3193050387,"{""PHONG_CACH"": ""basic""}",1,áo khoác bomber basic
+val_pq_00701,áo hoodie đường_phố,lazada_13504421209,"{""PHONG_CACH"": ""streetwear""}",1,áo hoodie đường phố
+val_pq_00702,giày chạy bộ màu xám,lazada_3083931369,"{""MAU"": ""xám""}",1,giày chạy bộ màu xám
+val_pq_00703,tìm balo leather,lazada_3108809425,"{""CHAT_LIEU"": ""leather""}",1,tìm balo leather
+val_pq_00704,tìm quần âu_polyester oversize,lazada_2997585966,"{""CHAT_LIEU"": ""polyester"", ""KIEU_DANG"": ""oversize""}",2,tìm quần âu polyester oversize
+val_pq_00705,quần âu_cotton,lazada_1262187789,"{""CHAT_LIEU"": ""cotton""}",1,quần âu cotton
+val_pq_00706,túi đeo chéo leather vintage,lazada_13438086266,"{""CHAT_LIEU"": ""leather"", ""PHONG_CACH"": ""vintage""}",2,túi đeo chéo leather vintage
+val_pq_00707,tìm quần_short kaki,lazada_1555718235,"{""CHAT_LIEU"": ""kaki""}",1,tìm quần short kaki
+val_pq_00708,quần polyester,lazada_13502850861,"{""CHAT_LIEU"": ""polyester""}",1,quần polyester
+val_pq_00709,ví đựng thẻ công_sở,lazada_13500119390,"{""PHONG_CACH"": ""công sở""}",1,ví đựng thẻ công sở
+val_pq_00710,áo sơ_mi vintage cotton,lazada_13415449593,"{""PHONG_CACH"": ""vintage"", ""CHAT_LIEU"": ""cotton""}",2,áo sơ mi vintage cotton
+val_pq_00711,túi đeo chéo công_sở,lazada_13492024469,"{""PHONG_CACH"": ""công sở""}",1,túi đeo chéo công sở
+val_pq_00712,tìm thắt_lưng leather,lazada_1641242200,"{""CHAT_LIEU"": ""leather""}",1,tìm thắt lưng leather
+val_pq_00713,ví polyester,lazada_2414089042,"{""CHAT_LIEU"": ""polyester""}",1,ví polyester
+val_pq_00714,bông tai_cotton,lazada_13418554034,"{""CHAT_LIEU"": ""cotton""}",1,bông tai cotton
+val_pq_00715,thắt_lưng da,lazada_2391426700,"{""CHAT_LIEU"": ""leather""}",1,thắt lưng da
+val_pq_00716,tìm phụ_kiện giày polyester,lazada_13505395194,"{""CHAT_LIEU"": ""polyester""}",1,tìm phụ kiện giày polyester
+val_pq_00717,bốt văn_phòng,lazada_13502906684,"{""PHONG_CACH"": ""công sở""}",1,bốt văn phòng
+val_pq_00718,giày sneaker màu ghi,lazada_2787218896,"{""MAU"": ""xám""}",1,giày sneaker màu ghi
+val_pq_00719,đồng_hồ minimalist,lazada_13437958790,"{""PHONG_CACH"": ""minimalist""}",1,đồng hồ minimalist
+val_pq_00720,vòng_tay vintage,lazada_2562688847,"{""PHONG_CACH"": ""vintage""}",1,vòng tay vintage
+val_pq_00721,quần short thể_thao,lazada_13429728543,"{""PHONG_CACH"": ""thể thao""}",1,quần short thể thao
+val_pq_00722,thắt_lưng polyester,lazada_13488791329,"{""CHAT_LIEU"": ""polyester""}",1,thắt lưng polyester
+val_pq_00723,quần_lót polyester straight fit,lazada_13499869773,"{""CHAT_LIEU"": ""polyester"", ""KIEU_DANG"": ""straight fit""}",2,quần lót polyester straight fit
+val_pq_00724,quần_lót oversize cotton,lazada_13431526173,"{""CHAT_LIEU"": ""cotton"", ""KIEU_DANG"": ""oversize""}",2,quần lót oversize cotton
+val_pq_00725,giày chạy bộ trắng,lazada_13471058694,"{""MAU"": ""trắng""}",1,giày chạy bộ trắng
+val_pq_00726,túi đeo chéo vintage,lazada_2615541325,"{""PHONG_CACH"": ""vintage""}",1,túi đeo chéo vintage
+val_pq_00727,giày sneaker thể_thao,lazada_13471318038,"{""PHONG_CACH"": ""thể thao""}",1,giày sneaker thể thao
+val_pq_00728,bốt vintage,lazada_13499441477,"{""PHONG_CACH"": ""vintage""}",1,bốt vintage
+val_pq_00729,tìm quần_kaki cotton,lazada_3175341203,"{""CHAT_LIEU"": ""cotton""}",1,tìm quần kaki cotton
+val_pq_00730,dép đen đường_phố,lazada_13387778270,"{""PHONG_CACH"": ""streetwear"", ""MAU"": ""đen""}",2,dép đen đường phố
+val_pq_00731,đồng_hồ thể_thao,lazada_2607084573,"{""PHONG_CACH"": ""thể thao""}",1,đồng hồ thể thao
+val_pq_00732,tìm ví leather,lazada_809354891,"{""CHAT_LIEU"": ""leather""}",1,tìm ví leather
+val_pq_00733,tìm cặp công_sở nylon đen,lazada_13487633196,"{""CHAT_LIEU"": ""nylon"", ""MAU"": ""đen""}",2,tìm cặp công sở nylon đen
+val_pq_00734,ví tối_giản,lazada_13379973927,"{""PHONG_CACH"": ""minimalist""}",1,ví tối giản
+val_pq_00735,đồng_hồ bạc,lazada_1279520052,"{""MAU"": ""bạc""}",1,đồng hồ bạc
+val_pq_00736,cà_vạt vintage,lazada_13503389378,"{""PHONG_CACH"": ""vintage""}",1,cà vạt vintage
+val_pq_00737,quần cotton,lazada_13500848458,"{""CHAT_LIEU"": ""cotton""}",1,quần cotton
+val_pq_00738,kính mắt cotton,lazada_1877907073,"{""CHAT_LIEU"": ""cotton""}",1,kính mắt cotton
+val_pq_00739,tìm quần_jean denim,lazada_3307848842,"{""CHAT_LIEU"": ""denim""}",1,tìm quần jean denim
+val_pq_00740,dép đen,lazada_662572523,"{""MAU"": ""đen""}",1,dép đen
+val_pq_00741,giày chạy bộ vintage,lazada_2806883678,"{""PHONG_CACH"": ""vintage""}",1,giày chạy bộ vintage
+val_pq_00742,cà_vạt vintage polyester,lazada_13503159388,"{""PHONG_CACH"": ""vintage"", ""CHAT_LIEU"": ""polyester""}",2,cà vạt vintage polyester
+val_pq_00743,đồng_hồ leather,lazada_2199070382,"{""CHAT_LIEU"": ""leather""}",1,đồng hồ leather
+val_pq_00744,tìm túi đeo chéo polyester,lazada_3137027596,"{""CHAT_LIEU"": ""polyester""}",1,tìm túi đeo chéo polyester
+val_pq_00745,tìm áo sơ_mi cotton oversize,lazada_13487668956,"{""CHAT_LIEU"": ""cotton"", ""KIEU_DANG"": ""oversize""}",2,tìm áo sơ mi cotton oversize
+val_pq_00746,balo polyester,lazada_3170319798,"{""CHAT_LIEU"": ""polyester""}",1,balo polyester
+val_pq_00747,cà_vạt retro,lazada_13503045732,"{""PHONG_CACH"": ""vintage""}",1,cà vạt retro
+val_pq_00748,tìm quần âu_cotton,lazada_3177460402,"{""CHAT_LIEU"": ""cotton""}",1,tìm quần âu cotton
+val_pq_00749,túi đeo chéo polyester,lazada_13496324207,"{""CHAT_LIEU"": ""polyester""}",1,túi đeo chéo polyester
+val_pq_00750,quần_lót be,lazada_13438633761,"{""MAU"": ""be""}",1,quần lót be
+val_pq_00751,tìm túi đeo chéo nylon sporty,lazada_13504744791,"{""CHAT_LIEU"": ""nylon"", ""PHONG_CACH"": ""thể thao""}",2,tìm túi đeo chéo nylon sporty
+val_pq_00752,tìm ví leather,lazada_1245713253,"{""CHAT_LIEU"": ""leather""}",1,tìm ví leather
+val_pq_00753,tìm quần_lót cotton,lazada_663272989,"{""CHAT_LIEU"": ""cotton""}",1,tìm quần lót cotton
+val_pq_00754,tìm áo thun polyester,lazada_13368200186,"{""CHAT_LIEU"": ""polyester""}",1,tìm áo thun polyester
+val_pq_00755,kính mắt màu đen,lazada_13438120512,"{""MAU"": ""đen""}",1,kính mắt màu đen
+val_pq_00756,áo hoodie oversize,lazada_3178164529,"{""KIEU_DANG"": ""oversize""}",1,áo hoodie oversize
+val_pq_00757,tìm áo hoodie fleece,lazada_1500079284,"{""CHAT_LIEU"": ""fleece""}",1,tìm áo hoodie fleece
+val_pq_00758,thắt_lưng leather,lazada_3069269732,"{""CHAT_LIEU"": ""leather""}",1,thắt lưng leather
+val_pq_00759,quần_lót polyester,lazada_1907384072,"{""CHAT_LIEU"": ""polyester""}",1,quần lót polyester
+val_pq_00760,quần short_dáng rộng,lazada_2220315199,"{""KIEU_DANG"": ""oversize""}",1,quần short dáng rộng
+val_pq_00761,bốt cotton,lazada_13501677980,"{""CHAT_LIEU"": ""cotton""}",1,bốt cotton
+val_pq_00762,giày chạy bộ sporty,lazada_13485297842,"{""PHONG_CACH"": ""thể thao""}",1,giày chạy bộ sporty
+val_pq_00763,túi đeo chéo sporty,lazada_13467064024,"{""PHONG_CACH"": ""thể thao""}",1,túi đeo chéo sporty
+val_pq_00764,tìm ví đựng thẻ leather,lazada_1465703220,"{""CHAT_LIEU"": ""leather""}",1,tìm ví đựng thẻ leather
+val_pq_00765,ví leather,lazada_142979458,"{""CHAT_LIEU"": ""leather""}",1,ví leather
+val_pq_00766,áo polo oversize,lazada_2864896007,"{""KIEU_DANG"": ""oversize""}",1,áo polo oversize
+val_pq_00767,tìm túi đeo chéo nylon,lazada_13452001060,"{""CHAT_LIEU"": ""nylon""}",1,tìm túi đeo chéo nylon
+val_pq_00768,áo hoodie streetwear,lazada_13464888881,"{""PHONG_CACH"": ""streetwear""}",1,áo hoodie streetwear
+val_pq_00769,tìm quần thể_thao nỉ casual,lazada_13499885754,"{""CHAT_LIEU"": ""fleece"", ""PHONG_CACH"": ""casual""}",2,tìm quần thể thao nỉ casual
+val_pq_00770,quần bơi màu đen,lazada_294394485,"{""MAU"": ""đen""}",1,quần bơi màu đen
+val_pq_00771,tìm cặp công_sở polyester,lazada_1653039589,"{""CHAT_LIEU"": ""polyester""}",1,tìm cặp công sở polyester
+val_pq_00772,áo vest công_sở,lazada_13503348726,"{""PHONG_CACH"": ""công sở""}",1,áo vest công sở
+val_pq_00773,áo hoodie oversize cotton,lazada_2488597696,"{""KIEU_DANG"": ""oversize"", ""CHAT_LIEU"": ""cotton""}",2,áo hoodie oversize cotton
+val_pq_00774,giày chạy bộ sporty,lazada_13477492719,"{""PHONG_CACH"": ""thể thao""}",1,giày chạy bộ sporty
+val_pq_00775,kính mắt vintage,lazada_2763898018,"{""PHONG_CACH"": ""vintage""}",1,kính mắt vintage
+val_pq_00776,cặp công_sở leather,lazada_1312017320,"{""CHAT_LIEU"": ""leather""}",1,cặp công sở leather
+val_pq_00777,ví đựng thẻ công_sở,lazada_13500171167,"{""PHONG_CACH"": ""công sở""}",1,ví đựng thẻ công sở
+val_pq_00778,áo sơ_mi_dáng rộng,lazada_1783400674,"{""KIEU_DANG"": ""oversize""}",1,áo sơ mi dáng rộng
+val_pq_00779,giày chạy bộ_năng_động,lazada_13483803435,"{""PHONG_CACH"": ""thể thao""}",1,giày chạy bộ năng động
+val_pq_00780,áo polo modal,lazada_3005611648,"{""CHAT_LIEU"": ""modal""}",1,áo polo modal
+val_pq_00781,phụ kiện giày công_sở,lazada_13503912813,"{""PHONG_CACH"": ""công sở""}",1,phụ kiện giày công sở
+val_pq_00782,quần bơi thể_thao,lazada_2222105130,"{""PHONG_CACH"": ""thể thao""}",1,quần bơi thể thao
+val_pq_00783,tìm balo nylon,lazada_13493796192,"{""CHAT_LIEU"": ""nylon""}",1,tìm balo nylon
+val_pq_00784,giày sneaker retro,lazada_13489415615,"{""PHONG_CACH"": ""vintage""}",1,giày sneaker retro
+val_pq_00785,tìm bộ trang_phục cotton,lazada_13362005133,"{""CHAT_LIEU"": ""cotton""}",1,tìm bộ trang phục cotton
+val_pq_00786,quần âu_streetwear,lazada_13466008638,"{""PHONG_CACH"": ""streetwear""}",1,quần âu streetwear
+val_pq_00787,tìm quần_lót lụa,lazada_13498447164,"{""CHAT_LIEU"": ""silk""}",1,tìm quần lót lụa
+val_pq_00788,giày sneaker leather,lazada_1747617849,"{""CHAT_LIEU"": ""leather""}",1,giày sneaker leather
+val_pq_00789,túi đeo chéo leather công_sở,lazada_2615755886,"{""CHAT_LIEU"": ""leather"", ""PHONG_CACH"": ""công sở""}",2,túi đeo chéo leather công sở
+val_pq_00790,tìm quần thể_thao cotton,lazada_13494399223,"{""CHAT_LIEU"": ""cotton""}",1,tìm quần thể thao cotton
+val_pq_00791,cà_vạt polyester retro,lazada_13503375427,"{""PHONG_CACH"": ""vintage"", ""CHAT_LIEU"": ""polyester""}",2,cà vạt polyester retro
+val_pq_00792,cà_vạt màu tím,lazada_2353106386,"{""MAU"": ""tím""}",1,cà vạt màu tím
+val_pq_00793,áo vest màu xanh navy,lazada_3073200535,"{""MAU"": ""xanh navy""}",1,áo vest màu xanh navy
+val_pq_00794,áo hoodie fleece,lazada_13499359790,"{""CHAT_LIEU"": ""fleece""}",1,áo hoodie fleece
+val_pq_00795,giày sneaker casual,lazada_13478698802,"{""PHONG_CACH"": ""casual""}",1,giày sneaker casual
+val_pq_00796,tìm ví đựng thẻ polyester,lazada_13509022294,"{""CHAT_LIEU"": ""polyester""}",1,tìm ví đựng thẻ polyester
+val_pq_00797,giày chạy bộ_năng_động,lazada_13488742224,"{""PHONG_CACH"": ""thể thao""}",1,giày chạy bộ năng động
+val_pq_00798,túi đeo chéo nylon,lazada_13500371697,"{""CHAT_LIEU"": ""nylon""}",1,túi đeo chéo nylon
+val_pq_00799,tìm phụ_kiện giày polyester đen,lazada_13505702834,"{""CHAT_LIEU"": ""polyester"", ""MAU"": ""đen""}",2,tìm phụ kiện giày polyester đen
+val_pq_00800,xăng đan retro,lazada_13466009116,"{""PHONG_CACH"": ""vintage""}",1,xăng đan retro
+val_pq_00801,bộ trang_phục oversize,lazada_3154401239,"{""KIEU_DANG"": ""oversize""}",1,bộ trang phục oversize
+val_pq_00802,áo vest xanh navy,lazada_2366031973,"{""MAU"": ""xanh navy""}",1,áo vest xanh navy
+val_pq_00803,quần_dáng rộng,lazada_13502888950,"{""KIEU_DANG"": ""oversize""}",1,quần dáng rộng
+val_pq_00804,thắt_lưng đường_phố leather,lazada_13489259616,"{""PHONG_CACH"": ""streetwear"", ""CHAT_LIEU"": ""leather""}",2,thắt lưng đường phố leather
+val_pq_00805,quần short màu đen streetwear,lazada_13493237427,"{""MAU"": ""đen"", ""PHONG_CACH"": ""streetwear""}",2,quần short màu đen streetwear
+val_pq_00806,áo sơ_mi oversize,lazada_13461121220,"{""KIEU_DANG"": ""oversize""}",1,áo sơ mi oversize

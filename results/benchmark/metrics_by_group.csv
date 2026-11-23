@@ -1,0 +1,37 @@
+system,group_key,group_val,ndcg_10,recall_10,n_queries
+tfidf,n_attrs,1,0.3299,0.3463,61
+tfidf,n_attrs,2,0.3572,0.3387,67
+tfidf,n_attrs,3+,0.3058,0.2521,59
+tfidf,category,phụ kiện,0.4136,0.4086,52
+tfidf,category,quần,0.2431,0.2347,59
+tfidf,category,áo,0.3453,0.3105,76
+bm25,n_attrs,1,0.4533,0.4327,61
+bm25,n_attrs,2,0.4566,0.3914,67
+bm25,n_attrs,3+,0.3046,0.2351,59
+bm25,category,phụ kiện,0.5360,0.4974,52
+bm25,category,quần,0.3169,0.2556,59
+bm25,category,áo,0.3901,0.3361,76
+clip_vi2en,n_attrs,1,0.2776,0.3264,61
+clip_vi2en,n_attrs,2,0.3465,0.3217,67
+clip_vi2en,n_attrs,3+,0.3041,0.2298,59
+clip_vi2en,category,phụ kiện,0.3868,0.3993,52
+clip_vi2en,category,quần,0.3197,0.2898,59
+clip_vi2en,category,áo,0.2515,0.2258,76
+bienc_text,n_attrs,1,0.3560,0.3540,61
+bienc_text,n_attrs,2,0.3078,0.2762,67
+bienc_text,n_attrs,3+,0.2892,0.2496,59
+bienc_text,category,phụ kiện,0.4177,0.4195,52
+bienc_text,category,quần,0.3013,0.2970,59
+bienc_text,category,áo,0.2619,0.2038,76
+dual_encoder,n_attrs,1,0.2325,0.2675,61
+dual_encoder,n_attrs,2,0.2231,0.2987,67
+dual_encoder,n_attrs,3+,0.2940,0.3022,59
+dual_encoder,category,phụ kiện,0.2771,0.3350,52
+dual_encoder,category,quần,0.2048,0.2829,59
+dual_encoder,category,áo,0.2630,0.2638,76
+vimfr,n_attrs,1,0.4502,0.4502,61
+vimfr,n_attrs,2,0.5117,0.5127,67
+vimfr,n_attrs,3+,0.5120,0.4165,59
+vimfr,category,phụ kiện,0.5008,0.4977,52
+vimfr,category,quần,0.3844,0.4011,59
+vimfr,category,áo,0.5689,0.4847,76

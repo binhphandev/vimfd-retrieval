@@ -121,3 +121,49 @@ def write_index_meta(index_file, **info) -> Path:
     with open(p, "w", encoding="utf-8") as f:
         json.dump(info, f, ensure_ascii=False, indent=2)
     return p
+
+
+# ---------- chuẩn hóa màu ----------
+# Màu chuẩn -> các từ khóa (tiếng Việt/Anh) xuất hiện trong tên sản phẩm, trường `colors` và query.
+# "xanh" đứng một mình là màu chưa rõ sắc độ nên có nhóm riêng, không gán bừa vào xanh dương/lá.
+COLOR_VOCAB: dict[str, list[str]] = {
+    "trắng": ["trắng", "white", "ivory"],
+    "đen": ["đen", "black"],
+    "xám": ["xám", "ghi", "grey", "gray"],
+    "xanh navy": ["xanh navy", "navy", "xanh đen", "xanh than", "xanh tím than"],
+    "xanh dương": ["xanh dương", "xanh biển", "xanh da trời", "xanh coban", "xanh lam", "blue"],
+    "xanh rêu": ["xanh rêu", "rêu", "olive", "xanh olive", "xanh quân đội"],
+    "xanh lá": ["xanh lá", "xanh lục", "green"],
+    "xanh": ["xanh"],
+    "be": ["be", "kem", "cream", "beige", "nude"],
+    "nâu": ["nâu", "brown", "cà phê", "caramel"],
+    "đỏ": ["đỏ", "đỏ đô", "red"],
+    "vàng": ["vàng", "yellow", "mustard"],
+    "hồng": ["hồng", "pink"],
+    "tím": ["tím", "purple"],
+    "cam": ["cam", "orange"],
+}
+_COLOR_KW = sorted(((kw, c) for c, kws in COLOR_VOCAB.items() for kw in kws), key=lambda x: -len(x[0]))
+
+
+def extract_colors(text: str) -> list[str]:
+    """Màu chuẩn xuất hiện trong text. Từ khóa dài khớp trước nên "xanh navy" không bị tính thêm "xanh"."""
+    import re
+    t = " " + re.sub(r"[^\w\s]|_", " ", (text or "").lower()) + " "
+    found = []
+    for kw, canon in _COLOR_KW:
+        pat = f" {kw} "
+        if pat in t:
+            if canon not in found:
+                found.append(canon)
+            t = t.replace(pat, "  ")
+    return found
+
+
+def strip_colors(text: str, canons) -> str:
+    """Bỏ mọi từ khóa thuộc các màu chuẩn `canons` khỏi text (giữ nguyên hoa/thường phần còn lại)."""
+    import re
+    for kw, canon in _COLOR_KW:
+        if canon in canons:
+            text = re.sub(rf"(?<!\w){re.escape(kw)}(?!\w)", " ", text, flags=re.IGNORECASE)
+    return re.sub(r"\s+", " ", text).strip()

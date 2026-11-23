@@ -1,0 +1,253 @@
+person,slot_id,seed_id,reserve,category,n_target,shop_group,n_groups,groups,raw_type,loai
+A,Q001,henstore_1074992795,0,quần,2,noi_dia,3,"{""CHAT_LIEU"": [""cotton"", ""denim""], ""KIEU_DANG"": [""regular fit""], ""PHONG_CACH"": [""casual""]}",quan-jean,quần jean
+A,Q002,henstore_1075225322,0,quần,2,noi_dia,3,"{""CHAT_LIEU"": [""cotton"", ""denim""], ""KIEU_DANG"": [""straight fit"", ""regular fit""], ""PHONG_CACH"": [""casual"", ""streetwear""]}",quan-jean,quần jean
+A,Q003,lazada_101224684,0,phụ kiện,1,san_tmdt,2,"{""MAU"": [""nâu""], ""CHAT_LIEU"": [""leather""]}",Ví nam,ví
+A,Q004,tiki_67157286,0,áo,3,san_tmdt,3,"{""MAU"": [""xanh dương""], ""CHAT_LIEU"": [""kaki""], ""PHONG_CACH"": [""thể thao""]}",ao-vest-ao-khoac-nam,áo khoác
+A,Q005,aristino_1073520588,0,áo,1,noi_dia,2,"{""KIEU_DANG"": [""regular fit""], ""PHONG_CACH"": [""casual""]}",ao-so-mi,áo sơ mi
+A,Q006,aristino_1070276451,0,phụ kiện,2,noi_dia,3,"{""MAU"": [""nâu""], ""CHAT_LIEU"": [""leather""], ""PHONG_CACH"": [""thể thao""]}",giay-dep,giày dép
+A,Q007,aristino_1056325676,0,áo,3,noi_dia,3,"{""MAU"": [""đen""], ""KIEU_DANG"": [""regular fit""], ""PHONG_CACH"": [""công sở""]}",ao-polo,áo polo
+A,Q008,lazada_13496042531,0,áo,1,san_tmdt,3,"{""MAU"": [""be"", ""màu xám đậm"", ""mây xanh"", ""trắng"", ""tím"", ""xanh dương"", ""xanh đậm"", ""xám"", ""đen""], ""CHAT_LIEU"": [""polyester""], ""PHONG_CACH"": [""streetwear""]}",Bộ đồ,bộ trang phục
+A,Q009,lazada_13496062992,0,áo,3,san_tmdt,4,"{""MAU"": [""xám đen"", ""đen trắng""], ""CHAT_LIEU"": [""polyester"", ""fleece""], ""KIEU_DANG"": [""oversize""], ""PHONG_CACH"": [""streetwear""]}",Áo khoác bomber,áo khoác bomber
+A,Q010,aristino_1068154041,0,quần,1,noi_dia,2,"{""CHAT_LIEU"": [""cotton"", ""spandex""], ""KIEU_DANG"": [""regular fit""]}",quan-kaki,quần kaki
+A,Q011,lazada_13501438548,0,áo,1,san_tmdt,1,"{""MAU"": [""dài và trắng"", ""dài và đen"", ""ngắn & trắng"", ""ngắn & đen""]}",Đồ bảo hộ & Suits,bộ trang phục
+A,Q012,lazada_13493223564,0,áo,3,san_tmdt,4,"{""MAU"": [""be"", ""màu xám đậm"", ""mây xanh"", ""trắng"", ""tím"", ""xanh dương"", ""xanh đậm"", ""xám"", ""đen""], ""CHAT_LIEU"": [""polyester""], ""KIEU_DANG"": [""oversize""], ""PHONG_CACH"": [""thể thao""]}",Bộ đồ,bộ trang phục
+A,Q013,aristino_1056323414,0,phụ kiện,2,noi_dia,2,"{""MAU"": [""xanh tím than xược hoa""], ""CHAT_LIEU"": [""polyester""]}",ca-vat,cà vạt
+A,Q014,lazada_2643160952,0,phụ kiện,2,san_tmdt,2,"{""MAU"": [""nâu"", ""xám đậm"", ""đen""], ""PHONG_CACH"": [""thể thao""]}",Dép xỏ ngón (Flip Flops),dép
+A,Q015,lazada_13496148398,0,áo,1,san_tmdt,3,"{""MAU"": [""be"", ""màu xám đậm"", ""mây xanh"", ""trắng"", ""tím"", ""xanh dương"", ""xanh đậm"", ""xám"", ""đen""], ""CHAT_LIEU"": [""polyester""], ""PHONG_CACH"": [""thể thao"", ""streetwear""]}",Bộ đồ,bộ trang phục
+A,Q016,tiki_82853568,0,quần,2,san_tmdt,2,"{""KIEU_DANG"": [""oversize""], ""PHONG_CACH"": [""thể thao"", ""casual""]}",quan-short-nam,quần short
+A,Q017,lazada_13402989495,0,quần,2,san_tmdt,2,"{""CHAT_LIEU"": [""denim""], ""PHONG_CACH"": [""casual""]}",Quần jeans,quần jean
+A,Q018,lazada_13506190127,0,phụ kiện,1,san_tmdt,2,"{""MAU"": [""xanh lá"", ""xám"", ""đen""], ""CHAT_LIEU"": [""nylon""]}",Túi đeo chéo & đeo vai,túi đeo chéo
+A,Q019,aristino_1074675513,0,quần,1,noi_dia,1,"{""KIEU_DANG"": [""regular fit""]}",quan-au,quần âu
+A,Q020,lazada_13493161970,0,áo,2,san_tmdt,3,"{""MAU"": [""be"", ""màu xám đậm"", ""mây xanh"", ""trắng"", ""tím"", ""xanh dương"", ""xanh đậm"", ""xám"", ""đen""], ""CHAT_LIEU"": [""polyester""], ""PHONG_CACH"": [""thể thao""]}",Bộ đồ,bộ trang phục
+A,Q021,johnhenry_1075199485,0,áo,2,noi_dia,3,"{""MAU"": [""nâu"", ""trắng"", ""xám"", ""đen""], ""CHAT_LIEU"": [""cotton"", ""polyester""], ""KIEU_DANG"": [""regular fit""]}",ao-polo,áo polo
+A,Q022,aristino_1074795238,0,quần,3,noi_dia,3,"{""CHAT_LIEU"": [""cotton"", ""spandex""], ""KIEU_DANG"": [""regular fit""], ""PHONG_CACH"": [""minimalist""]}",quan-kaki,quần kaki
+A,Q023,henstore_1069414475,0,áo,2,noi_dia,2,"{""MAU"": [""nâu"", ""đen""], ""KIEU_DANG"": [""regular fit""]}",ao-khoac,áo khoác
+A,Q024,lazada_1874935568,0,phụ kiện,1,san_tmdt,2,"{""MAU"": [""hồng đậm"", ""xanh nhạt"", ""xanh đậm""], ""PHONG_CACH"": [""thể thao""]}",Ba lô nam,balo
+A,Q025,lazada_1238741273,0,quần,1,san_tmdt,2,"{""MAU"": [""kem"", ""trắng"", ""xanh lá"", ""xanh ngọc"", ""xanh đen"", ""đen""], ""CHAT_LIEU"": [""cotton""]}",Quần đùi & Quần lót,quần lót
+A,Q026,tiki_40979260,0,quần,2,san_tmdt,2,"{""MAU"": [""xanh dương"", ""xám"", ""đen""], ""KIEU_DANG"": [""slim fit""]}",do-lot-nam,đồ lót
+A,Q027,tiki_188809173,0,quần,1,san_tmdt,2,"{""CHAT_LIEU"": [""spandex""], ""PHONG_CACH"": [""thể thao""]}",do-boi-do-di-bien-nam,quần bơi
+A,Q028,lazada_13429726949,0,quần,3,san_tmdt,3,"{""MAU"": [""xanh nhạt"", ""xanh đậm"", ""xám"", ""đen""], ""CHAT_LIEU"": [""denim""], ""PHONG_CACH"": [""casual""]}",Quần jeans,quần jean
+A,Q029,johnhenry_1074776200,0,phụ kiện,1,noi_dia,2,"{""MAU"": [""đen""], ""CHAT_LIEU"": [""leather""]}",that-lung,thắt lưng
+A,Q030,johnhenry_1068230878,0,áo,2,noi_dia,4,"{""MAU"": [""nâu"", ""xanh dương""], ""CHAT_LIEU"": [""cotton"", ""polyester""], ""KIEU_DANG"": [""regular fit""], ""PHONG_CACH"": [""casual""]}",ao-polo,áo polo
+A,Q031,lazada_13493231493,0,áo,3,san_tmdt,4,"{""MAU"": [""be"", ""màu xám đậm"", ""mây xanh"", ""trắng"", ""tím"", ""xanh dương"", ""xanh đậm"", ""xám"", ""đen""], ""CHAT_LIEU"": [""polyester""], ""KIEU_DANG"": [""oversize""], ""PHONG_CACH"": [""thể thao""]}",Bộ đồ,bộ trang phục
+A,Q032,tiki_63831306,0,quần,2,san_tmdt,2,"{""CHAT_LIEU"": [""polyester""], ""PHONG_CACH"": [""casual""]}",quan-short-nam,quần short
+A,Q033,lazada_13485241052,0,phụ kiện,2,san_tmdt,2,"{""MAU"": [""nâu"", ""đen""], ""CHAT_LIEU"": [""leather""]}",Cặp công sở,cặp công sở
+A,Q034,lazada_13504865255,0,phụ kiện,2,san_tmdt,2,"{""MAU"": [""nâu"", ""đen""], ""CHAT_LIEU"": [""leather""]}",Cặp công sở,cặp công sở
+A,Q035,lazada_13502704920,0,áo,1,san_tmdt,1,"{""MAU"": [""arizona"", ""atlanta"", ""baltimore"", ""carolina"", ""chicago"", ""cincinnati"", ""cleveland"", ""dallas"", ""denver"", ""detroit"", ""green bay"", ""houston"", ""indianapolis"", ""jacksonville"", ""kansas"", ""las vegas"", ""los angeles"", ""los angeles r"", ""miami"", ""minnesota"", ""new england"", ""new orleans."", ""new york"", ""new york j"", ""philadelphia"", ""pittsburgh"", ""san francisco"", ""seattle"", ""tampa"", ""tennessee"", ""trâu nước"", ""w""]}",Áo hoodies & Sweatshirts,áo hoodie
+A,Q036,aristino_1074794966,0,quần,2,noi_dia,3,"{""CHAT_LIEU"": [""polyester"", ""spandex"", ""viscose""], ""KIEU_DANG"": [""regular fit""], ""PHONG_CACH"": [""minimalist""]}",quan-au,quần âu
+A,Q037,lazada_13500351020,0,phụ kiện,1,san_tmdt,1,"{""MAU"": [""màu hồng-không bơm"", ""màu xanh nhạt-không bơm"", ""màu xanh nhạt-pumps"", ""màu xanh quân đội-không bơm"", ""máy bơm màu đen-no"", ""máy bơm đen""]}",Ba lô nam,balo
+A,Q038,aristino_1077941453,0,phụ kiện,2,noi_dia,2,"{""CHAT_LIEU"": [""silk""], ""PHONG_CACH"": [""minimalist""]}",ca-vat,cà vạt
+A,Q039,aristino_1058076021,0,phụ kiện,1,noi_dia,1,"{""MAU"": [""đen""]}",giay-dep,giày dép
+A,Q040,lazada_13493125900,0,áo,3,san_tmdt,4,"{""MAU"": [""be"", ""màu xám đậm"", ""mây xanh"", ""trắng"", ""tím"", ""xanh dương"", ""xanh đậm"", ""xám"", ""đen""], ""CHAT_LIEU"": [""polyester""], ""KIEU_DANG"": [""oversize""], ""PHONG_CACH"": [""thể thao""]}",Bộ đồ,bộ trang phục
+A,Q041,lazada_13493185870,0,áo,2,san_tmdt,3,"{""MAU"": [""be"", ""màu xám đậm"", ""mây xanh"", ""trắng"", ""tím"", ""xanh dương"", ""xanh đậm"", ""xám"", ""đen""], ""CHAT_LIEU"": [""polyester""], ""PHONG_CACH"": [""thể thao""]}",Bộ đồ,bộ trang phục
+A,Q042,lazada_13502092936,0,quần,3,san_tmdt,3,"{""MAU"": [""cam"", ""màu cà phê"", ""màu xanh navy"", ""đen""], ""CHAT_LIEU"": [""polyester""], ""PHONG_CACH"": [""casual"", ""streetwear""]}",Quần,quần
+A,Q043,lazada_13496144414,0,áo,2,san_tmdt,2,"{""MAU"": [""be"", ""màu xám đậm"", ""trắng"", ""tím"", ""xanh dương"", ""xanh đậm"", ""đen""], ""PHONG_CACH"": [""thể thao"", ""casual""]}",Bộ đồ,bộ trang phục
+A,Q044,tiki_43768315,0,áo,2,san_tmdt,2,"{""MAU"": [""nâu"", ""đen""], ""PHONG_CACH"": [""casual"", ""thể thao""]}",ao-vest-ao-khoac-nam,áo khoác
+A,Q045,johnhenry_1063591835,0,quần,3,noi_dia,3,"{""MAU"": [""xám""], ""CHAT_LIEU"": [""spandex"", ""viscose"", ""nylon""], ""KIEU_DANG"": [""regular fit""]}",quan-short,quần short
+A,Q046,aristino_1063811604,0,áo,1,noi_dia,3,"{""CHAT_LIEU"": [""cotton"", ""polyester"", ""modal""], ""KIEU_DANG"": [""regular fit""], ""PHONG_CACH"": [""casual""]}",ao-polo,áo polo
+A,Q047,lazada_13474328400,0,phụ kiện,2,san_tmdt,2,"{""MAU"": [""nhẫn jesus vàng 8 mm"", ""nhẫn jesus ​​màu đen""], ""PHONG_CACH"": [""minimalist""]}",Nhẫn,nhẫn
+A,Q048,lazada_13378523185,0,phụ kiện,2,san_tmdt,3,"{""MAU"": [""xanh dương"", ""xám"", ""đen"", ""đỏ""], ""CHAT_LIEU"": [""nylon""], ""PHONG_CACH"": [""công sở"", ""minimalist""]}",Ba lô nam,balo
+A,Q049,lazada_13493273090,0,áo,3,san_tmdt,4,"{""MAU"": [""be"", ""màu xám đậm"", ""mây xanh"", ""trắng"", ""tím"", ""xanh dương"", ""xanh đậm"", ""xám"", ""đen""], ""CHAT_LIEU"": [""polyester""], ""KIEU_DANG"": [""oversize""], ""PHONG_CACH"": [""thể thao""]}",Bộ đồ,bộ trang phục
+A,Q050,lazada_13496062758,0,áo,2,san_tmdt,2,"{""MAU"": [""be"", ""màu xám đậm"", ""mây xanh"", ""trắng"", ""tím"", ""xanh dương"", ""xanh đậm"", ""xám"", ""đen""], ""CHAT_LIEU"": [""polyester""]}",Bộ đồ,bộ trang phục
+A,Q051,lazada_13402677181,0,phụ kiện,1,san_tmdt,1,"{""MAU"": [""màu trắng cam"", ""màu xám đen"", ""trắng""]}",Dép xỏ ngón (Flip Flops),dép
+A,Q052,tiki_76596617,0,quần,2,san_tmdt,2,"{""MAU"": [""trắng""], ""PHONG_CACH"": [""casual"", ""thể thao""]}",quan-short-nam,quần short
+A,Q053,aristino_1056322674,0,áo,3,noi_dia,3,"{""MAU"": [""xanh tím than""], ""CHAT_LIEU"": [""polyester"", ""wool""], ""PHONG_CACH"": [""công sở""]}",suits-blazer,áo vest
+A,Q054,johnhenry_1076638183,0,phụ kiện,2,noi_dia,2,"{""MAU"": [""đen""], ""CHAT_LIEU"": [""leather""]}",giay-dep,giày dép
+A,Q055,lazada_13496080840,0,áo,3,san_tmdt,4,"{""MAU"": [""be"", ""màu xám đậm"", ""mây xanh"", ""trắng"", ""tím"", ""xanh dương"", ""xanh đậm"", ""xám"", ""đen""], ""CHAT_LIEU"": [""polyester""], ""KIEU_DANG"": [""oversize""], ""PHONG_CACH"": [""thể thao""]}",Bộ đồ,bộ trang phục
+A,Q056,tiki_273875461,0,áo,2,san_tmdt,2,"{""CHAT_LIEU"": [""polyester"", ""viscose""], ""PHONG_CACH"": [""minimalist""]}",ao-vest-ao-khoac-nam,áo khoác
+A,Q057,lazada_13499128561,0,phụ kiện,2,san_tmdt,2,"{""MAU"": [""black-horizontal"", ""black-vertical"", ""blue-horizontal"", ""blue-vertical"", ""coffee-horizontal"", ""coffee-vertical"", ""green-horizontal"", ""green-vertical"", ""grey-horizontal"", ""grey-vertical"", ""orange-horizontal"", ""orange-vertical"", ""pink-horizontal"", ""pink-vertical"", ""purple-horizontal"", ""purple-vertical"", ""red-horizontal"", ""red-vertical"", ""white-horizontal"", ""white-vertical"", ""yellow-horizontal"", ""yellow-vertical""], ""PHONG_CACH"": [""công sở""]}",Ví đựng thẻ,ví đựng thẻ
+A,Q058,icondenim_1074319846,0,áo,1,noi_dia,4,"{""MAU"": [""be-0739"", ""trắng kem-0739"", ""tím-0739"", ""xanh đen-0739"", ""đen-0739""], ""CHAT_LIEU"": [""cotton"", ""polyester""], ""KIEU_DANG"": [""regular fit""], ""PHONG_CACH"": [""casual""]}",ao-thun,áo thun
+A,Q059,aristino_1063811614,0,quần,3,noi_dia,3,"{""CHAT_LIEU"": [""polyester""], ""KIEU_DANG"": [""regular fit""], ""PHONG_CACH"": [""casual""]}",quan-short,quần short
+A,Q060,lazada_2994788439,0,phụ kiện,2,san_tmdt,2,"{""MAU"": [""sail""], ""PHONG_CACH"": [""minimalist""]}",Giày sneaker,giày sneaker
+A,Q061,lazada_2219547877,0,quần,3,san_tmdt,3,"{""MAU"": [""đen perpul-400"", ""đen-6373""], ""CHAT_LIEU"": [""denim""], ""KIEU_DANG"": [""skinny""]}",Quần jeans,quần jean
+A,Q062,aristino_1073389597,0,áo,3,noi_dia,3,"{""CHAT_LIEU"": [""polyester""], ""KIEU_DANG"": [""slim fit"", ""regular fit""], ""PHONG_CACH"": [""casual""]}",ao-so-mi,áo sơ mi
+A,Q063,aristino_1070380399,0,áo,3,noi_dia,3,"{""CHAT_LIEU"": [""spandex"", ""nylon""], ""KIEU_DANG"": [""regular fit""], ""PHONG_CACH"": [""casual"", ""công sở"", ""thể thao""]}",ao-khoac,áo khoác
+A,Q064,aristino_1062006768,0,áo,1,noi_dia,2,"{""CHAT_LIEU"": [""polyester""], ""PHONG_CACH"": [""casual""]}",ao-polo,áo polo
+A,Q065,lazada_13506971135,0,quần,1,san_tmdt,1,"{""MAU"": [""black-perforated"", ""black-thickening"", ""black-thin style"", ""khaki-perforated"", ""khaki-thickening"", ""khaki-thin style"", ""navy blue-thickening"", ""navy blue-thin style"", ""white-perforated"", ""white-thickening"", ""white-thin style""]}",Quần bơi,quần bơi
+A,Q066,henstore_1074216681,0,quần,3,noi_dia,3,"{""CHAT_LIEU"": [""denim""], ""KIEU_DANG"": [""slim fit""], ""PHONG_CACH"": [""casual""]}",quan-jean,quần jean
+A,Q067,icondenim_1071896714,0,quần,1,noi_dia,4,"{""MAU"": [""be-0089"", ""trắng-0089"", ""đen-0089""], ""CHAT_LIEU"": [""polyester""], ""KIEU_DANG"": [""slim fit""], ""PHONG_CACH"": [""casual""]}",quan-tay,quần âu
+A,Q068,aristino_1073031223,0,quần,2,noi_dia,2,"{""CHAT_LIEU"": [""wool""], ""PHONG_CACH"": [""công sở""]}",quan-au,quần âu
+A,Q069,johnhenry_1062107359,0,phụ kiện,1,noi_dia,3,"{""MAU"": [""xám""], ""CHAT_LIEU"": [""polyester""], ""PHONG_CACH"": [""công sở""]}",ca-vat,cà vạt
+A,Q070,aristino_1077090485,0,quần,3,noi_dia,4,"{""MAU"": [""xanh chàm sáng""], ""CHAT_LIEU"": [""cotton"", ""polyester"", ""spandex""], ""KIEU_DANG"": [""slim fit""], ""PHONG_CACH"": [""minimalist""]}",quan-jeans,quần jean
+A,Q071,johnhenry_1067254778,0,áo,3,noi_dia,3,"{""CHAT_LIEU"": [""polyester"", ""bamboo""], ""KIEU_DANG"": [""regular fit""], ""PHONG_CACH"": [""casual""]}",ao-so-mi,áo sơ mi
+A,Q072,lazada_13466471457,0,phụ kiện,1,san_tmdt,1,"{""MAU"": [""dép bông beya [hồng]"", ""dép bông beya [màu kaki]"", ""dép bông beya [màu đen]"", ""dép bông beya [trắng ngà]"", ""dép bông beya [trắng]"", ""dép bông beya [xanh quân đội]""]}",Dép xỏ ngón (Flip Flops),dép
+A,Q073,lazada_13492670148,0,phụ kiện,2,san_tmdt,2,"{""MAU"": [""xanh lam c"", ""đỏ c"", ""đỏ trắng""], ""CHAT_LIEU"": [""polyester""]}",Ba lô nam,balo
+A,Q074,lazada_3178128555,0,phụ kiện,1,san_tmdt,2,"{""MAU"": [""xám"", ""đen""], ""PHONG_CACH"": [""thể thao""]}",Giày sneaker,giày sneaker
+A,Q075,aristino_1056323842,0,phụ kiện,2,noi_dia,2,"{""MAU"": [""nâu""], ""CHAT_LIEU"": [""leather""]}",giay-dep,giày dép
+A,Q076,johnhenry_1062368673,0,phụ kiện,1,noi_dia,2,"{""MAU"": [""đen""], ""CHAT_LIEU"": [""leather""]}",that-lung,thắt lưng
+A,Q077,lazada_13448549892,0,quần,3,san_tmdt,3,"{""MAU"": [""xanh navy""], ""KIEU_DANG"": [""slim fit""], ""PHONG_CACH"": [""thể thao""]}",Quần bơi,quần bơi
+A,Q078,lazada_13493231370,0,áo,1,san_tmdt,4,"{""MAU"": [""be"", ""màu xám đậm"", ""mây xanh"", ""trắng"", ""tím"", ""xanh dương"", ""xanh đậm"", ""xám"", ""đen""], ""CHAT_LIEU"": [""polyester""], ""KIEU_DANG"": [""oversize""], ""PHONG_CACH"": [""thể thao""]}",Bộ đồ,bộ trang phục
+A,Q079,tiki_95054251,0,quần,1,san_tmdt,2,"{""MAU"": [""đen""], ""PHONG_CACH"": [""thể thao""]}",quan-short-nam,quần short
+A,Q080,henstore_1077177655,0,quần,1,noi_dia,2,"{""CHAT_LIEU"": [""cotton"", ""denim""], ""KIEU_DANG"": [""regular fit""]}",quan-jean,quần jean
+A,Q081,lazada_2802938842,0,phụ kiện,2,san_tmdt,2,"{""MAU"": [""trắng""], ""PHONG_CACH"": [""thể thao""]}",Giày sneaker,giày sneaker
+A,Q082,lazada_13500431672,0,quần,3,san_tmdt,4,"{""MAU"": [""xanh nhạt"", ""xanh đậm"", ""đen""], ""CHAT_LIEU"": [""denim""], ""KIEU_DANG"": [""oversize""], ""PHONG_CACH"": [""casual"", ""streetwear""]}",Quần jeans,quần jean
+A,Q083,lazada_2902096587,0,quần,3,san_tmdt,4,"{""MAU"": [""xám xanh""], ""CHAT_LIEU"": [""denim""], ""KIEU_DANG"": [""regular fit""], ""PHONG_CACH"": [""casual""]}",Quần jeans,quần jean
+A,Q084,aristino_1062006732,0,phụ kiện,1,noi_dia,1,"{""MAU"": [""đen""]}",tui,túi
+A,Q085,lazada_13503729761,0,phụ kiện,1,san_tmdt,1,"{""MAU"": [""nâu"", ""đen""]}",Cặp công sở,cặp công sở
+A,Q086,aristino_1074255120,0,áo,3,noi_dia,3,"{""CHAT_LIEU"": [""cotton""], ""KIEU_DANG"": [""slim fit""], ""PHONG_CACH"": [""công sở"", ""minimalist""]}",ao-so-mi,áo sơ mi
+A,Q087,johnhenry_1077294750,0,phụ kiện,2,noi_dia,3,"{""MAU"": [""đen""], ""CHAT_LIEU"": [""leather""], ""PHONG_CACH"": [""minimalist""]}",giay-dep,giày dép
+A,Q088,tiki_279015561,0,áo,1,san_tmdt,1,"{""MAU"": [""te2- trắng"", ""te2- đen""]}",ao-hoodie-nam,áo hoodie
+A,Q089,tiki_155269199,0,áo,3,san_tmdt,4,"{""MAU"": [""trắng"", ""xanh đen"", ""xám nhạt"", ""xám đậm""], ""CHAT_LIEU"": [""cotton"", ""spandex""], ""KIEU_DANG"": [""regular fit""], ""PHONG_CACH"": [""casual""]}",ao-thun-nam,áo thun
+A,Q090,tiki_74890799,0,áo,1,san_tmdt,2,"{""MAU"": [""xanh đen""], ""CHAT_LIEU"": [""cotton""]}",ao-thun-nam,áo thun
+A,Q091,aristino_1076101943,0,phụ kiện,1,noi_dia,2,"{""MAU"": [""xanh navy""], ""PHONG_CACH"": [""minimalist""]}",vi-da,ví da
+A,Q092,lazada_13492786302,0,áo,3,san_tmdt,3,"{""MAU"": [""màu cà phê"", ""màu tím"", ""màu xanh lam"", ""màu xanh lục đậm"", ""màu xanh navy"", ""màu xanh nước biển"", ""màu đỏ cam"", ""trắng"", ""vàng"", ""xám"", ""đen"", ""đỏ""], ""CHAT_LIEU"": [""polyester""], ""PHONG_CACH"": [""thể thao""]}",Áo hoodies & Sweatshirts,áo hoodie
+A,Q093,lazada_13496100571,0,áo,3,san_tmdt,3,"{""MAU"": [""be"", ""màu xám đậm"", ""mây xanh"", ""trắng"", ""tím"", ""xanh dương"", ""xanh đậm"", ""xám"", ""đen""], ""CHAT_LIEU"": [""polyester""], ""KIEU_DANG"": [""oversize""]}",Bộ đồ,bộ trang phục
+A,Q094,tiki_278849702,0,quần,3,san_tmdt,3,"{""MAU"": [""xanh dương""], ""CHAT_LIEU"": [""cotton"", ""spandex""], ""PHONG_CACH"": [""casual""]}",quan-dai-nam,quần dài
+A,Q095,johnhenry_1074114394,0,áo,2,noi_dia,2,"{""MAU"": [""xanh navy""], ""KIEU_DANG"": [""slim fit""]}",ao-so-mi,áo sơ mi
+A,Q096,tiki_278236121,0,áo,2,san_tmdt,2,"{""MAU"": [""xanh navy""], ""CHAT_LIEU"": [""cotton""]}",ao-so-mi-nam,áo sơ mi
+A,Q097,lazada_13364924009,0,phụ kiện,1,san_tmdt,2,"{""MAU"": [""da1"", ""da2"", ""da3"", ""dc1"", ""dc2"", ""dc3"", ""dc4"", ""dr1"", ""dr2"", ""dr3"", ""dr4""], ""PHONG_CACH"": [""casual""]}",Giày công sở,giày công sở
+A,Q098,johnhenry_1075771744,0,áo,3,noi_dia,3,"{""MAU"": [""trắng"", ""đen""], ""CHAT_LIEU"": [""cotton"", ""polyester""], ""KIEU_DANG"": [""regular fit""]}",ao-polo,áo polo
+A,Q099,tiki_67164252,0,áo,3,san_tmdt,4,"{""MAU"": [""vàng""], ""CHAT_LIEU"": [""kaki""], ""KIEU_DANG"": [""oversize""], ""PHONG_CACH"": [""thể thao""]}",ao-vest-ao-khoac-nam,áo khoác
+A,Q100,tiki_41531018,0,quần,1,san_tmdt,3,"{""MAU"": [""đen xanh ghi đ""], ""CHAT_LIEU"": [""bamboo""], ""PHONG_CACH"": [""thể thao""]}",do-lot-nam,đồ lót
+A,RA01,aristino_1073031182,1,phụ kiện,1,noi_dia,2,"{""MAU"": [""tím than""], ""PHONG_CACH"": [""casual"", ""minimalist""]}",tui,túi
+A,RA02,johnhenry_1070693561,1,phụ kiện,1,noi_dia,2,"{""MAU"": [""đen""], ""CHAT_LIEU"": [""leather""]}",vi,ví
+A,RA03,lazada_13506620548,1,phụ kiện,1,san_tmdt,1,"{""MAU"": [""black 10 card slots"", ""black 6 card slots"", ""blue 10 card slots"", ""blue 6 card slots"", ""gold 10 card slots"", ""gold 6 card slots"", ""silver 10 card slots"", ""silver 6 card slots""]}",Ví đựng thẻ,ví đựng thẻ
+A,RA04,lazada_2911898282,1,phụ kiện,1,san_tmdt,1,"{""MAU"": [""a-gold"", ""a-rose gold"", ""a-sliver"", ""b-gold"", ""b-rose gold"", ""b-sliver"", ""c-gold"", ""c-rose gold"", ""c-sliver"", ""d-gold"", ""d-rose gold"", ""d-sliver""]}",Nhẫn,nhẫn
+A,RA05,aristino_1062006795,1,phụ kiện,2,noi_dia,2,"{""MAU"": [""đen""], ""CHAT_LIEU"": [""leather""]}",giay-dep,giày dép
+A,RA06,johnhenry_1066756041,1,phụ kiện,2,noi_dia,2,"{""MAU"": [""đen""], ""PHONG_CACH"": [""minimalist""]}",that-lung,thắt lưng
+A,RA07,lazada_2106940912,1,phụ kiện,2,san_tmdt,2,"{""MAU"": [""màu nâu răng cưa"", ""màu đen chỉ vàng"", ""đen răng cưa""], ""CHAT_LIEU"": [""polyester""]}",Dép xỏ ngón (Flip Flops),dép
+A,RA08,lazada_284610931,1,phụ kiện,2,san_tmdt,2,"{""MAU"": [""nâu"", ""đen""], ""CHAT_LIEU"": [""leather""]}",Ví nam,ví
+A,RA09,aristino_1073031200,1,quần,1,noi_dia,2,"{""CHAT_LIEU"": [""polyester""], ""PHONG_CACH"": [""công sở"", ""minimalist""]}",quan-au,quần âu
+A,RA10,lazada_1878691672,1,quần,1,san_tmdt,2,"{""MAU"": [""kem"", ""xanh đen"", ""xám đậm""], ""CHAT_LIEU"": [""kaki""]}",Quần ngắn (Shorts),quần short
+A,RA11,johnhenry_1056913279,1,quần,2,noi_dia,3,"{""MAU"": [""đen""], ""CHAT_LIEU"": [""cotton"", ""spandex""], ""KIEU_DANG"": [""regular fit""]}",quan-jean,quần jean
+A,RA12,tiki_194205679,1,quần,2,san_tmdt,2,"{""CHAT_LIEU"": [""polyester"", ""spandex"", ""viscose""], ""KIEU_DANG"": [""regular fit""]}",quan-dai-nam,quần dài
+A,RA13,icondenim_1074537065,1,quần,3,noi_dia,3,"{""CHAT_LIEU"": [""cotton"", ""polyester""], ""KIEU_DANG"": [""baggy""], ""PHONG_CACH"": [""casual""]}",quan-short,quần short
+A,RA14,lazada_2218793328,1,quần,3,san_tmdt,3,"{""MAU"": [""bạc trơn"", ""bạc viền"", ""sẫm"", ""xanh dương""], ""CHAT_LIEU"": [""denim""], ""KIEU_DANG"": [""slim fit""]}",Quần ngắn (Shorts),quần short
+A,RA15,tiki_279410411,1,quần,3,san_tmdt,4,"{""MAU"": [""xanh dương"", ""xanh navy"", ""xám đậm"", ""đen""], ""CHAT_LIEU"": [""cotton""], ""KIEU_DANG"": [""regular fit"", ""slim fit""], ""PHONG_CACH"": [""thể thao""]}",quan-short-nam,quần short
+A,RA16,icondenim_1067468051,1,áo,1,noi_dia,2,"{""KIEU_DANG"": [""baggy""], ""PHONG_CACH"": [""casual""]}",set-quan-ao,bộ trang phục
+A,RA17,lazada_13498126428,1,áo,1,san_tmdt,4,"{""MAU"": [""kaki"", ""màu xám nhạt"", ""màu xám đậm"", ""đen""], ""CHAT_LIEU"": [""polyester""], ""KIEU_DANG"": [""oversize""], ""PHONG_CACH"": [""casual"", ""thể thao""]}",Bộ đồ,bộ trang phục
+A,RA18,tiki_163029309,1,áo,1,san_tmdt,4,"{""MAU"": [""xanh dương""], ""CHAT_LIEU"": [""cotton""], ""KIEU_DANG"": [""oversize""], ""PHONG_CACH"": [""công sở""]}",ao-so-mi-nam,áo sơ mi
+A,RA19,aristino_1067291187,1,áo,2,noi_dia,2,"{""CHAT_LIEU"": [""cotton"", ""polyester"", ""viscose"", ""silk""], ""KIEU_DANG"": [""regular fit""]}",ao-polo,áo polo
+A,RA20,lazada_13493205605,1,áo,2,san_tmdt,3,"{""MAU"": [""be"", ""mây xanh"", ""trắng"", ""xanh dương"", ""xanh đậm"", ""xám"", ""đen""], ""CHAT_LIEU"": [""polyester""], ""PHONG_CACH"": [""thể thao""]}",Bộ đồ,bộ trang phục
+A,RA21,lazada_3178375006,1,áo,2,san_tmdt,2,"{""MAU"": [""apricot"", ""xanh lá"", ""đen""], ""PHONG_CACH"": [""casual""]}",Áo hoodies & Sweatshirts,áo hoodie
+A,RA22,aristino_1056322503,1,áo,3,noi_dia,3,"{""MAU"": [""xám""], ""CHAT_LIEU"": [""cotton"", ""spandex""], ""PHONG_CACH"": [""công sở""]}",ao-polo,áo polo
+A,RA23,johnhenry_1075771747,1,áo,3,noi_dia,4,"{""MAU"": [""be"", ""trắng"", ""đen""], ""CHAT_LIEU"": [""cotton"", ""viscose""], ""KIEU_DANG"": [""regular fit""], ""PHONG_CACH"": [""minimalist""]}",ao-thun,áo thun
+A,RA24,lazada_13479816754,1,áo,3,san_tmdt,4,"{""MAU"": [""black fleece-lined"", ""black regular"", ""gray fleece-lined"", ""gray regular""], ""CHAT_LIEU"": [""polyester""], ""KIEU_DANG"": [""oversize""], ""PHONG_CACH"": [""thể thao""]}",Áo hoodies & Sweatshirts,áo hoodie
+A,RA25,lazada_13496098514,1,áo,3,san_tmdt,4,"{""MAU"": [""be"", ""màu xám đậm"", ""trắng"", ""tím"", ""xanh dương"", ""xanh đậm"", ""xám"", ""đen""], ""CHAT_LIEU"": [""polyester""], ""KIEU_DANG"": [""oversize""], ""PHONG_CACH"": [""thể thao""]}",Bộ đồ,bộ trang phục
+A,RA26,tiki_74895500,1,áo,3,san_tmdt,3,"{""MAU"": [""trắng"", ""đen""], ""CHAT_LIEU"": [""cotton""], ""PHONG_CACH"": [""casual""]}",ao-thun-nam,áo thun
+B,Q101,lazada_13502971553,0,áo,2,san_tmdt,3,"{""MAU"": [""xám 2xl"", ""xám 3xl"", ""xám l"", ""xám m"", ""xám xl"", ""đen 2xl"", ""đen 3xl"", ""đen l"", ""đen m"", ""đen xl""], ""CHAT_LIEU"": [""polyester"", ""fleece""], ""KIEU_DANG"": [""regular fit""]}",Áo hoodies & Sweatshirts,áo hoodie
+B,Q102,aristino_1074993785,0,áo,1,noi_dia,2,"{""KIEU_DANG"": [""regular fit""], ""PHONG_CACH"": [""minimalist""]}",ao-polo,áo polo
+B,Q103,aristino_1069985338,0,áo,2,noi_dia,2,"{""CHAT_LIEU"": [""polyester""], ""KIEU_DANG"": [""regular fit""]}",ao-khoac,áo khoác
+B,Q104,aristino_1064721760,0,áo,2,noi_dia,2,"{""KIEU_DANG"": [""regular fit""], ""PHONG_CACH"": [""casual""]}",ao-polo,áo polo
+B,Q105,johnhenry_1068094793,0,áo,3,noi_dia,3,"{""MAU"": [""trắng""], ""CHAT_LIEU"": [""cotton""], ""KIEU_DANG"": [""regular fit""]}",ao-so-mi,áo sơ mi
+B,Q106,lazada_13433348388,0,áo,3,san_tmdt,4,"{""MAU"": [""màu xám đen"", ""đen trắng""], ""CHAT_LIEU"": [""fleece""], ""KIEU_DANG"": [""oversize""], ""PHONG_CACH"": [""casual""]}",Áo khoác bomber,áo khoác bomber
+B,Q107,aristino_1072691303,0,phụ kiện,2,noi_dia,2,"{""CHAT_LIEU"": [""silk""], ""PHONG_CACH"": [""công sở""]}",khan-quang-co,khăn quàng cổ
+B,Q108,lazada_13471905492,0,áo,1,san_tmdt,1,"{""PHONG_CACH"": [""casual""]}",Bộ đồ,bộ trang phục
+B,Q109,lazada_143692244,0,phụ kiện,2,san_tmdt,2,"{""MAU"": [""nâu"", ""nâu đậm"", ""đen""], ""CHAT_LIEU"": [""leather""]}",Ví nam,ví
+B,Q110,aristino_1057111033,0,phụ kiện,1,noi_dia,2,"{""MAU"": [""xám 65 m""], ""PHONG_CACH"": [""thể thao"", ""minimalist""]}",tat,tất
+B,Q111,lazada_3218835698,0,quần,3,san_tmdt,3,"{""MAU"": [""kaki"", ""đen""], ""KIEU_DANG"": [""oversize""], ""PHONG_CACH"": [""casual""]}",Quần,quần âu
+B,Q112,lazada_13496040629,0,áo,2,san_tmdt,3,"{""MAU"": [""be"", ""màu xám đậm"", ""mây xanh"", ""trắng"", ""tím"", ""xanh dương"", ""xanh đậm"", ""xám"", ""đen""], ""CHAT_LIEU"": [""polyester""], ""PHONG_CACH"": [""thể thao""]}",Bộ đồ,bộ trang phục
+B,Q113,lazada_13415285279,0,quần,3,san_tmdt,3,"{""MAU"": [""navy(similarblack)"", ""xanh lá"", ""xám nhạt"", ""xám đậm""], ""CHAT_LIEU"": [""cotton""], ""PHONG_CACH"": [""công sở""]}",Quần,quần
+B,Q114,johnhenry_1068230478,0,quần,2,noi_dia,3,"{""MAU"": [""nâu"", ""xám""], ""CHAT_LIEU"": [""nylon""], ""PHONG_CACH"": [""casual""]}",quan-short,quần short
+B,Q115,lazada_13502795906,0,phụ kiện,1,san_tmdt,2,"{""MAU"": [""trắng 1.5cm"", ""trắng 2.5cm"", ""trắng 3.5cm""], ""PHONG_CACH"": [""thể thao""]}",Phụ kiện giày,phụ kiện giày
+B,Q116,aristino_1056322917,0,áo,3,noi_dia,4,"{""MAU"": [""đen""], ""CHAT_LIEU"": [""spandex"", ""nylon""], ""KIEU_DANG"": [""regular fit""], ""PHONG_CACH"": [""casual""]}",ao-polo,áo polo
+B,Q117,lazada_13496168422,0,áo,1,san_tmdt,3,"{""MAU"": [""be"", ""màu xám đậm"", ""trắng"", ""tím"", ""xanh dương"", ""xanh đậm"", ""xám"", ""đen""], ""CHAT_LIEU"": [""polyester""], ""PHONG_CACH"": [""thể thao""]}",Bộ đồ,bộ trang phục
+B,Q118,lazada_2702868807,0,quần,3,san_tmdt,3,"{""MAU"": [""be"", ""nâu"", ""trắng"", ""xanh rêu"", ""đen""], ""CHAT_LIEU"": [""kaki""], ""PHONG_CACH"": [""casual""]}",Quần ngắn (Shorts),quần short
+B,Q119,tiki_273445993,0,áo,1,san_tmdt,4,"{""MAU"": [""xám"", ""đen""], ""CHAT_LIEU"": [""viscose"", ""wool""], ""KIEU_DANG"": [""slim fit""], ""PHONG_CACH"": [""công sở""]}",ao-vest-ao-khoac-nam,áo khoác
+B,Q120,lazada_13493277120,0,áo,3,san_tmdt,3,"{""MAU"": [""be"", ""màu xám đậm"", ""mây xanh"", ""trắng"", ""tím"", ""xanh dương"", ""xanh đậm"", ""xám"", ""đen""], ""CHAT_LIEU"": [""polyester""], ""PHONG_CACH"": [""casual""]}",Bộ đồ,bộ trang phục
+B,Q121,aristino_1056343268,0,áo,2,noi_dia,3,"{""MAU"": [""vàng"", ""xanh dương"", ""đen""], ""CHAT_LIEU"": [""cotton"", ""spandex""], ""PHONG_CACH"": [""công sở""]}",ao-polo,áo polo
+B,Q122,johnhenry_1070637241,0,phụ kiện,2,noi_dia,3,"{""MAU"": [""đen""], ""CHAT_LIEU"": [""leather""], ""PHONG_CACH"": [""công sở""]}",balo,balo
+B,Q123,johnhenry_1070620664,0,phụ kiện,1,noi_dia,2,"{""MAU"": [""đen""], ""CHAT_LIEU"": [""leather""]}",vi,ví
+B,Q124,lazada_13496178101,0,áo,1,san_tmdt,3,"{""MAU"": [""be"", ""màu xám đậm"", ""mây xanh"", ""trắng"", ""tím"", ""xanh dương"", ""xanh đậm"", ""xám"", ""đen""], ""CHAT_LIEU"": [""polyester""], ""PHONG_CACH"": [""thể thao""]}",Bộ đồ,bộ trang phục
+B,Q125,tiki_84651131,0,áo,2,san_tmdt,2,"{""MAU"": [""xám""], ""CHAT_LIEU"": [""cotton"", ""polyester""]}",ao-vest-ao-khoac-nam,áo khoác
+B,Q126,tiki_212334607,0,quần,1,san_tmdt,2,"{""CHAT_LIEU"": [""polyester"", ""nylon""], ""PHONG_CACH"": [""thể thao""]}",quan-short-nam,quần short
+B,Q127,aristino_1074529042,0,áo,1,noi_dia,3,"{""CHAT_LIEU"": [""polyester"", ""bamboo""], ""KIEU_DANG"": [""slim fit""], ""PHONG_CACH"": [""minimalist""]}",ao-so-mi,áo sơ mi
+B,Q128,lazada_13437055509,0,phụ kiện,2,san_tmdt,2,"{""MAU"": [""black-2"", ""black-3"", ""coffee-2"", ""coffee-3"", ""nâu"", ""đen""], ""CHAT_LIEU"": [""leather""]}",Ví nam,ví
+B,Q129,tiki_74185951,0,áo,1,san_tmdt,2,"{""KIEU_DANG"": [""oversize""], ""PHONG_CACH"": [""thể thao""]}",ao-vest-ao-khoac-nam,áo khoác
+B,Q130,tiki_277435839,0,quần,1,san_tmdt,1,"{""CHAT_LIEU"": [""polyester"", ""spandex""]}",quan-short-nam,quần short
+B,Q131,lazada_13503004369,0,phụ kiện,1,san_tmdt,1,"{""MAU"": [""black 10 card slots"", ""black 6 card slots"", ""blue 10 card slots"", ""blue 6 card slots"", ""gold 10 card slots"", ""gold 6 card slots"", ""silver 10 card slots"", ""silver 6 card slots""]}",Ví đựng thẻ,ví đựng thẻ
+B,Q132,aristino_1071233403,0,quần,2,noi_dia,3,"{""MAU"": [""xanh tím than""], ""CHAT_LIEU"": [""cotton"", ""spandex""], ""KIEU_DANG"": [""regular fit"", ""slim fit""]}",quan-jeans,quần jean
+B,Q133,lazada_1801811096,0,quần,1,san_tmdt,4,"{""MAU"": [""deep green"", ""light yellow"", ""đen""], ""CHAT_LIEU"": [""kaki""], ""KIEU_DANG"": [""baggy""], ""PHONG_CACH"": [""casual""]}",Quần,quần
+B,Q134,johnhenry_1073648762,0,áo,3,noi_dia,3,"{""MAU"": [""l.brown"", ""xám""], ""CHAT_LIEU"": [""polyester"", ""spandex"", ""bamboo""], ""KIEU_DANG"": [""slim fit""]}",ao-so-mi,áo sơ mi
+B,Q135,lazada_13496114359,0,áo,3,san_tmdt,3,"{""MAU"": [""be"", ""màu xám đậm"", ""trắng"", ""tím"", ""xanh dương"", ""xanh đậm"", ""xám"", ""đen""], ""CHAT_LIEU"": [""polyester""], ""PHONG_CACH"": [""thể thao""]}",Bộ đồ,bộ trang phục
+B,Q136,johnhenry_1070056232,0,phụ kiện,2,noi_dia,2,"{""MAU"": [""cream.grey""], ""CHAT_LIEU"": [""cotton""]}",non-luoi-trai,mũ lưỡi trai
+B,Q137,tiki_249723132,0,quần,3,san_tmdt,3,"{""MAU"": [""xanh dương""], ""CHAT_LIEU"": [""denim""], ""KIEU_DANG"": [""slim fit""]}",quan-dai-nam,quần dài
+B,Q138,aristino_1062111434,0,quần,1,noi_dia,3,"{""CHAT_LIEU"": [""spandex""], ""KIEU_DANG"": [""regular fit""], ""PHONG_CACH"": [""casual"", ""thể thao""]}",quan-short,quần short
+B,Q139,tiki_199996713,0,quần,2,san_tmdt,2,"{""MAU"": [""nâu""], ""PHONG_CACH"": [""công sở""]}",quan-dai-nam,quần dài
+B,Q140,johnhenry_1075008820,0,quần,3,noi_dia,3,"{""CHAT_LIEU"": [""cotton"", ""spandex"", ""denim""], ""KIEU_DANG"": [""regular fit""], ""PHONG_CACH"": [""minimalist""]}",quan-jean,quần jean
+B,Q141,lazada_1933975084,0,quần,3,san_tmdt,3,"{""MAU"": [""màu xanh than"", ""đen""], ""CHAT_LIEU"": [""polyester"", ""spandex""], ""KIEU_DANG"": [""slim fit""]}",Quần bơi,quần bơi
+B,Q142,aristino_1056325294,0,áo,1,noi_dia,3,"{""CHAT_LIEU"": [""spandex"", ""nylon""], ""KIEU_DANG"": [""regular fit""], ""PHONG_CACH"": [""casual"", ""công sở""]}",ao-polo,áo polo
+B,Q143,tiki_277314082,0,quần,1,san_tmdt,1,"{""CHAT_LIEU"": [""cotton"", ""spandex"", ""kaki""]}",quan-dai-nam,quần dài
+B,Q144,lazada_13487770168,0,phụ kiện,2,san_tmdt,2,"{""MAU"": [""nâu"", ""đen""], ""CHAT_LIEU"": [""leather""]}",Cặp công sở,cặp công sở
+B,Q145,aristino_1074675822,0,quần,2,noi_dia,3,"{""CHAT_LIEU"": [""spandex"", ""nylon""], ""KIEU_DANG"": [""regular fit""], ""PHONG_CACH"": [""casual"", ""thể thao"", ""minimalist""]}",quan-short,quần short
+B,Q146,tiki_173998078,0,quần,2,san_tmdt,3,"{""MAU"": [""xanh jeans""], ""CHAT_LIEU"": [""denim""], ""KIEU_DANG"": [""slim fit""]}",quan-dai-nam,quần dài
+B,Q147,aristino_1071493590,0,quần,2,noi_dia,2,"{""CHAT_LIEU"": [""polyester""], ""KIEU_DANG"": [""regular fit""]}",quan-au,quần âu
+B,Q148,lazada_1483697635,0,phụ kiện,1,san_tmdt,2,"{""MAU"": [""nâu"", ""đen""], ""CHAT_LIEU"": [""leather""]}",Ví nam,ví
+B,Q149,johnhenry_1075962641,0,áo,3,noi_dia,3,"{""MAU"": [""trắng"", ""đen""], ""CHAT_LIEU"": [""cotton"", ""polyester"", ""spandex""], ""KIEU_DANG"": [""regular fit""]}",ao-polo,áo polo
+B,Q150,lazada_2703809704,0,áo,2,san_tmdt,3,"{""MAU"": [""trắng"", ""đen""], ""CHAT_LIEU"": [""cotton""], ""PHONG_CACH"": [""casual""]}",Áo thun có cổ (Polo),áo polo
+B,Q151,aristino_1057386251,0,áo,2,noi_dia,2,"{""CHAT_LIEU"": [""spandex""], ""KIEU_DANG"": [""regular fit""]}",ao-polo,áo polo
+B,Q152,lazada_13505945355,0,phụ kiện,2,san_tmdt,2,"{""MAU"": [""dark coffee"", ""nâu"", ""xám"", ""đen""], ""CHAT_LIEU"": [""polyester""]}",Cà vạt,cà vạt
+B,Q153,lazada_13493241317,0,áo,3,san_tmdt,3,"{""MAU"": [""be"", ""màu xám đậm"", ""mây xanh"", ""trắng"", ""tím"", ""xanh dương"", ""xanh đậm"", ""xám"", ""đen""], ""CHAT_LIEU"": [""polyester""], ""PHONG_CACH"": [""thể thao""]}",Bộ đồ,bộ trang phục
+B,Q154,lazada_13501005224,0,phụ kiện,1,san_tmdt,2,"{""MAU"": [""xanh dương"", ""đen""], ""CHAT_LIEU"": [""nylon""]}",Đồng hồ thời trang,đồng hồ
+B,Q155,lazada_13496156537,0,áo,3,san_tmdt,3,"{""MAU"": [""be"", ""màu xám đậm"", ""mây xanh"", ""trắng"", ""tím"", ""xanh dương"", ""xanh đậm"", ""xám"", ""đen""], ""CHAT_LIEU"": [""polyester""], ""PHONG_CACH"": [""thể thao""]}",Bộ đồ,bộ trang phục
+B,Q156,johnhenry_1067645452,0,phụ kiện,2,noi_dia,3,"{""MAU"": [""đen""], ""CHAT_LIEU"": [""leather""], ""PHONG_CACH"": [""công sở""]}",that-lung,thắt lưng
+B,Q157,aristino_1057110935,0,phụ kiện,1,noi_dia,2,"{""MAU"": [""bạc-xanh tím than""], ""PHONG_CACH"": [""minimalist""]}",that-lung-da,thắt lưng da
+B,Q158,lazada_2646802875,0,áo,3,san_tmdt,3,"{""MAU"": [""trắng"", ""xanh dương"", ""đen""], ""CHAT_LIEU"": [""polyester""], ""PHONG_CACH"": [""casual"", ""thể thao""]}",Bộ đồ,bộ trang phục
+B,Q159,lazada_13507646588,0,phụ kiện,2,san_tmdt,2,"{""MAU"": [""a"", ""b""], ""CHAT_LIEU"": [""polyester""]}",Cà vạt,cà vạt
+B,Q160,tiki_275023897,0,áo,2,san_tmdt,2,"{""MAU"": [""trắng-021"", ""xanh đen-023"", ""xám-022""], ""KIEU_DANG"": [""regular fit""]}",ao-thun-nam,áo thun
+B,Q161,aristino_1070276375,0,áo,3,noi_dia,4,"{""MAU"": [""trắng""], ""CHAT_LIEU"": [""polyester""], ""KIEU_DANG"": [""regular fit""], ""PHONG_CACH"": [""công sở""]}",ao-so-mi,áo sơ mi
+B,Q162,lazada_13447860899,0,phụ kiện,1,san_tmdt,1,"{""MAU"": [""a1"", ""a10"", ""a11"", ""a2"", ""a3"", ""a4"", ""a5"", ""a6"", ""a7"", ""a8"", ""a9""]}",Ví đựng thẻ,ví đựng thẻ
+B,Q163,lazada_3155485260,0,quần,3,san_tmdt,3,"{""MAU"": [""đen""], ""CHAT_LIEU"": [""cotton"", ""polyester"", ""nylon""], ""PHONG_CACH"": [""thể thao""]}",Quần bơi,quần bơi
+B,Q164,tiki_277581535,0,quần,3,san_tmdt,3,"{""MAU"": [""đen""], ""KIEU_DANG"": [""slim fit""], ""PHONG_CACH"": [""thể thao""]}",do-boi-do-di-bien-nam,quần bơi
+B,Q165,lazada_2864599924,0,áo,2,san_tmdt,2,"{""MAU"": [""tan""], ""KIEU_DANG"": [""oversize""]}",Áo thun có cổ (Polo),áo polo
+B,Q166,lazada_13501369794,0,phụ kiện,2,san_tmdt,2,"{""MAU"": [""xanh lá"", ""xám"", ""đen""], ""CHAT_LIEU"": [""nylon""]}",Túi đeo chéo & đeo vai,túi đeo chéo
+B,Q167,tiki_276174389,0,quần,2,san_tmdt,2,"{""CHAT_LIEU"": [""cotton""], ""KIEU_DANG"": [""slim fit""]}",quan-short-nam,quần short
+B,Q168,tiki_276376412,0,áo,3,san_tmdt,3,"{""CHAT_LIEU"": [""polyester"", ""bamboo""], ""KIEU_DANG"": [""regular fit""], ""PHONG_CACH"": [""công sở""]}",ao-so-mi-nam,áo sơ mi
+B,Q169,johnhenry_1075617446,0,phụ kiện,1,noi_dia,1,"{""MAU"": [""nâu"", ""đen""]}",giay-dep,giày dép
+B,Q170,lazada_2371667688,0,phụ kiện,1,san_tmdt,1,"{""MAU"": [""v1151 mỗi mặt vàng"", ""v1151 mỗi mặt xanh"", ""v1151 mỗi mặt đỏ"", ""v1151+v023 + xanh"", ""v1151+v023+ đỏ"", ""v1151+v023+vàng tron""]}",Dây chuyền,dây chuyền
+B,Q171,aristino_1074795254,0,quần,3,noi_dia,3,"{""CHAT_LIEU"": [""cotton"", ""spandex""], ""KIEU_DANG"": [""regular fit""], ""PHONG_CACH"": [""minimalist""]}",quan-kaki,quần kaki
+B,Q172,lazada_2294186040,0,phụ kiện,1,san_tmdt,2,"{""MAU"": [""vàng bò có quà"", ""vàng bò ko quà"", ""đen có quà"", ""đen ko quà""], ""CHAT_LIEU"": [""leather""]}",Xăng đan,xăng đan
+B,Q173,johnhenry_1057349201,0,quần,3,noi_dia,3,"{""MAU"": [""xanh navy"", ""đen""], ""CHAT_LIEU"": [""polyester"", ""spandex"", ""viscose""], ""KIEU_DANG"": [""slim fit"", ""regular fit""]}",quan-tay,quần âu
+B,Q174,tiki_94351100,0,quần,2,san_tmdt,2,"{""MAU"": [""trắng"", ""xám"", ""đen""], ""CHAT_LIEU"": [""nylon""]}",do-lot-nam,đồ lót
+B,Q175,tiki_176250783,0,áo,3,san_tmdt,4,"{""MAU"": [""trắng"", ""xanh navy"", ""đen""], ""CHAT_LIEU"": [""cotton""], ""KIEU_DANG"": [""regular fit""], ""PHONG_CACH"": [""casual""]}",ao-thun-nam,áo thun
+B,Q176,tiki_213491331,0,áo,3,san_tmdt,3,"{""MAU"": [""xám""], ""CHAT_LIEU"": [""fleece""], ""KIEU_DANG"": [""slim fit""]}",ao-hoodie-nam,áo hoodie
+B,Q177,lazada_1634964053,0,áo,3,san_tmdt,3,"{""MAU"": [""hồng"", ""kem"", ""nâu cafe"", ""trắng"", ""xanh dương"", ""xám"", ""đen"", ""đỏ""], ""CHAT_LIEU"": [""fleece""], ""PHONG_CACH"": [""thể thao"", ""streetwear""]}",Áo hoodies & Sweatshirts,áo hoodie
+B,Q178,aristino_1056322322,0,quần,3,noi_dia,3,"{""MAU"": [""xanh tím than"", ""đen""], ""CHAT_LIEU"": [""polyester""], ""KIEU_DANG"": [""regular fit""]}",quan-short,quần short
+B,Q179,johnhenry_1057623601,0,phụ kiện,2,noi_dia,2,"{""MAU"": [""xanh navy"", ""đen""], ""CHAT_LIEU"": [""cotton"", ""polyester"", ""spandex""]}",vo,vớ
+B,Q180,lazada_13502094024,0,quần,1,san_tmdt,1,"{""MAU"": [""black-perforated"", ""black-thickening"", ""black-thin style"", ""khaki-perforated"", ""khaki-thickening"", ""khaki-thin style"", ""navy blue-thickening"", ""navy blue-thin style"", ""white-perforated"", ""white-thickening"", ""white-thin style""]}",Quần bơi,quần bơi
+B,Q181,tiki_134750203,0,áo,1,san_tmdt,3,"{""MAU"": [""màu xanh đậm"", ""màu xám xanh thấy nút"", ""trắng"", ""đen""], ""CHAT_LIEU"": [""silk""], ""KIEU_DANG"": [""oversize""]}",ao-so-mi-nam,áo sơ mi
+B,Q182,johnhenry_1075518486,0,quần,1,noi_dia,3,"{""MAU"": [""xám""], ""CHAT_LIEU"": [""polyester""], ""KIEU_DANG"": [""slim fit""]}",quan-kaki,quần kaki
+B,Q183,lazada_13419484373,0,phụ kiện,1,san_tmdt,2,"{""MAU"": [""màu hạt dẻ"", ""màu vàng đất"", ""màu xanh quân đội"", ""màu xám nhạt"", ""đen""], ""PHONG_CACH"": [""thể thao""]}",Giày sneaker,giày sneaker
+B,Q184,tiki_163875869,0,áo,1,san_tmdt,2,"{""KIEU_DANG"": [""oversize""], ""PHONG_CACH"": [""công sở""]}",ao-so-mi-nam,áo sơ mi
+B,Q185,aristino_1069255396,0,phụ kiện,2,noi_dia,2,"{""MAU"": [""đen""], ""CHAT_LIEU"": [""leather""]}",giay-dep,giày dép
+B,Q186,johnhenry_1065232904,0,áo,1,noi_dia,4,"{""MAU"": [""xanh dương"", ""xanh navy""], ""CHAT_LIEU"": [""cotton"", ""polyester""], ""KIEU_DANG"": [""regular fit""], ""PHONG_CACH"": [""casual"", ""công sở""]}",ao-polo,áo polo
+B,Q187,johnhenry_1064334574,0,áo,3,noi_dia,3,"{""MAU"": [""trắng"", ""xanh navy""], ""CHAT_LIEU"": [""cotton""], ""KIEU_DANG"": [""regular fit""]}",ao-thun,áo thun
+B,Q188,johnhenry_1063592602,0,quần,1,noi_dia,3,"{""MAU"": [""kaki"", ""nâu"", ""xám"", ""xám nhạt""], ""CHAT_LIEU"": [""polyester""], ""KIEU_DANG"": [""slim fit""]}",quan-tay,quần âu
+B,Q189,lazada_13501915847,0,phụ kiện,2,san_tmdt,2,"{""MAU"": [""nâu"", ""đen""], ""CHAT_LIEU"": [""leather""]}",Cặp công sở,cặp công sở
+B,Q190,aristino_1069739086,0,quần,1,noi_dia,2,"{""CHAT_LIEU"": [""cotton"", ""spandex""], ""KIEU_DANG"": [""slim fit""]}",quan-boxer,quần boxer
+B,Q191,lazada_13484890000,0,phụ kiện,2,san_tmdt,2,"{""MAU"": [""pu cambridge màu."", ""pu màu hồng."", ""pu màu xanh lá cây."", ""pu màu xanh đậm."", ""pu màu xám nhạt.."", ""pu nâu."", ""pu đen.""], ""PHONG_CACH"": [""casual""]}",Ví nam,ví
+B,Q192,lazada_13496020983,0,áo,3,san_tmdt,3,"{""MAU"": [""be"", ""màu xám đậm"", ""trắng"", ""tím"", ""xanh dương"", ""xanh đậm"", ""xám"", ""đen""], ""CHAT_LIEU"": [""polyester""], ""PHONG_CACH"": [""thể thao""]}",Bộ đồ,bộ trang phục
+B,Q193,lazada_3187023359,0,phụ kiện,1,san_tmdt,1,"{""MAU"": [""gold black"", ""gold red"", ""gold white"", ""nâu"", ""rosegold green"", ""rosegold white"", ""silver red"", ""trắng"", ""vàng kim"", ""xanh dương"", ""xanh lá"", ""xanh nhạt"", ""đen""]}",Đồng hồ thời trang,đồng hồ
+B,Q194,aristino_1069738401,0,phụ kiện,1,noi_dia,2,"{""MAU"": [""đen""], ""PHONG_CACH"": [""casual"", ""minimalist""]}",tui,túi
+B,Q195,lazada_2440337498,0,quần,2,san_tmdt,2,"{""MAU"": [""xanh dương""], ""CHAT_LIEU"": [""denim""]}",Quần jeans,quần jean
+B,Q196,lazada_2562714027,0,phụ kiện,2,san_tmdt,3,"{""MAU"": [""be"", ""màu be-10 đôi"", ""màu be-3 đôi"", ""màu be-5 đôi"", ""đen"", ""đen-10 đôi"", ""đen-3 đôi"", ""đen-5 đôi""], ""CHAT_LIEU"": [""leather""], ""PHONG_CACH"": [""thể thao""]}",Phụ kiện giày,phụ kiện giày
+B,Q197,henstore_1072660133,0,quần,3,noi_dia,3,"{""CHAT_LIEU"": [""cotton"", ""denim""], ""KIEU_DANG"": [""regular fit""], ""PHONG_CACH"": [""casual"", ""streetwear""]}",quan-short,quần short
+B,Q198,johnhenry_1067645307,0,phụ kiện,1,noi_dia,3,"{""MAU"": [""đen""], ""CHAT_LIEU"": [""leather""], ""PHONG_CACH"": [""công sở""]}",that-lung,thắt lưng
+B,Q199,tiki_104510590,0,áo,2,san_tmdt,2,"{""MAU"": [""trắng""], ""KIEU_DANG"": [""oversize""]}",ao-vest-ao-khoac-nam,áo khoác
+B,Q200,johnhenry_1077074533,0,áo,3,noi_dia,4,"{""MAU"": [""trắng"", ""xanh navy""], ""CHAT_LIEU"": [""cotton""], ""KIEU_DANG"": [""regular fit""], ""PHONG_CACH"": [""casual""]}",ao-polo,áo polo
+B,RB01,aristino_1056325917,1,phụ kiện,1,noi_dia,2,"{""MAU"": [""cam lưới đen"", ""xanh tím than lưới đen""], ""CHAT_LIEU"": [""polyester""]}",ca-vat,cà vạt
+B,RB02,aristino_1057491141,1,phụ kiện,1,noi_dia,2,"{""MAU"": [""xanh navy""], ""CHAT_LIEU"": [""leather""]}",vi-da,ví da
+B,RB03,lazada_13381734197,1,phụ kiện,1,san_tmdt,2,"{""MAU"": [""nâu"", ""xám"", ""đen""], ""CHAT_LIEU"": [""leather""]}",Xăng đan,xăng đan
+B,RB04,lazada_13468932197,1,phụ kiện,1,san_tmdt,2,"{""MAU"": [""siêu nhẹ [hồng cánh sen]"", ""siêu nhẹ [hồng nhạt]"", ""siêu nhẹ [màu cà phê]"", ""siêu nhẹ [màu kaki]"", ""siêu nhẹ [màu vàng] của sao"", ""siêu nhẹ [xanh nhạt]"", ""siêu nhẹ [đỏ tươi]""], ""PHONG_CACH"": [""casual""]}",Dép xỏ ngón (Flip Flops),dép
+B,RB05,aristino_1056322517,1,phụ kiện,2,noi_dia,2,"{""MAU"": [""tím"", ""xanh dương""], ""CHAT_LIEU"": [""polyester""]}",ca-vat,cà vạt
+B,RB06,johnhenry_1067876390,1,phụ kiện,2,noi_dia,3,"{""MAU"": [""đen""], ""CHAT_LIEU"": [""leather""], ""PHONG_CACH"": [""công sở""]}",that-lung,thắt lưng
+B,RB07,lazada_13395361136,1,phụ kiện,2,san_tmdt,2,"{""MAU"": [""vàng"", ""xám"", ""đen"", ""đỏ""], ""CHAT_LIEU"": [""cotton""]}",Dép xỏ ngón (Flip Flops),dép
+B,RB08,lazada_1969200808,1,phụ kiện,2,san_tmdt,2,"{""MAU"": [""dây nâu mặt trắng"", ""dây nâu mặt đen"", ""dây đen, mặt trắng"", ""dây đen, mặt đen"", ""khau trang""], ""CHAT_LIEU"": [""leather""]}",Thắt lưng,thắt lưng
+B,RB09,aristino_1074066710,1,quần,1,noi_dia,2,"{""KIEU_DANG"": [""slim fit""], ""PHONG_CACH"": [""minimalist""]}",quan-au,quần âu
+B,RB10,lazada_1538541532,1,quần,1,san_tmdt,2,"{""CHAT_LIEU"": [""denim""], ""PHONG_CACH"": [""casual"", ""công sở"", ""streetwear""]}",Quần jeans,quần jean
+B,RB11,johnhenry_1074400633,1,quần,2,noi_dia,3,"{""MAU"": [""xám""], ""CHAT_LIEU"": [""denim""], ""KIEU_DANG"": [""regular fit""]}",quan-jean,quần jean
+B,RB12,lazada_1356982109,1,quần,2,san_tmdt,2,"{""MAU"": [""xanh lá""], ""CHAT_LIEU"": [""kaki""]}",Quần,quần
+B,RB13,johnhenry_1074238364,1,quần,3,noi_dia,4,"{""MAU"": [""caviar"", ""taupe gray""], ""CHAT_LIEU"": [""polyester""], ""KIEU_DANG"": [""slim fit""], ""PHONG_CACH"": [""minimalist""]}",quan-tay,quần âu
+B,RB14,lazada_13392761120,1,quần,3,san_tmdt,3,"{""MAU"": [""dark gray"", ""khaki color"", ""light gray"", ""xanh lá"", ""xanh navy"", ""đen""], ""KIEU_DANG"": [""oversize""], ""PHONG_CACH"": [""casual""]}",Quần,quần jogger
+B,RB15,lazada_13500003035,1,quần,3,san_tmdt,3,"{""MAU"": [""xanh đậm [lông cừu non]"", ""xanh đậm [siêu mềm]"", ""xám lông cừu [siêu mềm]"", ""xám lông cừu non"", ""đen [lông cừu non]"", ""đen [siêu mềm]""], ""KIEU_DANG"": [""oversize""], ""PHONG_CACH"": [""thể thao""]}",Quần,quần
+B,RB16,aristino_1066296221,1,áo,1,noi_dia,2,"{""CHAT_LIEU"": [""cotton"", ""spandex""], ""PHONG_CACH"": [""thể thao""]}",ao-polo,áo polo
+B,RB17,tiki_164017356,1,áo,1,san_tmdt,3,"{""CHAT_LIEU"": [""cotton""], ""KIEU_DANG"": [""oversize""], ""PHONG_CACH"": [""công sở""]}",ao-so-mi-nam,áo sơ mi
+B,RB18,tiki_58281815,1,áo,1,san_tmdt,1,"{""MAU"": [""trắng""]}",ao-thun-nam,áo thun
+B,RB19,icondenim_1075368097,1,áo,2,noi_dia,4,"{""MAU"": [""xanh nhạt-0378""], ""CHAT_LIEU"": [""cotton"", ""polyester"", ""denim""], ""KIEU_DANG"": [""regular fit""], ""PHONG_CACH"": [""casual""]}",ao-so-mi,áo sơ mi
+B,RB20,lazada_13493283073,1,áo,2,san_tmdt,3,"{""MAU"": [""be"", ""màu xám đậm"", ""mây xanh"", ""trắng"", ""tím"", ""xanh dương"", ""xanh đậm"", ""xám"", ""đen""], ""CHAT_LIEU"": [""polyester""], ""KIEU_DANG"": [""oversize""]}",Bộ đồ,bộ trang phục
+B,RB21,lazada_13496688254,1,áo,2,san_tmdt,2,"{""MAU"": [""trắng & xanh"", ""trắng & đỏ"", ""xanh dương"", ""đen"", ""đỏ""], ""CHAT_LIEU"": [""polyester"", ""viscose""]}",Đồ bảo hộ & Suits,bộ trang phục
+B,RB22,aristino_1058075956,1,áo,3,noi_dia,3,"{""CHAT_LIEU"": [""polyester""], ""KIEU_DANG"": [""regular fit""], ""PHONG_CACH"": [""công sở""]}",ao-so-mi,áo sơ mi
+B,RB23,johnhenry_1055647404,1,áo,3,noi_dia,3,"{""MAU"": [""xanh navy""], ""CHAT_LIEU"": [""modal""], ""PHONG_CACH"": [""công sở""]}",ao-so-mi,áo sơ mi
+B,RB24,lazada_13496086505,1,áo,3,san_tmdt,4,"{""MAU"": [""be"", ""màu xám đậm"", ""mây xanh"", ""trắng"", ""tím"", ""xanh dương"", ""xanh đậm"", ""xám"", ""đen""], ""CHAT_LIEU"": [""polyester""], ""KIEU_DANG"": [""oversize""], ""PHONG_CACH"": [""casual""]}",Bộ đồ,bộ trang phục
+B,RB25,lazada_13496286048,1,áo,3,san_tmdt,4,"{""MAU"": [""be"", ""màu xám đậm"", ""trắng"", ""tím"", ""xanh dương"", ""xanh đậm"", ""đen""], ""CHAT_LIEU"": [""fleece""], ""KIEU_DANG"": [""oversize""], ""PHONG_CACH"": [""thể thao""]}",Bộ đồ,bộ trang phục
+B,RB26,lazada_2219113371,1,áo,3,san_tmdt,3,"{""MAU"": [""xanh tím than"", ""xanh đá"", ""xám nhạt"", ""đen""], ""CHAT_LIEU"": [""polyester""], ""KIEU_DANG"": [""slim fit""]}",Áo khoác bomber,áo khoác bomber

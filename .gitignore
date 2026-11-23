@@ -144,3 +144,5 @@ Thumbs.db
 .DS_Store
 *.tmp
 
+
+checkpoints/cross_encoder_best/model.safetensors

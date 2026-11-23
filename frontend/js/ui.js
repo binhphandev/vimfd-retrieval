@@ -22,8 +22,8 @@ export const cardH = (p, hi, res) =>
     p.image_url ? `<img src="${esc(p.image_url)}" alt="" loading="lazy" decoding="async">` : ''}</div>
   <div class="bd"><h3>${esc(p.name)}</h3>
   <div class="pr"><b>${money(p.price)}</b><span>${esc(p.brand)}</span></div>
-  <span class="bg${hi ? ' hi' : ''}">${hi ? 'Rất phù hợp' : 'Phù hợp'}</span>
-  ${res ? `<span class="sco">Chữ ${num(p.score_text)} · Ảnh ${num(p.score_image)} · Tổng ${num(p.score)}</span>` : ''}
+  ${p.score == null ? '' : `<span class="bg${hi ? ' hi' : ''}">${hi ? 'Rất phù hợp' : 'Phù hợp'}</span>`}
+  ${res && p.score != null ? `<span class="sco">Chữ ${num(p.score_text)} · Ảnh ${num(p.score_image)} · Tổng ${num(p.score)}</span>` : ''}
   </div></a>`;
 
 const chipsH = () =>
@@ -35,20 +35,32 @@ const SKELETON = Array(8).fill('<div class="card sk"><div class="im"></div><div 
 
 export function renderResults() {
   const { items, st, total } = S, g = $('#grid');
-  $('#cnt').textContent = st === 'load' ? 'Đang tìm kiếm…'
-    : st === 'err' ? 'Không tải được kết quả' : `${st === 'empty' ? 0 : total} sản phẩm phù hợp`;
+  $('#cnt').textContent = st === 'load' ? 'Đang tải…'
+    : st === 'err' ? 'Không tải được kết quả'
+    : `${(st === 'empty' ? 0 : total).toLocaleString('vi-VN')} sản phẩm${S.browse ? '' : ' phù hợp'}`;
   $('#und').innerHTML = chipsH();
+  const nt = $('#note');
+  nt.hidden = !S.dropped.length;
+  nt.textContent = S.dropped.length ? `Đã bỏ “${S.dropped.join(', ')}” khỏi mô tả vì bạn đang lọc màu ${[...S.F.c].join(', ')}.` : '';
+  $('#wt').hidden = !(S.q && S.file);   // thanh ưu tiên chỉ có nghĩa khi truy vấn cả chữ lẫn ảnh
   $('#fbtn').textContent = 'Bộ lọc' + (nF() ? ` (${nF()})` : '');
 
   if (st === 'load') g.innerHTML = SKELETON;
   else if (st === 'ok') {
-    S.hiIds = new Set([...items].sort((a, b) => (b.score ?? 0) - (a.score ?? 0)).slice(0, 4).map(p => p.id));
+    S.hiIds = S.browse ? new Set() : new Set([...items].sort((a, b) => (b.score ?? 0) - (a.score ?? 0)).slice(0, 4).map(p => p.id));
     g.innerHTML = items.map(p => cardH(p, S.hiIds.has(p.id), S.res)).join('');
   } else if (st === 'err') {
-    g.innerHTML = `<div class="msg"><b>Không tải được kết quả</b><p>${esc(S.err || 'Kết nối tới máy chủ bị gián đoạn.')}</p><button class="btn p" data-act="retry">Thử lại</button></div>`;
+    g.innerHTML = `<div class="msg"><div class="ic2">!</div>
+      <b>${S.err ? 'Không tải được kết quả' : 'Không kết nối được tới hệ thống'}</b>
+      <p>${S.err ? esc(S.err) : 'Kiểm tra kết nối mạng rồi thử lại. Truy vấn của bạn vẫn được giữ nguyên.'}</p>
+      <div class="acts"><button class="btn p" data-act="retry">Thử lại</button></div></div>`;
   } else {
-    g.innerHTML = '<div class="msg"><b>Không tìm thấy sản phẩm phù hợp</b><p>Hãy mô tả ngắn gọn hơn, bớt bộ lọc hoặc tải ảnh mẫu.</p>'
-      + (nF() ? '<button class="btn" data-act="clearF">Xóa bộ lọc</button>' : '') + '</div>';
+    g.innerHTML = `<div class="msg"><div class="ic2">?</div>
+      <b>Không tìm thấy sản phẩm phù hợp</b>
+      <p>Thử bỏ bớt bộ lọc, đổi cách mô tả, hoặc thêm ảnh tham chiếu để hệ thống hiểu rõ hơn.</p>
+      <div class="acts"><button class="btn p" data-act="clearF"${nF() ? '' : ' disabled'}>Xóa bộ lọc</button><button class="btn" data-act="addimg">Thêm ảnh tham chiếu</button></div>
+      <div class="sg"><span class="lb">Có thể bạn muốn tìm</span><div class="chips">
+        ${['Áo khoác nam', 'Áo khoác gió', 'Áo phao nhẹ'].map(t => `<button class="chip o" data-ex="${t}">${t}</button>`).join('')}</div></div></div>`;
   }
   $('#more').hidden = !(st === 'ok' && items.length < total);
 }
@@ -71,7 +83,7 @@ export function renderDetail(p, sim = [], full = null) {
   <div class="inf"><h1>${esc(p.name)}</h1>
    <div class="pr big"><b>${money(p.price)}</b><span>${esc(p.brand)}</span></div>
    ${S.hiIds.has(p.id) ? '<span class="bg hi">Rất phù hợp với tìm kiếm của bạn</span>' : ''}
-   <div class="why"><h2>Vì sao ra kết quả này</h2><p>${why}</p><div class="chips">${chips}</div>${rs}</div>
+   ${p.score == null ? '' : `<div class="why"><h2>Vì sao ra kết quả này</h2><p>${why}</p><div class="chips">${chips}</div>${rs}</div>`}
    ${d.description ? `<div class="why"><h2>Mô tả</h2><p class="desc">${esc(d.description)}</p>${sizes}</div>` : ''}
    <button class="btn p" data-act="shop">Xem trên cửa hàng</button>
    <button class="btn" data-act="sim">Tìm tương tự</button></div></div>

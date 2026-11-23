@@ -1,0 +1,201 @@
+query_id,query_vi,query_en,model,num_beams,transformers
+Q001,quần jean regular fit chất cotton denim,regular fit denim cotton jeans,vinai/vinai-translate-vi2en,4,5.24.0
+Q002,quần jean nam dáng suông phong cách casual,casual style slim men's jeans,vinai/vinai-translate-vi2en,4,5.24.0
+Q003,ví da bò màu nâu,brown cowhide wallet,vinai/vinai-translate-vi2en,4,5.24.0
+Q004,áo khoác kaki màu xanh phong cách thể thao dáng rộng,Blue khaki jacket sports style wide shape,vinai/vinai-translate-vi2en,4,5.24.0
+Q005,áo sơ mi regular fit thoải mái,Comfortable Regular Fit Shirt,vinai/vinai-translate-vi2en,4,5.24.0
+Q006,giày sneaker da bò màu nâu phong cách thể thao,sports style brown cowhide sneakers,vinai/vinai-translate-vi2en,4,5.24.0
+Q007,áo polo màu đen form vừa phong cách công sở,black polo shirt medium form work style,vinai/vinai-translate-vi2en,4,5.24.0
+Q008,áo hoodie nỉ chất polyester,polyester felt hoodie,vinai/vinai-translate-vi2en,4,5.24.0
+Q009,áo bomber nỉ dáng rộng streetwear,"Bomber shirt, loose - fitting felt, streetwear.",vinai/vinai-translate-vi2en,4,5.24.0
+Q010,quần kaki nam suông vừa,Men's medium khaki pants,vinai/vinai-translate-vi2en,4,5.24.0
+Q011,áo bếp dài tay unisex,long sleeve unisex kitchen shirt,vinai/vinai-translate-vi2en,4,5.24.0
+Q012,bộ áo hoodie quần jogger nỉ dáng rộng thể thao,"Hoodie, sweatpants, athletic fit.",vinai/vinai-translate-vi2en,4,5.24.0
+Q013,cà vạt polyester màu xanh tím than,polyester blue purple charcoal tie,vinai/vinai-translate-vi2en,4,5.24.0
+Q014,dép quai ngang màu nâu chống trượt,Anti-slip brown weft sandals,vinai/vinai-translate-vi2en,4,5.24.0
+Q015,áo hoodie polyester năng động,dynamic polyester hoodie,vinai/vinai-translate-vi2en,4,5.24.0
+Q016,quần short thể thao dáng rộng,Wide - waisted sports shorts,vinai/vinai-translate-vi2en,4,5.24.0
+Q017,quần jean dài vải denim co giãn,jeans long stretch denim fabric,vinai/vinai-translate-vi2en,4,5.24.0
+Q018,túi hông nylon chống nước,waterproof nylon hip bag,vinai/vinai-translate-vi2en,4,5.24.0
+Q019,quần âu nam regular fit,Men's Regular Fit pants,vinai/vinai-translate-vi2en,4,5.24.0
+Q020,áo hoodie polyester kèm quần jogger thể thao,polyester hoodie with sport jogger pants,vinai/vinai-translate-vi2en,4,5.24.0
+Q021,áo polo cotton form vừa,Medium Form Cotton Polo Shirts,vinai/vinai-translate-vi2en,4,5.24.0
+Q022,quần kaki màu trắng regular fit phong cách công sở,White khaki pants Regular fit business style,vinai/vinai-translate-vi2en,4,5.24.0
+Q023,áo khoác nhung form vừa màu nâu,Brown medium form velvet jacket,vinai/vinai-translate-vi2en,4,5.24.0
+Q024,balo chống gù lưng màu xanh đậm,Dark blue humpbacked backpack,vinai/vinai-translate-vi2en,4,5.24.0
+Q025,quần boxer nam chất cotton,cotton men's boxer pants,vinai/vinai-translate-vi2en,4,5.24.0
+Q026,quần lót nam brief dáng ôm sát,Men's briefs: slim fit.,vinai/vinai-translate-vi2en,4,5.24.0
+Q027,quần bơi spandex phong cách thể thao,spandex swimming trunks sport style,vinai/vinai-translate-vi2en,4,5.24.0
+Q028,quần jean denim lưng cao ống thẳng dáng rộng,denim jeans high back straight tube wide shape,vinai/vinai-translate-vi2en,4,5.24.0
+Q029,thắt lưng da bò màu đen,black cowhide belt,vinai/vinai-translate-vi2en,4,5.24.0
+Q030,áo polo cotton form vừa phong cách casual,Cotton Form Polo Shirts for Casual Style,vinai/vinai-translate-vi2en,4,5.24.0
+Q031,áo hoodie polyester dáng rộng phong cách streetwear,Wide-fitting polyester hoodie style streetwear,vinai/vinai-translate-vi2en,4,5.24.0
+Q032,quần short kaki phong cách casual,Khaki Shorts Casual Style,vinai/vinai-translate-vi2en,4,5.24.0
+Q033,cặp công sở da màu nâu,Brown office briefcase.,vinai/vinai-translate-vi2en,4,5.24.0
+Q034,túi đeo vai da PU màu đen công sở,black PU leather office shoulder bag,vinai/vinai-translate-vi2en,4,5.24.0
+Q035,áo hoodie polyester phong cách casual,polyester casual style hoodie,vinai/vinai-translate-vi2en,4,5.24.0
+Q036,quần âu polyester form cropped tối giản,Minimalist polyester cropped form trousers,vinai/vinai-translate-vi2en,4,5.24.0
+Q037,balo có cổng sạc USB tiện lợi,Backpack with convenient USB charging port,vinai/vinai-translate-vi2en,4,5.24.0
+Q038,cà vạt lụa bản to phong cách công sở,"Big silk tie, office style.",vinai/vinai-translate-vi2en,4,5.24.0
+Q039,giày loafer màu đen,black loafer shoes,vinai/vinai-translate-vi2en,4,5.24.0
+Q040,áo hoodie nỉ polyester kiểu dáng rộng phong cách casual,polyester felt hoodie wide style casual style,vinai/vinai-translate-vi2en,4,5.24.0
+Q041,áo hoodie polyester phong cách streetwear Hàn Quốc,polyester hoodie Korean style streetwear,vinai/vinai-translate-vi2en,4,5.24.0
+Q042,quần dài polyester màu xanh navy phong cách đường phố,polyester blue navy style street pants,vinai/vinai-translate-vi2en,4,5.24.0
+Q043,áo hoodie lông cừu phong cách casual,casual style sheepskin hoodie,vinai/vinai-translate-vi2en,4,5.24.0
+Q044,áo khoác da lót lông màu đen phong cách thể thao,black fur lining leather jacket sports style,vinai/vinai-translate-vi2en,4,5.24.0
+Q045,quần short màu xám form vừa chất nylon spandex,grey shorts medium form nylon spandex,vinai/vinai-translate-vi2en,4,5.24.0
+Q046,áo polo regular fit chất cotton,Cotton Regular Fit Polo Shirts,vinai/vinai-translate-vi2en,4,5.24.0
+Q047,nhẫn thép màu đen tối giản,minimalist black steel ring,vinai/vinai-translate-vi2en,4,5.24.0
+Q048,balo nylon chống nước phong cách công sở,office style waterproof nylon backpack,vinai/vinai-translate-vi2en,4,5.24.0
+Q049,bộ hoodie jogger polyester dáng rộng phong cách Hàn Quốc,Korean style wide waist polyester jogger hoodie,vinai/vinai-translate-vi2en,4,5.24.0
+Q050,áo hoodie polyester tay dài phong cách casual,Long Sleeve Polyester Hoodie Casual Style,vinai/vinai-translate-vi2en,4,5.24.0
+Q051,dép nam chống trượt đi trong nhà,Men's non-slip indoor slippers,vinai/vinai-translate-vi2en,4,5.24.0
+Q052,quần short trắng phong cách casual,casual style white shorts,vinai/vinai-translate-vi2en,4,5.24.0
+Q053,bộ vest wool màu xanh tím than phong cách công sở,blue purple charcoal style office wool suit,vinai/vinai-translate-vi2en,4,5.24.0
+Q054,sandal da bò màu đen,black cowhide sandals,vinai/vinai-translate-vi2en,4,5.24.0
+Q055,bộ hoodie jogger polyester dáng rộng phong cách Y2K,Y2K style wide-fitting polyester jogger hoodie,vinai/vinai-translate-vi2en,4,5.24.0
+Q056,áo jacket polyester 2 lớp lịch sự,courtesy 2 layer polyester jacket,vinai/vinai-translate-vi2en,4,5.24.0
+Q057,ví đựng thẻ nhân viên kẹp cổ,"Employee's wallet, clip - on.",vinai/vinai-translate-vi2en,4,5.24.0
+Q058,áo thun cotton polyester form regular,Cotton Polyester Form Regular T-Shirt,vinai/vinai-translate-vi2en,4,5.24.0
+Q059,quần short polyester regular fit phong cách casual,Polyester Shorts Regular Fit Casual Style,vinai/vinai-translate-vi2en,4,5.24.0
+Q060,giày sneaker màu trắng ngà phong cách thể thao,ivory white sneakers sports style,vinai/vinai-translate-vi2en,4,5.24.0
+Q061,quần jean denim skinny co giãn phong cách đường phố,denim jeans skinny stretch street style,vinai/vinai-translate-vi2en,4,5.24.0
+Q062,áo sơ mi polyester slim fit phong cách công sở,polyester slim fit work style shirt,vinai/vinai-translate-vi2en,4,5.24.0
+Q063,áo khoác gió màu xanh rêu regular fit thể thao,moss green wind jacket Regular Fit Sportswear,vinai/vinai-translate-vi2en,4,5.24.0
+Q064,áo polo polyester màu trắng,white polyester polo shirt,vinai/vinai-translate-vi2en,4,5.24.0
+Q065,đồ bơi nam chất liệu thoải mái,men's swimwear comfortable material,vinai/vinai-translate-vi2en,4,5.24.0
+Q066,quần jean denim slim fit phong cách gọn gàng,slim fit denim jeans neat style,vinai/vinai-translate-vi2en,4,5.24.0
+Q067,quần tây polyester slim fit lịch sự,polyester slim fit courtesy trousers,vinai/vinai-translate-vi2en,4,5.24.0
+Q068,quần âu chất len phong cách công sở,wool work style trousers,vinai/vinai-translate-vi2en,4,5.24.0
+Q069,cà vạt polyester màu xám,polyester grey tie,vinai/vinai-translate-vi2en,4,5.24.0
+Q070,quần jean cotton slim fit màu xanh chàm,slim fit indigo blue cotton jeans,vinai/vinai-translate-vi2en,4,5.24.0
+Q071,áo sơ mi bamboo polyester form vừa phong cách casual,bamboo polyester form medium shirt casual style,vinai/vinai-translate-vi2en,4,5.24.0
+Q072,dép lót lông bít mũi chống trượt,Anti-slip closed-nose fur slippers,vinai/vinai-translate-vi2en,4,5.24.0
+Q073,áo kimono polyester màu đỏ,polyester red kimono shirt,vinai/vinai-translate-vi2en,4,5.24.0
+Q074,giày vải nam màu đen thoải mái,Comfortable black men's canvas shoes,vinai/vinai-translate-vi2en,4,5.24.0
+Q075,giày oxford da bò màu nâu lịch lãm,Oxford cowhide elegant brown shoes,vinai/vinai-translate-vi2en,4,5.24.0
+Q076,thắt lưng da đầu kim màu đen,black needle scalp belt,vinai/vinai-translate-vi2en,4,5.24.0
+Q077,quần bơi màu xanh navy co giãn 4 chiều thể thao,4 way elastic navy blue swimming trunks sports,vinai/vinai-translate-vi2en,4,5.24.0
+Q078,áo hoodie nỉ polyester casual mùa thu,Autumn Polyester Casual Felt Hoodie,vinai/vinai-translate-vi2en,4,5.24.0
+Q079,quần short màu đen thoải mái,Comfortable Black Shorts,vinai/vinai-translate-vi2en,4,5.24.0
+Q080,quần jean cotton denim dáng suông,cotton denim straight jeans,vinai/vinai-translate-vi2en,4,5.24.0
+Q081,giày sneaker màu trắng phong cách thể thao retro,white sneakers retro sports style,vinai/vinai-translate-vi2en,4,5.24.0
+Q082,quần jean denim dáng rộng phong cách streetwear,wide-fitting denim jeans streetwear style,vinai/vinai-translate-vi2en,4,5.24.0
+Q083,quần jean denim suông rộng màu xám xanh,blue grey loose-fitting denim jeans,vinai/vinai-translate-vi2en,4,5.24.0
+Q084,túi cầm tay màu đen tối giản,minimalist black handbag,vinai/vinai-translate-vi2en,4,5.24.0
+Q085,cặp công sở da PU đựng tài liệu,PU leather office briefcase for documents,vinai/vinai-translate-vi2en,4,5.24.0
+Q086,áo sơ mi cotton slim fit phong cách công sở,slim fit cotton shirts office style,vinai/vinai-translate-vi2en,4,5.24.0
+Q087,giày loafer da bò màu đen,black cow leather loafer shoes,vinai/vinai-translate-vi2en,4,5.24.0
+Q088,áo sweater phong cách casual,casual style sweater shirt,vinai/vinai-translate-vi2en,4,5.24.0
+Q089,áo thun cotton regular fit màu trắng phong cách casual,Cotton Regular Fit T-Shirt in White Casual Style,vinai/vinai-translate-vi2en,4,5.24.0
+Q090,áo thun cotton cổ tròn màu xanh đen,black blue round neck cotton t-shirt,vinai/vinai-translate-vi2en,4,5.24.0
+Q091,ví ngang màu xanh navy nhỏ gọn,horizontal purse navy blue compact,vinai/vinai-translate-vi2en,4,5.24.0
+Q092,áo hoodie polyester thể thao regular fit,polyester sports hoodie regular fit,vinai/vinai-translate-vi2en,4,5.24.0
+Q093,áo hoodie nỉ polyester dáng rộng phong cách casual,Polyester sweater hoodie wide shape casual style,vinai/vinai-translate-vi2en,4,5.24.0
+Q094,quần jean cotton xanh dương ống đứng phong cách casual,blue cotton jeans tube stand casual style,vinai/vinai-translate-vi2en,4,5.24.0
+Q095,áo sơ mi caro tay dài màu navy form ôm sát,"Long - sleeved caro shirt, Navy form, tight fit.",vinai/vinai-translate-vi2en,4,5.24.0
+Q096,áo sơ mi cotton chống nhăn màu xanh navy,navy blue anti-wrinkle cotton shirt,vinai/vinai-translate-vi2en,4,5.24.0
+Q097,dép da nam tăng chiều cao,Men's Leather Slippers Height Gain,vinai/vinai-translate-vi2en,4,5.24.0
+Q098,áo polo cotton regular fit phong cách casual,Cotton Polo Shirt Regular Fit Casual Style,vinai/vinai-translate-vi2en,4,5.24.0
+Q099,áo khoác kaki màu vàng dáng rộng thể thao,yellow khaki jacket wide shape sports,vinai/vinai-translate-vi2en,4,5.24.0
+Q100,quần boxer vải sợi tre thoáng mát,boxer pants breathable bamboo fiber fabric,vinai/vinai-translate-vi2en,4,5.24.0
+Q101,áo hoodie nỉ fleece polyester dáng suông phong cách casual,"Polyester fleece sweater hoodie, casual style",vinai/vinai-translate-vi2en,4,5.24.0
+Q102,áo polo regular fit dáng suông thoải mái,Regular Fit Polo Shirts with Comfortable Sleeves,vinai/vinai-translate-vi2en,4,5.24.0
+Q103,áo cardigan polyester form vừa phong cách lịch lãm,Polyester Form Medium Cardigan Elegant Style,vinai/vinai-translate-vi2en,4,5.24.0
+Q104,áo polo màu xanh tím than dáng suông,"Polo shirt, blue, purple, charcoal, square.",vinai/vinai-translate-vi2en,4,5.24.0
+Q105,áo sơ mi cotton tay ngắn form vừa phong cách casual,short sleeve cotton shirt medium form casual style,vinai/vinai-translate-vi2en,4,5.24.0
+Q106,áo khoác nỉ fleece form rộng màu đen trắng phong cách casual,Wide Form Fleece Overcoat Black White Casual Style,vinai/vinai-translate-vi2en,4,5.24.0
+Q107,khăn quàng cổ lụa phong cách công sở,office style silk scarf,vinai/vinai-translate-vi2en,4,5.24.0
+Q108,áo ba lỗ form âu phong cách casual,Three-hole form blouse casual style,vinai/vinai-translate-vi2en,4,5.24.0
+Q109,bóp da bò nhiều ngăn đựng thẻ,"Squeeze the cowhide, multiple card compartments.",vinai/vinai-translate-vi2en,4,5.24.0
+Q110,vớ cổ trung nam thể thao,middle stockings men sport stockings,vinai/vinai-translate-vi2en,4,5.24.0
+Q111,quần âu dáng rộng màu kaki phong cách casual,"Pants in a loose fit, khaki, casual style.",vinai/vinai-translate-vi2en,4,5.24.0
+Q112,áo hoodie nỉ polyester phong cách đường phố,polyester felt hoodie street style,vinai/vinai-translate-vi2en,4,5.24.0
+Q113,quần cargo cotton dáng rộng màu xanh navy phong cách casual,cargo cotton pants wide-fitting blue navy casual style,vinai/vinai-translate-vi2en,4,5.24.0
+Q114,quần short nylon màu xám năng động,dynamic grey nylon shorts,vinai/vinai-translate-vi2en,4,5.24.0
+Q115,lót giày thể thao thoáng khí,Breathable athletic shoe linings,vinai/vinai-translate-vi2en,4,5.24.0
+Q116,áo polo nylon spandex màu đen form vừa phong cách thể thao,black nylon spandex polo shirt form fit sports style,vinai/vinai-translate-vi2en,4,5.24.0
+Q117,áo hoodie nỉ polyester phong cách casual,polyester felt hoodie casual style,vinai/vinai-translate-vi2en,4,5.24.0
+Q118,quần short kaki màu be form rộng phong cách casual,beige khaki shorts wide form casual style,vinai/vinai-translate-vi2en,4,5.24.0
+Q119,áo dạ nam công sở phong cách lịch lãm,business casual men's jacket elegant style,vinai/vinai-translate-vi2en,4,5.24.0
+Q120,bộ hoodie jogger polyester dáng rộng phong cách streetwear,wide-fitting polyester jogger hoodie style streetwear,vinai/vinai-translate-vi2en,4,5.24.0
+Q121,áo polo cotton spandex dáng rộng phong cách năng động,Cotton Spandex Polo Shirts Wide Sleeve Dynamic Style,vinai/vinai-translate-vi2en,4,5.24.0
+Q122,túi da bò công sở màu đen,black cowhide office bag,vinai/vinai-translate-vi2en,4,5.24.0
+Q123,ví da ngang màu đen nhỏ gọn,small black horizontal leather wallet,vinai/vinai-translate-vi2en,4,5.24.0
+Q124,áo hoodie polyester phong cách thể thao casual,polyester hoodie sports casual style,vinai/vinai-translate-vi2en,4,5.24.0
+Q125,áo chống nắng cotton polyester màu xám,grey polyester cotton sun jacket,vinai/vinai-translate-vi2en,4,5.24.0
+Q126,quần short polyester nylon phong cách thể thao,sports style polyester nylon shorts,vinai/vinai-translate-vi2en,4,5.24.0
+Q127,áo sơ mi slim fit bamboo polyester dài tay,slim fit bamboo polyester long sleeve shirt,vinai/vinai-translate-vi2en,4,5.24.0
+Q128,ví da ngắn màu đen nhiều khe thẻ,Short black leather wallet with multiple card slots,vinai/vinai-translate-vi2en,4,5.24.0
+Q129,áo gió dáng rộng phong cách streetwear,Wide - waisted windbreaker style streetwear,vinai/vinai-translate-vi2en,4,5.24.0
+Q130,quần short polyester spandex phong cách casual,casual style polyester spandex shorts,vinai/vinai-translate-vi2en,4,5.24.0
+Q131,ví đựng thẻ thép không gỉ chống từ tính,anti-magnetic stainless steel card holder wallet,vinai/vinai-translate-vi2en,4,5.24.0
+Q132,quần jean cotton xanh chàm đậm giặt mài,"Dark indigo cotton jeans, laundered.",vinai/vinai-translate-vi2en,4,5.24.0
+Q133,quần baggy kaki màu xanh lá casual,casual green khaki baggy pants,vinai/vinai-translate-vi2en,4,5.24.0
+Q134,sơ mi bamboo slim fit công sở,slim fit office bamboo shirts,vinai/vinai-translate-vi2en,4,5.24.0
+Q135,bộ áo quần polyester casual mùa thu,polyester casual autumn suits,vinai/vinai-translate-vi2en,4,5.24.0
+Q136,mũ lưỡi trai cotton màu kem phong cách casual,cream color cotton cap casual style,vinai/vinai-translate-vi2en,4,5.24.0
+Q137,quần jean denim xanh ống đứng slim fit,blue denim jeans slim fit stand up tube,vinai/vinai-translate-vi2en,4,5.24.0
+Q138,quần short spandex màu xám năng động,dynamic grey spandex shorts,vinai/vinai-translate-vi2en,4,5.24.0
+Q139,quần âu màu nâu phong cách văn phòng,office style brown trousers,vinai/vinai-translate-vi2en,4,5.24.0
+Q140,quần jean cotton denim regular fit phong cách casual,jeans cotton denim regular fit casual style,vinai/vinai-translate-vi2en,4,5.24.0
+Q141,quần bơi polyester spandex màu đen phong cách thể thao,black polyester spandex swimming trunks sport style,vinai/vinai-translate-vi2en,4,5.24.0
+Q142,áo polo nylon spandex regular fit phong cách thể thao,Polo Shirt Nylon Spandex Regular Fit Sports Style,vinai/vinai-translate-vi2en,4,5.24.0
+Q143,quần kaki cotton spandex không ly phong cách công sở,khaki pants cotton spandex cupless office style,vinai/vinai-translate-vi2en,4,5.24.0
+Q144,cặp công sở da PU màu nâu,brown PU leather office briefcase,vinai/vinai-translate-vi2en,4,5.24.0
+Q145,quần short nylon spandex màu xanh tím than regular fit,nylon spandex shorts blue purple regular fit,vinai/vinai-translate-vi2en,4,5.24.0
+Q146,quần jean denim xanh slim fit,slim fit blue denim jeans,vinai/vinai-translate-vi2en,4,5.24.0
+Q147,quần âu polyester regular fit phong cách công sở,Polyester Regular Fit Work Style Pants,vinai/vinai-translate-vi2en,4,5.24.0
+Q148,ví dài da PU màu đen cầm tay,long purse black pu leather handheld,vinai/vinai-translate-vi2en,4,5.24.0
+Q149,áo polo cotton polyester regular fit màu trắng phong cách casual,Polyester Cotton Polo Shirt Regular Fit White Casual Style,vinai/vinai-translate-vi2en,4,5.24.0
+Q150,áo thun cotton cổ trụ màu đen phong cách đường phố,black collar cotton t-shirt street style,vinai/vinai-translate-vi2en,4,5.24.0
+Q151,áo polo regular fit spandex phong cách năng động,Polo Shirts Regular Fit Spandex Dynamic Style,vinai/vinai-translate-vi2en,4,5.24.0
+Q152,cà vạt polyester màu đen phong cách công sở,black polyester tie office style,vinai/vinai-translate-vi2en,4,5.24.0
+Q153,bộ hoodie jogger polyester dáng rộng phong cách casual,Wide Polyester Jogger Hoodie for Casual Style,vinai/vinai-translate-vi2en,4,5.24.0
+Q154,đồng hồ nylon dây đeo thể thao,nylon strap sports watches,vinai/vinai-translate-vi2en,4,5.24.0
+Q155,bộ hoodie jogger polyester dáng rộng streetwear,wide-fitting polyester jogger hoodie streetwear,vinai/vinai-translate-vi2en,4,5.24.0
+Q156,thắt lưng da đầu tăng đơ màu đen lịch lãm,scalp belt spike elegant black trimmer,vinai/vinai-translate-vi2en,4,5.24.0
+Q157,thắt lưng da trơn tối giản phong cách công sở,plain leather belt minimalist office style,vinai/vinai-translate-vi2en,4,5.24.0
+Q158,bộ đồ polyester cổ tròn form rộng phong cách casual,polyester round neck suit wide form casual style,vinai/vinai-translate-vi2en,4,5.24.0
+Q159,cà vạt polyester phong cách công sở,polyester office style tie,vinai/vinai-translate-vi2en,4,5.24.0
+Q160,áo polo regular fit thoáng mát mềm mại,"Regular Fit Polo Shirts, Breathable, Soft",vinai/vinai-translate-vi2en,4,5.24.0
+Q161,áo sơ mi polyester trắng regular fit phong cách công sở,white polyester shirt regular fit office style,vinai/vinai-translate-vi2en,4,5.24.0
+Q162,ví đựng thẻ da gọn nhẹ tiện dụng,handy compact leather card purse,vinai/vinai-translate-vi2en,4,5.24.0
+Q163,quần short thể thao cotton polyester nylon màu đen,black cotton polyester nylon sport shorts,vinai/vinai-translate-vi2en,4,5.24.0
+Q164,quần bơi dáng rộng màu đen phong cách thể thao,sporty style black wide-fit swim trunks,vinai/vinai-translate-vi2en,4,5.24.0
+Q165,áo polo form rộng màu be phong cách casual,Wide Form Polo Shirt Beige Casual Style,vinai/vinai-translate-vi2en,4,5.24.0
+Q166,túi đeo hông nylon chống nước màu đen,black waterproof nylon hip bag,vinai/vinai-translate-vi2en,4,5.24.0
+Q167,quần lót boxer cotton form ôm sát,boxer cotton form tight panties,vinai/vinai-translate-vi2en,4,5.24.0
+Q168,áo sơ mi bamboo polyester đen phong cách công sở,black polyester bamboo shirt office style,vinai/vinai-translate-vi2en,4,5.24.0
+Q169,giày loafer da thật không dây phong cách công sở,Real leather loafer shoes cordless office style,vinai/vinai-translate-vi2en,4,5.24.0
+Q170,dây chuyền mạ vàng phong cách casual,casual style gold plated necklace,vinai/vinai-translate-vi2en,4,5.24.0
+Q171,quần kaki cotton be regular fit phong cách tối giản,khaki cotton pants be regular fit minimalist style,vinai/vinai-translate-vi2en,4,5.24.0
+Q172,dép rọ da bò thoáng khí,Breathable cowhide boots,vinai/vinai-translate-vi2en,4,5.24.0
+Q173,quần tây polyester viscose form vừa công sở màu navy,Polyester Viscose Form Medium Work Pants Navy Color,vinai/vinai-translate-vi2en,4,5.24.0
+Q174,quần boxer nylon form ôm sát màu đen,black tight nylon boxer form pants,vinai/vinai-translate-vi2en,4,5.24.0
+Q175,áo thun cotton regular fit phong cách casual màu trắng,Cotton Regular Fit T-shirt Casual Style White,vinai/vinai-translate-vi2en,4,5.24.0
+Q176,bộ nỉ fleece màu xám phong cách casual,casual style grey fleece felt set,vinai/vinai-translate-vi2en,4,5.24.0
+Q177,áo hoodie nỉ lót lông dáng rộng phong cách streetwear,"Sweater hoodie, loose fur, streetwear style.",vinai/vinai-translate-vi2en,4,5.24.0
+Q178,quần short âu polyester regular fit phong cách công sở,European Polyester Shorts Regular Fit Business Style,vinai/vinai-translate-vi2en,4,5.24.0
+Q179,vớ cổ cao cotton polyester màu navy,high neck cotton polyester navy color socks,vinai/vinai-translate-vi2en,4,5.24.0
+Q180,đệm xốp bảo vệ quần bơi phong cách thể thao,Protective foam padding swimming trunks sports style,vinai/vinai-translate-vi2en,4,5.24.0
+Q181,áo sơ mi lụa form rộng phong cách casual,casual style wide form silk shirt,vinai/vinai-translate-vi2en,4,5.24.0
+Q182,quần kaki polyester slim fit màu xám,Khaki Polyester Slim Fit Grey Pants,vinai/vinai-translate-vi2en,4,5.24.0
+Q183,giày da lộn phong cách Hàn Quốc,Korean style suede shoes,vinai/vinai-translate-vi2en,4,5.24.0
+Q184,sơ mi dài tay công sở lịch lãm,long sleeve shirt elegant office,vinai/vinai-translate-vi2en,4,5.24.0
+Q185,sandal da bò dáng quai hậu màu đen lịch lãm,Cowhide sandals with elegant black straps,vinai/vinai-translate-vi2en,4,5.24.0
+Q186,áo polo cotton polyester form vừa,Medium Form Cotton Polyester Polo Shirt,vinai/vinai-translate-vi2en,4,5.24.0
+Q187,áo thun cotton usa form vừa màu trắng phong cách casual,Cotton T-shirt USA Form Medium White Casual Style,vinai/vinai-translate-vi2en,4,5.24.0
+Q188,quần tây polyester slim fit phong cách công sở,Polyester slim fit work style trousers,vinai/vinai-translate-vi2en,4,5.24.0
+Q189,cặp da PU đựng tài liệu màu nâu,PU leather briefcase brown material,vinai/vinai-translate-vi2en,4,5.24.0
+Q190,quần boxer cotton spandex organic phong cách casual,boxer pants cotton spandex organic casual style,vinai/vinai-translate-vi2en,4,5.24.0
+Q191,ví chống từ tính da PU nhiều ngăn,anti-magnetic wallet PU leather multi compartment,vinai/vinai-translate-vi2en,4,5.24.0
+Q192,bộ áo quần polyester dáng rộng streetwear,Polyester Wide Sleeve Streetwear Suit,vinai/vinai-translate-vi2en,4,5.24.0
+Q193,đồng hồ màu xanh phong cách casual,casual style blue watches,vinai/vinai-translate-vi2en,4,5.24.0
+Q194,túi đeo chéo màu đen canvas phong cách casual,black canvas casual style crossbody bag,vinai/vinai-translate-vi2en,4,5.24.0
+Q195,quần jean denim xanh phong cách casual,blue denim jeans casual style,vinai/vinai-translate-vi2en,4,5.24.0
+Q196,lót giày da bò màu be,Beige cowhide insoles,vinai/vinai-translate-vi2en,4,5.24.0
+Q197,quần short jean cotton denim dáng thẳng phong cách casual,denim cotton jeans shorts straight cut casual style,vinai/vinai-translate-vi2en,4,5.24.0
+Q198,thắt lưng da đầu kim màu đen lịch lãm,Elegant black needle leather scalp belt,vinai/vinai-translate-vi2en,4,5.24.0
+Q199,áo khoác dù màu trắng form rộng phong cách casual,white umbrella jacket wide form casual style,vinai/vinai-translate-vi2en,4,5.24.0
+Q200,áo polo cotton regular fit phong cách năng động,Cotton Polo Shirt Regular Fit Dynamic Style,vinai/vinai-translate-vi2en,4,5.24.0

@@ -67,7 +67,7 @@ def _read_image(f: UploadFile) -> Image.Image:
 @app.get("/api/health")
 def health(request: Request):
     e = _engine(request)
-    return {"status": "ok", "products": len(e.pids), "device": str(e.dev)}
+    return {"status": "ok", "products": len(e.pids), "device": str(e.dev), "index": e.meta}
 
 
 @app.post("/api/search", response_model=SearchOut)
@@ -76,7 +76,6 @@ def search(
     q: str = Form(""),
     image: UploadFile | None = File(None),
     w: float = Form(0.5, ge=0, le=1),          # 0 = chỉ theo mô tả, 1 = chỉ theo ảnh
-    types: list[str] = Form(default=[]),
     colors: list[str] = Form(default=[]),
     price_min: float | None = Form(None),
     price_max: float | None = Form(None),
@@ -87,7 +86,7 @@ def search(
     img = _read_image(image) if image is not None and image.filename else None
     try:
         return _engine(request).search(
-            text=q, image=img, w=w, types=types, colors=colors,
+            text=q, image=img, w=w, colors=colors,
             price_min=price_min, price_max=price_max,
             sort=sort, page=page, page_size=page_size,
         )
