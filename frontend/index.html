@@ -18,7 +18,7 @@
 </header>
 
 <form id="sf" class="sb" role="search" autocomplete="off">
- <button type="button" class="th" id="th" title="Bỏ ảnh" aria-label="Bỏ ảnh đã chọn"></button>
+ <span class="th" id="th"><button type="button" class="thx" id="thx" aria-label="Bỏ ảnh truy vấn">×</button></span>
  <input type="text" id="q" placeholder="Mô tả món đồ bạn cần tìm" aria-label="Mô tả sản phẩm">
  <label class="ic" title="Chọn ảnh"><input type="file" id="file" accept="image/jpeg,image/png,image/webp" hidden><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3.5 8h3.2l1.8-2.5h7L17.3 8h3.2v11h-17z"/><circle cx="12" cy="13" r="3.6"/></svg></label>
  <button class="btn p" type="submit">Tìm kiếm</button>
@@ -48,8 +48,9 @@
      <label class="sel"><span>Sắp xếp:</span><select id="sort" aria-label="Sắp xếp"><option value="rel">Phù hợp nhất</option><option value="asc">Giá tăng dần</option><option value="desc">Giá giảm dần</option></select></label>
     </div>
    </div>
-   <div class="wt"><label for="w">Ưu tiên mô tả</label><input id="w" type="range" min="0" max="100" value="55"><span>Ưu tiên ảnh</span></div>
+   <div class="wt" id="wt" hidden><label for="w">Ưu tiên mô tả</label><input id="w" type="range" min="0" max="100" value="55"><span>Ưu tiên ảnh</span></div>
    <p class="cnt" id="cnt" aria-live="polite"></p>
+   <p class="note" id="note" hidden></p>
    <div class="grid" id="grid"></div>
    <div class="more" id="more" hidden><button class="btn" data-act="more">Xem thêm</button></div>
   </div>
@@ -64,11 +65,10 @@
 <dialog id="fd" class="fl" aria-labelledby="ft">
  <div class="grab"></div>
  <div class="dh"><h2 id="ft">Bộ lọc</h2><button class="x" data-act="close" aria-label="Đóng">×</button></div>
- <div class="fs"><b>Loại sản phẩm</b><div class="chips" id="ftype"></div></div>
  <div class="fs"><b>Khoảng giá</b>
   <input type="range" id="pmin" min="0" max="2000000" step="50000"><input type="range" id="pmax" min="0" max="2000000" step="50000">
   <div class="pv"><span id="vmin"></span><span id="vmax"></span></div></div>
- <div class="fs"><b>Màu sắc</b><div class="sw6" id="fcol"></div></div>
+ <div class="fs"><b>Màu sắc</b><p class="hint" id="fhint" hidden></p><div class="sw6" id="fcol"></div></div>
  <div class="fa"><button class="btn" data-act="clearF">Xóa bộ lọc</button><button class="btn p" data-act="close">Xem kết quả</button></div>
 </dialog>
 

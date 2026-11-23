@@ -1,9 +1,9 @@
 import { search, getProduct, getSimilar } from './api.js';
 import { S, PRICE_MIN, PRICE_MAX } from './state.js';
-import { $, money, cap, kre, toast, renderResults, renderDetail } from './ui.js';
+import { $, esc, money, cap, kre, toast, renderResults, renderDetail } from './ui.js';
 
-const TYPES = ['Áo sơ mi', 'Áo thun', 'Áo khoác', 'Quần'];
-const COLORS = [['trắng', '#fff'], ['đen', '#1b1b1b'], ['xanh', '#2f4a7a'], ['be', '#d9c7a5'], ['xám', '#8a8f98'], ['nâu', '#7a5a3a']];
+const HEX = { 'trắng': '#fff', 'đen': '#1b1b1b', 'xám': '#8a8f98', 'xanh navy': '#1f2f55', 'xanh dương': '#3b6fd4', 'xanh rêu': '#6b7a3a',
+  'xanh lá': '#3f9a5a', 'xanh': '#5b8fb9', 'be': '#d9c7a5', 'nâu': '#7a5a3a', 'đỏ': '#c0392b', 'vàng': '#e0b43c', 'hồng': '#e8a0b4', 'tím': '#7b5ea7', 'cam': '#e67e22' };
 const MAX_IMG = 5 * 1024 * 1024;
 const hasQuery = () => !!(S.q || S.file);
 
@@ -20,7 +20,7 @@ async function run({ append = false, silent = false } = {}) {
   try {
     const r = await search({
       q: S.q, image: S.file, w: S.w, sort: S.sort, page: S.page,
-      types: [...S.F.t], colors: [...S.F.c],
+      colors: [...S.F.c],
       priceMin: S.F.min > PRICE_MIN ? S.F.min : null,
       priceMax: S.F.max < PRICE_MAX ? S.F.max : null,
     });
@@ -29,11 +29,15 @@ async function run({ append = false, silent = false } = {}) {
     S.items = append ? S.items.concat(r.items) : r.items;
     S.total = r.total;
     S.parsed = r.parsed;
+    S.browse = r.browse;
+    S.facets = r.facets;
+    S.qcolors = r.query_colors;
+    S.dropped = r.dropped;
     S.st = S.items.length ? 'ok' : 'empty';
   } catch (e) {
     if (my !== seq) return;
     if (append) { S.page--; toast(e.message); }
-    else { S.st = 'err'; S.err = e.message; }
+    else { S.st = 'err'; S.err = e instanceof TypeError ? '' : e.message; }   // TypeError = mất kết nối
   }
   renderResults();
 }
@@ -64,8 +68,13 @@ function route() {
   if (h === 'results' && S.ok) v = 'results';
   else if (h === 'detail' && S.cur != null) v = 'detail';
   for (const x of ['home', 'results', 'detail']) $('#v-' + x).hidden = x !== v;
+  document.body.dataset.v = v;
   $('#sf').hidden = v === 'detail';
-  if (v !== 'detail') $(v === 'results' ? '#sr' : '#sh').appendChild($('#sf'));
+  if (v !== 'detail') {
+    const focused = document.activeElement === $('#q');   // di chuyển ô tìm kiếm sẽ làm mất focus
+    $(v === 'results' ? '#sr' : '#sh').appendChild($('#sf'));
+    if (focused) $('#q').focus();
+  }
   if (v === 'detail') showDetail();
   else scrollTo(0, 0);
 }
@@ -90,8 +99,7 @@ function setFile(f) {
 const pct = v => ((v - PRICE_MIN) / (PRICE_MAX - PRICE_MIN)) * 100 + '%';
 function fsync() {
   const F = S.F;
-  document.querySelectorAll('#ftype .chip').forEach(b => b.classList.toggle('on', F.t.has(b.dataset.t)));
-  document.querySelectorAll('#fcol .cl').forEach(b => b.setAttribute('aria-pressed', F.c.has(b.dataset.c)));
+  renderColors();
   for (const [id, v] of [['pmin', F.min], ['pmax', F.max]]) {
     const e = $('#' + id);
     e.value = v;
@@ -100,22 +108,28 @@ function fsync() {
   $('#vmin').textContent = money(F.min);
   $('#vmax').textContent = money(F.max) + (F.max >= PRICE_MAX ? '+' : '');
 }
-const fkey = () => JSON.stringify([[...S.F.t].sort(), [...S.F.c].sort(), S.F.min, S.F.max]);
+// Chỉ hiện màu thực sự có trong kết quả hiện tại (kèm số lượng), không dùng danh sách cố định
+function renderColors() {
+  $('#fcol').innerHTML = S.facets.length
+    ? S.facets.map(f => `<button class="cl" data-c="${esc(f.name)}" aria-pressed="${S.F.c.has(f.name)}"><i style="background:${HEX[f.name] || '#ccc'}"></i>${esc(cap(f.name))}<small>${f.count}</small></button>`).join('')
+    : '<span class="hint">Chưa có dữ liệu màu, hãy tìm kiếm trước.</span>';
+  const h = $('#fhint');
+  h.hidden = !S.qcolors.length;
+  h.textContent = `Mô tả của bạn đã có màu: ${S.qcolors.join(', ')}. Chọn màu khác sẽ thay cho màu trong mô tả.`;
+}
+const fkey = () => JSON.stringify([[...S.F.c].sort(), S.F.min, S.F.max]);
 let fOpen = '';
 
-$('#ftype').innerHTML = TYPES.map(t => `<button class="chip" data-t="${t}">${t}</button>`).join('');
-$('#fcol').innerHTML = COLORS.map(c =>
-  `<button class="cl" data-c="${c[0]}" style="background:${c[1]}" aria-label="${cap(c[0])}" aria-pressed="false"></button>`).join('');
 $('#fd').addEventListener('click', e => {
-  const b = e.target.closest('[data-t],[data-c]');
+  const b = e.target.closest('[data-c]');
   if (!b) return;
-  const set = b.dataset.t ? S.F.t : S.F.c, k = b.dataset.t || b.dataset.c;
+  const set = S.F.c, k = b.dataset.c;
   set.has(k) ? set.delete(k) : set.add(k);
   fsync();
 });
 $('#pmin').oninput = e => { S.F.min = Math.min(+e.target.value, S.F.max); fsync(); };
 $('#pmax').oninput = e => { S.F.max = Math.max(+e.target.value, S.F.min); fsync(); };
-$('#fd').onclose = () => { if (fkey() !== fOpen && hasQuery()) run(); else renderResults(); };
+$('#fd').onclose = () => { if (fkey() !== fOpen && S.ok) run(); else renderResults(); };
 for (const d of document.querySelectorAll('dialog'))
   d.addEventListener('click', e => { if (e.target === d) d.close(); });
 
@@ -125,12 +139,18 @@ $('#w').oninput = e => {
   S.w = +e.target.value;
   e.target.style.setProperty('--v', S.w + '%');
   clearTimeout(wt);
-  if (S.ok && hasQuery()) wt = setTimeout(() => run({ silent: true }), 300);   // gộp điểm ở server
+  if (S.ok && S.q && S.file) wt = setTimeout(() => run({ silent: true }), 300);   // gộp điểm ở server
 };
 $('#w').style.setProperty('--v', '55%');
-$('#sort').onchange = e => { S.sort = e.target.value; if (hasQuery()) run(); };
+$('#sort').onchange = e => { S.sort = e.target.value; if (S.ok) run(); };
 $('#sw').onclick = () => setRes(!S.res);
-$('#th').onclick = () => setFile(null);
+$('#thx').onclick = () => {
+  setFile(null);
+  const t = $('#q').value.trim();
+  if (!t) return S.ok ? clearResults() : undefined;   // hết cả chữ lẫn ảnh -> xóa kết quả, ở lại màn hình kết quả
+  S.q = t;
+  go();                                            // còn chữ -> tìm lại chỉ bằng chữ
+};
 $('#file').onchange = e => {
   const f = e.target.files[0];
   e.target.value = '';
@@ -142,7 +162,7 @@ $('#file').onchange = e => {
 $('#sf').onsubmit = e => {
   e.preventDefault();
   S.q = $('#q').value.trim();
-  if (!hasQuery()) return $('#q').focus();
+  if (!hasQuery()) return S.ok ? clearResults() : $('#q').focus();
   go();
 };
 
@@ -157,7 +177,7 @@ document.addEventListener('click', e => {
   if (k) {
     S.q = S.q.replace(kre(k.dataset.k), ' ').replace(/\s+/g, ' ').trim();
     $('#q').value = S.q;
-    return hasQuery() ? go() : nav('');
+    return hasQuery() ? go() : clearResults();
   }
   const x = e.target.closest('[data-ex]');
   if (x) { $('#q').value = x.dataset.ex; return $('#sf').requestSubmit(); }
@@ -172,10 +192,11 @@ document.addEventListener('click', e => {
     case 'how': $('#hd').showModal(); break;
     case 'close': a.closest('dialog').close(); break;
     case 'clearF':
-      S.F = { t: new Set(), c: new Set(), min: PRICE_MIN, max: PRICE_MAX };
+      S.F = { c: new Set(), min: PRICE_MIN, max: PRICE_MAX };
       fsync();
-      if (!$('#fd').open && hasQuery()) run();
+      if (!$('#fd').open && S.ok) run();
       break;
+    case 'addimg': $('#file').click(); break;
     case 'score': setRes(true); break;
     case 'shop': {
       const u = S.byId.get(S.cur)?.url;
@@ -196,6 +217,17 @@ document.addEventListener('click', e => {
 
 // Ảnh sản phẩm lỗi (link hỏng) thì bỏ thẻ <img>, giữ khung xám bên dưới
 document.addEventListener('error', e => { if (e.target.tagName === 'IMG') e.target.remove(); }, true);
+
+// Xóa hết truy vấn (chữ + ảnh) = bỏ điều kiện tìm kiếm: ở lại màn hình kết quả và hiển thị
+// toàn bộ sản phẩm (truy vấn rỗng -> backend trả chế độ "duyệt"). Bộ lọc và sắp xếp được giữ lại.
+function clearResults() {
+  clearTimeout(wt);
+  Object.assign(S, { q: '', parsed: [], qcolors: [], dropped: [] });
+  run();
+}
+$('#q').addEventListener('input', e => {
+  if (S.ok && !$('#v-results').hidden && !e.target.value.trim() && !S.file) clearResults();
+});
 
 addEventListener('hashchange', route);
 route();

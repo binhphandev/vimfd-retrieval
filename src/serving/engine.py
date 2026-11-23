@@ -34,12 +34,15 @@ from underthesea import word_tokenize
 import config as cfg
 from src.models.model import ViMFRModel, load_state_dict_compat
 from src.serving.catalog import (
+    COLOR_VOCAB,
     ckpt_fingerprint,
+    extract_colors,
     get_eval_transform,
     load_products,
     meta_path,
     primary_image,
     resolve_image,
+    strip_colors,
 )
 
 log = logging.getLogger(__name__)
@@ -126,13 +129,21 @@ class SearchEngine:
             log.warning(f"{not_indexed} sản phẩm không có trong image index (thiếu ảnh) nên không tìm được")
 
         self.price = np.array([_price(it) for it in self.items], dtype=np.float32)
-        self.hay = [f"{it.get('name', '')} {it.get(CATEGORY_FIELD, '')}".lower() for it in self.items]
-        self.hay_color = [
-            f"{it.get('name', '')} {' '.join(map(str, it.get('colors') or []))}".lower()
-            for it in self.items
-        ]
+        self.cmask = self._build_color_masks()
+        # Thứ tự mặc định khi không có truy vấn: hoán vị cố định (seed) để các shop/loại được trộn đều
+        self.browse_order = np.random.default_rng(0).permutation(len(self.pids))
         self.img_url = [self._image_url(it) for it in self.items]
         log.info(f"Engine ready: {len(self.pids)} products (image index)")
+
+    def _build_color_masks(self) -> dict[str, np.ndarray]:
+        """Màu chuẩn của mỗi sản phẩm = màu trong trường `colors` ∪ màu trong tên (không dùng mô tả vì nhiễu)."""
+        sets = [
+            set(extract_colors(" ".join(map(str, it.get("colors") or [])))) | set(extract_colors(it.get("name", "")))
+            for it in self.items
+        ]
+        masks = {c: np.array([c in s for s in sets]) for c in COLOR_VOCAB}
+        log.info("Màu chuẩn hóa: " + ", ".join(f"{c}={int(m.sum())}" for c, m in masks.items() if m.any()))
+        return masks
 
     # ---------- kiểm tra index ----------
     @staticmethod
@@ -196,47 +207,78 @@ class SearchEngine:
             "score_image": f(si),    # cosine image -> image
         }
 
-    def _filter_mask(self, types, colors, price_min, price_max) -> np.ndarray:
+    def _filter_mask(self, price_min, price_max) -> np.ndarray:
         m = np.ones(len(self.pids), dtype=bool)
         if price_min is not None:
             m &= self.price >= price_min
         if price_max is not None:
             m &= self.price <= price_max
-        for words, hay in ((types, self.hay), (colors, self.hay_color)):
-            words = [w.lower() for w in words if w]
-            if words:
-                m &= np.array([any(w in h for w in words) for h in hay])
         return m
+
+    @staticmethod
+    def _color_policy(q: str, colors: list[str]) -> tuple[str, list[str], list[str]]:
+        """Bộ lọc màu người dùng chọn THẮNG màu trong mô tả: nếu query có màu nhưng không trùng màu đang lọc
+        thì bỏ từ màu đó khỏi query trước khi encode (tránh model kéo về màu này, bộ lọc giữ màu kia).
+        Trả về (query dùng để encode, màu trong query gốc, màu đã bỏ)."""
+        qc = extract_colors(q)
+        if not (colors and qc) or set(qc) & set(colors):
+            return q, qc, []
+        stripped = strip_colors(q, set(qc))
+        return (stripped, qc, qc) if stripped else (q, qc, [])
 
     # ---------- public ----------
     def search(self, *, text: str = "", image: Image.Image | None = None, w: float = 0.5,
-               types=(), colors=(), price_min=None, price_max=None,
+               colors=(), price_min=None, price_max=None,
                sort: str = "rel", page: int = 1, page_size: int = 12) -> dict:
         t0 = time.perf_counter()
-        q = text.strip() if text else ""
-        st = self.emb @ self._enc_text(q) if q else None          # T -> I
+        colors = [c for c in colors if c in self.cmask]
+        q0 = text.strip() if text else ""
+        q, query_colors, dropped = self._color_policy(q0, colors)
+        st = self.emb @ self._enc_text(q) if q else None                        # T -> I
         si = self.emb @ self._enc_image(image) if image is not None else None   # I -> I
-        if st is None and si is None:
-            raise ValueError("Cần nhập mô tả hoặc tải ảnh")
-
-        if st is not None and si is not None:
+        # Không có chữ lẫn ảnh = chế độ duyệt: trả toàn bộ sản phẩm (không xếp hạng, không giới hạn 200)
+        browse = st is None and si is None
+        if browse:
+            score = None
+        elif st is not None and si is not None:
             score = (1 - w) * _z(st) + w * _z(si)
         else:
             score = st if st is not None else si
 
-        idx = np.flatnonzero(self._filter_mask(types, colors, price_min, price_max))
-        idx = idx[np.argsort(-score[idx])][:CANDIDATES]
+        # Xếp hạng theo giá đã lọc nhưng CHƯA lọc màu -> đếm số lượng từng màu (facet) trên top ứng viên
+        mask = self._filter_mask(price_min, price_max)
+        if browse:
+            order = self.browse_order[mask[self.browse_order]]
+        else:
+            order = np.flatnonzero(mask)
+            order = order[np.argsort(-score[order])]
+        top = order if browse else order[:CANDIDATES]
+        facets = [{"name": c, "count": int(m[top].sum())} for c, m in self.cmask.items()]
+        facets = sorted((f for f in facets if f["count"] > 0 or f["name"] in colors), key=lambda f: -f["count"])
+
+        if colors:
+            keep = np.zeros(len(self.pids), dtype=bool)
+            for c in colors:
+                keep |= self.cmask[c]
+            idx = order[keep[order]]
+            idx = idx if browse else idx[:CANDIDATES]
+        else:
+            idx = top
         if sort in ("asc", "desc"):
-            order = np.argsort(self.price[idx], kind="stable")
-            idx = idx[order if sort == "asc" else order[::-1]]
+            o = np.argsort(self.price[idx], kind="stable")
+            idx = idx[o if sort == "asc" else o[::-1]]
 
         sel = idx[(page - 1) * page_size: page * page_size]
         g = lambda arr, n: None if arr is None else arr[n]
         return {
-            "items": [self._card(n, score[n], g(st, n), g(si, n)) for n in sel],
+            "items": [self._card(n, None if browse else score[n], g(st, n), g(si, n)) for n in sel],
+            "browse": browse,
             "total": len(idx),
             "page": page,
-            "parsed": parse_query(text),
+            "parsed": parse_query(q0),
+            "facets": facets,
+            "query_colors": query_colors,
+            "dropped": dropped,
             "took_ms": round((time.perf_counter() - t0) * 1000, 1),
         }
 
