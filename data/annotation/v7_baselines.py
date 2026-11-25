@@ -1,24 +1,34 @@
 """
-V7: Bốn phương pháp cơ sở trên 200 truy vấn kiểm thử (kế hoạch mục 6)
+V7: Sáu phương pháp cơ sở trên 200 truy vấn kiểm thử (kế hoạch mục 6; thêm fashionclip_vi2en và viclip_ot)
 Đầu vào : data/annotation/benchmark/queries_200.csv  (cột query_id, query_text)
           data/splits/test.jsonl (corpus 1.339 sản phẩm Test), config.py (MODEL_TEXT_FIELD, PROCESSED_DIR)
-Đầu ra  : results/runs/{tfidf,bm25,clip_vi2en,bienc_text}.run     (qid Q0 product_id rank score hệ_thống)
+Đầu ra  : results/runs/{tfidf,bm25,clip_vi2en,bienc_text,fashionclip_vi2en,viclip_ot}.run   (qid Q0 product_id rank score hệ_thống)
           data/annotation/benchmark/translations.csv               (bản dịch vi→en, dịch MỘT lần)
           results/logs/log_B.md                                    (phiên bản thư viện, tên mô hình, thời gian)
-Chạy    : python v7_baselines.py                      (cả 4 hệ thống)
+Chạy    : python v7_baselines.py                      (cả 6 hệ thống)
           python v7_baselines.py --sample5            (thử trên 5 truy vấn, ghi vào results/runs_sample/)
           python v7_baselines.py --only tfidf,bm25    (chọn hệ thống)
+          python v7_baselines.py --only viclip_ot     (chạy riêng; thêm --viclip-seg nếu muốn tách từ truy vấn trước khi mã hóa)
 
-Yêu cầu : pip install scikit-learn rank_bm25 underthesea
+Yêu cầu : pip install scikit-learn rank_bm25   (tách từ truy vấn: xem seg_utils.py)
           clip_vi2en : pip install torch torchvision transformers pillow sentencepiece
           bienc_text : pip install sentence-transformers pyvi
+          fashionclip_vi2en : cùng gói với clip_vi2en (CLIPModel của transformers); DÙNG LẠI translations.csv của clip_vi2en
+          viclip_ot  : pip install "transformers>=4.57,<5" "torch>=2.8,<2.10" torchvision timm pillow
+                       (model card yêu cầu các phiên bản này; nạp bằng trust_remote_code=True, giấy phép GPL-3.0)
 Không tinh chỉnh tham số bằng nhãn hay kết quả. Chạy lúc V8 KHÔNG đang đo độ trễ.
 
 Ghi chú thiết kế:
   - Văn bản sản phẩm lấy bằng get_text() theo config.MODEL_TEXT_FIELD (text_seg → text → name), giống V5/V8.
-  - Truy vấn: chuẩn hóa mục 3.2 rồi tách từ bằng underthesea (như V4) cho TF-IDF và BM25.
+  - Truy vấn: chuẩn hóa mục 3.2 rồi tách từ bằng seg_utils (VnCoreNLP, như V4 và như text_seg) cho TF-IDF và BM25.
   - Hạng bằng điểm được phá bằng thứ tự sản phẩm trong test.jsonl (ổn định, tái lập được).
-  - Sản phẩm không có file ảnh KHÔNG vào chỉ mục của hệ thống dùng ảnh (clip_vi2en); số lượng được ghi vào log.
+  - Sản phẩm không có file ảnh KHÔNG vào chỉ mục của hệ thống dùng ảnh (clip_vi2en, fashionclip_vi2en, viclip_ot); số lượng được ghi vào log.
+  - clip_vi2en và fashionclip_vi2en dùng CHUNG một bản dịch (translations.csv), chung tiền xử lý ảnh, chung chỉ mục ảnh đặc trưng:
+    hai hệ thống chỉ khác trọng số mô hình (CLIP gốc vs. CLIP tinh chỉnh trên ảnh thời trang Farfetch).
+  - viclip_ot: truy vấn tiếng Việt GỐC (không dịch) so với ảnh đại diện. Model card không nói có cần tách từ hay không;
+    mặc định đưa truy vấn đã chuẩn hóa (không tách từ) đúng như ví dụ của model card. Tách từ chỉ bật bằng --viclip-seg và được ghi vào log;
+    chọn trước khi chạy, KHÔNG chọn theo kết quả.
+  - Kiểm tra lập luận "dịch máy làm mất ngữ nghĩa": xem v7b_translation_audit.py (đọc translations.csv, không cần GPU).
 """
 
 import argparse
@@ -59,7 +69,9 @@ CLIP_NAME  = "openai/clip-vit-base-patch32"
 CLIP_MEAN  = (0.48145466, 0.4578275, 0.40821073)
 CLIP_STD   = (0.26862954, 0.26130258, 0.27577711)
 BIENC_NAME = "bkai-foundation-models/vietnamese-bi-encoder"
-ALL_SYSTEMS = ["tfidf", "bm25", "clip_vi2en", "bienc_text"]
+FASHIONCLIP_NAME = "patrickjohncyh/fashion-clip"          # ViT-B/32, tinh chỉnh từ CLIP trên ~800K sản phẩm Farfetch (tiếng Anh)
+VICLIP_NAME = "minhnguyent546/ViCLIP-OT"                   # DINOv3 ViT-B/16 + Vietnamese-SBERT, nhúng 768 chiều
+ALL_SYSTEMS = ["tfidf", "bm25", "clip_vi2en", "bienc_text", "fashionclip_vi2en", "viclip_ot"]
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -108,9 +120,10 @@ def load_queries(limit=None):
     return rows[:limit] if limit else rows
 
 
-def segment_underthesea(text: str) -> str:
-    from underthesea import word_tokenize
-    return word_tokenize(text, format="text")
+def segment_query_vi(text: str) -> str:
+    """Tách từ truy vấn bằng bộ tách từ thống nhất (seg_utils), khớp cách tạo text_seg của sản phẩm."""
+    from seg_utils import segment_text
+    return segment_text(text)
 
 
 def top_k_indices(scores: np.ndarray, k: int = TOP_K):
@@ -176,7 +189,7 @@ def run_tfidf(queries, products):
     docs = [get_text(p) for p in products]
     vec = TfidfVectorizer(lowercase=True, token_pattern=r"\S+", ngram_range=(1, 2), sublinear_tf=True, min_df=1)
     X = vec.fit_transform(docs)                                  # fit trên corpus Test
-    Q = vec.transform([segment_underthesea(normalize(q["query_text"])) for q in queries])
+    Q = vec.transform([segment_query_vi(normalize(q["query_text"])) for q in queries])
     scores = (Q @ X.T).toarray()                                 # vector đã chuẩn hóa L2 → tích vô hướng = cosine
     return scores, {"vocab_size": len(vec.vocabulary_)}
 
@@ -189,7 +202,7 @@ def run_bm25(queries, products):
     corpus = [get_text(p).lower().split() for p in products]
     bm25 = BM25Okapi(corpus, k1=BM25_K1, b=BM25_B)
     scores = np.vstack([
-        bm25.get_scores(segment_underthesea(normalize(q["query_text"])).lower().split()) for q in queries
+        bm25.get_scores(segment_query_vi(normalize(q["query_text"])).lower().split()) for q in queries
     ])
     return scores, {"k1": BM25_K1, "b": BM25_B}
 
@@ -240,7 +253,8 @@ def get_translations(queries, device):
     return out, f"dịch mới bằng {TRANSLATE_MODEL}"
 
 
-def run_clip(queries, products, device):
+def _run_clip_like(queries, products, device, model_name):
+    """Dịch vi→en (dùng chung translations.csv) rồi so với ảnh đại diện bằng một mô hình họ CLIP của transformers."""
     import torch
     import torchvision.transforms as T
     from PIL import Image
@@ -248,8 +262,9 @@ def run_clip(queries, products, device):
 
     en, note = get_translations(queries, device)
 
-    model = CLIPModel.from_pretrained(CLIP_NAME).to(device).eval()
-    tok = CLIPTokenizer.from_pretrained(CLIP_NAME)
+    model = CLIPModel.from_pretrained(model_name).to(device).eval()
+    tok = CLIPTokenizer.from_pretrained(model_name)
+    commit = getattr(model.config, "_commit_hash", None)
     tf = T.Compose([T.Resize((224, 224), interpolation=T.InterpolationMode.BICUBIC), T.ToTensor(),
                     T.Normalize(CLIP_MEAN, CLIP_STD)])
 
@@ -274,7 +289,80 @@ def run_clip(queries, products, device):
     scores = np.full((len(queries), len(products)), -1e9, dtype=np.float32)   # sản phẩm không ảnh không bao giờ lọt top
     cols = [i for i, _ in usable]
     scores[:, cols] = sims
-    return scores, {"translation": note, "n_images": len(usable), "n_missing_images": len(products) - len(usable)}
+    del model
+    if str(device).startswith("cuda"):
+        torch.cuda.empty_cache()
+    return scores, {"model": model_name, "commit": commit, "translation": note, "n_images": len(usable),
+                    "n_missing_images": len(products) - len(usable)}
+
+
+def run_clip(queries, products, device):
+    return _run_clip_like(queries, products, device, CLIP_NAME)
+
+
+def run_fashionclip(queries, products, device):
+    """FashionCLIP + dịch máy: cùng bản dịch, cùng tiền xử lý ảnh với clip_vi2en; chỉ khác trọng số mô hình."""
+    return _run_clip_like(queries, products, device, FASHIONCLIP_NAME)
+
+
+# ══════════════════════════════════════════════════════════════════
+# 3c. ViCLIP-OT: truy vấn tiếng Việt gốc, không dịch  (bổ sung; đặt cạnh các hệ thống ảnh)
+# ══════════════════════════════════════════════════════════════════
+def run_viclip(queries, products, device, segment=False):
+    import torch
+    from transformers import AutoModel
+
+    # Mã từ xa của ViCLIP-OT gọi timm.create_model("timm/vit_base_patch16_dinov3.lvd1689m", pretrained=False). timm mới từ chối tên
+    # có tiền tố "timm/" mà thiếu "hf-hub:". Bỏ tiền tố "timm/" (tên kiến trúc hợp lệ); trọng số vẫn do model.safetensors nạp.
+    import timm
+    _orig_create = timm.create_model
+
+    def _create_compat(*a, **kw):
+        if "model_name" in kw and isinstance(kw["model_name"], str) and kw["model_name"].startswith("timm/"):
+            kw["model_name"] = kw["model_name"][len("timm/"):]
+        elif a and isinstance(a[0], str) and a[0].startswith("timm/"):
+            a = (a[0][len("timm/"):],) + a[1:]
+        return _orig_create(*a, **kw)
+
+    timm.create_model = _create_compat
+    try:
+        model = AutoModel.from_pretrained(VICLIP_NAME, trust_remote_code=True).to(device).eval()
+    except Exception as e:
+        raise RuntimeError(f"Không nạp được {VICLIP_NAME}: {e}. Kiểm tra transformers>=4.57,<5, torch>=2.8,<2.10, timm; "
+                           f"model dùng mã từ xa (trust_remote_code) và có thể tải thêm trọng số DINOv3.") from e
+    finally:
+        timm.create_model = _orig_create
+    commit = getattr(model.config, "_commit_hash", None)
+
+    usable = [(i, featured_image_path(p)) for i, p in enumerate(products)]
+    usable = [(i, path) for i, path in usable if path is not None]
+    print(f"  Mã hóa {len(usable)} ảnh (thiếu ảnh: {len(products) - len(usable)})...")
+    paths = [str(path) for _, path in usable]
+    feats = []
+    with torch.no_grad():
+        for s in range(0, len(paths), 32):
+            v = model.encode_image(images=paths[s:s + 32], convert_to_tensor=True, normalize=True)
+            feats.append(v.float().cpu().numpy())
+    img = np.vstack(feats)
+    assert img.shape[0] == len(usable), f"số vector ảnh {img.shape[0]} ≠ số ảnh {len(usable)}"
+    img = img / np.clip(np.linalg.norm(img, axis=1, keepdims=True), 1e-9, None)
+
+    texts = [segment_query_vi(normalize(q["query_text"])) if segment else normalize(q["query_text"]) for q in queries]
+    with torch.no_grad():
+        t = model.encode_text(sentences=texts, convert_to_tensor=True, normalize=True,
+                              padding=True, truncation=True, max_length=256)
+    txt = t.float().cpu().numpy()
+    txt = txt / np.clip(np.linalg.norm(txt, axis=1, keepdims=True), 1e-9, None)
+    assert txt.shape[1] == img.shape[1], f"chiều văn bản {txt.shape[1]} ≠ chiều ảnh {img.shape[1]}"
+
+    sims = txt @ img.T
+    scores = np.full((len(queries), len(products)), -1e9, dtype=np.float32)
+    scores[:, [i for i, _ in usable]] = sims
+    del model
+    if str(device).startswith("cuda"):
+        torch.cuda.empty_cache()
+    return scores, {"model": VICLIP_NAME, "commit": commit, "query_segmented": segment, "dim": int(img.shape[1]),
+                    "n_images": len(usable), "n_missing_images": len(products) - len(usable)}
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -286,9 +374,9 @@ def run_bienc(queries, products, device):
         from pyvi.ViTokenizer import tokenize as seg        # hướng dẫn của mô hình: tách từ bằng pyvi
         seg_name = "pyvi"
     except ImportError:
-        seg = segment_underthesea
-        seg_name = "underthesea (KHÔNG có pyvi — cài pyvi để đúng hướng dẫn của mô hình)"
-        print("  [CẢNH BÁO] Chưa cài pyvi: tách từ truy vấn bằng underthesea. pip install pyvi")
+        seg = segment_query_vi
+        seg_name = "seg_utils (KHÔNG có pyvi — cài pyvi để đúng hướng dẫn của mô hình)"
+        print("  [CẢNH BÁO] Chưa cài pyvi: tách từ truy vấn bằng seg_utils. pip install pyvi")
     model = SentenceTransformer(BIENC_NAME, device=device)
     q_emb = model.encode([seg(normalize(q["query_text"])) for q in queries], batch_size=32,
                          normalize_embeddings=True, convert_to_numpy=True)
@@ -303,6 +391,8 @@ def main():
     ap.add_argument("--only", default=",".join(ALL_SYSTEMS), help="Danh sách hệ thống, cách nhau bằng dấu phẩy")
     ap.add_argument("--sample5", action="store_true", help="Thử trên 5 truy vấn đầu, ghi vào results/runs_sample/")
     ap.add_argument("--device", default=None)
+    ap.add_argument("--viclip-seg", action="store_true",
+                    help="Tách từ truy vấn trước khi đưa vào ViCLIP-OT (mặc định: không tách, như ví dụ của model card)")
     args = ap.parse_args()
 
     systems = [s.strip() for s in args.only.split(",") if s.strip()]
@@ -343,27 +433,39 @@ def main():
            f"- {len(queries)} truy vấn, corpus {len(products)}, device={device}, seed={SEED}, top_k={TOP_K}",
            f"- thư viện: sklearn {pip_version('sklearn')}, rank_bm25 {pip_version('rank_bm25')}, "
            f"torch {pip_version('torch')}, transformers {pip_version('transformers')}, "
-           f"sentence_transformers {pip_version('sentence_transformers')}, underthesea {pip_version('underthesea')}"]
+           f"sentence_transformers {pip_version('sentence_transformers')}, timm {pip_version('timm')}, tách từ truy vấn: {__import__('seg_utils').segmenter_name()}"]
 
     runners = {
         "tfidf": lambda: run_tfidf(queries, products),
         "bm25": lambda: run_bm25(queries, products),
         "clip_vi2en": lambda: run_clip(queries, products, device),
         "bienc_text": lambda: run_bienc(queries, products, device),
+        "fashionclip_vi2en": lambda: run_fashionclip(queries, products, device),
+        "viclip_ot": lambda: run_viclip(queries, products, device, segment=args.viclip_seg),
     }
     model_note = {"tfidf": "TfidfVectorizer(token_pattern=\\S+, ngram=(1,2), sublinear_tf)",
                   "bm25": f"BM25Okapi(k1={BM25_K1}, b={BM25_B})",
                   "clip_vi2en": f"{TRANSLATE_MODEL} (beam {TRANSLATE_BEAMS}) + {CLIP_NAME}",
-                  "bienc_text": BIENC_NAME}
+                  "bienc_text": BIENC_NAME,
+                  "fashionclip_vi2en": f"{TRANSLATE_MODEL} (beam {TRANSLATE_BEAMS}) + {FASHIONCLIP_NAME}",
+                  "viclip_ot": f"{VICLIP_NAME} (truy vấn tiếng Việt, {'có' if args.viclip_seg else 'không'} tách từ)"}
 
+    failed = []
     for system in systems:
         print(f"\n=== {system} ===")
         t0 = time.time()
-        scores, extra = runners[system]()
-        elapsed = time.time() - t0
-        lines = run_lines(qids, pids, scores, system)
-        validate_run(lines, qids, test_ids, names, system)
-        eyeball(lines, queries, names)
+        try:
+            scores, extra = runners[system]()
+            elapsed = time.time() - t0
+            lines = run_lines(qids, pids, scores, system)
+            validate_run(lines, qids, test_ids, names, system)
+            eyeball(lines, queries, names)
+        except Exception as e:                      # một hệ thống lỗi (vd. ViCLIP-OT lệch phiên bản) không làm mất các hệ thống còn lại
+            import traceback
+            traceback.print_exc()
+            failed.append(system)
+            log.append(f"- {system}: LỖI {type(e).__name__}: {str(e)[:300]}")
+            continue
         out = out_dir / f"{system}.run"
         with open(out, "w", encoding="utf-8") as f:
             f.write("\n".join(lines) + "\n")
@@ -372,6 +474,8 @@ def main():
 
     with open(LOG_DIR / "log_B.md", "a", encoding="utf-8") as f:
         f.write("\n".join(log) + "\n")
+    if failed:
+        raise SystemExit(f"\nV7 CHƯA đủ: hệ thống lỗi {failed}. Xem traceback ở trên, sửa rồi chạy lại với --only {','.join(failed)}")
     print("\nV7 hoàn thành." + (" Đây là chạy thử 5 truy vấn: đọc top-3 ở trên rồi chạy lại không có --sample5." if args.sample5 else ""))
 
 

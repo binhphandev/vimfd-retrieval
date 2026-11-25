@@ -67,11 +67,11 @@ CKPT_PATH    = ROOT / "checkpoints/best_18112026.pt"
 OUT_DIR      = ROOT / "data/annotation/cross_encoder"
 INDEX_DIR    = ROOT / "index/experiments"
 LOG_DIR      = ROOT / "results/logs"
-
+CKPT_PATH = Path(config.CHECKPOINT_BEST)
 TOP_K        = 50
 N_NEG        = 4
-DIM          = 256      # ← KIỂM TRA: chiều embedding của dual-encoder B1
-IMG_SIZE     = 224    # ← KIỂM TRA: phải đúng với tiền xử lý ảnh lúc B1 đánh giá
+DIM          = int(getattr(config, "EMBED_DIM", 256))
+IMG_SIZE     = int(getattr(config, "IMAGE_SIZE", 224))
 IMG_MEAN     = [0.48145466, 0.4578275, 0.40821073]   # ← KIỂM TRA
 IMG_STD      = [0.26862954, 0.26130258, 0.27577711]   # ← KIỂM TRA
 BATCH_TEXT   = 64

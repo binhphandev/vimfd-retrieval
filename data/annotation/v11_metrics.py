@@ -1,7 +1,7 @@
 """
-V11: Tính chỉ số đánh giá cho 6 hệ thống
+V11: Tính chỉ số đánh giá cho 8 hệ thống
 Đầu vào:
-  - results/runs/{tfidf,bm25,clip_vi2en,bienc_text,dual_encoder,vimfr}.run
+  - results/runs/{tfidf,bm25,clip_vi2en,bienc_text,fashionclip_vi2en,viclip_ot,dual_encoder,vimfr}.run
   - data/annotation/benchmark/qrels.txt
   - data/annotation/benchmark/queries_200.csv
 Đầu ra:
@@ -30,7 +30,8 @@ QRELS_PATH   = ROOT / "data/annotation/benchmark/qrels.txt"
 QUERIES_PATH = ROOT / "data/annotation/benchmark/queries_200.csv"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-SYSTEMS = ["tfidf", "bm25", "clip_vi2en", "bienc_text", "dual_encoder", "vimfr"]
+SYSTEMS = ["tfidf", "bm25", "clip_vi2en", "bienc_text", "fashionclip_vi2en", "viclip_ot",
+           "dual_encoder", "vimfr"]
 
 # ── Tạo dữ liệu giả để thử script trước khi có qrels thật ────────
 def make_fake_data():
@@ -42,7 +43,9 @@ def make_fake_data():
         # Mỗi truy vấn có 5–10 sản phẩm liên quan
         relevant = random.sample(fake_pids, random.randint(5, 10))
         fake_qrels[qid] = {pid: random.choice([1, 2]) for pid in relevant}
-        # Các sản phẩm khác nhãn 0 (không cần lưu, mặc định 0)
+        # Một số sản phẩm khác được gán nhãn 0 (đã xét); phần còn lại chưa xét (mặc định 0 khi tính điểm)
+        for pid in random.sample([p for p in fake_pids if p not in fake_qrels[qid]], 30):
+            fake_qrels[qid][pid] = 0
     
     fake_runs = {}
     for sys in SYSTEMS:
@@ -115,6 +118,14 @@ def mrr_at_k(ranked_pids, qrels_q, k=10):
             return 1.0 / (i + 1)
     return 0.0
 
+def judged_at_k(ranked_pids, qrels_q, k=10):
+    """judged@K: tỉ lệ sản phẩm trong top-K ĐÃ có nhãn trong qrels (kể cả nhãn 0).
+    Phần chưa có nhãn bị tính là không liên quan khi chấm điểm, nên số này cho biết điểm bị thiệt bao nhiêu."""
+    top = ranked_pids[:k]
+    if not top:
+        return 0.0
+    return sum(1 for pid in top if pid in qrels_q) / len(top)
+
 # ── Bootstrap CI ─────────────────────────────────────────────────
 def bootstrap_ci(values, n_bootstrap=10000, ci=0.95):
     """Khoảng tin cậy bootstrap theo truy vấn."""
@@ -159,6 +170,7 @@ def compute_all_metrics(runs, qrels, queries_meta):
             r10 = recall_at_k(ranked, q_qrels, 10)
             nd  = ndcg_at_k(ranked, q_qrels, 10)
             mrr = mrr_at_k(ranked, q_qrels, 10)
+            jd  = judged_at_k(ranked, q_qrels, 10)
 
             per_query_rows.append({
                 "system":   sys_name,
@@ -169,6 +181,7 @@ def compute_all_metrics(runs, qrels, queries_meta):
                 "recall_10": r10 if r10 is not None else "",
                 "ndcg_10":   nd  if nd  is not None else "",
                 "mrr":       mrr,
+                "judged_10": jd,
             })
 
     # --- Summary (trung bình + CI) ---
@@ -194,6 +207,7 @@ def compute_all_metrics(runs, qrels, queries_meta):
             "ndcg_10":       f"{avg('ndcg_10'):.4f}",
             "ndcg_10_ci":    f"[{nd_lo:.4f}, {nd_hi:.4f}]",
             "mrr":           f"{avg('mrr'):.4f}",
+            "judged_10":     f"{avg('judged_10'):.4f}",
             "n_queries":     len(sys_rows),
         })
 
@@ -214,6 +228,7 @@ def compute_all_metrics(runs, qrels, queries_meta):
                     "group_val": group_val,
                     "ndcg_10":   f"{sum(nd_vals)/len(nd_vals):.4f}" if nd_vals else "",
                     "recall_10": f"{sum(r10_vals)/len(r10_vals):.4f}" if r10_vals else "",
+                    "judged_10": f"{sum(r['judged_10'] for r in grp)/len(grp):.4f}",
                     "n_queries": len(grp),
                 })
 
@@ -251,13 +266,22 @@ else:
 
     # Load 6 run files
     runs = {}
+    missing_runs = []
     for sys in SYSTEMS:
         run_path = RUNS_DIR / f"{sys}.run"
         if not run_path.exists():
             print(f"  ⚠️  Thiếu: {run_path}")
+            missing_runs.append(sys)
             continue
         runs[sys] = load_run(run_path)
         print(f"  {sys}: {sum(len(v) for v in runs[sys].values())} dòng")
+
+    if missing_runs:
+        raise SystemExit(f"Thiếu file run của {missing_runs}: dừng, không tính bảng thiếu hệ thống.")
+    for _s, _run in runs.items():
+        _lack = sorted(set(qrels) - set(_run))
+        if _lack:
+            print(f"  ⚠️  {_s}: {len(_lack)} truy vấn có trong qrels nhưng KHÔNG có trong run: {_lack[:5]}")
 
     # Load queries_meta
     queries_meta = {}
@@ -265,7 +289,7 @@ else:
         for row in csv.DictReader(f):
             queries_meta[row["query_id"].strip()] = {
                 # n_attrs có thể là "3+" (nhóm ba thuộc tính trở lên): giữ nguyên dạng chuỗi để nhóm theo n_attrs
-                "n_attrs":  str(row.get("n_attrs", "1")).strip(),
+                "n_attrs":  ("3+" if str(row.get("n_attrs", "1")).strip() in ("3", "3+") else str(row.get("n_attrs", "1")).strip()),
                 "category": row.get("category", "").strip(),
             }
 
@@ -291,20 +315,20 @@ print(f"  ViMFR vs dual_encoder: Δ={mean_diff2:.4f} CI=[{ci2[0]:.4f},{ci2[1]:.4
 # ── Lưu kết quả ──────────────────────────────────────────────────
 # metrics_per_query.csv
 pq_fields = ["system","query_id","n_attrs","category",
-             "recall_5","recall_10","ndcg_10","mrr"]
+             "recall_5","recall_10","ndcg_10","mrr","judged_10"]
 with open(OUT_DIR/"metrics_per_query.csv","w",encoding="utf-8",newline="") as f:
     w = csv.DictWriter(f, fieldnames=pq_fields)
     w.writeheader(); w.writerows(per_query_rows)
 
 # metrics_summary.csv
 sm_fields = ["system","recall_5","recall_10","recall_10_ci",
-             "ndcg_10","ndcg_10_ci","mrr","n_queries"]
+             "ndcg_10","ndcg_10_ci","mrr","judged_10","n_queries"]
 with open(OUT_DIR/"metrics_summary.csv","w",encoding="utf-8",newline="") as f:
     w = csv.DictWriter(f, fieldnames=sm_fields)
     w.writeheader(); w.writerows(summary_rows)
 
 # metrics_by_group.csv
-gr_fields = ["system","group_key","group_val","ndcg_10","recall_10","n_queries"]
+gr_fields = ["system","group_key","group_val","ndcg_10","recall_10","judged_10","n_queries"]
 with open(OUT_DIR/"metrics_by_group.csv","w",encoding="utf-8",newline="") as f:
     w = csv.DictWriter(f, fieldnames=gr_fields)
     w.writeheader(); w.writerows(group_rows)
@@ -317,10 +341,11 @@ with open(OUT_DIR/"worst30.csv","w",encoding="utf-8",newline="") as f:
     w.writeheader(); w.writerows(worst30)
 
 print("\n=== Tóm tắt kết quả ===")
-print(f"{'System':<15} {'R@5':>6} {'R@10':>6} {'NDCG@10':>8} {'MRR':>6}")
-print("-" * 45)
+print(f"{'System':<18} {'R@5':>6} {'R@10':>6} {'NDCG@10':>8} {'MRR':>6} {'judged@10':>10}")
+print("-" * 60)
 for r in summary_rows:
-    print(f"{r['system']:<15} {r['recall_5']:>6} {r['recall_10']:>6} {r['ndcg_10']:>8} {r['mrr']:>6}")
+    print(f"{r['system']:<18} {r['recall_5']:>6} {r['recall_10']:>6} {r['ndcg_10']:>8} {r['mrr']:>6} {r['judged_10']:>10}")
 
+print("Lưu ý: judged@10 thấp = nhiều sản phẩm top-10 chưa có nhãn (bị tính là 0); đưa cạnh bảng điểm khi báo cáo.")
 print(f"\nĐã lưu kết quả vào {OUT_DIR}/")
 print("V11 hoàn thành!")

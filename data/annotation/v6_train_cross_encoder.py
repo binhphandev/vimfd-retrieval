@@ -40,6 +40,8 @@ from transformers import AutoModel, AutoTokenizer, get_cosine_schedule_with_warm
 
 SEED = 42
 ROOT = Path(__file__).resolve().parents[2]
+if not (ROOT / "data/annotation").exists():       # chạy từ thư mục khác: dùng thư mục hiện tại
+    ROOT = Path(".").resolve()
 sys.path.insert(0, str(ROOT))
 
 TRAIN_CSV = ROOT / "data/annotation/cross_encoder/ce_pairs_train.csv"
@@ -212,7 +214,7 @@ def main():
     device = torch.device("cuda" if cuda else "cpu")
     if not cuda and not (args.smoke or args.allow_cpu):
         print("\n[DỪNG] Không phát hiện GPU (torch.cuda.is_available() = False).\n"
-              "Huấn luyện PhoBERT 25.030 cặp x 10 epoch trên CPU sẽ mất nhiều chục giờ, không kịp trần 2 giờ 15.\n"
+              "Huấn luyện PhoBERT ~25.000 cặp x 10 epoch trên CPU sẽ mất nhiều chục giờ, không kịp trần 2 giờ 15.\n"
               "  - Kiểm tra: python -c \"import torch; print(torch.cuda.is_available(), torch.version.cuda)\"\n"
               "  - Có card NVIDIA nhưng ra False: thường là cài bản torch chỉ chạy CPU -> cài lại bản có CUDA.\n"
               "  - Không có GPU: chạy trên Google Colab / Kaggle (T4 miễn phí), đưa 2 file ce_pairs_*.csv lên.\n"

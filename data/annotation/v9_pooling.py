@@ -1,15 +1,17 @@
 """
 V9: Pooling và xuất file annotation (kế hoạch mục 8)
-Đầu vào : results/runs/{dual_encoder,vimfr,tfidf,bm25,clip_vi2en,bienc_text}.run
+Đầu vào : results/runs/{dual_encoder,vimfr}.run (V8) và sáu baseline của V7:
+          {tfidf,bm25,clip_vi2en,bienc_text,fashionclip_vi2en,viclip_ot}.run
           data/annotation/benchmark/queries_200.csv   (query_id, query_text, attrs_in_query, seed_id, ...)
-          data/splits/test.jsonl, vimfd_attr_utils.py (để hiển thị cột type giống file hạt giống V1)
+          data/splits/test.jsonl
+          KHÔNG còn phụ thuộc attr_utils.py (cột type hiển thị là type gốc của nguồn, đã chuẩn hóa chữ thường).
 Đầu ra  : data/annotation/benchmark/annotation/annotation_A_01..05.xlsx, annotation_B_01..05.xlsx
           data/annotation/benchmark/annotation/_private/pool_sources.csv   (HAI NGƯỜI KHÔNG MỞ khi gán nhãn)
           results/logs/log_B.md
 Chạy    : python v9_pooling.py
 
 Quy trình (8.1–8.4):
-  - K: dual_encoder 10, vimfr 10; bốn baseline mỗi cái 5. Hợp nhất, loại trùng theo product_id, thêm hạt giống.
+  - K: dual_encoder 10, vimfr 10; sáu baseline mỗi cái 5 (--skip-baselines để bỏ hệ thống nào đó, ghi vào log và mục 12). Hợp nhất, loại trùng theo product_id, thêm hạt giống.
   - Cổng G3: nếu N > 3.800 thì hạ K của 4 baseline xuống 3, rồi 2. KHÔNG hạ K của dual_encoder và vimfr.
   - Mỗi truy vấn xáo thứ tự cặp bằng seed (42 cho A, 43 cho B) + số thứ tự truy vấn.
   - A gán: overlap (Q086–Q100, Q186–Q200) rồi Q101–Q185; B gán: overlap rồi Q001–Q085; mỗi phần 85 truy vấn chia 4 file.
@@ -22,7 +24,6 @@ Ghi mục 12 nếu giữ nguyên (hoặc dùng --split-overlap để tách *_01 
 
 import argparse
 import csv
-import importlib.util
 import io
 import json
 import random
@@ -39,13 +40,6 @@ try:
 except Exception:
     config = None
 
-_AU = Path(__file__).resolve().parent / "attr_utils.py"
-if not _AU.exists():
-    raise SystemExit(f"Thiếu {_AU}. Chép vimfd_attr_utils.py vào CÙNG thư mục với v9_pooling.py.")
-_spec = importlib.util.spec_from_file_location("vimfd_attr_utils", _AU)
-au = importlib.util.module_from_spec(_spec)
-_spec.loader.exec_module(au)
-
 RUNS_DIR    = ROOT / "results/runs"
 QUERIES_CSV = ROOT / "data/annotation/benchmark/queries_200.csv"
 TEST_PATH   = ROOT / "data/splits/test.jsonl"
@@ -54,7 +48,8 @@ PRIVATE     = ANN_DIR / "_private"
 LOG_DIR     = ROOT / "results/logs"
 
 MAIN_K = {"dual_encoder": 10, "vimfr": 10}
-BASELINES = ["tfidf", "bm25", "clip_vi2en", "bienc_text"]
+ALL_BASELINES = ["tfidf", "bm25", "clip_vi2en", "bienc_text", "fashionclip_vi2en", "viclip_ot"]
+BASELINES = list(ALL_BASELINES)   # có thể rút gọn bằng --skip-baselines
 N_MAX = 3800
 SECONDS_PER_PAIR = 6
 DESC_LIMIT = 300
@@ -68,6 +63,20 @@ HEADERS = ["query_id", "query_text", "attrs_in_query", "product_id", "shop", "ca
 FORBIDDEN_COLS = {"seed", "hat_giong", "system", "source", "rank", "score", "tags", "tag", "nguon", "run"}
 
 
+def _norm(text):
+    """Chữ thường, NFC, gọn khoảng trắng (thay cho attr_utils.normalize, chỉ dùng để hiển thị)."""
+    import unicodedata
+    return " ".join(unicodedata.normalize("NFC", str(text or "")).lower().split())
+
+
+def _as_list(value):
+    if value is None:
+        return []
+    if isinstance(value, (list, tuple, set)):
+        return [str(v).strip() for v in value if str(v).strip()]
+    return [v.strip() for v in str(value).replace("|", ";").split(";") if v.strip()]
+
+
 def qnum(qid):
     return int("".join(ch for ch in qid if ch.isdigit()))
 
@@ -77,12 +86,22 @@ def in_ranges(n, ranges):
 
 
 def load_run(path):
+    """{qid: [product_id theo hạng tăng dần]}; bỏ product_id lặp (giữ hạng tốt nhất)."""
     out = defaultdict(list)
-    for line in open(path, encoding="utf-8"):
-        p = line.split()
-        if len(p) == 6:
-            out[p[0]].append((int(p[3]), p[2]))
-    return {q: [pid for _, pid in sorted(v)] for q, v in out.items()}
+    with open(path, encoding="utf-8") as f:
+        for n, line in enumerate(f):
+            p = line.split()
+            if len(p) >= 6:
+                out[p[0]].append((int(p[3]), n, p[2]))
+    res = {}
+    for q, v in out.items():
+        seen, ranked = set(), []
+        for _, _, pid in sorted(v):
+            if pid not in seen:
+                seen.add(pid)
+                ranked.append(pid)
+        res[q] = ranked
+    return res
 
 
 def load_jsonl(path):
@@ -98,10 +117,13 @@ def featured_image_path(product):
     lp = images[0].get("local_path")
     if not lp:
         return None
-    local_path = Path(lp)
+    local_path = Path(str(lp).replace("\\", "/"))
     cands = [local_path, ROOT / local_path]
-    if config is not None and getattr(config, "PROCESSED_DIR", None) and not local_path.is_absolute():
-        cands.append(Path(config.PROCESSED_DIR) / local_path)
+    if config is not None and not local_path.is_absolute():
+        if getattr(config, "PROCESSED_DIR", None):
+            cands.append(Path(config.PROCESSED_DIR) / local_path)
+        if getattr(config, "IMAGE_DIR", None):
+            cands.append(Path(config.IMAGE_DIR) / local_path.name)
     for c in cands:
         if c.exists():
             return c
@@ -210,7 +232,16 @@ def main():
     ap.add_argument("--reserve-r", action="store_true",
                     help="Tạo thêm annotation_R_helper.xlsx (tập dự phòng R: Q071–Q080 và Q171–Q180) cho NGƯỜI THỨ HAI; "
                          "chỉ giao nếu kappa vòng 1 < 0,61 (mục 9.6, bước 2b)")
+    ap.add_argument("--skip-baselines", default="",
+                    help="Danh sách baseline bỏ khỏi pool, cách nhau dấu phẩy (vd. viclip_ot nếu V7 không chạy được); "
+                         "hệ thống bị bỏ sẽ KHÔNG được đánh giá công bằng, phải ghi mục 12")
     args = ap.parse_args()
+    global BASELINES
+    skip = {x.strip() for x in args.skip_baselines.split(",") if x.strip()}
+    bad = skip - set(ALL_BASELINES)
+    if bad:
+        raise SystemExit(f"--skip-baselines có tên lạ: {sorted(bad)}; hợp lệ: {ALL_BASELINES}")
+    BASELINES = [b for b in ALL_BASELINES if b not in skip]
 
     ANN_DIR.mkdir(parents=True, exist_ok=True)
     PRIVATE.mkdir(parents=True, exist_ok=True)
@@ -281,9 +312,9 @@ def main():
             path_cache[pid] = featured_image_path(p)
         return {
             "query_id": qid, "query_text": qmeta[qid]["query_text"], "attrs_in_query": qmeta[qid].get("attrs_in_query", ""),
-            "product_id": pid, "shop": p.get("shop"), "category": au.normalize(p.get("category")),
-            "type": au.map_type(p.get("type", ""), p.get("name", "")), "name": p.get("name"),
-            "material": "; ".join(au.as_list(p.get("material"))), "colors": "; ".join(au.as_list(p.get("colors"))),
+            "product_id": pid, "shop": p.get("shop"), "category": _norm(p.get("category")),
+            "type": _norm(p.get("type")), "name": p.get("name"),
+            "material": "; ".join(_as_list(p.get("material"))), "colors": "; ".join(_as_list(p.get("colors"))),
             "description": (p.get("description") or "")[:DESC_LIMIT], "image": None, "label": None, "note": None,
             "_img_path": path_cache[pid],
         }
@@ -350,6 +381,7 @@ def main():
     # ── log ──
     over_pairs = sum(len(pool[q]) for q in overlap_q)
     log = ["\n## V9 — pooling",
+           f"- hệ thống trong pool: dual_encoder, vimfr + {len(BASELINES)} baseline ({', '.join(BASELINES)})" + (f"; BỎ: {', '.join(sorted(skip))}" if skip else ""),
            f"- K: dual_encoder 10, vimfr 10, baseline {k_base} (mỗi baseline); thêm hạt giống; N = {N} (ngưỡng {N_MAX}: {gate})",
            f"- N theo K baseline: " + ", ".join(f"K={k}: {v}" for k, v in table.items()),
            f"- cỡ pool mỗi truy vấn: min {min(sizes)}, max {max(sizes)}, TB {N / 200:.1f}; cặp thuộc overlap: {over_pairs}",
@@ -357,8 +389,8 @@ def main():
            f"- file annotation: " + "; ".join(f"{n}: {q} truy vấn/{r} cặp" for n, q, r, _ in summary),
            f"- ước tính công gán nhãn: {N * 0.575 * SECONDS_PER_PAIR / 3600:.1f} giờ mỗi người (hai người); "
            f"{(N + over_pairs) * SECONDS_PER_PAIR / 3600:.1f} giờ nếu một người gán cả hai phần",
-           "- Hệ quả cần ghi vào báo cáo: sản phẩm hạng 6–10 của baseline không nằm trong pool của hệ thống nào bị coi là "
-           "không liên quan, nên chỉ số baseline có thể bị đánh giá thấp (có lợi cho ViMFR)."]
+           "- Hệ quả cần ghi vào báo cáo: sản phẩm trong top-10 của baseline nhưng ngoài top-K pool và ngoài pool của mọi hệ thống khác "
+           "bị coi là không liên quan, nên chỉ số baseline có thể bị đánh giá thấp (có lợi cho ViMFR); V11 báo thêm judged@10 để đo mức này."]
     if not args.split_overlap:
         log.append("- file *_01 có 30 truy vấn (> 25 truy vấn/file ở mục 8.4): ghi mục 12 hoặc dùng --split-overlap")
     with open(LOG_DIR / "log_B.md", "a", encoding="utf-8") as f:

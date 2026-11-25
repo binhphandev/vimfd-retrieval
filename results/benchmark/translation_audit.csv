@@ -1,0 +1,201 @@
+﻿query_id,category,n_attrs,kept,partial,mistranslated,lost,unchecked,problems,head_noun,head_status,untranslated_vi,mt_loss_flag,query_vi,query_en
+Q001,quần,2,2,0,0,0,0,,quần lót,kept,0,0,quần boxer vải poly màu xanh navy,Navy blue poly canvas boxer pants
+Q002,quần,2,2,0,0,0,0,,quần kaki,kept,0,0,quần kaki ôm sát màu nâu,Brown tight khaki pants
+Q003,phụ kiện,1,1,0,0,0,0,,thắt lưng,kept,0,0,thắt lưng da nam,men's leather belt
+Q004,áo,3,3,0,0,0,0,,áo thun,kept,0,0,áo phông dáng rộng màu xám phong cách thể thao,sporty style grey wide t-shirt
+Q005,áo,1,1,0,0,0,0,,áo khoác,kept,0,0,áo khoác nam màu đen,black men's jacket
+Q006,phụ kiện,2,2,0,0,0,0,,ví,kept,0,0,ví da thật phong cách tối giản,Real leather wallet minimalist style
+Q007,áo,3,3,0,0,0,0,,áo thun,kept,0,0,áo thun form vừa chất nylon phong cách basic,T-shirt Form Medium Nylon Style Basic
+Q008,áo,1,1,0,0,0,0,,áo thun,kept,0,0,áo phông phong cách retro,retro style t-shirts
+Q009,áo,3,3,0,0,0,0,,áo thun,kept,0,0,áo phông dáng rộng màu xanh lá phong cách thường ngày,"Green, loose - fitting, casual t - shirt."
+Q010,quần,1,1,0,0,0,0,,,na,0,0,quần khaki dáng slim,slim khaki pants
+Q011,áo,1,1,0,0,0,0,,áo sơ mi,kept,0,0,áo sơ mi vải bông,Shirt Cotton Fabric
+Q012,áo,3,3,0,0,0,0,,áo hoodie,kept,0,0,áo hoodie form rộng cotton phong cách năng động,hoodie form wide cotton dynamic style
+Q013,phụ kiện,2,2,0,0,0,0,,túi,kept,0,0,túi đeo chéo da bò màu đen,black cowhide crossbody bag
+Q014,phụ kiện,2,2,0,0,0,0,,kính,kept,0,0,kính râm nhựa màu đen,black plastic sunglasses
+Q015,áo,1,1,0,0,0,0,,áo polo,kept,0,0,áo polo vải bông,cotton polo shirt fabric
+Q016,quần,2,2,0,0,0,0,,quần jogger,kept,0,0,quần jogger kaki phong cách năng động,khaki jogger pants dynamic style
+Q017,quần,2,2,0,0,0,0,,quần short,kept,0,0,quần short nam màu đen phong cách năng động,black men shorts dynamic style
+Q018,phụ kiện,1,1,0,0,0,0,,ba lô,kept,0,0,balo laptop màu đen,black laptop backpack
+Q019,quần,1,1,0,0,0,0,,quần short,kept,0,0,quần short vải bông,cotton fabric shorts
+Q020,áo,2,2,0,0,0,0,,áo khoác,kept,0,0,áo khoác màu xám phong cách giản dị,Casual style grey jacket
+Q021,áo,2,2,0,0,0,0,,áo thun,kept,0,0,áo thun form vừa màu trắng,White Medium Form T-shirt
+Q022,quần,3,3,0,0,0,0,,quần short,kept,0,0,quần short vải bông dáng chuẩn màu nâu,brown standard size cotton shorts
+Q023,áo,2,2,0,0,0,0,,áo khoác,kept,0,0,áo khoác len phong cách basic,basic style sweater jacket
+Q024,phụ kiện,1,1,0,0,0,0,,ví,kept,0,0,ví da pu,pu leather wallet
+Q025,quần,1,0,0,0,1,0,kiểu dáng=regular fit:lost,quần short,kept,0,1,quần short tập gym dáng suông,slim gym shorts
+Q026,quần,2,2,0,0,0,0,,quần jean,kept,0,0,quần jean màu xanh dương ôm sát,Blue tight jeans
+Q027,quần,1,1,0,0,0,0,,quần dài,kept,0,0,quần dài chất kaki,Khaki pants.
+Q028,quần,3,2,0,0,1,0,kiểu dáng=regular fit:lost,quần dài,kept,0,1,quần thể thao dáng dài form suông màu xanh navy,Navy blue long - sleeved form - fitting sports pants
+Q029,phụ kiện,1,1,0,0,0,0,,túi,kept,0,0,túi xách da bò đeo chéo,crossbody cowhide handbags
+Q030,áo,2,2,0,0,0,0,,áo khoác,kept,0,0,áo khoác vải nylon màu đen,black nylon fabric jacket
+Q031,áo,3,3,0,0,0,0,,áo khoác,kept,0,0,áo khoác nhẹ dáng rộng màu xanh rêu mặc thường ngày,"A lightweight, loose - fitting, moss - green jacket for everyday wear."
+Q032,quần,2,1,0,0,1,0,kiểu dáng=slim fit:lost,quần jean,kept,0,1,quần jean ôm dáng màu đen,Black hugging jeans
+Q033,phụ kiện,2,2,0,0,0,0,,ví,kept,0,0,ví ngắn da pu màu đen,black pu leather short wallet
+Q034,phụ kiện,2,2,0,0,0,0,,ba lô,kept,0,0,ba lô vải bố màu đen,black canvas dad backpack
+Q035,áo,1,0,0,1,0,0,chất liệu=denim:mistranslated,áo khoác,kept,0,1,áo khoác vải bò,cow fabric jacket
+Q036,quần,2,2,0,0,0,0,,quần lót,kept,0,0,quần boxer chất poly màu đỏ,red poly material boxer pants
+Q037,phụ kiện,1,1,0,0,0,0,,cà vạt,kept,0,0,cà vạt phong cách tối giản,Minimalist style tie
+Q038,phụ kiện,2,2,0,0,0,0,,dép,kept,0,0,dép quai ngang da bò màu đen,Black cowhide flip - flops
+Q039,phụ kiện,1,1,0,0,0,0,,cà vạt,kept,0,0,cà vạt màu xanh navy,Navy blue tie.
+Q040,áo,3,2,0,1,0,0,chất liệu=vải dù:mistranslated,áo khoác,kept,0,1,áo khoác gió vải dù form rộng màu xanh rêu,"Wind jacket, umbrella fabric, wide form, moss green."
+Q041,áo,2,2,0,0,0,0,,áo bomber,kept,0,0,áo bomber vải dù dáng rộng,"Bomber jacket, wide - waisted canvas parachute."
+Q042,quần,3,3,0,0,0,0,,quần jean,kept,0,0,quần jean cargo màu trắng ống rộng kiểu cổ điển,classic style wide tube white cargo jeans
+Q043,áo,2,2,0,0,0,0,,áo thun,kept,0,0,áo thun vải poly dáng rộng,poly t-shirt fabric wide shape
+Q044,áo,2,2,0,0,0,0,,áo bomber,kept,0,0,áo bomber da dáng rộng,Wide leather bomber jacket
+Q045,quần,3,3,0,0,0,0,,quần short,lost,0,1,quần short bò ôm sát màu trắng,white tight jeans
+Q046,áo,1,0,0,0,1,0,kiểu dáng=slim fit:lost,áo sơ mi,kept,0,1,áo sơ mi ôm sát,T - shirts that fit.
+Q047,phụ kiện,2,2,0,0,0,0,,ba lô,kept,0,0,ba lô nylon màu đen,black nylon backpack
+Q048,phụ kiện,2,2,0,0,0,0,,túi,kept,0,0,túi đeo chéo màu đen dùng hàng ngày,black crossbody bag for daily use
+Q049,áo,3,2,0,0,1,0,kiểu dáng=oversize:lost,áo sơ mi,kept,0,1,áo sơ mi nhung tăm dáng rộng màu nâu,Broad brown corduroy shirt.
+Q050,áo,2,2,0,0,0,0,,áo sơ mi,kept,0,0,áo sơ mi vải lanh màu trắng,white linen shirt fabric
+Q051,phụ kiện,1,0,0,1,0,0,chất liệu=vải dù:mistranslated,túi,kept,0,1,túi đeo chéo vải dù,umbrella fabric crossbody bag
+Q052,quần,2,2,0,0,0,0,,quần short,kept,0,0,quần short chất denim màu xám,grey denim quality shorts
+Q053,áo,3,3,0,0,0,0,,áo thun,kept,0,0,áo phông vải bông form vừa phong cách năng động,Medium Form Cotton T-shirt Dynamic Style
+Q054,phụ kiện,2,2,0,0,0,0,,dép,kept,0,0,dép lê da bò phong cách tối giản,Minimalist style cowhide slippers
+Q055,áo,3,3,0,0,0,0,,áo khoác,kept,0,0,áo khoác dáng rộng màu xám chất poly,"Grey, poly, wide jacket."
+Q056,áo,2,1,0,0,1,0,kiểu dáng=slim fit:lost,áo polo,kept,0,1,áo polo ôm dáng màu đỏ,Red hugging polo shirt
+Q057,phụ kiện,2,2,0,0,0,0,,ví,kept,0,0,ví da thật màu nâu,Brown Real Leather Wallet
+Q058,áo,1,1,0,0,0,0,,áo polo,kept,0,0,áo polo form vừa,Medium Form Polo Shirt
+Q059,quần,3,3,0,0,0,0,,quần short,kept,0,0,quần short bò dáng chuẩn màu đen,standard black jeans shorts
+Q060,phụ kiện,2,2,0,0,0,0,,ba lô,kept,0,0,ba lô da thật màu đen,Black genuine leather backpack
+Q061,quần,3,3,0,0,0,0,,quần dài,kept,0,0,quần dài dáng thẳng phong cách thể thao màu đen,"Straight - legged pants, black athletic style"
+Q062,áo,3,3,0,0,0,0,,áo sơ mi,kept,0,0,áo sơ mi vải bông form vừa phong cách thường ngày,Cotton shirt form medium casual style
+Q063,áo,3,2,0,0,1,0,kiểu dáng=slim fit:lost,áo thun,kept,0,1,áo thun vải bông ôm dáng kiểu basic,T - shirts made of basic cotton.
+Q064,áo,1,1,0,0,0,0,,áo khoác,kept,0,0,áo khoác màu xanh dương,Blue jacket.
+Q065,quần,1,0,1,0,0,0,màu=xanh navy:partial,quần short,kept,0,0,quần short màu xanh than,charcoal blue shorts
+Q066,quần,3,3,0,0,0,0,,quần dài,kept,0,0,quần âu vải poly dáng vừa kiểu basic,Medium - sized poly pants (Basic style)
+Q067,quần,1,1,0,0,0,0,,quần lót,kept,0,0,quần boxer vải bông,cotton boxer pants
+Q068,quần,2,1,0,0,1,0,kiểu dáng=slim fit:lost,quần lót,kept,0,1,quần sịp tam giác ôm sát màu đen,black close - fitting triangle briefs
+Q069,phụ kiện,1,1,0,0,0,0,,nón,kept,0,0,nón len màu đen,black woolen hat
+Q070,quần,3,3,0,0,0,0,,quần lót,kept,0,0,quần boxer nylon ôm sát màu đen,black tight nylon boxer pants
+Q071,áo,3,2,0,1,0,0,chất liệu=denim:mistranslated,áo khoác,kept,0,1,áo khoác bò dáng chuẩn phong cách casual,Cow jacket standard shape casual style
+Q072,phụ kiện,1,1,0,0,0,0,,dép,kept,0,0,dép sandal da bò,cow leather sandals
+Q073,phụ kiện,2,2,0,0,0,0,,giày,kept,0,0,giày chạy bộ màu đen vải lưới,black running shoes mesh fabric
+Q074,phụ kiện,1,1,0,0,0,0,,ba lô,kept,0,0,balo laptop kiểu thể thao,sports laptop backpack
+Q075,phụ kiện,2,2,0,0,0,0,,túi,kept,0,0,túi đeo chéo da bò kiểu tối giản,Minimalist cowhide crossbody bag
+Q076,phụ kiện,1,1,0,0,0,0,,ví,kept,0,0,ví da cầm tay màu đen,black leather hand purse
+Q077,quần,3,3,0,0,0,0,,quần jean,kept,0,0,quần jeans cargo ống rộng kiểu retro màu đen,black retro style wide tube cargo jeans
+Q078,áo,1,1,0,0,0,0,,áo polo,kept,0,0,áo polo màu cam,Orange Polo Shirts
+Q079,quần,1,1,0,0,0,0,,quần dài,kept,0,0,quần dài màu trắng,white long pants
+Q080,quần,1,1,0,0,0,0,,quần kaki,kept,0,0,quần kaki màu be,beige khaki pants
+Q081,phụ kiện,2,2,0,0,0,0,,ba lô,kept,0,0,ba lô kiểu tối giản màu đen,black minimalist style backpack
+Q082,quần,3,3,0,0,0,0,,quần dài,kept,0,0,quần dài công sở vải poly màu xám,grey poly fabric work pants
+Q083,quần,3,3,0,0,0,0,,quần jean,kept,0,0,quần jean ôm sát màu xanh đậm chất denim,Denim - colored dark blue tight jeans
+Q084,phụ kiện,1,0,0,0,1,0,chất liệu=da bò:lost,dép,kept,0,1,dép kẹp da bò thật,Real buff flip - flops.
+Q085,phụ kiện,1,1,0,0,0,0,,túi,kept,0,0,túi đeo chéo nylon,Nylon Crossbody Bag
+Q086,áo,3,3,0,0,0,0,,áo thun,kept,0,0,áo thun ba lỗ vải bông form vừa màu đen,three hole black medium form cotton t-shirt
+Q087,phụ kiện,2,1,1,0,0,0,màu=xanh navy:partial,nón,kept,0,0,nón lưỡi trai xanh đen phong cách thể thao,sports style blue black baseball cap
+Q088,áo,1,1,0,0,0,0,,áo khoác,kept,0,0,áo khoác kiểu công sở,Business style jackets
+Q089,áo,3,2,0,0,1,0,kiểu dáng=oversize:lost,áo khoác,kept,0,1,áo khoác nhẹ dáng rộng kiểu cổ điển màu be,"Lightweight, broad jacket, classic beige."
+Q090,áo,1,0,1,0,0,0,màu=xanh navy:partial,,na,0,0,áo sát nách màu xanh than,A charcoal - blue tank top.
+Q091,phụ kiện,1,1,0,0,0,0,,túi,kept,0,0,túi đeo chéo da pu,pu leather crossbody bag
+Q092,áo,3,3,0,0,0,0,,áo sơ mi,kept,0,0,áo sơ mi henley kiểu retro dáng rộng màu nâu,"Retro henley shirt, wide, brown."
+Q093,áo,3,3,0,0,0,0,,áo khoác,kept,0,0,áo khoác vải poly dáng chuẩn phong cách thể thao,poly fabric jacket standard sports style
+Q094,quần,3,3,0,0,0,0,,quần dài,kept,0,0,quần dài nỉ dáng rộng kiểu retro,"Retro, loose - fitting felt pants."
+Q095,áo,2,2,0,0,0,0,,áo vest/len,kept,0,0,áo len sợi acrylic màu đen,black acrylic fiber sweater
+Q096,áo,2,2,0,0,0,0,,áo hoodie,kept,0,0,áo hoodie dáng rộng màu be,Wide - waisted beige hoodie
+Q097,phụ kiện,1,1,0,0,0,0,,giày,kept,0,0,giày công sở màu đen,black work shoes
+Q098,áo,3,3,0,0,0,0,,áo thun,kept,0,0,áo thun ba lỗ dáng chuẩn màu nâu phong cách đường phố,Standard three-hole t-shirt brown street style
+Q099,áo,3,3,0,0,0,0,,áo polo,kept,0,0,áo polo vải poly dáng rộng màu xanh dương,Polo shirt poly blue wide-fitting fabric
+Q100,quần,1,1,0,0,0,0,,quần dài,kept,0,0,quần dài màu đen,black long pants
+Q101,áo,2,1,1,0,0,0,chất liệu=vải dù:partial,áo khoác,kept,0,0,áo khoác gió dáng rộng chất vải dù,"Wide - waisted windbreaker, umbrella fabric."
+Q102,áo,1,1,0,0,0,0,,áo sơ mi,kept,0,0,áo sơ mi vải sợi tre,Shirt Bamboo Fiber Fabric
+Q103,áo,2,2,0,0,0,0,,áo thun,kept,0,0,áo thun vải bông màu đỏ,red cotton canvas t-shirt
+Q104,áo,2,2,0,0,0,0,,áo sơ mi,kept,0,0,áo sơ mi dài tay form vừa màu xanh navy,Long sleeve form medium blue navy shirt
+Q105,áo,4,4,0,0,0,0,,áo sơ mi,kept,0,0,áo sơ mi chất poly spandex ôm sát màu trắng kiểu basic,"White, basic poly spandex tight - fitting shirt"
+Q106,áo,4,4,0,0,0,0,,áo thun,kept,0,0,áo thun cotton dáng rộng màu đen phong cách đường phố,black cotton wide-fitting t-shirt street style
+Q107,phụ kiện,2,2,0,0,0,0,,ví,kept,0,0,ví da thật kiểu ngang màu nâu,Brown horizontal - style genuine leather wallet
+Q108,áo,1,1,0,0,0,0,,áo khoác,kept,0,0,áo khoác bomber màu đen,Black Bomber Jacket
+Q109,phụ kiện,2,2,0,0,0,0,,túi,kept,0,0,túi đeo chéo da PU màu đen dáng cổ điển,black pu leather crossbody bag classic design
+Q110,phụ kiện,1,1,0,0,0,0,,ví,kept,0,0,ví nam màu nâu,brown men's wallet
+Q111,quần,4,4,0,0,0,0,,quần jean,kept,0,0,quần jean bò ôm sát màu đen phong cách đường phố,black tight jeans street style
+Q112,áo,2,2,0,0,0,0,,áo sơ mi,kept,0,0,áo sơ mi dáng classic nhanh khô màu xanh navy,classic quick-drying blue navy shirt
+Q113,quần,3,2,0,0,1,0,kiểu dáng=regular fit:lost,quần kaki,kept,0,1,quần kaki dáng suông chất cotton phong cách thường ngày,"Khaki pants are cotton, casual style."
+Q114,quần,2,2,0,0,0,0,,quần short,kept,0,0,quần short chất cotton màu be,beige cotton shorts
+Q115,phụ kiện,1,1,0,0,0,0,,giày,kept,0,0,giày da bò nam,cow leather men's shoes
+Q116,áo,3,2,0,0,1,0,kiểu dáng=slim fit:lost,áo sơ mi,kept,0,1,áo sơ mi chất cotton poly ôm dáng màu xanh dương,Poly cotton shirt with a blue silhouette
+Q117,áo,1,1,0,0,0,0,,áo khoác,kept,0,0,áo khoác gió màu đen,black wind jacket
+Q118,quần,4,4,0,0,0,0,,quần jean,kept,0,0,quần jean bò ôm sát màu đen phong cách cổ điển,classic style black tight jeans
+Q119,áo,1,1,0,0,0,0,,áo khoác,kept,0,0,áo khoác dáng suông màu be,- A beige jacket.
+Q120,áo,3,2,0,0,1,0,kiểu dáng=oversize:lost,áo bomber,kept,0,1,áo bomber nỉ dáng rộng màu đen phong cách đường phố,"Sweatshirt bomber, black, street style."
+Q121,áo,2,1,1,0,0,0,màu=xanh navy:partial,áo thun,kept,0,0,áo thun form boxy màu xanh đen,Black and blue boxy form T-shirt
+Q122,phụ kiện,2,2,0,0,0,0,,giày,kept,0,0,giày loafer màu đen phong cách tối giản,black loafer shoes minimalist style
+Q123,phụ kiện,1,1,0,0,0,0,,túi,kept,0,0,túi đeo chéo chất polyester,polyester crossbody bag
+Q124,áo,1,1,0,0,0,0,,áo khoác,kept,0,0,áo khoác gió có mũ màu xanh navy,Windbreaker with a blue Navy cap.
+Q125,áo,2,2,0,0,0,0,,áo thun,kept,0,0,áo thun ba lỗ gym chất bông màu đen,black cotton quality gym three hole t-shirt
+Q126,quần,1,1,0,0,0,0,,quần dài,kept,0,0,quần dài chất nỉ,Felt pants
+Q127,áo,1,1,0,0,0,0,,áo thun,kept,0,0,áo thun tay raglan màu navy phong cách đời thường,raglan sleeve t-shirt navy color casual style
+Q128,phụ kiện,2,2,0,0,0,0,,túi,kept,0,0,túi đeo bụng màu đen phong cách thể thao,black belly bag sports style
+Q129,áo,1,0,0,0,1,0,kiểu dáng=regular fit:lost,áo sơ mi,kept,0,1,áo sơ mi dáng suông,Shirt Shape
+Q130,quần,1,1,0,0,0,0,,quần dài,kept,0,0,quần dài nam dáng suông,"Men's long, straight pants."
+Q131,phụ kiện,1,1,0,0,0,0,,kính,kept,0,0,kính mắt thời trang màu đen,black fashion eyeglasses
+Q132,quần,2,2,0,0,0,0,,quần lót,kept,0,0,quần boxer ôm sát màu đen,Black tight boxer shorts
+Q133,quần,1,0,0,0,1,0,phong cách=casual:lost,quần jean,kept,0,1,quần bò nam phong cách trẻ trung,young style men's jeans
+Q134,áo,3,3,0,0,0,0,,áo thun,kept,0,0,áo thun henley ôm sát màu trắng phong cách smart casual,"White slim henley t-shirt, smart casual style"
+Q135,áo,3,2,1,0,0,0,chất liệu=vải dù:partial,áo khoác,kept,0,0,áo khoác gió dáng rộng có mũ màu xanh dương,A wide - waisted windbreaker with a blue hat.
+Q136,phụ kiện,2,2,0,0,0,0,,giày,kept,0,0,giày sneaker da PU màu đen,black pu leather sneaker shoes
+Q137,quần,3,3,0,0,0,0,,quần jean,kept,0,0,quần jean ống rộng chất denim màu xanh,wide tube jeans blue denim
+Q138,quần,1,1,0,0,0,0,,quần lót,kept,0,0,quần lót tam giác màu navy,Navy Triangle Panties
+Q139,quần,2,2,0,0,0,0,,quần short,lost,0,1,quần short bò phong cách cổ điển,classic style jeans
+Q140,quần,3,3,0,0,0,0,,quần short,lost,0,1,quần short jean form vừa màu xanh nhạt,Medium - sized light blue jeans
+Q141,quần,3,3,0,0,0,0,,quần dài,kept,0,0,quần âu dáng thẳng màu be phong cách tối giản,"Straight - legged pants, beige, minimalist style."
+Q142,áo,1,1,0,0,0,0,,áo polo,kept,0,0,áo polo chất tơ tằm,Silk Polo Shirts
+Q143,quần,1,1,0,0,0,0,,quần short,kept,0,0,quần đùi màu đen,black shorts
+Q144,phụ kiện,2,2,0,0,0,0,,giày,kept,0,0,giày da mũi nhọn màu đen phong cách công sở,black leather pointed toe shoes office style
+Q145,quần,2,1,0,0,1,0,kiểu dáng=slim fit:lost,quần lót,lost,0,1,quần lót ôm sát kiểu tam giác màu trắng,White triangular tights.
+Q146,quần,2,2,0,0,0,0,,quần kaki,kept,0,0,quần kaki dáng rộng màu đen,Wide black khaki pants
+Q147,quần,2,2,0,0,0,0,,quần short,kept,0,0,quần short vải bông màu kem,cream cotton canvas shorts
+Q148,phụ kiện,1,1,0,0,0,0,,giày,kept,0,0,giày công sở màu nâu,brown work shoes
+Q149,áo,3,3,0,0,0,0,,áo thun,kept,0,0,áo thun vải cotton sorona form vừa màu xanh navy,cotton sorona form medium navy blue t-shirt
+Q150,áo,2,2,0,0,0,0,,áo ba lỗ,lost,0,1,áo ba lỗ gym chất bông màu trắng,white cotton gym three hole shirt
+Q151,áo,2,2,0,0,0,0,,áo thun,kept,0,0,áo thun henley chất cotton màu đen,henley black cotton t-shirt
+Q152,phụ kiện,2,2,0,0,0,0,,túi,kept,0,0,túi đeo bụng màu xám phong cách thể thao,sport style grey belly bag
+Q153,áo,3,2,1,0,0,0,chất liệu=vải dù:partial,áo khoác,kept,0,0,áo khoác gió 2 lớp dáng rộng màu xám,"Two - layer windbreaker, wide, grey."
+Q154,phụ kiện,1,1,0,0,0,0,,túi,kept,0,0,túi đeo chéo màu nâu,brown crossbody bag
+Q155,áo,3,3,0,0,0,0,,áo polo,kept,0,0,áo polo cotton màu trắng phong cách công sở,white cotton polo shirt office style
+Q156,phụ kiện,2,2,0,0,0,0,,thắt lưng,kept,0,0,thắt lưng da bò thật màu đen,Real black cowhide belt.
+Q157,phụ kiện,1,1,0,0,0,0,,cà vạt,kept,0,0,cà vạt vải polyester,polyester fabric tie
+Q158,áo,4,4,0,0,0,0,,áo bomber,kept,0,0,áo bomber nỉ dáng rộng màu đỏ phong cách retro,"Sweatshirt bomber, wide, red, retro style."
+Q159,phụ kiện,2,2,0,0,0,0,,túi,kept,0,0,túi đeo hông da PU màu đen,black pu leather hip bag
+Q160,áo,2,2,0,0,0,0,,áo khoác,kept,0,0,áo khoác gió màu đen phong cách thể thao,sports style black windbreaker jacket
+Q161,áo,3,3,0,0,0,0,,áo ba lỗ,lost,0,1,áo ba lỗ dáng chuẩn màu xám phong cách thể thao,Standard three-hole shirt grey sports style
+Q162,phụ kiện,1,1,0,0,0,0,,giày,kept,0,0,giày lười da nam,lazy men's leather shoes
+Q163,quần,3,2,0,0,1,0,kiểu dáng=slim fit:lost,quần dài,kept,0,1,quần dài sọc dọc dáng ôm màu trắng phong cách công sở,"Vertical striped pants, hugging, white, business style."
+Q164,quần,4,4,0,0,0,0,,quần short,lost,0,1,quần short bò ống rộng màu xanh phong cách đường phố,wide tube jeans blue street style
+Q165,áo,2,2,0,0,0,0,,áo thun,kept,0,0,áo thun dáng rộng màu đen,Wide black T-shirt
+Q166,phụ kiện,2,2,0,0,0,0,,ba lô,kept,0,0,balo tối giản màu đen,black minimalist backpack
+Q167,quần,2,2,0,0,0,0,,quần jean,kept,0,0,quần jean vải denim màu xám,jeans grey denim fabric
+Q168,áo,3,2,0,0,1,0,chất liệu=vải dù:lost,áo bomber,kept,0,1,áo bomber dù dáng rộng màu trắng phong cách đường phố,"White, wide - bodied, street - style bomber shirt."
+Q169,phụ kiện,1,1,0,0,0,0,,túi,kept,0,0,túi đeo chéo màu đen,black crossbody bag
+Q170,phụ kiện,1,1,0,0,0,0,,thắt lưng,kept,0,0,thắt lưng màu đen,black belt
+Q171,quần,4,3,0,0,1,0,kiểu dáng=regular fit:lost,quần lót,kept,0,1,quần boxer chất polyamide dáng chuẩn màu navy phong cách thể thao,"Polyamide boxer shorts, navy color, sporty style."
+Q172,phụ kiện,1,1,0,0,0,0,,thắt lưng,lost,0,1,dây nịt đàn hồi màu đen,black elastic harness
+Q173,quần,3,3,0,0,0,0,,quần lót,kept,0,0,quần sịp tam giác ôm sát màu nâu phong cách tối giản,Tight - fitting brown triangle briefs Minimalist style
+Q174,quần,2,2,0,0,0,0,,quần jean,kept,0,0,quần jean dáng thẳng màu xanh đậm,Dark blue straight jeans
+Q175,áo,4,4,0,0,0,0,,áo khoác,kept,0,0,áo khoác da lộn dáng rộng màu xám phong cách đường phố,wide-fitting suede jacket grey street style
+Q176,áo,3,3,0,0,0,0,,áo thun,kept,0,0,áo thun tay dài chất poly dáng rộng phong cách đời thường,"Long sleeve poly shirt, wide shape, casual style."
+Q177,áo,4,3,0,0,1,0,kiểu dáng=oversize:lost,áo bomber,kept,0,1,áo bomber nỉ dáng rộng màu đen phong cách retro,"Sweatshirt bomber, black, retro style."
+Q178,quần,4,4,0,0,0,0,,quần short,kept,0,0,quần short chất cotton form vừa màu navy phong cách thể thao,shorts quality cotton form medium color navy style sportswear
+Q179,phụ kiện,2,2,0,0,0,0,,ví,kept,0,0,ví nam da thật màu đen,black genuine leather men wallet
+Q180,quần,1,0,0,0,1,0,kiểu dáng=regular fit:lost,quần jogger,kept,0,1,quần jogger dáng chuẩn,Good - shaped joggers.
+Q181,áo,1,1,0,0,0,0,,áo khoác,kept,0,0,áo khoác hoodie dáng rộng,Wide - waisted hoodie jacket
+Q182,quần,1,0,0,0,1,0,kiểu dáng=regular fit:lost,quần short,kept,0,1,quần short dáng suông,Shorts in shorts.
+Q183,phụ kiện,1,1,0,0,0,0,,ví,kept,0,0,ví dài da PU,pu leather long wallet
+Q184,áo,1,0,0,0,1,0,chất liệu=linen:lost,áo sơ mi,kept,0,1,áo sơ mi chất đũi,Shirt Chopsticks
+Q185,phụ kiện,2,2,0,0,0,0,,túi,kept,0,0,túi đeo chéo màu nâu phong cách casual,casual style brown crossbody bag
+Q186,áo,1,1,0,0,0,0,,áo vest/len,kept,0,0,áo vest chất len,Wool vest.
+Q187,áo,3,3,0,0,0,0,,áo thun,kept,0,0,áo thun cotton sorona form vừa màu trắng,cotton sorona form medium white t-shirt
+Q188,quần,1,1,0,0,0,0,,quần kaki,kept,0,0,quần kaki ôm sát,tight khaki pants
+Q189,phụ kiện,2,2,0,0,0,0,,giày,kept,0,0,giày sneaker màu đen phong cách thể thao,sport style black sneakers
+Q190,quần,1,1,0,0,0,0,,quần lót,kept,0,0,quần lót tam giác ôm sát,close-fitting triangle panties
+Q191,phụ kiện,2,2,0,0,0,0,,dép,kept,0,0,dép sandal nam màu đen phong cách giản dị,casual style black men's sandals
+Q192,áo,3,3,0,0,0,0,,áo thun,kept,0,0,áo thun tay dài vải poly dáng rộng màu xanh navy,Long sleeve t-shirt poly fabric wide shape navy blue
+Q193,phụ kiện,1,1,0,0,0,0,,kính,kept,0,0,kính đọc sách gọng nhựa,plastic frame reading glasses
+Q194,phụ kiện,1,1,0,0,0,0,,túi,kept,0,0,túi tote vải canvas,canvas tote bag
+Q195,quần,2,2,0,0,0,0,,quần jean,kept,0,0,quần jean ống thẳng màu xanh đậm,dark blue straight tube jeans
+Q196,phụ kiện,2,2,0,0,0,0,,giày,kept,0,0,giày sneaker màu trắng phong cách retro,retro style white sneakers
+Q197,quần,4,4,0,0,0,0,,quần short,lost,0,1,quần short bò dáng rộng màu đen phong cách tối giản,black wide-fitting jeans minimalist style
+Q198,phụ kiện,1,1,0,0,0,0,,cà vạt,kept,0,0,cà vạt phong cách công sở,office style tie
+Q199,áo,2,2,0,0,0,0,,áo sơ mi,kept,0,0,áo sơ mi chất cotton tay ngắn màu trắng,white short-sleeved cotton material shirt
+Q200,áo,3,3,0,0,0,0,,áo ba lỗ,kept,0,0,áo tanktop chất polyester dáng chuẩn màu đen,Standard polyester tanktop in black

@@ -1,5 +1,5 @@
 # src/training/train.py
-# Hướng đánh giá: Text → Image  và  Image → Image
+# Hướng đánh giá: Text → Image (text đầy đủ + text NGẮN)  và  Image → Image
 #   - Gallery  : ảnh đại diện của mọi sản phẩm (val set)
 #   - T→I query: text mô tả sản phẩm
 #   - I→I query: MỘT ẢNH KHÁC (ảnh phụ) của cùng sản phẩm  (không dùng lại ảnh đại diện,
@@ -8,6 +8,7 @@
 import os
 import sys
 import csv
+import json
 import math
 import argparse
 from pathlib import Path
@@ -26,7 +27,9 @@ sys.path.insert(0, str(ROOT_DIR / "data"))
 from src.models.model import ViMFRModel
 from src.models.loss import InfoNCELoss
 
-from dataset import build_dataloaders, load_jsonl  # noqa: E402
+from dataset import (  # noqa: E402
+    build_dataloaders, load_jsonl, ShortQueryDataset, SHORT_VARIANTS,
+)
 
 import config as cfg  # noqa: E402
 from config import (  # noqa: E402
@@ -155,8 +158,47 @@ def _to_str_list(pids):
     return [str(x) for x in pids]
 
 
-def _recall(rank: torch.Tensor, ks):
-    return {k: (rank < k).float().mean().item() for k in ks}
+def load_group_map(split_dir):
+    """{product_id: group_id} từ split.json do build_splits.py ghi: {id: {"split":..., "group_id":...}}."""
+    path = Path(split_dir) / "split.json"
+    if not path.exists():
+        print(f"  ⚠ Không thấy {path}: mức nhóm sẽ trùng mức sản phẩm.")
+        return {}
+    gm = {}
+    for pid, v in json.load(open(path, encoding="utf-8")).items():
+        g = v.get("group_id") if isinstance(v, dict) else None
+        if g is not None:
+            gm[str(pid)] = str(g)
+    if gm and set(gm.values()) <= {"train", "val", "test"}:
+        print("  ⚠ group_id trong split.json chỉ là tên split (chạy build_splits.py bản mới): bỏ qua.")
+        return {}
+    return gm
+
+
+def _group_codes(ids, group_map):
+    codes = {}
+    return torch.tensor([codes.setdefault(group_map.get(p, "pid:" + p), len(codes)) for p in ids])
+
+
+def _ranks(sim, tgt):
+    """Hạng 0-based của cột đích; điểm HÒA tính là thua (ảnh trùng hệt cho cùng điểm)."""
+    s_t = sim.gather(1, tgt)
+    return (sim > s_t).sum(1) + ((sim == s_t).sum(1) - 1)
+
+
+def _group_ranks(sim, q_grp, g_grp):
+    """Hạng 0-based của sản phẩm cùng nhóm đứng cao nhất (sản phẩm cùng nhóm đều là đáp án đúng)."""
+    same = q_grp[:, None] == g_grp[None, :]
+    best = sim.masked_fill(~same, float("-inf")).max(1).values[:, None]
+    return ((sim >= best) & ~same).sum(1)
+
+
+def _metrics(sim, tgt, q_grp, g_grp, ks):
+    out = {}
+    for tag, r in (("p", _ranks(sim, tgt)), ("g", _group_ranks(sim, q_grp, g_grp))):
+        for k in ks:
+            out[(tag, k)] = (r < k).float().mean().item()
+    return out
 
 
 @torch.no_grad()
@@ -167,9 +209,17 @@ def validate(
     loss_fn,
     device,
     use_amp,
+    group_map=None,
     ks=(1, 5, 10),
     max_batches=None,
+    short_loaders=None,
+    cat_map=None,
 ):
+    """Trả (val_loss, t2i, i2i); mỗi dict có khoá ('p', k) = mức sản phẩm, ('g', k) = mức nhóm.
+    Nếu truyền short_loaders ({tên_biến_thể: DataLoader text ngắn}) thì trả thêm phần tử thứ 4:
+    {tên_biến_thể: dict metric T→I với query ngắn, thêm ('c', 10) = tỉ lệ top-10 đúng danh mục
+    khi có cat_map {product_id: category}}."""
+    group_map = group_map or {}
     model.eval()
     val_loss, n_batches = 0.0, 0
     all_img, all_txt, gallery_ids = [], [], []
@@ -193,11 +243,14 @@ def validate(
 
     gallery = torch.cat(all_img)   # [N, 256] ảnh đại diện = gallery
     txt = torch.cat(all_txt)
+    g_grp = _group_codes(gallery_ids, group_map)
 
     # --- Text → Image ---
     sim = txt @ gallery.T
-    rank = (sim > sim.diag().unsqueeze(1)).sum(dim=1)
-    t2i = _recall(rank, ks)
+    tgt = torch.arange(len(gallery_ids))[:, None]
+    t2i = _metrics(sim, tgt, g_grp, g_grp, ks)
+
+    id2idx = {pid: i for i, pid in enumerate(gallery_ids)}
 
     # --- Image → Image (query = ảnh phụ của cùng sản phẩm) ---
     i2i = None
@@ -212,15 +265,45 @@ def validate(
             q_ids.extend(_to_str_list(batch["product_id"]))
         q = torch.cat(q_embs)
 
-        id2idx = {pid: i for i, pid in enumerate(gallery_ids)}
         keep = [j for j, pid in enumerate(q_ids) if pid in id2idx]
         if keep:
             gt = torch.tensor([id2idx[q_ids[j]] for j in keep]).unsqueeze(1)
             sim_q = q[keep] @ gallery.T
-            rank = (sim_q > sim_q.gather(1, gt)).sum(dim=1)
-            i2i = _recall(rank, ks)
+            i2i = _metrics(sim_q, gt, g_grp[gt.squeeze(1)], g_grp, ks)
 
-    return val_loss / max(1, n_batches), t2i, i2i
+    if short_loaders is None:
+        return val_loss / max(1, n_batches), t2i, i2i
+
+    # --- Text NGẮN → Image: query = tên / 4 từ đầu / 3 từ đầu + màu (giống người dùng thật) ---
+    cat_codes = None
+    if cat_map:
+        codes = {}
+        cat_codes = torch.tensor([codes.setdefault(cat_map.get(p), len(codes)) for p in gallery_ids])
+    short = {}
+    for name, sl in short_loaders.items():
+        q_embs, q_ids = [], []
+        for batch_index, batch in enumerate(sl):
+            if max_batches is not None and batch_index >= max_batches:
+                break
+            with torch.autocast(device_type=device.type, dtype=torch.float16, enabled=use_amp):
+                e = model.encode_text(batch["input_ids"].to(device), batch["attention_mask"].to(device))
+            q_embs.append(e.float().cpu())
+            q_ids.extend(_to_str_list(batch["product_id"]))
+        if not q_embs:
+            continue
+        q = torch.cat(q_embs)
+        keep = [j for j, pid in enumerate(q_ids) if pid in id2idx]
+        if not keep:
+            continue
+        gt = torch.tensor([id2idx[q_ids[j]] for j in keep]).unsqueeze(1)
+        sim_q = q[keep] @ gallery.T
+        m = _metrics(sim_q, gt, g_grp[gt.squeeze(1)], g_grp, ks)
+        if cat_codes is not None:
+            top = sim_q.topk(min(10, sim_q.size(1)), dim=1).indices
+            m[("c", 10)] = (cat_codes[top] == cat_codes[gt.squeeze(1)][:, None]).float().mean().item()
+        short[name] = m
+
+    return val_loss / max(1, n_batches), t2i, i2i, short
 
 
 def save_ckpt(path, model, epoch, val_loss, extra=None):
@@ -244,6 +327,9 @@ def train(
     max_train_batches=None,
     max_val_batches=None,
     output_dir=None,
+    patience=5,
+    select="mix",
+    use_group_sampler=True,
 ):
     if num_epochs < 1:
         raise ValueError("num_epochs must be at least 1.")
@@ -270,13 +356,29 @@ def train(
     model = ViMFRModel().to(device)
     loss_fn = InfoNCELoss()
 
+    group_map = load_group_map(Path(SPLIT_DIR))
+    print(f"group_id: {len(set(group_map.values())):,} nhóm cho {len(group_map):,} sản phẩm")
     loaders = build_dataloaders(
         batch_size=batch_size,
         num_workers=NUM_WORKERS,
         split_dir=Path(SPLIT_DIR),
         image_dir=Path(IMAGE_DIR),
+        group_map=group_map if use_group_sampler else None,
     )
     train_loader, val_loader = loaders["train"], loaders["val"]
+    print(f"Train: {len(train_loader)} batch/epoch "
+          f"({'GroupBatchSampler' if use_group_sampler and group_map else 'shuffle thường'})"
+          f" | text ngắn khi train: p={train_loader.dataset.short_text_prob}")
+
+    # Query văn bản NGẮN cho validate (giống người dùng thật) + nhãn danh mục để đo Category P@10
+    val_ds = val_loader.dataset
+    cat_field = getattr(cfg, "CATEGORY_FIELD", "category")
+    cat_map = {str(p.get(PRODUCT_ID_FIELD)): p.get(cat_field) for p in val_ds.data}
+    short_loaders = {}
+    for v in SHORT_VARIANTS:
+        sds = ShortQueryDataset("val", val_ds.tokenizer, v, split_dir=Path(SPLIT_DIR))
+        short_loaders[v] = DataLoader(sds, batch_size=batch_size * 2, shuffle=False, num_workers=0)
+        print(f"  short[{v}] ví dụ: {sds.text(0)!r}")
 
     # Query ảnh phụ cho I→I
     alt_ds = AltImageDataset(Path(SPLIT_DIR) / "val.jsonl")
@@ -324,10 +426,11 @@ def train(
     with open(log_path, "w", newline="") as f:
         csv.writer(f).writerow([
             "epoch", "train_loss", "val_loss", "logit_scale",
-            "t2i_R1", "t2i_R5", "t2i_R10", "i2i_R1", "i2i_R5", "i2i_R10",
-        ])
+            "t2i_pR1", "t2i_pR5", "t2i_pR10", "t2i_gR1", "t2i_gR5", "t2i_gR10",
+            "i2i_pR1", "i2i_pR5", "i2i_pR10", "i2i_gR1", "i2i_gR5", "i2i_gR10",
+        ] + [c for v in SHORT_VARIANTS for c in (f"short_{v}_gR10", f"short_{v}_catP10")])
 
-    best_score = -1.0
+    best_score, bad_epochs = -1.0, 0
 
     for epoch in range(1, num_epochs + 1):
         # --- Train ---
@@ -367,40 +470,66 @@ def train(
         train_loss /= max(1, n_batches)
 
         # --- Validation ---
-        val_loss, t2i, i2i = validate(
+        val_loss, t2i, i2i, short = validate(
             model,
             val_loader,
             alt_loader,
             loss_fn,
             device,
             use_amp,
+            group_map=group_map,
             max_batches=max_val_batches,
+            short_loaders=short_loaders,
+            cat_map=cat_map,
         )
         scale_val = model.logit_scale.exp().item()
 
+        def fmt(m):
+            return (f"sp {m[('p',1)]:.3f}/{m[('p',5)]:.3f}/{m[('p',10)]:.3f}"
+                    f" | nhóm {m[('g',1)]:.3f}/{m[('g',5)]:.3f}/{m[('g',10)]:.3f}")
         msg = (f"Epoch {epoch:03d}/{num_epochs} | train: {train_loss:.4f} | "
                f"val: {val_loss:.4f} | scale: {scale_val:.1f}\n"
-               f"   T→I R@1/5/10: {t2i[1]:.3f}/{t2i[5]:.3f}/{t2i[10]:.3f}")
+               f"   T→I R@1/5/10: {fmt(t2i)}")
         if i2i is not None:
-            msg += f" | I→I R@1/5/10: {i2i[1]:.3f}/{i2i[5]:.3f}/{i2i[10]:.3f}"
+            msg += f"\n   I→I R@1/5/10: {fmt(i2i)}"
+        if short:
+            msg += "\n   T→I NGẮN (nhóm R@10 / đúng danh mục P@10): " + " | ".join(
+                f"{v} {m[('g', 10)]:.3f}/{m.get(('c', 10), float('nan')):.3f}" for v, m in short.items())
         print(msg)
 
-        i2i_row = i2i if i2i is not None else {1: 0.0, 5: 0.0, 10: 0.0}
+        zero = {(t, k): 0.0 for t in "pg" for k in (1, 5, 10)}
+        i2i_row = i2i if i2i is not None else zero
         with open(log_path, "a", newline="") as f:
-            csv.writer(f).writerow([
-                epoch, round(train_loss, 4), round(val_loss, 4), round(scale_val, 2),
-                round(t2i[1], 4), round(t2i[5], 4), round(t2i[10], 4),
-                round(i2i_row[1], 4), round(i2i_row[5], 4), round(i2i_row[10], 4),
-            ])
+            csv.writer(f).writerow(
+                [epoch, round(train_loss, 4), round(val_loss, 4), round(scale_val, 2)]
+                + [round(t2i[(t, k)], 4) for t in "pg" for k in (1, 5, 10)]
+                + [round(i2i_row[(t, k)], 4) for t in "pg" for k in (1, 5, 10)]
+                + [round(short.get(v, {}).get(key, 0.0), 4) for v in SHORT_VARIANTS
+                   for key in (("g", 10), ("c", 10))])
 
         save_ckpt(latest_checkpoint, model, epoch, val_loss)
 
-        # Best theo Recall@10 trung bình của 2 hướng
-        score = (t2i[10] + i2i[10]) / 2 if i2i is not None else t2i[10]
+        # Chọn best: mặc định T→I R@10 mức NHÓM (I→I gần như phẳng từ epoch 1 vì CLIP ảnh đã tốt sẵn,
+        # và val lệch phân phối làm nó nhiễu). --select avg = trung bình T→I và I→I mức nhóm.
+        # mix (mặc định) = trung bình T→I text đầy đủ và T→I text NGẮN (mức nhóm R@10); short = chỉ text ngắn.
+        short_score = (sum(m[("g", 10)] for m in short.values()) / len(short)) if short else t2i[("g", 10)]
+        if select == "avg" and i2i is not None:
+            score = (t2i[("g", 10)] + i2i[("g", 10)]) / 2
+        elif select == "short":
+            score = short_score
+        elif select == "mix":
+            score = (t2i[("g", 10)] + short_score) / 2
+        else:
+            score = t2i[("g", 10)]
         if score > best_score:
-            best_score = score
+            best_score, bad_epochs = score, 0
             save_ckpt(best_checkpoint, model, epoch, val_loss, extra={"val_recall10": score})
-            print(f"  ✓ Saved best checkpoint (val R@10 avg = {score:.4f})")
+            print(f"  ✓ Saved best checkpoint (val {select} R@10 nhóm = {score:.4f})")
+        else:
+            bad_epochs += 1
+            if patience and bad_epochs >= patience:
+                print(f"  Early stopping: {bad_epochs} epoch không cải thiện (best = {best_score:.4f}).")
+                break
 
 
 if __name__ == "__main__":
@@ -409,6 +538,12 @@ if __name__ == "__main__":
     parser.add_argument("--epochs", type=int, default=NUM_EPOCHS)
     parser.add_argument("--max-train-batches", type=int, default=None)
     parser.add_argument("--max-val-batches", type=int, default=None)
+    parser.add_argument("--no-group-sampler", action="store_true",
+                        help="tắt sampler theo nhóm (shuffle thường)")
+    parser.add_argument("--patience", type=int, default=5, help="early stopping; 0 = tắt")
+    parser.add_argument("--select", choices=["t2i_group", "avg", "short", "mix"], default="mix",
+                        help="tiêu chí chọn best checkpoint: t2i_group = T→I text đầy đủ; avg = T→I và I→I; "
+                             "short = T→I text ngắn; mix = trung bình T→I đầy đủ và ngắn (mặc định)")
     parser.add_argument(
         "--output-dir",
         type=Path,
@@ -422,4 +557,7 @@ if __name__ == "__main__":
         max_train_batches=args.max_train_batches,
         max_val_batches=args.max_val_batches,
         output_dir=args.output_dir,
+        patience=args.patience,
+        select=args.select,
+        use_group_sampler=not args.no_group_sampler,
     )

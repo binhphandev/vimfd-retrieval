@@ -1,37 +1,49 @@
-system,group_key,group_val,ndcg_10,recall_10,n_queries
-tfidf,n_attrs,1,0.3299,0.3463,61
-tfidf,n_attrs,2,0.3572,0.3387,67
-tfidf,n_attrs,3+,0.3058,0.2521,59
-tfidf,category,phụ kiện,0.4136,0.4086,52
-tfidf,category,quần,0.2431,0.2347,59
-tfidf,category,áo,0.3453,0.3105,76
-bm25,n_attrs,1,0.4533,0.4327,61
-bm25,n_attrs,2,0.4566,0.3914,67
-bm25,n_attrs,3+,0.3046,0.2351,59
-bm25,category,phụ kiện,0.5360,0.4974,52
-bm25,category,quần,0.3169,0.2556,59
-bm25,category,áo,0.3901,0.3361,76
-clip_vi2en,n_attrs,1,0.2776,0.3264,61
-clip_vi2en,n_attrs,2,0.3465,0.3217,67
-clip_vi2en,n_attrs,3+,0.3041,0.2298,59
-clip_vi2en,category,phụ kiện,0.3868,0.3993,52
-clip_vi2en,category,quần,0.3197,0.2898,59
-clip_vi2en,category,áo,0.2515,0.2258,76
-bienc_text,n_attrs,1,0.3560,0.3540,61
-bienc_text,n_attrs,2,0.3078,0.2762,67
-bienc_text,n_attrs,3+,0.2892,0.2496,59
-bienc_text,category,phụ kiện,0.4177,0.4195,52
-bienc_text,category,quần,0.3013,0.2970,59
-bienc_text,category,áo,0.2619,0.2038,76
-dual_encoder,n_attrs,1,0.2325,0.2675,61
-dual_encoder,n_attrs,2,0.2231,0.2987,67
-dual_encoder,n_attrs,3+,0.2940,0.3022,59
-dual_encoder,category,phụ kiện,0.2771,0.3350,52
-dual_encoder,category,quần,0.2048,0.2829,59
-dual_encoder,category,áo,0.2630,0.2638,76
-vimfr,n_attrs,1,0.4502,0.4502,61
-vimfr,n_attrs,2,0.5117,0.5127,67
-vimfr,n_attrs,3+,0.5120,0.4165,59
-vimfr,category,phụ kiện,0.5008,0.4977,52
-vimfr,category,quần,0.3844,0.4011,59
-vimfr,category,áo,0.5689,0.4847,76
+system,group_key,group_val,ndcg_10,recall_10,judged_10,n_queries
+tfidf,n_attrs,1,0.3588,0.3441,0.5357,70
+tfidf,n_attrs,2,0.4256,0.4042,0.4729,70
+tfidf,n_attrs,3+,0.3056,0.3488,0.4217,60
+tfidf,category,phụ kiện,0.4599,0.4396,0.5567,60
+tfidf,category,quần,0.3064,0.3162,0.4567,60
+tfidf,category,áo,0.3408,0.3496,0.4388,80
+bm25,n_attrs,1,0.4887,0.4482,0.5629,70
+bm25,n_attrs,2,0.5603,0.4767,0.5114,70
+bm25,n_attrs,3+,0.4038,0.4294,0.4183,60
+bm25,category,phụ kiện,0.6638,0.6039,0.6500,60
+bm25,category,quần,0.3914,0.3691,0.4450,60
+bm25,category,áo,0.4294,0.4016,0.4325,80
+clip_vi2en,n_attrs,1,0.3158,0.3320,0.5429,70
+clip_vi2en,n_attrs,2,0.2987,0.3382,0.5300,70
+clip_vi2en,n_attrs,3+,0.1750,0.2492,0.4167,60
+clip_vi2en,category,phụ kiện,0.3788,0.4529,0.6767,60
+clip_vi2en,category,quần,0.2478,0.2494,0.4550,60
+clip_vi2en,category,áo,0.1990,0.2466,0.4025,80
+bienc_text,n_attrs,1,0.3918,0.3797,0.4329,70
+bienc_text,n_attrs,2,0.3956,0.3748,0.4671,70
+bienc_text,n_attrs,3+,0.2592,0.3134,0.3917,60
+bienc_text,category,phụ kiện,0.4626,0.4708,0.5517,60
+bienc_text,category,quần,0.3126,0.3142,0.4250,60
+bienc_text,category,áo,0.3020,0.3064,0.3488,80
+fashionclip_vi2en,n_attrs,1,0.3595,0.3331,0.5200,70
+fashionclip_vi2en,n_attrs,2,0.4161,0.4336,0.5600,70
+fashionclip_vi2en,n_attrs,3+,0.2671,0.3340,0.4233,60
+fashionclip_vi2en,category,phụ kiện,0.5068,0.5285,0.6900,60
+fashionclip_vi2en,category,quần,0.3121,0.3051,0.4383,60
+fashionclip_vi2en,category,áo,0.2649,0.2962,0.4162,80
+viclip_ot,n_attrs,1,0.0796,0.0749,0.3243,70
+viclip_ot,n_attrs,2,0.0727,0.0931,0.3000,70
+viclip_ot,n_attrs,3+,0.0285,0.0399,0.2600,60
+viclip_ot,category,phụ kiện,0.1044,0.1214,0.3733,60
+viclip_ot,category,quần,0.0034,0.0098,0.2267,60
+viclip_ot,category,áo,0.0737,0.0785,0.2913,80
+dual_encoder,n_attrs,1,0.3689,0.3726,1.0000,70
+dual_encoder,n_attrs,2,0.3366,0.4234,1.0000,70
+dual_encoder,n_attrs,3+,0.1943,0.2915,1.0000,60
+dual_encoder,category,phụ kiện,0.4490,0.4764,1.0000,60
+dual_encoder,category,quần,0.2414,0.2884,1.0000,60
+dual_encoder,category,áo,0.2453,0.3416,1.0000,80
+vimfr,n_attrs,1,0.6166,0.5743,1.0000,70
+vimfr,n_attrs,2,0.4171,0.4322,1.0000,70
+vimfr,n_attrs,3+,0.3826,0.5022,1.0000,60
+vimfr,category,phụ kiện,0.5490,0.5194,1.0000,60
+vimfr,category,quần,0.4907,0.5407,1.0000,60
+vimfr,category,áo,0.4117,0.4622,1.0000,80

@@ -33,8 +33,9 @@ except ImportError:
 SPLIT_DIR = ROOT / "data/splits"
 OUT_DIR   = ROOT / "data/annotation/benchmark"
 LOG_DIR   = ROOT / "results/logs"
-EXPECTED  = {"train": 10690, "val": 1339, "test": 1339}
-SCHEMA    = ["id", "name", "category", "type", "colors", "material", "description", "text", "text_seg", "images"]
+# Split hiện tại (báo cáo xử lý dữ liệu 24/11/2026, 14.470 sản phẩm). Đổi split thì sửa ở đây.
+EXPECTED  = {"train": 11571, "val": 1450, "test": 1449}
+SCHEMA    = ["id", "name", "category", "type", "colors", "description", "text", "text_seg", "text_group", "images"]
 
 
 def load_jsonl(path):

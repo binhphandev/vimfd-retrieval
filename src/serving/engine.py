@@ -6,8 +6,8 @@ Mọi truy vấn đều so với IMAGE index (product_image.index), giống note
     Image -> Image : cos(encode_image(ảnh upload),    embedding ảnh sản phẩm)   (search_image)
 Text index (product_text.index) KHÔNG còn được API dùng.
 
-Quy tắc segment cho query chữ: underthesea.word_tokenize(query, format="text"),
-đúng như embed_texts(segment=True) trong notebook (dữ liệu train đã tách từ kiểu "Áo_Thun").
+Quy tắc xử lý query chữ: preprocess_query (clean_text + VnCoreNLP RDRSegmenter, chữ thường) trong
+src/serving/text_utils.py, đúng pipeline tạo text_seg của dữ liệu train (kiểu "áo_thun").
 
 Khi có cả chữ và ảnh: hai điểm cosine nằm ở hai thang khác nhau (T->I thấp hơn I->I nhiều),
 nên mỗi tín hiệu được chuẩn hóa z-score trên toàn gallery trước khi trộn:
@@ -29,7 +29,6 @@ import numpy as np
 import torch
 from PIL import Image
 from transformers import AutoTokenizer
-from underthesea import word_tokenize
 
 import config as cfg
 from src.models.model import ViMFRModel, load_state_dict_compat
@@ -40,10 +39,12 @@ from src.serving.catalog import (
     get_eval_transform,
     load_products,
     meta_path,
+    prepare_query_image,
     primary_image,
     resolve_image,
     strip_colors,
 )
+from src.serving.text_utils import preprocess_query
 
 log = logging.getLogger(__name__)
 
@@ -61,11 +62,6 @@ KEYWORDS = [
 def parse_query(text: str) -> list[str]:
     t = (text or "").lower()
     return [k for k in KEYWORDS if re.search(rf"(^|\s){re.escape(k)}(\s|$)", t)]
-
-
-def segment(text: str) -> str:
-    """Đúng như notebook: word_tokenize(t, format='text')."""
-    return word_tokenize(text.strip(), format="text")
 
 
 def _z(x: np.ndarray) -> np.ndarray:
@@ -104,7 +100,7 @@ class SearchEngine:
         self.model.to(self.dev).eval()
         self.tok = AutoTokenizer.from_pretrained(cfg.PHOBERT_MODEL)
         self.tf = get_eval_transform()
-        segment("áo sơ mi")  # khởi động sẵn underthesea
+        preprocess_query("áo sơ mi")  # nạp sẵn VnCoreNLP (JVM) lúc khởi động
 
         # --- index ảnh ---
         emb, ids = _load_index(cfg.FAISS_IMAGE_INDEX_FILE, cfg.FAISS_IMAGE_MAPPING_FILE)
@@ -166,14 +162,16 @@ class SearchEngine:
     # ---------- encode ----------
     @torch.inference_mode()
     def _enc_text(self, q: str) -> np.ndarray:
-        enc = self.tok(segment(q), max_length=cfg.MAX_TEXT_LENGTH, padding="max_length",
+        enc = self.tok(preprocess_query(q), max_length=cfg.MAX_TEXT_LENGTH, padding="max_length",
                        truncation=True, return_tensors="pt")
         e = self.model.encode_text(enc["input_ids"].to(self.dev), enc["attention_mask"].to(self.dev))
         return e[0].float().cpu().numpy()
 
     @torch.inference_mode()
     def _enc_image(self, img: Image.Image) -> np.ndarray:
-        x = self.tf(img.convert("RGB")).unsqueeze(0).to(self.dev)
+        # Ảnh gallery là ảnh vuông đệm trắng 224x224 -> ảnh upload phải đi qua to_square, nếu không
+        # CenterCrop sẽ cắt mất hai bên của ảnh dọc/ngang.
+        x = self.tf(prepare_query_image(img)).unsqueeze(0).to(self.dev)
         return self.model.encode_image(x)[0].float().cpu().numpy()
 
     # ---------- helpers ----------
