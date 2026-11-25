@@ -5,7 +5,7 @@ Hai bước, chạy theo thứ tự:
   python v10_kappa_merge.py kappa      # sau khi cả hai xong file overlap: κ, ma trận nhầm lẫn, disagreements.csv
   python v10_kappa_merge.py merge      # sau khi gán xong mọi file: labels_merged.csv, qrels.txt
 
-Thư mục nhãn (đặt các file .xlsx ĐÃ GÁN, giữ nguyên tên file):
+Thư mục nhãn (đặt các file .xlsx ĐÃ GÁN, giữ nguyên tên file). Thư mục = AI là người gán, không phụ thuộc tên file:
   data/annotation/benchmark/annotation/filled_user/     file của bạn: annotation_A_01a/01b, A_02..05, B_02..05
   data/annotation/benchmark/annotation/filled_helper/   file của người thứ hai: annotation_B_01a/01b
                                                         (và annotation_R_helper.xlsx nếu phải làm bước 2b)
@@ -23,6 +23,7 @@ Cách hoạt động:
 
 import argparse
 import csv
+import math
 import sys
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -115,10 +116,14 @@ def split_sets(keys):
     return ov, rs
 
 
-def report_round(name, keys, user, helper, lines):
+def report_round(name, keys, user, helper, lines, required=True):
     missing = [k for k in keys if user[k]["label"] is None or helper[k]["label"] is None]
     if missing:
-        raise SystemExit(f"{name}: còn {len(missing)} cặp chưa có nhãn của một trong hai người (ví dụ {missing[:3]}).")
+        msg = f"{name}: còn {len(missing)} cặp chưa có nhãn của một trong hai người (ví dụ {missing[:3]})."
+        if required:
+            raise SystemExit(msg)
+        lines.append(msg + " Bỏ qua vòng này cho đến khi gán xong.")
+        return None
     a = [user[k]["label"] for k in keys]
     b = [helper[k]["label"] for k in keys]
     lin, quad, agree, cm = kappa_stats(a, b)
@@ -129,6 +134,9 @@ def report_round(name, keys, user, helper, lines):
               f"  tỉ lệ đồng thuận chính xác: {agree:.3f}",
               "  ma trận nhầm lẫn (hàng = bạn, cột = người thứ hai; nhãn 0,1,2):"]
     lines += ["    " + " ".join(f"{int(v):5d}" for v in row) for row in cm]
+    if math.isnan(lin):
+        lines.append("  → κ KHÔNG XÁC ĐỊNH (một người dùng đúng một nhãn cho mọi cặp): coi như CHƯA QUA G4, xem ma trận nhầm lẫn")
+        return lin
     lines.append(f"  → {'QUA G4 (κ ≥ 0,61)' if lin >= THRESHOLD else 'CHƯA QUA G4 (κ < 0,61): làm bước 2b'}")
     return lin
 
@@ -149,7 +157,7 @@ def cmd_kappa():
     k2 = None
     if rs:
         lines.append("")
-        k2 = report_round("Vòng 2 — tập dự phòng R", rs, user, helper, lines)
+        k2 = report_round("Vòng 2 — tập dự phòng R", rs, user, helper, lines, required=False)
     only_user = len(expected_ov - set(ov))
     if only_user:
         lines.append(f"\nCẢNH BÁO: {only_user} cặp overlap có trong file của bạn nhưng chưa thấy ở file người thứ hai.")
@@ -160,7 +168,15 @@ def cmd_kappa():
     (BENCH / "kappa.txt").write_text(text + "\n", encoding="utf-8")
 
     # disagreements.csv: cả overlap và R, sắp theo |chênh lệch| giảm dần
-    dis = [k for k in ov + rs if user[k]["label"] != helper[k]["label"]]
+    old_final = {}                       # giữ final_label đã điền ở lần họp trước (chạy lại kappa KHÔNG được xóa)
+    old_path = BENCH / "disagreements.csv"
+    if old_path.exists():
+        with open(old_path, encoding="utf-8", newline="") as f:
+            for r in csv.DictReader(f):
+                if (r.get("final_label") or "").strip():
+                    old_final[(r["query_id"], r["product_id"])] = r["final_label"].strip()
+    dis = [k for k in ov + rs if user[k]["label"] is not None and helper[k]["label"] is not None
+           and user[k]["label"] != helper[k]["label"]]
     dis.sort(key=lambda k: (-abs(user[k]["label"] - helper[k]["label"]), k))
     with open(BENCH / "disagreements.csv", "w", encoding="utf-8", newline="") as f:
         w = csv.writer(f)
@@ -168,9 +184,10 @@ def cmd_kappa():
                     "query_text", "attrs_in_query", "name", "note_user", "note_helper"])
         for k in dis:
             u, h = user[k], helper[k]
-            w.writerow([k[0], k[1], u["label"], h["label"], abs(u["label"] - h["label"]), "",
+            w.writerow([k[0], k[1], u["label"], h["label"], abs(u["label"] - h["label"]), old_final.get(k, ""),
                         u["query_text"], u["attrs"], u["name"], u["note"], h["note"]])
-    print(f"\nĐã lưu: {BENCH / 'kappa.txt'}, {BENCH / 'disagreements.csv'} ({len(dis)} dòng bất đồng)")
+    print(f"\nĐã lưu: {BENCH / 'kappa.txt'}, {BENCH / 'disagreements.csv'} ({len(dis)} dòng bất đồng"
+          + (f"; giữ lại {sum(1 for k in dis if k in old_final)} final_label đã điền" if old_final else "") + ")")
     print("Họp: duyệt dòng bất đồng lớn nhất trước, điền cột final_label. Để trống = lấy nhãn thấp hơn.")
     with open(LOG_DIR / "log_B.md", "a", encoding="utf-8") as f:
         LOG_DIR.mkdir(parents=True, exist_ok=True)
@@ -193,10 +210,12 @@ def cmd_merge():
 
     both = set(user) & set(helper)
     rows, missing = [], []
-    for key in sorted(user, key=lambda k: (qnum(k[0]), k[1])):
-        u = user[key]
-        h = helper.get(key)
-        lu, lh = u["label"], (h["label"] if h else None)
+    # Duyệt HỢP của hai thư mục: cặp chỉ có ở một người (người kia không gán) lấy nhãn người đó.
+    # (Bản cũ chỉ duyệt user nên NHÃN CỦA NGƯỜI THỨ HAI NGOÀI OVERLAP BỊ BỎ.)
+    for key in sorted(set(user) | set(helper), key=lambda k: (qnum(k[0]), k[1])):
+        u, h = user.get(key), helper.get(key)
+        lu = u["label"] if u else None
+        lh = h["label"] if h else None
         if key in both:
             if lu is None or lh is None:
                 missing.append(key)
@@ -204,19 +223,20 @@ def cmd_merge():
             final = lu if lu == lh else resolved.get(key, min(lu, lh))
             src = "double" if lu == lh else ("họp" if key in resolved else "thấp hơn")
         else:
-            if lu is None:
+            only = lu if u else lh
+            if only is None:
                 missing.append(key)
                 continue
-            final, src = lu, "single"
-        rows.append({"query_id": key[0], "product_id": key[1], "label_user": lu, "label_helper": lh if lh is not None else "",
-                     "final_label": final, "source": src, "note_user": u["note"],
-                     "note_helper": h["note"] if h else ""})
-    # file của người thứ hai không có trong file của bạn (ví dụ B_01) vẫn phải có trong file của bạn: A_01 tương ứng
+            final, src = only, ("single_user" if u else "single_helper")
+        rows.append({"query_id": key[0], "product_id": key[1],
+                     "label_user": lu if lu is not None else "", "label_helper": lh if lh is not None else "",
+                     "final_label": final, "source": src,
+                     "note_user": u["note"] if u else "", "note_helper": h["note"] if h else ""})
     only_helper = set(helper) - set(user)
+    if only_helper:
+        print(f"  Có {len(only_helper)} cặp chỉ do người thứ hai gán (không có ở filled_user): dùng nhãn của người đó.")
     for p in problems:
         print("  [CẢNH BÁO]", p)
-    if only_helper:
-        print(f"  [CẢNH BÁO] {len(only_helper)} cặp chỉ có ở file người thứ hai (không có ở file của bạn): kiểm tra overlap.")
     # so với pool: mọi cặp trong pool phải có nhãn
     if POOL_SOURCES.exists():
         pool = {(r["query_id"], r["product_id"]) for r in csv.DictReader(open(POOL_SOURCES, encoding="utf-8", newline=""))}
@@ -225,7 +245,16 @@ def cmd_merge():
         if no_label:
             missing += sorted(no_label - set(missing))
     if missing:
+        by_file = Counter()
+        for k in set(missing):
+            for d in (user, helper):
+                if k in d and d[k]["label"] is None:
+                    by_file[d[k]["file"]] += 1
         print(f"\nCHƯA ĐỦ NHÃN: còn {len(set(missing))} cặp chưa có nhãn hợp lệ, ví dụ {sorted(set(missing))[:5]}")
+        if by_file:
+            print("  Chưa gán theo file: " + ", ".join(f"{n}: {c}" for n, c in sorted(by_file.items())))
+        if POOL_SOURCES.exists():
+            print("  (cặp có trong pool nhưng không có trong bất kỳ file nào cũng được tính là thiếu)")
         print("Gán nốt rồi chạy lại. Chưa ghi labels_merged.csv / qrels.txt.")
         sys.exit(1)
 

@@ -1,10 +1,22 @@
 {
-  "checkpoint": "checkpoints\\best_18112026.pt",
-  "fingerprint": "870967d596f8dbd6e138df5ca13443cf",
+  "checkpoint": "C:\\Users\\DELL\\Downloads\\vimfd-retrieval\\checkpoints\\best_short_24112026.pt",
+  "fingerprint": "c9142e241cf3c72e3bc09310fa1bafd0",
   "split_dir": "C:\\Users\\DELL\\Downloads\\vimfd-retrieval\\data\\splits",
   "image_dir": "C:\\Users\\DELL\\Downloads\\vimfd-retrieval\\data\\processed\\images",
-  "n_products": 13368,
-  "n_indexed": 13368,
+  "n_products": 14470,
+  "n_indexed": 14470,
+  "image_size": 224,
+  "image_mean": [
+    0.48145466,
+    0.4578275,
+    0.40821073
+  ],
+  "image_std": [
+    0.26862954,
+    0.26130258,
+    0.27577711
+  ],
+  "text_field": "text_seg",
   "transform": "Compose(\n    Resize(size=224, interpolation=bicubic, max_size=None, antialias=True)\n    CenterCrop(size=(224, 224))\n    ToTensor()\n    Normalize(mean=(0.48145466, 0.4578275, 0.40821073), std=(0.26862954, 0.26130258, 0.27577711))\n)",
-  "built_at": "2026-11-19 17:23:00"
+  "built_at": "2026-11-25 11:46:02"
 }

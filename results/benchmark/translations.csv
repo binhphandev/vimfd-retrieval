@@ -1,0 +1,201 @@
+query_id,query_vi,query_en,model,num_beams,transformers
+Q001,quần boxer vải poly màu xanh navy,Navy blue poly canvas boxer pants,vinai/vinai-translate-vi2en,4,4.57.6
+Q002,quần kaki ôm sát màu nâu,Brown tight khaki pants,vinai/vinai-translate-vi2en,4,4.57.6
+Q003,thắt lưng da nam,men's leather belt,vinai/vinai-translate-vi2en,4,4.57.6
+Q004,áo phông dáng rộng màu xám phong cách thể thao,sporty style grey wide t-shirt,vinai/vinai-translate-vi2en,4,4.57.6
+Q005,áo khoác nam màu đen,black men's jacket,vinai/vinai-translate-vi2en,4,4.57.6
+Q006,ví da thật phong cách tối giản,Real leather wallet minimalist style,vinai/vinai-translate-vi2en,4,4.57.6
+Q007,áo thun form vừa chất nylon phong cách basic,T-shirt Form Medium Nylon Style Basic,vinai/vinai-translate-vi2en,4,4.57.6
+Q008,áo phông phong cách retro,retro style t-shirts,vinai/vinai-translate-vi2en,4,4.57.6
+Q009,áo phông dáng rộng màu xanh lá phong cách thường ngày,"Green, loose - fitting, casual t - shirt.",vinai/vinai-translate-vi2en,4,4.57.6
+Q010,quần khaki dáng slim,slim khaki pants,vinai/vinai-translate-vi2en,4,4.57.6
+Q011,áo sơ mi vải bông,Shirt Cotton Fabric,vinai/vinai-translate-vi2en,4,4.57.6
+Q012,áo hoodie form rộng cotton phong cách năng động,hoodie form wide cotton dynamic style,vinai/vinai-translate-vi2en,4,4.57.6
+Q013,túi đeo chéo da bò màu đen,black cowhide crossbody bag,vinai/vinai-translate-vi2en,4,4.57.6
+Q014,kính râm nhựa màu đen,black plastic sunglasses,vinai/vinai-translate-vi2en,4,4.57.6
+Q015,áo polo vải bông,cotton polo shirt fabric,vinai/vinai-translate-vi2en,4,4.57.6
+Q016,quần jogger kaki phong cách năng động,khaki jogger pants dynamic style,vinai/vinai-translate-vi2en,4,4.57.6
+Q017,quần short nam màu đen phong cách năng động,black men shorts dynamic style,vinai/vinai-translate-vi2en,4,4.57.6
+Q018,balo laptop màu đen,black laptop backpack,vinai/vinai-translate-vi2en,4,4.57.6
+Q019,quần short vải bông,cotton fabric shorts,vinai/vinai-translate-vi2en,4,4.57.6
+Q020,áo khoác màu xám phong cách giản dị,Casual style grey jacket,vinai/vinai-translate-vi2en,4,4.57.6
+Q021,áo thun form vừa màu trắng,White Medium Form T-shirt,vinai/vinai-translate-vi2en,4,4.57.6
+Q022,quần short vải bông dáng chuẩn màu nâu,brown standard size cotton shorts,vinai/vinai-translate-vi2en,4,4.57.6
+Q023,áo khoác len phong cách basic,basic style sweater jacket,vinai/vinai-translate-vi2en,4,4.57.6
+Q024,ví da pu,pu leather wallet,vinai/vinai-translate-vi2en,4,4.57.6
+Q025,quần short tập gym dáng suông,slim gym shorts,vinai/vinai-translate-vi2en,4,4.57.6
+Q026,quần jean màu xanh dương ôm sát,Blue tight jeans,vinai/vinai-translate-vi2en,4,4.57.6
+Q027,quần dài chất kaki,Khaki pants.,vinai/vinai-translate-vi2en,4,4.57.6
+Q028,quần thể thao dáng dài form suông màu xanh navy,Navy blue long - sleeved form - fitting sports pants,vinai/vinai-translate-vi2en,4,4.57.6
+Q029,túi xách da bò đeo chéo,crossbody cowhide handbags,vinai/vinai-translate-vi2en,4,4.57.6
+Q030,áo khoác vải nylon màu đen,black nylon fabric jacket,vinai/vinai-translate-vi2en,4,4.57.6
+Q031,áo khoác nhẹ dáng rộng màu xanh rêu mặc thường ngày,"A lightweight, loose - fitting, moss - green jacket for everyday wear.",vinai/vinai-translate-vi2en,4,4.57.6
+Q032,quần jean ôm dáng màu đen,Black hugging jeans,vinai/vinai-translate-vi2en,4,4.57.6
+Q033,ví ngắn da pu màu đen,black pu leather short wallet,vinai/vinai-translate-vi2en,4,4.57.6
+Q034,ba lô vải bố màu đen,black canvas dad backpack,vinai/vinai-translate-vi2en,4,4.57.6
+Q035,áo khoác vải bò,cow fabric jacket,vinai/vinai-translate-vi2en,4,4.57.6
+Q036,quần boxer chất poly màu đỏ,red poly material boxer pants,vinai/vinai-translate-vi2en,4,4.57.6
+Q037,cà vạt phong cách tối giản,Minimalist style tie,vinai/vinai-translate-vi2en,4,4.57.6
+Q038,dép quai ngang da bò màu đen,Black cowhide flip - flops,vinai/vinai-translate-vi2en,4,4.57.6
+Q039,cà vạt màu xanh navy,Navy blue tie.,vinai/vinai-translate-vi2en,4,4.57.6
+Q040,áo khoác gió vải dù form rộng màu xanh rêu,"Wind jacket, umbrella fabric, wide form, moss green.",vinai/vinai-translate-vi2en,4,4.57.6
+Q041,áo bomber vải dù dáng rộng,"Bomber jacket, wide - waisted canvas parachute.",vinai/vinai-translate-vi2en,4,4.57.6
+Q042,quần jean cargo màu trắng ống rộng kiểu cổ điển,classic style wide tube white cargo jeans,vinai/vinai-translate-vi2en,4,4.57.6
+Q043,áo thun vải poly dáng rộng,poly t-shirt fabric wide shape,vinai/vinai-translate-vi2en,4,4.57.6
+Q044,áo bomber da dáng rộng,Wide leather bomber jacket,vinai/vinai-translate-vi2en,4,4.57.6
+Q045,quần short bò ôm sát màu trắng,white tight jeans,vinai/vinai-translate-vi2en,4,4.57.6
+Q046,áo sơ mi ôm sát,T - shirts that fit.,vinai/vinai-translate-vi2en,4,4.57.6
+Q047,ba lô nylon màu đen,black nylon backpack,vinai/vinai-translate-vi2en,4,4.57.6
+Q048,túi đeo chéo màu đen dùng hàng ngày,black crossbody bag for daily use,vinai/vinai-translate-vi2en,4,4.57.6
+Q049,áo sơ mi nhung tăm dáng rộng màu nâu,Broad brown corduroy shirt.,vinai/vinai-translate-vi2en,4,4.57.6
+Q050,áo sơ mi vải lanh màu trắng,white linen shirt fabric,vinai/vinai-translate-vi2en,4,4.57.6
+Q051,túi đeo chéo vải dù,umbrella fabric crossbody bag,vinai/vinai-translate-vi2en,4,4.57.6
+Q052,quần short chất denim màu xám,grey denim quality shorts,vinai/vinai-translate-vi2en,4,4.57.6
+Q053,áo phông vải bông form vừa phong cách năng động,Medium Form Cotton T-shirt Dynamic Style,vinai/vinai-translate-vi2en,4,4.57.6
+Q054,dép lê da bò phong cách tối giản,Minimalist style cowhide slippers,vinai/vinai-translate-vi2en,4,4.57.6
+Q055,áo khoác dáng rộng màu xám chất poly,"Grey, poly, wide jacket.",vinai/vinai-translate-vi2en,4,4.57.6
+Q056,áo polo ôm dáng màu đỏ,Red hugging polo shirt,vinai/vinai-translate-vi2en,4,4.57.6
+Q057,ví da thật màu nâu,Brown Real Leather Wallet,vinai/vinai-translate-vi2en,4,4.57.6
+Q058,áo polo form vừa,Medium Form Polo Shirt,vinai/vinai-translate-vi2en,4,4.57.6
+Q059,quần short bò dáng chuẩn màu đen,standard black jeans shorts,vinai/vinai-translate-vi2en,4,4.57.6
+Q060,ba lô da thật màu đen,Black genuine leather backpack,vinai/vinai-translate-vi2en,4,4.57.6
+Q061,quần dài dáng thẳng phong cách thể thao màu đen,"Straight - legged pants, black athletic style",vinai/vinai-translate-vi2en,4,4.57.6
+Q062,áo sơ mi vải bông form vừa phong cách thường ngày,Cotton shirt form medium casual style,vinai/vinai-translate-vi2en,4,4.57.6
+Q063,áo thun vải bông ôm dáng kiểu basic,T - shirts made of basic cotton.,vinai/vinai-translate-vi2en,4,4.57.6
+Q064,áo khoác màu xanh dương,Blue jacket.,vinai/vinai-translate-vi2en,4,4.57.6
+Q065,quần short màu xanh than,charcoal blue shorts,vinai/vinai-translate-vi2en,4,4.57.6
+Q066,quần âu vải poly dáng vừa kiểu basic,Medium - sized poly pants (Basic style),vinai/vinai-translate-vi2en,4,4.57.6
+Q067,quần boxer vải bông,cotton boxer pants,vinai/vinai-translate-vi2en,4,4.57.6
+Q068,quần sịp tam giác ôm sát màu đen,black close - fitting triangle briefs,vinai/vinai-translate-vi2en,4,4.57.6
+Q069,nón len màu đen,black woolen hat,vinai/vinai-translate-vi2en,4,4.57.6
+Q070,quần boxer nylon ôm sát màu đen,black tight nylon boxer pants,vinai/vinai-translate-vi2en,4,4.57.6
+Q071,áo khoác bò dáng chuẩn phong cách casual,Cow jacket standard shape casual style,vinai/vinai-translate-vi2en,4,4.57.6
+Q072,dép sandal da bò,cow leather sandals,vinai/vinai-translate-vi2en,4,4.57.6
+Q073,giày chạy bộ màu đen vải lưới,black running shoes mesh fabric,vinai/vinai-translate-vi2en,4,4.57.6
+Q074,balo laptop kiểu thể thao,sports laptop backpack,vinai/vinai-translate-vi2en,4,4.57.6
+Q075,túi đeo chéo da bò kiểu tối giản,Minimalist cowhide crossbody bag,vinai/vinai-translate-vi2en,4,4.57.6
+Q076,ví da cầm tay màu đen,black leather hand purse,vinai/vinai-translate-vi2en,4,4.57.6
+Q077,quần jeans cargo ống rộng kiểu retro màu đen,black retro style wide tube cargo jeans,vinai/vinai-translate-vi2en,4,4.57.6
+Q078,áo polo màu cam,Orange Polo Shirts,vinai/vinai-translate-vi2en,4,4.57.6
+Q079,quần dài màu trắng,white long pants,vinai/vinai-translate-vi2en,4,4.57.6
+Q080,quần kaki màu be,beige khaki pants,vinai/vinai-translate-vi2en,4,4.57.6
+Q081,ba lô kiểu tối giản màu đen,black minimalist style backpack,vinai/vinai-translate-vi2en,4,4.57.6
+Q082,quần dài công sở vải poly màu xám,grey poly fabric work pants,vinai/vinai-translate-vi2en,4,4.57.6
+Q083,quần jean ôm sát màu xanh đậm chất denim,Denim - colored dark blue tight jeans,vinai/vinai-translate-vi2en,4,4.57.6
+Q084,dép kẹp da bò thật,Real buff flip - flops.,vinai/vinai-translate-vi2en,4,4.57.6
+Q085,túi đeo chéo nylon,Nylon Crossbody Bag,vinai/vinai-translate-vi2en,4,4.57.6
+Q086,áo thun ba lỗ vải bông form vừa màu đen,three hole black medium form cotton t-shirt,vinai/vinai-translate-vi2en,4,4.57.6
+Q087,nón lưỡi trai xanh đen phong cách thể thao,sports style blue black baseball cap,vinai/vinai-translate-vi2en,4,4.57.6
+Q088,áo khoác kiểu công sở,Business style jackets,vinai/vinai-translate-vi2en,4,4.57.6
+Q089,áo khoác nhẹ dáng rộng kiểu cổ điển màu be,"Lightweight, broad jacket, classic beige.",vinai/vinai-translate-vi2en,4,4.57.6
+Q090,áo sát nách màu xanh than,A charcoal - blue tank top.,vinai/vinai-translate-vi2en,4,4.57.6
+Q091,túi đeo chéo da pu,pu leather crossbody bag,vinai/vinai-translate-vi2en,4,4.57.6
+Q092,áo sơ mi henley kiểu retro dáng rộng màu nâu,"Retro henley shirt, wide, brown.",vinai/vinai-translate-vi2en,4,4.57.6
+Q093,áo khoác vải poly dáng chuẩn phong cách thể thao,poly fabric jacket standard sports style,vinai/vinai-translate-vi2en,4,4.57.6
+Q094,quần dài nỉ dáng rộng kiểu retro,"Retro, loose - fitting felt pants.",vinai/vinai-translate-vi2en,4,4.57.6
+Q095,áo len sợi acrylic màu đen,black acrylic fiber sweater,vinai/vinai-translate-vi2en,4,4.57.6
+Q096,áo hoodie dáng rộng màu be,Wide - waisted beige hoodie,vinai/vinai-translate-vi2en,4,4.57.6
+Q097,giày công sở màu đen,black work shoes,vinai/vinai-translate-vi2en,4,4.57.6
+Q098,áo thun ba lỗ dáng chuẩn màu nâu phong cách đường phố,Standard three-hole t-shirt brown street style,vinai/vinai-translate-vi2en,4,4.57.6
+Q099,áo polo vải poly dáng rộng màu xanh dương,Polo shirt poly blue wide-fitting fabric,vinai/vinai-translate-vi2en,4,4.57.6
+Q100,quần dài màu đen,black long pants,vinai/vinai-translate-vi2en,4,4.57.6
+Q101,áo khoác gió dáng rộng chất vải dù,"Wide - waisted windbreaker, umbrella fabric.",vinai/vinai-translate-vi2en,4,4.57.6
+Q102,áo sơ mi vải sợi tre,Shirt Bamboo Fiber Fabric,vinai/vinai-translate-vi2en,4,4.57.6
+Q103,áo thun vải bông màu đỏ,red cotton canvas t-shirt,vinai/vinai-translate-vi2en,4,4.57.6
+Q104,áo sơ mi dài tay form vừa màu xanh navy,Long sleeve form medium blue navy shirt,vinai/vinai-translate-vi2en,4,4.57.6
+Q105,áo sơ mi chất poly spandex ôm sát màu trắng kiểu basic,"White, basic poly spandex tight - fitting shirt",vinai/vinai-translate-vi2en,4,4.57.6
+Q106,áo thun cotton dáng rộng màu đen phong cách đường phố,black cotton wide-fitting t-shirt street style,vinai/vinai-translate-vi2en,4,4.57.6
+Q107,ví da thật kiểu ngang màu nâu,Brown horizontal - style genuine leather wallet,vinai/vinai-translate-vi2en,4,4.57.6
+Q108,áo khoác bomber màu đen,Black Bomber Jacket,vinai/vinai-translate-vi2en,4,4.57.6
+Q109,túi đeo chéo da PU màu đen dáng cổ điển,black pu leather crossbody bag classic design,vinai/vinai-translate-vi2en,4,4.57.6
+Q110,ví nam màu nâu,brown men's wallet,vinai/vinai-translate-vi2en,4,4.57.6
+Q111,quần jean bò ôm sát màu đen phong cách đường phố,black tight jeans street style,vinai/vinai-translate-vi2en,4,4.57.6
+Q112,áo sơ mi dáng classic nhanh khô màu xanh navy,classic quick-drying blue navy shirt,vinai/vinai-translate-vi2en,4,4.57.6
+Q113,quần kaki dáng suông chất cotton phong cách thường ngày,"Khaki pants are cotton, casual style.",vinai/vinai-translate-vi2en,4,4.57.6
+Q114,quần short chất cotton màu be,beige cotton shorts,vinai/vinai-translate-vi2en,4,4.57.6
+Q115,giày da bò nam,cow leather men's shoes,vinai/vinai-translate-vi2en,4,4.57.6
+Q116,áo sơ mi chất cotton poly ôm dáng màu xanh dương,Poly cotton shirt with a blue silhouette,vinai/vinai-translate-vi2en,4,4.57.6
+Q117,áo khoác gió màu đen,black wind jacket,vinai/vinai-translate-vi2en,4,4.57.6
+Q118,quần jean bò ôm sát màu đen phong cách cổ điển,classic style black tight jeans,vinai/vinai-translate-vi2en,4,4.57.6
+Q119,áo khoác dáng suông màu be,- A beige jacket.,vinai/vinai-translate-vi2en,4,4.57.6
+Q120,áo bomber nỉ dáng rộng màu đen phong cách đường phố,"Sweatshirt bomber, black, street style.",vinai/vinai-translate-vi2en,4,4.57.6
+Q121,áo thun form boxy màu xanh đen,Black and blue boxy form T-shirt,vinai/vinai-translate-vi2en,4,4.57.6
+Q122,giày loafer màu đen phong cách tối giản,black loafer shoes minimalist style,vinai/vinai-translate-vi2en,4,4.57.6
+Q123,túi đeo chéo chất polyester,polyester crossbody bag,vinai/vinai-translate-vi2en,4,4.57.6
+Q124,áo khoác gió có mũ màu xanh navy,Windbreaker with a blue Navy cap.,vinai/vinai-translate-vi2en,4,4.57.6
+Q125,áo thun ba lỗ gym chất bông màu đen,black cotton quality gym three hole t-shirt,vinai/vinai-translate-vi2en,4,4.57.6
+Q126,quần dài chất nỉ,Felt pants,vinai/vinai-translate-vi2en,4,4.57.6
+Q127,áo thun tay raglan màu navy phong cách đời thường,raglan sleeve t-shirt navy color casual style,vinai/vinai-translate-vi2en,4,4.57.6
+Q128,túi đeo bụng màu đen phong cách thể thao,black belly bag sports style,vinai/vinai-translate-vi2en,4,4.57.6
+Q129,áo sơ mi dáng suông,Shirt Shape,vinai/vinai-translate-vi2en,4,4.57.6
+Q130,quần dài nam dáng suông,"Men's long, straight pants.",vinai/vinai-translate-vi2en,4,4.57.6
+Q131,kính mắt thời trang màu đen,black fashion eyeglasses,vinai/vinai-translate-vi2en,4,4.57.6
+Q132,quần boxer ôm sát màu đen,Black tight boxer shorts,vinai/vinai-translate-vi2en,4,4.57.6
+Q133,quần bò nam phong cách trẻ trung,young style men's jeans,vinai/vinai-translate-vi2en,4,4.57.6
+Q134,áo thun henley ôm sát màu trắng phong cách smart casual,"White slim henley t-shirt, smart casual style",vinai/vinai-translate-vi2en,4,4.57.6
+Q135,áo khoác gió dáng rộng có mũ màu xanh dương,A wide - waisted windbreaker with a blue hat.,vinai/vinai-translate-vi2en,4,4.57.6
+Q136,giày sneaker da PU màu đen,black pu leather sneaker shoes,vinai/vinai-translate-vi2en,4,4.57.6
+Q137,quần jean ống rộng chất denim màu xanh,wide tube jeans blue denim,vinai/vinai-translate-vi2en,4,4.57.6
+Q138,quần lót tam giác màu navy,Navy Triangle Panties,vinai/vinai-translate-vi2en,4,4.57.6
+Q139,quần short bò phong cách cổ điển,classic style jeans,vinai/vinai-translate-vi2en,4,4.57.6
+Q140,quần short jean form vừa màu xanh nhạt,Medium - sized light blue jeans,vinai/vinai-translate-vi2en,4,4.57.6
+Q141,quần âu dáng thẳng màu be phong cách tối giản,"Straight - legged pants, beige, minimalist style.",vinai/vinai-translate-vi2en,4,4.57.6
+Q142,áo polo chất tơ tằm,Silk Polo Shirts,vinai/vinai-translate-vi2en,4,4.57.6
+Q143,quần đùi màu đen,black shorts,vinai/vinai-translate-vi2en,4,4.57.6
+Q144,giày da mũi nhọn màu đen phong cách công sở,black leather pointed toe shoes office style,vinai/vinai-translate-vi2en,4,4.57.6
+Q145,quần lót ôm sát kiểu tam giác màu trắng,White triangular tights.,vinai/vinai-translate-vi2en,4,4.57.6
+Q146,quần kaki dáng rộng màu đen,Wide black khaki pants,vinai/vinai-translate-vi2en,4,4.57.6
+Q147,quần short vải bông màu kem,cream cotton canvas shorts,vinai/vinai-translate-vi2en,4,4.57.6
+Q148,giày công sở màu nâu,brown work shoes,vinai/vinai-translate-vi2en,4,4.57.6
+Q149,áo thun vải cotton sorona form vừa màu xanh navy,cotton sorona form medium navy blue t-shirt,vinai/vinai-translate-vi2en,4,4.57.6
+Q150,áo ba lỗ gym chất bông màu trắng,white cotton gym three hole shirt,vinai/vinai-translate-vi2en,4,4.57.6
+Q151,áo thun henley chất cotton màu đen,henley black cotton t-shirt,vinai/vinai-translate-vi2en,4,4.57.6
+Q152,túi đeo bụng màu xám phong cách thể thao,sport style grey belly bag,vinai/vinai-translate-vi2en,4,4.57.6
+Q153,áo khoác gió 2 lớp dáng rộng màu xám,"Two - layer windbreaker, wide, grey.",vinai/vinai-translate-vi2en,4,4.57.6
+Q154,túi đeo chéo màu nâu,brown crossbody bag,vinai/vinai-translate-vi2en,4,4.57.6
+Q155,áo polo cotton màu trắng phong cách công sở,white cotton polo shirt office style,vinai/vinai-translate-vi2en,4,4.57.6
+Q156,thắt lưng da bò thật màu đen,Real black cowhide belt.,vinai/vinai-translate-vi2en,4,4.57.6
+Q157,cà vạt vải polyester,polyester fabric tie,vinai/vinai-translate-vi2en,4,4.57.6
+Q158,áo bomber nỉ dáng rộng màu đỏ phong cách retro,"Sweatshirt bomber, wide, red, retro style.",vinai/vinai-translate-vi2en,4,4.57.6
+Q159,túi đeo hông da PU màu đen,black pu leather hip bag,vinai/vinai-translate-vi2en,4,4.57.6
+Q160,áo khoác gió màu đen phong cách thể thao,sports style black windbreaker jacket,vinai/vinai-translate-vi2en,4,4.57.6
+Q161,áo ba lỗ dáng chuẩn màu xám phong cách thể thao,Standard three-hole shirt grey sports style,vinai/vinai-translate-vi2en,4,4.57.6
+Q162,giày lười da nam,lazy men's leather shoes,vinai/vinai-translate-vi2en,4,4.57.6
+Q163,quần dài sọc dọc dáng ôm màu trắng phong cách công sở,"Vertical striped pants, hugging, white, business style.",vinai/vinai-translate-vi2en,4,4.57.6
+Q164,quần short bò ống rộng màu xanh phong cách đường phố,wide tube jeans blue street style,vinai/vinai-translate-vi2en,4,4.57.6
+Q165,áo thun dáng rộng màu đen,Wide black T-shirt,vinai/vinai-translate-vi2en,4,4.57.6
+Q166,balo tối giản màu đen,black minimalist backpack,vinai/vinai-translate-vi2en,4,4.57.6
+Q167,quần jean vải denim màu xám,jeans grey denim fabric,vinai/vinai-translate-vi2en,4,4.57.6
+Q168,áo bomber dù dáng rộng màu trắng phong cách đường phố,"White, wide - bodied, street - style bomber shirt.",vinai/vinai-translate-vi2en,4,4.57.6
+Q169,túi đeo chéo màu đen,black crossbody bag,vinai/vinai-translate-vi2en,4,4.57.6
+Q170,thắt lưng màu đen,black belt,vinai/vinai-translate-vi2en,4,4.57.6
+Q171,quần boxer chất polyamide dáng chuẩn màu navy phong cách thể thao,"Polyamide boxer shorts, navy color, sporty style.",vinai/vinai-translate-vi2en,4,4.57.6
+Q172,dây nịt đàn hồi màu đen,black elastic harness,vinai/vinai-translate-vi2en,4,4.57.6
+Q173,quần sịp tam giác ôm sát màu nâu phong cách tối giản,Tight - fitting brown triangle briefs Minimalist style,vinai/vinai-translate-vi2en,4,4.57.6
+Q174,quần jean dáng thẳng màu xanh đậm,Dark blue straight jeans,vinai/vinai-translate-vi2en,4,4.57.6
+Q175,áo khoác da lộn dáng rộng màu xám phong cách đường phố,wide-fitting suede jacket grey street style,vinai/vinai-translate-vi2en,4,4.57.6
+Q176,áo thun tay dài chất poly dáng rộng phong cách đời thường,"Long sleeve poly shirt, wide shape, casual style.",vinai/vinai-translate-vi2en,4,4.57.6
+Q177,áo bomber nỉ dáng rộng màu đen phong cách retro,"Sweatshirt bomber, black, retro style.",vinai/vinai-translate-vi2en,4,4.57.6
+Q178,quần short chất cotton form vừa màu navy phong cách thể thao,shorts quality cotton form medium color navy style sportswear,vinai/vinai-translate-vi2en,4,4.57.6
+Q179,ví nam da thật màu đen,black genuine leather men wallet,vinai/vinai-translate-vi2en,4,4.57.6
+Q180,quần jogger dáng chuẩn,Good - shaped joggers.,vinai/vinai-translate-vi2en,4,4.57.6
+Q181,áo khoác hoodie dáng rộng,Wide - waisted hoodie jacket,vinai/vinai-translate-vi2en,4,4.57.6
+Q182,quần short dáng suông,Shorts in shorts.,vinai/vinai-translate-vi2en,4,4.57.6
+Q183,ví dài da PU,pu leather long wallet,vinai/vinai-translate-vi2en,4,4.57.6
+Q184,áo sơ mi chất đũi,Shirt Chopsticks,vinai/vinai-translate-vi2en,4,4.57.6
+Q185,túi đeo chéo màu nâu phong cách casual,casual style brown crossbody bag,vinai/vinai-translate-vi2en,4,4.57.6
+Q186,áo vest chất len,Wool vest.,vinai/vinai-translate-vi2en,4,4.57.6
+Q187,áo thun cotton sorona form vừa màu trắng,cotton sorona form medium white t-shirt,vinai/vinai-translate-vi2en,4,4.57.6
+Q188,quần kaki ôm sát,tight khaki pants,vinai/vinai-translate-vi2en,4,4.57.6
+Q189,giày sneaker màu đen phong cách thể thao,sport style black sneakers,vinai/vinai-translate-vi2en,4,4.57.6
+Q190,quần lót tam giác ôm sát,close-fitting triangle panties,vinai/vinai-translate-vi2en,4,4.57.6
+Q191,dép sandal nam màu đen phong cách giản dị,casual style black men's sandals,vinai/vinai-translate-vi2en,4,4.57.6
+Q192,áo thun tay dài vải poly dáng rộng màu xanh navy,Long sleeve t-shirt poly fabric wide shape navy blue,vinai/vinai-translate-vi2en,4,4.57.6
+Q193,kính đọc sách gọng nhựa,plastic frame reading glasses,vinai/vinai-translate-vi2en,4,4.57.6
+Q194,túi tote vải canvas,canvas tote bag,vinai/vinai-translate-vi2en,4,4.57.6
+Q195,quần jean ống thẳng màu xanh đậm,dark blue straight tube jeans,vinai/vinai-translate-vi2en,4,4.57.6
+Q196,giày sneaker màu trắng phong cách retro,retro style white sneakers,vinai/vinai-translate-vi2en,4,4.57.6
+Q197,quần short bò dáng rộng màu đen phong cách tối giản,black wide-fitting jeans minimalist style,vinai/vinai-translate-vi2en,4,4.57.6
+Q198,cà vạt phong cách công sở,office style tie,vinai/vinai-translate-vi2en,4,4.57.6
+Q199,áo sơ mi chất cotton tay ngắn màu trắng,white short-sleeved cotton material shirt,vinai/vinai-translate-vi2en,4,4.57.6
+Q200,áo tanktop chất polyester dáng chuẩn màu đen,Standard polyester tanktop in black,vinai/vinai-translate-vi2en,4,4.57.6

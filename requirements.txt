@@ -1,7 +1,7 @@
 Pillow
 scikit-learn
 tqdm
-underthesea
+py_vncorenlp
 pyvi
 Callable
 torch
@@ -12,4 +12,6 @@ faiss-cpu
 fastapi
 uvicorn
 python-multipart
+openpyxl
+pandas
 openpyxl

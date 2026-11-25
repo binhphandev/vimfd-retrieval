@@ -146,3 +146,4 @@ Thumbs.db
 
 
 checkpoints/cross_encoder_best/model.safetensors
+checkpoints/cross_encoder_best_smoke/model.safetensors

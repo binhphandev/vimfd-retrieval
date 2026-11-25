@@ -1,14 +1,20 @@
 """
 Pipeline:
-    1. Load checkpoint 
-    2. Encode toàn bộ text sản phẩm → 256D embeddings
-    3. Build FAISS IndexFlatIP
-    4. Lưu index + id_mapping.json
+    1. Load checkpoint
+    2. Encode ảnh đại diện của toàn bộ sản phẩm → 256D embeddings (đúng transform eval lúc train)
+    3. Build FAISS IndexFlatIP (image index, là index duy nhất API dùng)
+    4. Lưu index + id_mapping_image.json + product_image.meta.json (dấu vân tay checkpoint)
+    5. (tuỳ chọn, --with-text) build thêm text index: API không dùng, chỉ để thí nghiệm
 
-Cách dùng:
-    python build_index.py
-    python build_index.py --checkpoint checkpoints/best.pt
-    python build_index.py --batch-size 128
+Cách dùng (từ thư mục gốc dự án):
+    python -m src.indexing.build_index
+    python -m src.indexing.build_index --checkpoint checkpoints/best_24112026.pt
+    python -m src.indexing.build_index --batch-size 128 --with-text
+
+Lưu ý:
+  - Dữ liệu lấy từ config.SPLIT_DIR (mặc định data/splits). Index PHẢI build lại sau khi
+    đổi split, đổi checkpoint hoặc đổi transform: engine từ chối chạy nếu fingerprint/ID lệch.
+  - Chỉ ảnh đại diện của mỗi sản phẩm được index.
 """
 
 import sys
@@ -30,18 +36,17 @@ from tqdm import tqdm
 
 from config import (
     CHECKPOINT_BEST,
+    CKPT_EPOCH_KEY,
     CKPT_MODEL_KEY,
+    CKPT_VAL_LOSS_KEY,
     EMBED_DIM,
     FAISS_IMAGE_INDEX_FILE,
     FAISS_IMAGE_MAPPING_FILE,
     FAISS_INDEX_FILE,
     FAISS_MAPPING_FILE,
-    IMAGE_LIST_FIELD,
-    IMAGE_MEAN,
     IMAGE_DIR,
+    IMAGE_MEAN,
     IMAGE_PATH_FIELD,
-    IMAGE_POSITION_FIELD,
-    IMAGE_PRIMARY_FIELD,
     IMAGE_SIZE,
     IMAGE_STD,
     MAX_TEXT_LENGTH,
@@ -49,8 +54,6 @@ from config import (
     PHOBERT_MODEL,
     PRODUCT_ID_FIELD,
     SPLIT_DIR,
-    CKPT_EPOCH_KEY,
-    CKPT_VAL_LOSS_KEY,
 )
 # Quy tắc dữ liệu/ảnh dùng CHUNG với API (src/serving/engine.py) và khớp train_colab.ipynb
 from src.serving.catalog import (
@@ -75,7 +78,8 @@ def _select_primary_image(product: dict) -> Optional[dict]:
 
 
 def build_image_transform() -> T.Compose:
-    """Đúng transform eval lúc train (data/dataset.py: Resize BICUBIC -> CenterCrop -> Normalize)."""
+    """Đúng transform eval lúc train (data/dataset.py: Resize BICUBIC -> CenterCrop -> Normalize).
+    Ảnh gallery đã là ảnh vuông 224x224 đệm trắng nên Resize/CenterCrop không đổi gì."""
     return get_eval_transform()
 
 
@@ -108,16 +112,12 @@ def load_all_products(split_dir: Path) -> list[dict]:
 def load_model(checkpoint_path: Path, device: torch.device):
     """
     Load ViMFRModel từ checkpoint.
-    [CONTRACT] Checkpoint phải có key 'model_state_dict'.
+    [CONTRACT] Checkpoint phải có key CKPT_MODEL_KEY ('model_state_dict').
     """
-    # Import model từ Người A
     try:
         from src.models.model import ViMFRModel, load_state_dict_compat
-    except ImportError:
-        raise ImportError(
-            "Không tìm thấy model.py. "
-            "Hãy chắc chắn Người A đã cung cấp file model.py."
-        )
+    except ImportError as e:
+        raise ImportError("Không import được src.models.model (ViMFRModel, load_state_dict_compat).") from e
 
     log.info(f"Loading checkpoint: {checkpoint_path}")
     ckpt = torch.load(checkpoint_path, map_location=device)
@@ -146,25 +146,25 @@ def encode_all_products(
     batch_size: int = 64,
 ) -> tuple[np.ndarray, list[str]]:
     """
-    Encode toàn bộ text sản phẩm → 256D embeddings đã L2-norm.
-
-    Returns:
-        embeddings : np.ndarray [N, 256], float32
-        product_ids: list[str], len = N
+    Encode text sản phẩm (text_seg cấp sản phẩm) → 256D embeddings đã L2-norm.
+    Chỉ dùng cho text index thí nghiệm (--with-text).
     """
     all_embeddings = []
     all_ids = []
+    n_fallback = 0
 
-    for i in tqdm(range(0, len(products), batch_size), desc="Encoding"):
+    for i in tqdm(range(0, len(products), batch_size), desc="Encoding text"):
         batch = products[i : i + batch_size]
 
-        # Current split records already contain text_seg from the external
-        # preprocessing pipeline. Fall back for older records without that field.
-        texts = [
-            str(p.get(MODEL_TEXT_FIELD) or p.get("text") or p.get("name") or "")
-            for p in batch
-        ]
-        ids   = [str(p[PRODUCT_ID_FIELD]) for p in batch]
+        texts = []
+        for p in batch:
+            t = p.get(MODEL_TEXT_FIELD)
+            if not (isinstance(t, str) and t.strip()):
+                # Bản ghi không có text_seg: text thô chưa tách từ -> lệch với lúc train, nên chỉ cảnh báo.
+                n_fallback += 1
+                t = p.get("text") or p.get("name") or ""
+            texts.append(str(t))
+        ids = [str(p[PRODUCT_ID_FIELD]) for p in batch]
 
         encoding = tokenizer(
             texts,
@@ -173,14 +173,15 @@ def encode_all_products(
             truncation=True,
             return_tensors="pt",
         )
-
-        input_ids      = encoding["input_ids"].to(device)
-        attention_mask = encoding["attention_mask"].to(device)
-
         # [CONTRACT] encode_text trả về [B, 256] đã L2-norm
-        embeddings = model.encode_text(input_ids, attention_mask)
-        all_embeddings.append(embeddings.cpu().numpy())
+        embeddings = model.encode_text(
+            encoding["input_ids"].to(device), encoding["attention_mask"].to(device)
+        )
+        all_embeddings.append(embeddings.float().cpu().numpy())
         all_ids.extend(ids)
+
+    if n_fallback:
+        log.warning(f"  {n_fallback} sản phẩm thiếu {MODEL_TEXT_FIELD!r}, đã dùng text/name chưa tách từ")
 
     embeddings = np.vstack(all_embeddings).astype(np.float32)
     log.info(f"Encoded {len(all_ids)} products → shape {embeddings.shape}")
@@ -212,7 +213,7 @@ def encode_all_products_images(
         pixel_values = torch.stack(batch_tensors, dim=0).to(device)
         # [CONTRACT] encode_image trả về [B, 256] đã L2-norm
         emb = model.encode_image(pixel_values)
-        all_embeddings.append(emb.cpu().numpy())
+        all_embeddings.append(emb.float().cpu().numpy())
         valid_ids.extend(batch_ids)
         batch_tensors.clear()
         batch_ids.clear()
@@ -224,7 +225,7 @@ def encode_all_products_images(
             img_meta = _select_primary_image(p)
             rel_path = img_meta.get(IMAGE_PATH_FIELD) if img_meta else None
             if rel_path and len(sample_failed_paths) < 3:
-                rp = Path (rel_path)
+                rp = Path(rel_path)
                 if rp.is_absolute():
                     resolved = str(rp)
                 else:
@@ -265,8 +266,8 @@ def build_and_save_index(
 ) -> None:
     """
     Build FAISS IndexFlatIP và lưu ra disk kèm id_mapping.json.
-
     IndexFlatIP + L2-normed vectors = cosine similarity search.
+    (engine.py dùng index.reconstruct_n nên bắt buộc là IndexFlat*.)
     """
     n, dim = embeddings.shape
     assert dim == EMBED_DIM, f"Embedding dim {dim} != EMBED_DIM {EMBED_DIM}"
@@ -276,7 +277,6 @@ def build_and_save_index(
     index.add(embeddings)
     log.info(f"  Index built — ntotal={index.ntotal}")
 
-    # Lưu index
     index_path.parent.mkdir(parents=True, exist_ok=True)
     faiss.write_index(index, str(index_path))
     log.info(f"  Saved index → {index_path}")
@@ -293,37 +293,33 @@ def build_and_save_index(
 # ---------------------------------------------------------------------------
 
 def smoke_test(index_path: Path, mapping_path: Path, model, tokenizer, device) -> None:
-    """Thử search 1 query để xác nhận index hoạt động."""
-    log.info("Smoke test index ...")
+    """Text index: thử 1 query. Query đi qua preprocess_query (tách từ) như API/text_seg lúc train."""
+    from src.serving.text_utils import preprocess_query
 
+    log.info("Smoke test text index ...")
     index = faiss.read_index(str(index_path))
     with open(mapping_path, encoding="utf-8") as f:
         mapping = json.load(f)
 
     query = "áo sơ mi nam trắng"
     encoding = tokenizer(
-        query,
+        preprocess_query(query),
         max_length=MAX_TEXT_LENGTH,
         padding="max_length",
         truncation=True,
         return_tensors="pt",
     )
-
     with torch.no_grad():
         q_emb = model.encode_text(
             encoding["input_ids"].to(device),
             encoding["attention_mask"].to(device),
-        ).cpu().numpy()
+        ).float().cpu().numpy()
 
-    scores, indices = index.search(q_emb, k=5)
-
+    scores, indices = index.search(q_emb, 5)
     log.info(f"  Query: '{query}'")
-    log.info(f"  Top-5 results:")
     for rank, (idx, score) in enumerate(zip(indices[0], scores[0]), 1):
-        pid = mapping.get(str(idx), "?")
-        log.info(f"    {rank}. product_id={pid} | score={score:.4f}")
-
-    log.info("Smoke test PASSED ✓")
+        log.info(f"    {rank}. product_id={mapping.get(str(idx), '?')} | score={score:.4f}")
+    log.info("Smoke test text index PASSED ✓")
 
 
 def image_smoke_test(
@@ -335,17 +331,20 @@ def image_smoke_test(
     device,
 ) -> None:
     """
-    Round-trip test cho image_index: lấy ảnh của 1 sản phẩm bất kỳ đã có trong
-    index, encode lại, search → kỳ vọng top-1 chính là sản phẩm đó (score ~1.0).
+    Round-trip: encode lại ảnh đại diện của 1 sản phẩm đã index, search → sản phẩm đó phải nằm trong
+    top-5 với score ~1.0. Không đòi top-1 vì ~20% ảnh trùng hệt giữa các sản phẩm (cùng embedding,
+    thứ tự hòa là tuỳ ý).
     """
     log.info("Smoke test image_index ...")
-
     index = faiss.read_index(str(index_path))
     with open(mapping_path, encoding="utf-8") as f:
         mapping = json.load(f)
+    indexed = set(mapping.values())
 
     query_tensor, query_pid = None, None
     for p in products:
+        if str(p[PRODUCT_ID_FIELD]) not in indexed:
+            continue
         t = _load_image_tensor(p, transform)
         if t is not None:
             query_tensor, query_pid = t, str(p[PRODUCT_ID_FIELD])
@@ -356,25 +355,22 @@ def image_smoke_test(
         return
 
     with torch.no_grad():
-        q_emb = model.encode_image(query_tensor.unsqueeze(0).to(device)).cpu().numpy()
+        q_emb = model.encode_image(query_tensor.unsqueeze(0).to(device)).float().cpu().numpy()
 
-    scores, indices = index.search(q_emb, k=5)
-
+    scores, indices = index.search(q_emb, 5)
     log.info(f"  Query: product_id={query_pid} (ảnh đại diện)")
-    log.info(f"  Top-5 results:")
-    top1_pid = None
+    hit = False
     for rank, (idx, score) in enumerate(zip(indices[0], scores[0]), 1):
         pid = mapping.get(str(idx), "?")
-        if rank == 1:
-            top1_pid = pid
         log.info(f"    {rank}. product_id={pid} | score={score:.4f}")
+        hit |= (pid == query_pid and score > 0.99)
 
-    if top1_pid == query_pid:
-        log.info("Smoke test image_index PASSED ✓ (top-1 khớp chính nó)")
+    if hit:
+        log.info("Smoke test image_index PASSED ✓ (sản phẩm truy vấn nằm trong top-5, score ≈ 1)")
     else:
         log.warning(
-            f"Smoke test image_index CẢNH BÁO: top-1={top1_pid} != query={query_pid}. "
-            "Kiểm tra lại encode_image / preprocessing nếu điều này bất thường."
+            f"Smoke test image_index CẢNH BÁO: {query_pid} không có trong top-5 với score > 0.99. "
+            "Kiểm tra lại encode_image / preprocessing."
         )
 
 
@@ -388,17 +384,11 @@ def parse_args():
         "--checkpoint", type=Path, default=Path(CHECKPOINT_BEST),
         help=f"Path tới checkpoint (default: {CHECKPOINT_BEST})",
     )
+    parser.add_argument("--batch-size", type=int, default=64, help="Batch size khi encode (default: 64)")
+    parser.add_argument("--no-smoke-test", action="store_true", help="Bỏ qua smoke test sau khi build")
     parser.add_argument(
-        "--batch-size", type=int, default=64,
-        help="Batch size khi encode (default: 64)",
-    )
-    parser.add_argument(
-        "--no-smoke-test", action="store_true",
-        help="Bỏ qua smoke test sau khi build",
-    )
-    parser.add_argument(
-        "--skip-text", action="store_true",
-        help="Bỏ qua bước build text index (dùng khi text index đã có sẵn)",
+        "--with-text", action="store_true",
+        help="Build thêm text index (API KHÔNG dùng; mặc định tắt)",
     )
     return parser.parse_args()
 
@@ -408,20 +398,15 @@ def main():
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     log.info(f"Device: {device}")
+    log.info(f"SPLIT_DIR: {SPLIT_DIR}")
+    if not args.checkpoint.exists():
+        raise FileNotFoundError(f"Không thấy checkpoint: {args.checkpoint}")
 
-    # --- Load data ---
     products = load_all_products(Path(SPLIT_DIR))
-
-    # --- Load model ---
     model = load_model(args.checkpoint, device)
 
-    # --- Load tokenizer ---
-    tokenizer = AutoTokenizer.from_pretrained(PHOBERT_MODEL)
-
-  
-
-    # --- Build & save TEXT index ---
-    if not args.skip_text:
+    # --- (tuỳ chọn) TEXT index ---
+    if args.with_text:
         tokenizer = AutoTokenizer.from_pretrained(PHOBERT_MODEL)
         embeddings, product_ids = encode_all_products(
             products, model, tokenizer, device, batch_size=args.batch_size
@@ -434,16 +419,12 @@ def main():
         if not args.no_smoke_test:
             smoke_test(Path(FAISS_INDEX_FILE), Path(FAISS_MAPPING_FILE), model, tokenizer, device)
 
-
-    # --- Encode + build & save IMAGE index ---
-    # QUAN TRỌNG: API chỉ dùng index này. Mọi query (Text→Image và Image→Image,
-    # như search_text/search_image trong train_colab.ipynb) đều search vào image index.
-    # Text index ở trên không còn được API dùng: có thể thêm --skip-text để bỏ qua.
+    # --- IMAGE index ---
+    # API và đánh giá chỉ dùng index này: Text→Image và Image→Image đều search vào image index.
     transform = build_image_transform()
     image_embeddings, image_product_ids = encode_all_products_images(
         products, model, transform, device, batch_size=args.batch_size
     )
-
     build_and_save_index(
         image_embeddings,
         image_product_ids,
@@ -459,6 +440,10 @@ def main():
         image_dir=str(IMAGE_DIR),
         n_products=len(products),
         n_indexed=len(image_product_ids),
+        image_size=IMAGE_SIZE,
+        image_mean=list(IMAGE_MEAN),
+        image_std=list(IMAGE_STD),
+        text_field=MODEL_TEXT_FIELD,
         transform=repr(transform),
     )
 
@@ -470,8 +455,9 @@ def main():
         )
 
     log.info("Build index complete.")
-    log.info(f"  Text index    : {FAISS_INDEX_FILE}")
-    log.info(f"  Text mapping  : {FAISS_MAPPING_FILE}")
+    if args.with_text:
+        log.info(f"  Text index    : {FAISS_INDEX_FILE}")
+        log.info(f"  Text mapping  : {FAISS_MAPPING_FILE}")
     log.info(f"  Image index   : {FAISS_IMAGE_INDEX_FILE}")
     log.info(f"  Image mapping : {FAISS_IMAGE_MAPPING_FILE}")
 

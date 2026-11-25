@@ -5,6 +5,7 @@ Hai nơi cùng import từ đây nên không thể lệch nhau về:
   - ảnh đại diện  : is_featured -> position nhỏ nhất, chỉ xét ảnh có local_path
   - đường dẫn ảnh : chịu được local_path ghi .png nhưng file thật là .jpg
   - transform ảnh : đúng get_image_transform('test') của data/dataset.py (BICUBIC)
+  - ảnh truy vấn  : đi qua to_square (đệm trắng thành vuông) như ảnh gallery trước khi vào transform
   - dấu vân tay checkpoint, để biết index được build từ checkpoint nào
 Các quy tắc này khớp với train_colab.ipynb.
 """
@@ -15,6 +16,8 @@ import logging
 import sys
 import time
 from pathlib import Path
+
+from PIL import Image, ImageOps
 
 import config as cfg
 
@@ -99,6 +102,34 @@ def get_eval_transform():
         sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "data"))
         from dataset import get_image_transform
     return get_image_transform("test")
+
+
+def to_square(img: Image.Image, size: int | None = None) -> Image.Image:
+    """Sao chép NGUYÊN VĂN common.to_square (lúc export ảnh gallery): xoay theo EXIF, ghép nền trắng cho ảnh
+    trong suốt, resize LANCZOS giữ tỉ lệ về cạnh dài = size rồi đặt giữa canvas trắng size x size.
+    Ảnh upload nhờ vậy đi qua đúng phép biến đổi (cùng một lần resample) như ảnh gallery.
+    Nếu đổi common.to_square thì phải đổi ở đây."""
+    size = size or cfg.IMAGE_SIZE
+    img = ImageOps.exif_transpose(img)
+    if img.mode in ("RGBA", "LA") or (img.mode == "P" and "transparency" in img.info):
+        img = img.convert("RGBA")
+        bg = Image.new("RGB", img.size, (255, 255, 255))
+        bg.paste(img, mask=img.getchannel("A"))
+        img = bg
+    else:
+        img = img.convert("RGB")
+    w, h = img.size
+    scale = size / max(w, h)
+    nw, nh = max(1, round(w * scale)), max(1, round(h * scale))
+    img = img.resize((nw, nh), Image.Resampling.LANCZOS)
+    canvas = Image.new("RGB", (size, size), (255, 255, 255))
+    canvas.paste(img, ((size - nw) // 2, (size - nh) // 2))
+    return canvas
+
+
+def prepare_query_image(img: Image.Image) -> Image.Image:
+    """Ảnh người dùng -> ảnh cùng dạng với gallery. Gọi trước get_eval_transform()."""
+    return to_square(img)
 
 
 # ---------- dấu vân tay checkpoint / metadata index ----------

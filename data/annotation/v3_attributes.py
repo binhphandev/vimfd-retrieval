@@ -26,6 +26,11 @@ Khác bản cũ (cần ghi vào mục 12 / log_A.md):
   4. LOAI: với vài type nguồn lẫn lộn (Lazada "Quần", "Đồ bảo hộ & Suits"...) tinh chỉnh theo name
      (bật/tắt bằng USE_NAME_REFINEMENT).
   5. Bảng đồng nghĩa giới hạn đúng <= 30 cặp (value_norm, synonym), chờ B duyệt.
+  6. CHAT_LIEU: dữ liệu KHÔNG có trường `material` (đã xác nhận trên train.jsonl), nên chất liệu được dò bằng regex
+     từ name (nhận trực tiếp) và description (chỉ nhận khi có ngữ cảnh "chất liệu/chất vải/làm từ/vải ..."), giá trị
+     chuẩn tiếng Việt (da, jean, len, nỉ, tre, lanh, cotton, polyester, dạ, nylon, lụa). Chỉ gán khi xác định được
+     ĐÚNG 1 giá trị. Bản cũ đọc trường material nên CHAT_LIEU luôn rỗng và mẫu câu "chat" của V4 không bao giờ chạy.
+  7. SKIP_ATTR_IN_LOAI so khớp theo ranh giới từ (bản cũ dò chuỗi con, dễ loại nhầm giá trị ngắn như "da", "be").
 """
 
 import json
@@ -72,13 +77,14 @@ TYPE_MAP = {
     "ao-hoodie-nam": "áo hoodie", "Áo hoodies & Sweatshirts": "áo hoodie",
     "ao-sweater": "áo sweater", "ao-len": "áo len", "ao-ni": "áo nỉ",
     "ao-ni-ao-len-nam": "áo nỉ", "ao-tanktop": "áo tanktop",
+    "Áo polo": "áo polo", "Áo hoodie & Sweatshirt": "áo hoodie",
     "ao-khoac": "áo khoác", "ao-vest-ao-khoac-nam": "áo khoác",
     "Áo khoác bomber": "áo khoác bomber", "Áo khoác nhẹ": "áo khoác nhẹ",
     "ao-vest-blazer": "áo vest", "suits-blazer": "áo vest",
     "do-giu-nhiet": "áo giữ nhiệt",
     # --- quần ---
     "Quần": "quần", "quan-au": "quần âu", "quan-tay": "quần âu",
-    "quan-dai-nam": "quần dài",
+    "quan-dai-nam": "quần dài", "Quần dài": "quần dài", "Quần shorts": "quần short",
     "quan-jean": "quần jean", "quan-jeans": "quần jean", "Quần jeans": "quần jean",
     "quan-kaki": "quần kaki", "quan-jogger": "quần jogger",
     "quan-short": "quần short", "quan-short-nam": "quần short", "Quần ngắn (Shorts)": "quần short",
@@ -90,9 +96,9 @@ TYPE_MAP = {
     "bo-trang-phuc-nam": "bộ trang phục", "set-quan-ao": "bộ trang phục",
     "Bộ đồ": "bộ trang phục", "Đồ bảo hộ & Suits": "bộ trang phục",
     "do-ngu-do-mac-nha-nam": "bộ mặc nhà",
-    "do-lot": "đồ lót", "do-lot-nam": "đồ lót",
+    "do-lot": "đồ lót", "do-lot-nam": "đồ lót", "ao-lot": "áo lót",
     # --- giày dép ---
-    "giay": "giày", "giay-dep": "giày dép",
+    "giay": "giày", "giay-dep": "giày dép", "Dép xỏ ngón": "dép", 
     "Giày sneaker": "giày sneaker", "Giày chạy bộ": "giày chạy bộ", "Giày công sở": "giày công sở",
     "Bốt cổ ngắn": "bốt", "Xăng đan": "xăng đan", "Dép xỏ ngón (Flip Flops)": "dép",
     "Phụ kiện giày": "phụ kiện giày",
@@ -317,6 +323,39 @@ def detect_phong_cach(name: str, desc: str) -> list:
     return found
 
 
+# --- CHAT_LIEU: dò từ name/description (dữ liệu không có trường material) ---
+# (giá_trị_chuẩn, regex). Không đưa "kaki" vào đây để khỏi lẫn với MAU "kaki" và LOAI "quần kaki".
+CHAT_LIEU_PATTERNS = [
+    ("jean",      _b(r"jeans?|denim|vải\s+bò")),
+    ("da",        _b(r"da(?:\s+(?:bò|thật|cừu|lộn|pu))?")),
+    ("dạ",        _b(r"dạ")),
+    ("len",       _b(r"len|wool|cashmere")),
+    ("nỉ",        _b(r"nỉ|fleece")),
+    ("lụa",       _b(r"lụa|silk")),
+    ("tre",       _b(r"tre|sợi\s+tre|bamboo")),
+    ("lanh",      _b(r"lanh|linen")),
+    ("cotton",    _b(r"cotton|cô\s?tông")),
+    ("polyester", _b(r"polyester|poly")),
+    ("nylon",     _b(r"nylon|ni\s?lông")),
+]
+CHAT_LIEU_VALUES = [v for v, _ in CHAT_LIEU_PATTERNS]
+# Trong description chỉ nhận khi đứng sau cụm nêu chất liệu (tránh "da" trong "phù hợp mọi loại da", "dạ" = vâng...)
+_MAT_CTX = r"(?:chất\s+liệu|chất\s+vải|làm\s+từ|được\s+làm|vải|chất)\s*[:\-]?\s+(?:\w+\s+){0,1}?"
+_CL_NAME = [(v, re.compile(p)) for v, p in CHAT_LIEU_PATTERNS]
+_CL_DESC = [(v, re.compile(_MAT_CTX + "(?:" + p + ")")) for v, p in CHAT_LIEU_PATTERNS]
+
+
+def detect_chat_lieu(name: str, desc: str) -> list:
+    """Chỉ trả về khi xác định được ĐÚNG 1 chất liệu. Ưu tiên name; name không có thì dùng description (cần ngữ cảnh)."""
+    in_name = _find_all(name, _CL_NAME)
+    if len(in_name) == 1:
+        return in_name
+    if len(in_name) > 1:
+        return []                       # name nêu nhiều chất liệu -> mơ hồ
+    in_desc = _find_all(desc, _CL_DESC)
+    return in_desc if len(in_desc) == 1 else []
+
+
 # ══════════════════════════════════════════════════════════════════
 # 4. BẢNG ĐỒNG NGHĨA (tối đa 30 cặp, cần B duyệt) — V4 đọc sheet "synonyms"
 # ══════════════════════════════════════════════════════════════════
@@ -339,16 +378,15 @@ SYNONYM_PAIRS = [
     ("vintage",      "PHONG_CACH", "retro"),
     ("minimalist",   "PHONG_CACH", "tối giản"),
     ("smart casual", "PHONG_CACH", "thanh lịch"),
-    # chất liệu
-    ("leather",      "CHAT_LIEU",  "da"),
-    ("leather",      "CHAT_LIEU",  "chất da"),
-    ("denim",        "CHAT_LIEU",  "vải bò"),
-    ("denim",        "CHAT_LIEU",  "jean"),
-    ("wool",         "CHAT_LIEU",  "len"),
-    ("silk",         "CHAT_LIEU",  "lụa"),
-    ("fleece",       "CHAT_LIEU",  "nỉ"),
-    ("bamboo",       "CHAT_LIEU",  "tre"),
-    ("linen",        "CHAT_LIEU",  "lanh"),
+    # chất liệu (value_norm = giá trị chuẩn tiếng Việt của detect_chat_lieu)
+    ("da",           "CHAT_LIEU",  "chất da"),
+    ("jean",         "CHAT_LIEU",  "vải bò"),
+    ("jean",         "CHAT_LIEU",  "vải denim"),
+    ("len",          "CHAT_LIEU",  "vải len"),
+    ("tre",          "CHAT_LIEU",  "sợi tre"),
+    ("lanh",         "CHAT_LIEU",  "vải lanh"),
+    ("cotton",       "CHAT_LIEU",  "vải bông"),
+    ("polyester",    "CHAT_LIEU",  "vải poly"),
     # màu
     ("xanh navy",    "MAU",        "xanh than"),
     ("xám",          "MAU",        "ghi"),
@@ -385,10 +423,11 @@ def as_list(x):
 
 
 type_counter = Counter(d.get("type", "") for d in train_data)
-mat_counter  = Counter(normalize(m) for d in train_data for m in as_list(d.get("material")) if normalize(m))
+mat_counter  = Counter(x for d in train_data
+                       for x in detect_chat_lieu(normalize(d.get("name")), normalize(d.get("description"))))
 raw_color_counter = Counter(clean_color(c) for d in train_data for c in as_list(d.get("colors")) if clean_color(c))
 
-print(f"\nTop 20 material (train): {len(mat_counter)} giá trị khác nhau")
+print(f"\nTop 20 chất liệu dò được (train): {len(mat_counter)} giá trị khác nhau")
 for mat, cnt in mat_counter.most_common(20):
     print(f"  {mat}: {cnt}")
 
@@ -419,13 +458,7 @@ def extract_attrs(product: dict) -> dict:
 
     attrs["MAU"] = extract_mau(product)
 
-    # chất liệu: lấy từ trường material, bỏ trùng giữ thứ tự
-    mats = []
-    for m in as_list(product.get("material")):
-        m = normalize(m)
-        if m and m not in mats:
-            mats.append(m)
-    attrs["CHAT_LIEU"] = mats
+    attrs["CHAT_LIEU"] = detect_chat_lieu(name, desc)     # dữ liệu không có trường material
 
     if category in KIEU_DANG_CATEGORIES:
         attrs["KIEU_DANG"] = detect_kieu_dang(name, desc)
@@ -433,8 +466,9 @@ def extract_attrs(product: dict) -> dict:
 
     # Bỏ thuộc tính đã nằm trong tên loại (vd "quần kaki" + màu/chất liệu "kaki")
     if SKIP_ATTR_IN_LOAI and loai:
+        loai_words = f" {loai} "
         for key in ["MAU", "CHAT_LIEU", "KIEU_DANG", "PHONG_CACH"]:
-            attrs[key] = [v for v in attrs[key] if v not in loai]
+            attrs[key] = [v for v in attrs[key] if f" {v} " not in loai_words]
     return attrs
 
 
@@ -489,7 +523,7 @@ wb = openpyxl.Workbook()
 ws = wb.active
 ws.title = "attr_dictionary"
 ws.append(["value_raw", "value_norm", "attr_type", "synonyms"])
-for mat, _ in mat_counter.most_common(150):
+for mat in CHAT_LIEU_VALUES:
     ws.append([mat, mat, "CHAT_LIEU", syn_str(mat, "CHAT_LIEU")])
 for v in KIEU_DANG_VALUES:
     ws.append([v, v, "KIEU_DANG", syn_str(v, "KIEU_DANG")])

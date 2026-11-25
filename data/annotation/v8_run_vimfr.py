@@ -3,7 +3,8 @@ V8: Chạy dual-encoder và ViMFR trên 200 truy vấn kiểm thử
 Đầu vào:
   - data/annotation/benchmark/queries_200.csv
   - data/splits/test.jsonl
-  - checkpoints/best_18112026.pt        (dual-encoder B1)
+  - checkpoint dual-encoder B1: config.CHECKPOINT_BEST, hoặc biến môi trường VIMFD_DE_CKPT (PHẢI là checkpoint
+    train trên split hiện tại; checkpoint train trên split cũ có thể đã thấy sản phẩm Test mới -> kết quả bị thổi phồng)
   - checkpoints/cross_encoder_best/     (Cross-Encoder V6)
 Đầu ra:
   - results/runs/dual_encoder.run
@@ -14,7 +15,7 @@ Chạy: python v8_run_vimfr.py              (đầy đủ 200 truy vấn)
       python v8_run_vimfr.py --rebuild-index   (mã hóa lại ảnh Test dù đã có chỉ mục lưu sẵn)
 
 BẢN SỬA (so với v8_run_vimfr_1.py) — ghi vào mục 12 / log:
-  1. Truy vấn được CHUẨN HÓA + TÁCH TỪ (underthesea, format="text") trước khi mã hóa/chấm điểm: dual-encoder và
+  1. Truy vấn được CHUẨN HÓA + TÁCH TỪ (seg_utils: VnCoreNLP, cùng bộ tách từ với text_seg) trước khi mã hóa/chấm điểm: dual-encoder và
      Cross-Encoder đều được huấn luyện trên truy vấn đã tách từ (mục 3.2, 7).
   2. Ảnh đại diện lấy bằng đúng hàm của V5 (is_featured/position, thử local_path, ROOT/local_path,
      config.PROCESSED_DIR/local_path). Bản cũ chỉ thử đường dẫn tương đối theo thư mục chạy rồi âm thầm thay bằng
@@ -46,7 +47,7 @@ ROOT = Path(__file__).resolve().parents[2]
 
 QUERIES_CSV  = ROOT / "data/annotation/benchmark/queries_200.csv"
 TEST_PATH    = ROOT / "data/splits/test.jsonl"
-DE_CKPT      = ROOT / "checkpoints/best_18112026.pt"
+DE_CKPT      = None   # xác định sau khi import config (xem _resolve_de_ckpt bên dưới)
 CE_CKPT_DIR  = ROOT / "checkpoints/cross_encoder_best"
 RUNS_DIR     = ROOT / "results/runs"
 LOG_DIR      = ROOT / "results/logs"
@@ -89,9 +90,27 @@ with open(TEST_PATH, encoding="utf-8") as f:
 test_pids = [p["id"] for p in test_products]
 print(f"Test corpus: {len(test_products)} sản phẩm")
 
+import os
 import sys
 sys.path.insert(0, str(ROOT))
 import config
+
+def _resolve_de_ckpt():
+    """VIMFD_DE_CKPT > config.CHECKPOINT_BEST > checkpoints/best_24112026.pt."""
+    p = os.environ.get("VIMFD_DE_CKPT") or getattr(config, "CHECKPOINT_BEST", None) or "checkpoints/best_24112026.pt"
+    p = Path(p)
+    return p if p.is_absolute() else ROOT / p
+
+
+def ckpt_fingerprint(p):
+    """Dấu vân tay checkpoint (tên:kích thước:thời điểm sửa) để biết chỉ mục lưu sẵn có thuộc checkpoint này không."""
+    st = Path(p).stat()
+    return f"{Path(p).name}:{st.st_size}:{int(st.st_mtime)}"
+
+
+DE_CKPT = _resolve_de_ckpt()
+if not DE_CKPT.exists():
+    raise SystemExit(f"Không thấy checkpoint dual-encoder: {DE_CKPT}. Đặt VIMFD_DE_CKPT hoặc sửa config.CHECKPOINT_BEST.")
 
 def get_text(product):
     field = getattr(config, "MODEL_TEXT_FIELD", "text_seg")
@@ -124,12 +143,12 @@ def normalize(text):
     return re.sub(r"\s+", " ", text)
 
 
-from underthesea import word_tokenize
+from seg_utils import segment_text, segmenter_name
 
 
 def segment_query(text):
-    """Chuẩn hóa rồi tách từ, đúng như truy vấn giả lúc huấn luyện (V4)."""
-    return word_tokenize(normalize(text), format="text")
+    """Chuẩn hóa rồi tách từ bằng bộ tách từ thống nhất (đúng như truy vấn giả V4 và như text_seg)."""
+    return segment_text(text)
 
 
 def sync():
@@ -137,7 +156,10 @@ def sync():
         torch.cuda.synchronize()
 
 # ── Load dual-encoder ─────────────────────────────────────────────
-print(f"\nLoad dual-encoder: {DE_CKPT}")
+import datetime as _dt
+print(f"\nLoad dual-encoder: {DE_CKPT}  (sửa lần cuối {_dt.datetime.fromtimestamp(DE_CKPT.stat().st_mtime):%Y-%m-%d %H:%M})")
+print("  LƯU Ý: checkpoint này PHẢI được train trên split hiện tại (11.571/1.450/1.449).")
+print(f"  Bộ tách từ truy vấn: {segmenter_name()}")
 from src.models.model import ViMFRModel, load_state_dict_compat
 
 de_ckpt = torch.load(DE_CKPT, map_location=device, weights_only=False)
@@ -209,9 +231,13 @@ if n_missing:
     print("  [CẢNH BÁO] Các sản phẩm này không thể được tìm thấy bởi hệ thống dùng ảnh. Kiểm tra config.PROCESSED_DIR.")
 
 idx_file, map_file = INDEX_DIR / "product_image.index", INDEX_DIR / "id_mapping_image.json"
+fp_file = INDEX_DIR / "ckpt_fingerprint.txt"
+_fp = ckpt_fingerprint(DE_CKPT)
 index = None
 if idx_file.exists() and map_file.exists() and not ARGS.rebuild_index:
-    if json.load(open(map_file, encoding="utf-8")) == index_pids:
+    if not (fp_file.exists() and fp_file.read_text(encoding="utf-8").strip() == _fp):
+        print("  Chỉ mục Test lưu sẵn thuộc checkpoint khác (hoặc chưa có dấu vân tay) -> mã hóa lại.")
+    elif json.load(open(map_file, encoding="utf-8")) == index_pids:
         index = faiss.read_index(str(idx_file))
         print(f"Nạp lại chỉ mục Test: {index.ntotal} vector (--rebuild-index nếu đã đổi checkpoint B1)")
 if index is None:
@@ -222,6 +248,7 @@ if index is None:
     index.add(image_vecs)
     faiss.write_index(index, str(idx_file))
     json.dump(index_pids, open(map_file, "w", encoding="utf-8"), ensure_ascii=False)
+    fp_file.write_text(_fp, encoding="utf-8")
     print(f"Index: {index.ntotal} vectors (đã lưu {idx_file})")
 
 # ── Load Cross-Encoder ────────────────────────────────────────────

@@ -33,7 +33,7 @@ from collections import Counter
 from pathlib import Path
 
 import openpyxl
-from underthesea import word_tokenize
+import seg_utils
 
 SEED = 42
 
@@ -68,7 +68,7 @@ def normalize(text) -> str:
 
 def segment(text: str) -> str:
     """Tách từ đúng cách đã dùng để tạo text_seg của sản phẩm."""
-    return word_tokenize(text, format="text")
+    return seg_utils.segment_text(text)
 
 
 # ── Load dữ liệu ──────────────────────────────────────────────────

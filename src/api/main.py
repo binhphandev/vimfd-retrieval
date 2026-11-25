@@ -24,7 +24,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from PIL import Image
 
-from src.api.schemas import ProductOut, SearchOut
+from src.api.schemas import Item, ProductOut, SearchOut
 from src.serving.engine import SearchEngine
 import config as cfg
 
@@ -40,7 +40,7 @@ async def lifespan(app: FastAPI):
     yield
 
 
-app = FastAPI(title="ViMFD Fashion Retrieval API", version="2.0.0", lifespan=lifespan)
+app = FastAPI(title="ViMFD Fashion Retrieval API", version="3.0.0", lifespan=lifespan)
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
 
@@ -67,7 +67,14 @@ def _read_image(f: UploadFile) -> Image.Image:
 @app.get("/api/health")
 def health(request: Request):
     e = _engine(request)
-    return {"status": "ok", "products": len(e.pids), "device": str(e.dev), "index": e.meta}
+    return {
+        "status": "ok",
+        "products": len(e.pids),
+        "device": str(e.dev),
+        "checkpoint": Path(cfg.CHECKPOINT_BEST).name,
+        "split_dir": Path(cfg.SPLIT_DIR).name,
+        "index": e.meta,
+    }
 
 
 @app.post("/api/search", response_model=SearchOut)
@@ -102,7 +109,7 @@ def product(request: Request, pid: str):
     return p
 
 
-@app.get("/api/products/{pid}/similar", response_model=list[dict])
+@app.get("/api/products/{pid}/similar", response_model=list[Item])
 def similar(request: Request, pid: str, limit: int = 4):
     r = _engine(request).similar(pid, k=min(max(limit, 1), 24))
     if r is None:

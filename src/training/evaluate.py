@@ -1,277 +1,331 @@
-# Đánh giá 2 hướng:
-#   Text  → Image : query = text mô tả (test set)         , gallery = image index
-#   Image → Image : query = MỌI ảnh phụ của sản phẩm (test set), gallery = image index
-# Mỗi hướng đo trên 2 kiểu gallery:
-#   (a) full      : toàn bộ sản phẩm trong index (train+val+test)
-#   (b) test-only : chỉ các sản phẩm của test set  (cách so sánh chuẩn trong paper)
+# Đánh giá trên EVALUATION_SPLIT (mặc định test), gallery = image index (ảnh đại diện).
 #
-# THAY ĐỔI so với bản cũ (để khớp với AltImageDataset mới trong train.py, mỗi phần tử
-# giờ là MỘT ảnh phụ thay vì một sản phẩm):
-#   1. Lọc bỏ ảnh đọc lỗi (cờ "ok"=0) — trước đây các ảnh này lọt vào kết quả mà không báo.
-#   2. Loại query mà kết quả top-1 trùng hệt chính nó (điểm ≥ IDENTICAL_THR) — tránh
-#      Recall@1 bị đội giả tạo khi ảnh phụ thực chất là bản sao ảnh đại diện.
-#   3. Báo cả MICRO (mỗi ảnh phụ một phiếu) và MACRO (mỗi sản phẩm một phiếu, không bị
-#      lệch bởi sản phẩm có nhiều ảnh phụ hơn). Với Text→Image, mỗi sản phẩm vẫn chỉ có
-#      1 query nên micro = macro (dùng để tự kiểm tra code không viết sai).
-#   4. Thêm MRR@10 (1/(hạng+1) nếu đáp án lọt top-10, ngược lại 0) bên cạnh Recall/NDCG@10.
-#   5. Dòng in "N sản phẩm có ảnh phụ" được thay bằng alt_ds.describe() cho đúng nghĩa
-#      (len(alt_ds) giờ đếm ẢNH, không phải SẢN PHẨM).
+# Hướng đánh giá:
+#   Text → Image : query = text_seg đầy đủ ("full") và 3 biến thể NGẮN của dataset.SHORT_VARIANTS
+#                  (name / head4 / head3_color), giống cách người dùng gõ thật.
+#   Image → Image: query = MỘT ảnh phụ của mỗi sản phẩm (đúng AltImageDataset trong train.py).
+#                  Báo hai bản: tất cả query, và bỏ query có ảnh phụ trùng hệt ảnh đại diện
+#                  (điểm cosine với chính sản phẩm đó >= IDENTICAL_THR) vì các query này quá dễ.
+# Hai kiểu gallery: "full" (toàn bộ index) và "test-only" (chỉ sản phẩm của split đánh giá).
 #
-# Phân tích sâu hơn (theo shop, theo thứ tự ảnh phụ, khoảng tin cậy bootstrap) nằm ở
+# Cách tính khớp với validate() trong train.py:
+#   - Mức SẢN PHẨM: hạng của đúng sản phẩm đó; điểm HÒA tính là THUA (ảnh trùng hệt cho cùng điểm).
+#   - Mức NHÓM    : sản phẩm cùng group_id (split.json) đều là đáp án đúng; hạng = hạng của sản phẩm
+#                   cùng nhóm đứng cao nhất. Đây là số nên dùng để báo cáo, vì có sản phẩm trùng ảnh.
+#   - Chỉ số: Recall@1/5/10, MRR@10, NDCG@10 (MRR và NDCG giới hạn trong top-10).
+#   - Khoảng tin cậy 95%: bootstrap theo NHÓM (evaluation_metrics.cluster_bootstrap_mean_ci).
+#
+# Trước khi chạy: build lại index từ ĐÚNG checkpoint (build_index.py). Script so fingerprint
+# checkpoint với index_meta và dừng nếu lệch (dùng --allow-stale để bỏ qua).
+#
+# Chạy từ thư mục gốc dự án (đặt cùng thư mục với evaluation_metrics.py):
+#     python -m <đường.dẫn.module>.evaluate [--checkpoint ...] [--bootstrap 2000]
 
-
-import sys
-import os
-from pathlib import Path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'data'))
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
-
+import argparse
 import json
-import math
-from collections import defaultdict
+import sys
+import time
 from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "data"))
+sys.path.append(str(Path(__file__).resolve().parent))  # evaluation_metrics.py nằm cạnh file này
 
 import faiss
 import numpy as np
 import torch
 from torch.utils.data import DataLoader
 from tqdm import tqdm
+from transformers import AutoTokenizer
 
+import config as cfg
+from dataset import SHORT_VARIANTS, ShortQueryDataset, load_jsonl
+from evaluation_metrics import cluster_bootstrap_mean_ci, rank_metrics
 from src.models.model import ViMFRModel, load_state_dict_compat
-from src.training.train import AltImageDataset
-from dataset import build_dataloaders
-from config import (
-    CHECKPOINT_BEST, SPLIT_DIR, IMAGE_DIR, EVAL_BATCH_SIZE,
-    FAISS_IMAGE_INDEX_FILE, FAISS_IMAGE_MAPPING_FILE,
-    CKPT_MODEL_KEY, PRODUCT_ID_FIELD, EVALUATION_SPLIT,
-)
+from src.serving.catalog import ckpt_fingerprint, meta_path
+from src.training.train import AltImageDataset, load_group_map
 
-try:  # dùng ĐÚNG ngưỡng mà train.py dùng để loại query trùng hệt (nếu bản cũ không có thì dùng mặc định)
-    from src.training.train import IDENTICAL_THR
-except ImportError:
-    IDENTICAL_THR = 0.9995
+TOP_K = 10
+IDENTICAL_THR = 0.9995   # ảnh phụ coi là trùng hệt ảnh đại diện nếu cosine với chính sản phẩm >= ngưỡng
+TIE_EPS = 1e-6           # sai số float khi coi hai điểm là hòa (ảnh trùng hệt)
+METRICS = ["Recall@1", "Recall@5", "Recall@10", f"MRR@{TOP_K}", f"NDCG@{TOP_K}"]
 
-METRIC_NAMES = ["Recall@1", "Recall@5", "Recall@10", "MRR", "NDCG@10"]
+
+# ------------------------------------------------------------------
+# Dataset query
+# ------------------------------------------------------------------
+class FullTextQueryDataset(ShortQueryDataset):
+    """Query text ĐẦY ĐỦ (text_seg nguyên bản), chỉ text, không tải ảnh."""
+
+    def text(self, idx: int) -> str:
+        return self.data[idx][cfg.MODEL_TEXT_FIELD]
+
+
+class SafeAltImageDataset(AltImageDataset):
+    """AltImageDataset + cờ "ok": ảnh hỏng không làm crash mà bị bỏ khỏi phép đo (và được đếm)."""
+
+    def __getitem__(self, i):
+        try:
+            item = super().__getitem__(i)
+            item["ok"] = 1
+        except Exception:
+            pid, _ = self.samples[i]
+            item = {"image": torch.zeros(3, cfg.IMAGE_SIZE, cfg.IMAGE_SIZE), "product_id": pid, "ok": 0}
+        return item
 
 
 # ------------------------------------------------------------------
 # Load
 # ------------------------------------------------------------------
-def load_model(checkpoint_path: str) -> ViMFRModel:
+def load_model(checkpoint_path: Path, device) -> ViMFRModel:
     model = ViMFRModel()
     ckpt = torch.load(checkpoint_path, map_location="cpu", weights_only=False)
-    load_state_dict_compat(model, ckpt[CKPT_MODEL_KEY])
-    model.eval()
-    print(f"Loaded checkpoint: epoch={ckpt.get('epoch', '?')}, "
-          f"val_loss={ckpt.get('val_loss', float('nan')):.4f}")
+    load_state_dict_compat(model, ckpt[cfg.CKPT_MODEL_KEY])
+    model.to(device).eval()
+    val_loss = ckpt.get(cfg.CKPT_VAL_LOSS_KEY)
+    vl = f"{val_loss:.4f}" if isinstance(val_loss, (int, float)) else "?"
+    print(f"Loaded checkpoint: {Path(checkpoint_path).name} | epoch={ckpt.get(cfg.CKPT_EPOCH_KEY, '?')}, val_loss={vl}")
     return model
 
 
-def load_faiss(index_path: str, mapping_path: str):
-    index = faiss.read_index(index_path)
+def check_index(checkpoint_path: Path, allow_stale: bool) -> dict:
+    """Index phải được build từ đúng checkpoint này (so fingerprint sha256, giống engine.py)."""
+    mp = meta_path(cfg.FAISS_IMAGE_INDEX_FILE)
+    if not Path(cfg.FAISS_IMAGE_INDEX_FILE).exists():
+        raise SystemExit(f"Chưa có {cfg.FAISS_IMAGE_INDEX_FILE}. Chạy build_index.py trước.")
+    problem = None
+    meta = {}
+    if not mp.exists():
+        problem = f"Không thấy {mp.name}: không kiểm tra được index build từ checkpoint nào. Hãy build lại index."
+    else:
+        with open(mp, encoding="utf-8") as f:
+            meta = json.load(f)
+        if meta.get("fingerprint") != ckpt_fingerprint(checkpoint_path):
+            problem = (f"Index được build từ checkpoint khác ({meta.get('checkpoint')}) so với "
+                       f"{Path(checkpoint_path).name}. Hãy build lại index.")
+    if problem:
+        if not allow_stale:
+            raise SystemExit("✗ " + problem + "  (--allow-stale để bỏ qua, số liệu sẽ KHÔNG đáng tin)")
+        print("⚠ " + problem)
+    return meta
+
+
+def load_gallery(index_path, mapping_path):
+    """Embedding ảnh đại diện + id sản phẩm từ FAISS index (chỉ dùng được với IndexFlat*)."""
+    index = faiss.read_index(str(index_path))
+    emb = index.reconstruct_n(0, index.ntotal).astype(np.float32)
     with open(mapping_path, encoding="utf-8") as f:
-        mapping = json.load(f)  # {"0": "product_id", ...}
-    print(f"Loaded index: {index_path} ({index.ntotal} vectors)")
-    return index, mapping
+        mapping = json.load(f)
+    ids = [str(mapping[str(i)]) for i in range(index.ntotal)]
+    print(f"Loaded index: {Path(index_path).name} ({index.ntotal} vectors)")
+    return emb, ids
 
 
-def make_subset_index(index, mapping: dict, keep_ids: set):
-    """Tạo index con chỉ chứa các sản phẩm trong keep_ids (không cần encode lại).
-    Chỉ dùng được với IndexFlat* (reconstruct_n)."""
-    n = index.ntotal
-    vecs = index.reconstruct_n(0, n)
-    pos = [i for i in range(n) if mapping[str(i)] in keep_ids]
-    sub = faiss.IndexFlatIP(vecs.shape[1])
-    sub.add(np.ascontiguousarray(vecs[pos]))
-    sub_mapping = {str(j): mapping[str(i)] for j, i in enumerate(pos)}
-    return sub, sub_mapping
+def group_codes(ids, group_map) -> np.ndarray:
+    """Mã số nhóm cho từng id. Không có group_id thì mỗi sản phẩm là một nhóm riêng (mức nhóm = mức sản phẩm)."""
+    codes: dict = {}
+    return np.array([codes.setdefault(group_map.get(p, "pid:" + p), len(codes)) for p in ids], dtype=np.int64)
+
+
+@torch.no_grad()
+def encode(loader, encode_fn, keys, device, desc):
+    embs, ids, oks = [], [], []
+    for batch in tqdm(loader, desc=desc, leave=False):
+        e = encode_fn(*[batch[k].to(device) for k in keys])
+        embs.append(e.float().cpu().numpy())
+        pids = [str(x) for x in batch["product_id"]]
+        ids.extend(pids)
+        ok = batch.get("ok")
+        oks.extend(ok.tolist() if torch.is_tensor(ok) else [1] * len(pids))
+    emb = np.concatenate(embs).astype(np.float32) if embs else np.zeros((0, cfg.EMBED_DIM), np.float32)
+    return {"emb": emb, "ids": ids, "ok": oks}
 
 
 # ------------------------------------------------------------------
-# Tính điểm một query, rồi gộp theo micro/macro
+# Xếp hạng + tổng hợp
 # ------------------------------------------------------------------
-def _ids(pids) -> list:
-    if torch.is_tensor(pids):
-        pids = pids.tolist()
-    return [str(x) for x in pids]
+def rank_queries(q, gal, tgt, g_grp, chunk: int = 256):
+    """Trả về (hạng mức sản phẩm, hạng mức nhóm, cosine với đúng sản phẩm); hạng 0-based.
+    q: [Q,D], gal: [G,D], tgt: [Q] chỉ số hàng đích trong gal, g_grp: [G] mã nhóm của gallery."""
+    q_grp = g_grp[tgt]
+    prod, grp, self_sim = [], [], []
+    for s in range(0, len(q), chunk):
+        sim = q[s:s + chunk] @ gal.T
+        t = tgt[s:s + chunk]
+        s_t = sim[np.arange(len(t)), t][:, None]
+        # mức sản phẩm: số điểm cao hơn + số điểm hòa (trừ chính nó) -> hòa tính là thua
+        prod.append((sim > s_t + TIE_EPS).sum(1) + (np.abs(sim - s_t) <= TIE_EPS).sum(1) - 1)
+        # mức nhóm: số sản phẩm KHÁC nhóm có điểm >= điểm tốt nhất trong nhóm đúng
+        same = q_grp[s:s + chunk][:, None] == g_grp[None, :]
+        best = np.where(same, sim, -np.inf).max(1)[:, None]
+        grp.append(((sim >= best - TIE_EPS) & ~same).sum(1))
+        self_sim.append(s_t[:, 0])
+    return np.concatenate(prod), np.concatenate(grp), np.concatenate(self_sim)
 
 
-def score_query(pid: str, retrieved: list, top1_score: float, identical_thr: float):
-    """retrieved: product_id theo thứ tự top-10 (điểm giảm dần), đã lọc khỏi id rỗng.
-    Trả về ("identical", None) nếu kết quả đầu trùng hệt chính nó (bị loại khỏi phép đo),
-    hoặc ("ok", (hit@1, hit@5, hit@10, reciprocal_rank, ndcg)) — mọi giá trị =0 nếu đáp án
-    không lọt top-10 (MRR/NDCG ở đây là bản giới hạn trong top-10, không phải hạng thật)."""
-    if retrieved and retrieved[0] == pid and top1_score >= identical_thr:
-        return "identical", None
-    rank = retrieved.index(pid) if pid in retrieved else None  # 0-based trong top-10
-    hit1 = 1.0 if rank == 0 else 0.0
-    hit5 = 1.0 if (rank is not None and rank < 5) else 0.0
-    hit10 = 1.0 if rank is not None else 0.0
-    rr = 1.0 / (rank + 1) if rank is not None else 0.0
-    ndcg = (1.0 / math.log2(rank + 2)) if rank is not None else 0.0
-    return "ok", (hit1, hit5, hit10, rr, ndcg)
+def summarize(rank_prod, rank_grp, clusters, n_bootstrap, seed):
+    """Trung bình + CI95 (bootstrap theo nhóm) cho từng chỉ số, ở cả mức sản phẩm và mức nhóm."""
+    out = {"n_queries": int(len(rank_prod)), "n_groups": int(len(set(clusters.tolist())))}
+    for level, ranks in (("product", rank_prod), ("group", rank_grp)):
+        out[level] = {}
+        for name, vals in rank_metrics(ranks, TOP_K).items():
+            if n_bootstrap > 0:
+                r = cluster_bootstrap_mean_ci(vals, clusters, n_bootstrap=n_bootstrap, seed=seed)
+                out[level][name] = {k: r[k] for k in ("mean", "ci95_low", "ci95_high")}
+            else:
+                out[level][name] = {"mean": float(vals.mean())}
+    return out
 
 
-def _mean_rows(rows) -> dict:
-    """Trung bình cộng theo từng cột. rows rỗng -> None (không có query nào để tính)."""
-    if not rows:
-        return None
-    cols = list(zip(*rows))
-    return {name: float(sum(c) / len(c)) for name, c in zip(METRIC_NAMES, cols)}
+def evaluate_queries(queries, gallery, *, identical_view, n_bootstrap, seed):
+    """Chấm một tập query trên một gallery. identical_view=True thì thêm bản bỏ query trùng hệt ảnh đại diện."""
+    pos = {p: i for i, p in enumerate(gallery["ids"])}
+    keep, tgt = [], []
+    n_unreadable = n_missing = 0
+    for j, pid in enumerate(queries["ids"]):
+        if not queries["ok"][j]:
+            n_unreadable += 1
+        elif pid not in pos:
+            n_missing += 1
+        else:
+            keep.append(j)
+            tgt.append(pos[pid])
+    result = {"gallery": len(gallery["ids"]),
+              "skipped": {"not_in_gallery": n_missing, "unreadable": n_unreadable}, "views": {}}
+    if not keep:
+        return result
+    keep, tgt = np.array(keep), np.array(tgt)
+    rp, rg, self_sim = rank_queries(queries["emb"][keep], gallery["emb"], tgt, gallery["grp"])
+    clusters = gallery["grp"][tgt]
+    result["views"]["all"] = summarize(rp, rg, clusters, n_bootstrap, seed)
+    if identical_view:
+        m = self_sim < IDENTICAL_THR
+        result["n_identical"] = int((~m).sum())
+        if m.any():
+            result["views"]["no_identical"] = summarize(rp[m], rg[m], clusters[m], n_bootstrap, seed)
+    return result
 
 
-def evaluate_direction(direction, search_index, mapping, loader, device,
-                       encode_fn, input_keys, require_ok=False, dedupe_identical=False,
-                       identical_thr=IDENTICAL_THR):
-    """Chấm một hướng (Text→Image hoặc Image→Image) trên một gallery.
-    require_ok=True    : bỏ các mẫu có cờ "ok"=0 (ảnh đọc lỗi; chỉ AltImageDataset mới có cờ này).
-    dedupe_identical=True: bỏ query mà kết quả top-1 trùng hệt chính nó (xem score_query)."""
-    print(f"\n=== {direction} | gallery = {search_index.ntotal} sản phẩm ===")
-    gallery_ids = set(mapping.values())
-    per_product = defaultdict(list)          # product_id -> [hàng chỉ số của từng query]
-    n_not_in_gallery = n_unreadable = n_identical = 0
+# ------------------------------------------------------------------
+# Báo cáo
+# ------------------------------------------------------------------
+def _fmt(d):
+    s = f"{d['mean']:.4f}"
+    return s + (f" [{d['ci95_low']:.4f}, {d['ci95_high']:.4f}]" if "ci95_low" in d else "")
 
-    with torch.no_grad():
-        for batch in tqdm(loader):
-            pids = _ids(batch["product_id"])
-            ok = batch.get("ok")
-            ok = ok.tolist() if torch.is_tensor(ok) else [1] * len(pids)
-            inputs = [batch[k].to(device) for k in input_keys]
-            embeds = encode_fn(*inputs).cpu().numpy().astype("float32")
-            scores, indices = search_index.search(embeds, 10)   # scores: inner product, giảm dần
 
-            for i, pid in enumerate(pids):
-                if require_ok and not ok[i]:
-                    n_unreadable += 1
-                    continue
-                if pid not in gallery_ids:
-                    n_not_in_gallery += 1
-                    continue
-                retrieved = [mapping[str(idx)] for idx in indices[i] if str(idx) in mapping]
-                status, vals = score_query(pid, retrieved, float(scores[i][0]) if len(scores[i]) else -1.0,
-                                           identical_thr if dedupe_identical else 2.0)  # 2.0 = không bao giờ loại
-                if status == "identical":
-                    n_identical += 1
-                    continue
-                per_product[pid].append(vals)
-
-    all_rows = [row for rows in per_product.values() for row in rows]      # mỗi query 1 dòng
-    product_means = [_mean_rows(rows) for rows in per_product.values()]    # mỗi sản phẩm 1 dòng (đã trung bình)
-    micro = _mean_rows(all_rows)
-    macro = _mean_rows([list(m.values()) for m in product_means]) if product_means else None
-
-    n_queries, n_products = len(all_rows), len(per_product)
-    print(f"  Query dùng được : {n_queries}  (trên {n_products} sản phẩm, "
-          f"bình quân {n_queries / max(1, n_products):.2f} ảnh/sản phẩm)")
-    skip_bits = []
-    if n_not_in_gallery: skip_bits.append(f"không có trong gallery: {n_not_in_gallery}")
-    if n_unreadable:     skip_bits.append(f"ảnh đọc lỗi: {n_unreadable}")
-    if n_identical:      skip_bits.append(f"trùng hệt ảnh gallery (bị loại): {n_identical}")
-    if skip_bits:
-        print("  Bỏ qua: " + " | ".join(skip_bits))
-
-    if micro is None:
-        print("  Không có query nào dùng được.")
-        return {"gallery": int(search_index.ntotal), "n_queries": 0, "n_products": 0,
-                "micro": None, "macro": None}
-
-    same = macro is not None and all(abs(micro[m] - macro[m]) < 1e-9 for m in METRIC_NAMES)
-    print(f"  {'Chỉ số':<10}{'micro (mỗi ảnh)':>18}{'macro (mỗi sản phẩm)':>22}")
-    for m in METRIC_NAMES:
-        mv = macro[m] if macro else float("nan")
-        print(f"  {m:<10}{micro[m]:>18.4f}{mv:>22.4f}")
-    if same:
-        print("  (micro = macro: mỗi sản phẩm đúng 1 query — như Text→Image)")
-
-    return {
-        "gallery": int(search_index.ntotal),
-        "n_queries": n_queries, "n_products": n_products,
-        "n_not_in_gallery": n_not_in_gallery, "n_unreadable": n_unreadable, "n_identical": n_identical,
-        "micro": micro, "macro": macro,
-    }
+def format_block(title, res, view_names):
+    lines = [f"=== {title} | gallery = {res['gallery']} sản phẩm ==="]
+    sk = res["skipped"]
+    skip = [f"{k}: {v}" for k, v in (("không có trong gallery", sk["not_in_gallery"]),
+                                     ("ảnh đọc lỗi", sk["unreadable"])) if v]
+    if skip:
+        lines.append("  Bỏ qua: " + " | ".join(skip))
+    if not res["views"]:
+        lines.append("  Không có query nào dùng được.")
+        return lines
+    for key, label in view_names:
+        v = res["views"].get(key)
+        if v is None:
+            continue
+        extra = f", đã bỏ {res['n_identical']} query trùng hệt ảnh đại diện" if key == "no_identical" else ""
+        lines.append(f"  [{label}] {v['n_queries']} query / {v['n_groups']} nhóm{extra}")
+        lines.append(f"  {'Chỉ số':<10}{'mức sản phẩm':>34}{'mức NHÓM (nên báo cáo)':>40}")
+        for m in METRICS:
+            lines.append(f"  {m:<10}{_fmt(v['product'][m]):>34}{_fmt(v['group'][m]):>40}")
+    return lines
 
 
 # ------------------------------------------------------------------
 # Main
 # ------------------------------------------------------------------
-def evaluate():
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--checkpoint", default=cfg.CHECKPOINT_BEST)
+    ap.add_argument("--bootstrap", type=int, default=2000, help="số lần bootstrap theo nhóm cho CI95; 0 = tắt")
+    ap.add_argument("--seed", type=int, default=42)
+    ap.add_argument("--out-dir", default=str(ROOT / "results"))
+    ap.add_argument("--allow-stale", action="store_true", help="bỏ qua kiểm tra fingerprint index (không khuyên dùng)")
+    args = ap.parse_args()
+
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Device: {device}")
+    ckpt_path = Path(args.checkpoint)
+    split = cfg.EVALUATION_SPLIT
+    split_dir = Path(cfg.SPLIT_DIR)
+    split_path = split_dir / f"{split}.jsonl"
+    print(f"Split đánh giá: {split} ({split_path})")
 
-    if os.path.getmtime(CHECKPOINT_BEST) > os.path.getmtime(FAISS_IMAGE_INDEX_FILE):
-        print("⚠ CẢNH BÁO: checkpoint MỚI HƠN image index. "
-              "Hãy chạy lại build_index.py trước khi evaluate!")
+    meta = check_index(ckpt_path, args.allow_stale)
+    model = load_model(ckpt_path, device)
+    gal_emb, gal_ids = load_gallery(cfg.FAISS_IMAGE_INDEX_FILE, cfg.FAISS_IMAGE_MAPPING_FILE)
 
-    model = load_model(CHECKPOINT_BEST).to(device)
-    image_index, image_mapping = load_faiss(FAISS_IMAGE_INDEX_FILE, FAISS_IMAGE_MAPPING_FILE)
+    group_map = load_group_map(split_dir)
+    grp = group_codes(gal_ids, group_map)
+    full = {"emb": gal_emb, "ids": gal_ids, "grp": grp}
 
-    # Query T→I: test loader chính (text) — mỗi sản phẩm đúng 1 query, không đổi so với bản cũ.
-    loaders = build_dataloaders(
-        batch_size=EVAL_BATCH_SIZE, num_workers=0,
-        split_dir=Path(SPLIT_DIR), image_dir=Path(IMAGE_DIR),
-    )
-    test_loader = loaders[EVALUATION_SPLIT]
+    eval_ids = {str(p[cfg.PRODUCT_ID_FIELD]) for p in load_jsonl(split_path)}
+    rows = np.array([i for i, p in enumerate(gal_ids) if p in eval_ids], dtype=np.int64)
+    test_only = {"emb": gal_emb[rows], "ids": [gal_ids[i] for i in rows], "grp": grp[rows]}
+    galleries = {"full": full, "test-only": test_only}
+    print(f"Gallery full={len(gal_ids)} | test-only={len(rows)}/{len(eval_ids)} sản phẩm của split | "
+          f"{len(set(grp.tolist()))} nhóm")
 
-    # Use the configured evaluation split (normally data/splits/test.jsonl).
-    split_path = Path(SPLIT_DIR) / f"{EVALUATION_SPLIT}.jsonl"
+    # ---- encode query (một lần, dùng cho cả hai gallery) ----
+    tok = AutoTokenizer.from_pretrained(cfg.PHOBERT_MODEL)
+    bs = cfg.EVAL_BATCH_SIZE
+    directions = []   # (tên, query, có bản bỏ trùng hệt?)
+    text_sets = {"full": FullTextQueryDataset(split, tok, "full", split_dir=split_dir)}
+    for v in SHORT_VARIANTS:
+        text_sets[v] = ShortQueryDataset(split, tok, v, split_dir=split_dir)
+    for name, ds in text_sets.items():
+        q = encode(DataLoader(ds, batch_size=bs, shuffle=False, num_workers=0),
+                   model.encode_text, ["input_ids", "attention_mask"], device, f"T→I [{name}]")
+        directions.append((f"Text[{name}] → Image", q, False))
 
-    # Query I→I: every alternate image for products in the evaluation split.
-    alt_ds = AltImageDataset(split_path)
-    print(f"I→I: {len(alt_ds)} ảnh phụ từ split {EVALUATION_SPLIT}")
-    alt_loader = DataLoader(
-        alt_ds, batch_size=EVAL_BATCH_SIZE, shuffle=False, num_workers=0
-    )
+    alt_ds = SafeAltImageDataset(split_path)
+    print(f"I→I: {len(alt_ds)} sản phẩm có ảnh phụ (mỗi sản phẩm một ảnh phụ)")
+    if len(alt_ds):
+        q = encode(DataLoader(alt_ds, batch_size=bs, shuffle=False, num_workers=0),
+                   model.encode_image, ["image"], device, "I→I")
+        directions.append(("Image → Image", q, True))
+    else:
+        print("⚠ Không có ảnh phụ nào: bỏ qua Image → Image.")
 
-    # Gallery subset for the configured evaluation split.
-    with open(split_path, encoding="utf-8") as f:
-        test_ids = {str(json.loads(line)[PRODUCT_ID_FIELD]) for line in f if line.strip()}
-    sub_index, sub_mapping = make_subset_index(image_index, image_mapping, test_ids)
+    # ---- chấm ----
+    header = [
+        f"Checkpoint : {ckpt_path.name} (fingerprint {meta.get('fingerprint', '?')}, index build {meta.get('built_at', '?')})",
+        f"Split      : {split} | bootstrap theo nhóm: {args.bootstrap} lần (seed {args.seed})",
+        "Hạng       : điểm hòa tính là thua; mức nhóm = sản phẩm cùng group_id đều đúng",
+    ]
+    report, results = list(header), {}
+    for g_name, gallery in galleries.items():
+        results[g_name] = {}
+        for d_name, q, ident in directions:
+            res = evaluate_queries(q, gallery, identical_view=ident, n_bootstrap=args.bootstrap, seed=args.seed)
+            results[g_name][d_name] = res
+            views = [("all", "tất cả query")] + ([("no_identical", "bỏ ảnh phụ trùng ảnh đại diện")] if ident else [])
+            block = format_block(f"{d_name} | gallery: {g_name}", res, views)
+            report += [""] + block
 
-    galleries = {
-        "full":      (image_index, image_mapping),
-        "test-only": (sub_index, sub_mapping),
-    }
+    print("\n" + "\n".join(report))
 
-    all_results = {}
-    for g_name, (g_index, g_mapping) in galleries.items():
-        all_results[g_name] = {
-            "Text → Image": evaluate_direction(
-                "Text → Image", g_index, g_mapping, test_loader, device,
-                model.encode_text, ["input_ids", "attention_mask"],
-                require_ok=False, dedupe_identical=False,
-            ),
-            "Image → Image": evaluate_direction(
-                "Image → Image", g_index, g_mapping, alt_loader, device,
-                model.encode_image, ["image"],
-                require_ok=True, dedupe_identical=True,
-            ),
-        }
-
-    # ---- Lưu kết quả ----
-    os.makedirs("results", exist_ok=True)
-    with open("results/metrics.txt", "w", encoding="utf-8") as f:
-        for g_name, dirs in all_results.items():
-            for d_name, r in dirs.items():
-                f.write(f"=== {d_name} | gallery: {g_name} ({r['gallery']}) ===\n")
-                f.write(f"Queries   : {r['n_queries']} (sản phẩm: {r.get('n_products', r['n_queries'])})\n")
-                if r["micro"] is None:
-                    f.write("(không có query nào dùng được)\n\n")
-                    continue
-                f.write("[micro — mỗi ảnh một phiếu]\n")
-                for m in METRIC_NAMES:
-                    f.write(f"{m:<10}: {r['micro'][m]:.4f}\n")
-                if r["macro"] is not None:
-                    f.write("[macro — mỗi sản phẩm một phiếu]\n")
-                    for m in METRIC_NAMES:
-                        f.write(f"{m:<10}: {r['macro'][m]:.4f}\n")
-                f.write("\n")
-    with open("results/metrics.json", "w", encoding="utf-8") as f:
-        json.dump(all_results, f, ensure_ascii=False, indent=2)
-
-    print("\nKết quả đã lưu vào results/metrics.txt và results/metrics.json")
-    print("Lưu ý: số liệu I→I không so sánh trực tiếp được với các lần evaluate.py trước đây "
-          "(giờ dùng mọi ảnh phụ thay vì một ảnh, và đã loại query trùng hệt ảnh gallery).")
+    # ---- lưu (giữ bản cũ thành .bak) ----
+    out = Path(args.out_dir)
+    out.mkdir(parents=True, exist_ok=True)
+    payload = {"checkpoint": ckpt_path.name, "fingerprint": meta.get("fingerprint"),
+               "evaluated_at": time.strftime("%Y-%m-%d %H:%M:%S"), "split": split,
+               "bootstrap": args.bootstrap, "seed": args.seed, "results": results}
+    for name, content in (("metrics.json", json.dumps(payload, ensure_ascii=False, indent=2)),
+                          ("metrics.txt", "\n".join(report) + "\n")):
+        p = out / name
+        if p.exists():
+            p.replace(p.with_name(name + ".bak"))
+        p.write_text(content, encoding="utf-8")
+    print(f"\nĐã lưu: {out / 'metrics.txt'} và {out / 'metrics.json'} (bản cũ, nếu có, đổi tên thành .bak)")
+    print("Lưu ý: không so trực tiếp với evaluate.py cũ — cách tính hòa điểm, bộ query và gallery đã đổi.")
 
 
 if __name__ == "__main__":
-    evaluate()
+    main()
